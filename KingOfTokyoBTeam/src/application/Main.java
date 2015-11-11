@@ -6,10 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
 
-//Marco ist scheisse
 public class Main extends Application {
 	
-	//test
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -25,7 +23,6 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
-		//asdfasdfasdfa
-		//asdfasdfasdfa
+		System.out.println("hallo welt");
 	}
 }
