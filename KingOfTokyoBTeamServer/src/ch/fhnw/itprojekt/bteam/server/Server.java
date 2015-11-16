@@ -1,9 +1,6 @@
 package ch.fhnw.itprojekt.bteam.server;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,6 +14,7 @@ public class Server extends Application {
 
 	public static void main(String[] args) {
         launch(args);
+        DBModel.DBConnect();
     }
  
 	@Override
