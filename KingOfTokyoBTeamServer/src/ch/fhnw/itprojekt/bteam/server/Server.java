@@ -13,9 +13,9 @@ public class Server extends Application {
 	private ConnectionModel connectionModel;
 
 	public static void main(String[] args) {
-        launch(args);
-        DBModel.DBConnect();
-    }
+		DBModel.DBConnect();
+		launch(args);
+		        }
  
 	@Override
     public void start(Stage primaryStage) throws Exception {
