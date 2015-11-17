@@ -15,7 +15,8 @@ public class Server extends Application {
 	public static void main(String[] args) {
 		DBModel dbconnect = new DBModel();
 		dbconnect.DBConnect();
-		dbconnect.InsertPlayersIntoDB();
+		//dbconnect.InsertPlayersIntoDB();
+		dbconnect.Benutzervalidierung("sico","1234");
 	
 		launch(args);
 		        }

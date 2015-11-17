@@ -68,4 +68,28 @@ public  boolean InsertPlayersIntoDB(){
 
 	return Completed; 
 }
+
+public boolean Benutzervalidierung(String NickName, String Passwort ){
+	boolean Loginstatus = false;
+	Connection conn;
+	Statement stmt;
+	try {
+		conn = DBConnect();
+	// Select query
+    stmt = conn.createStatement();
+
+    String sql = "SELECT * FROM user where NickName = "+NickName +"";
+    ResultSet rs = stmt.executeQuery(sql);
+	}
+	catch(SQLException se){
+	      //Handle errors for JDBC
+	      se.printStackTrace();
+	   }catch(Exception e){
+	      //Handle errors for Class.forName
+	      e.printStackTrace();
+	   }
+	
+	return Loginstatus;
+	
+}
 }
