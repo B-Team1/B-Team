@@ -1,148 +1,229 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane prefHeight="800.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<BorderPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <StackPane>
          <children>
-            <VBox layoutX="81.0" layoutY="66.0" spacing="10.0">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button layoutX="229.0" layoutY="110.0" mnemonicParsing="false" styleClass="test" stylesheets="@meincss.css" text="Button" />
-                  <Button layoutX="229.0" layoutY="171.0" mnemonicParsing="false" styleClass="test" stylesheets="@meincss.css" text="Button" />
+                  <ImageView fitHeight="878.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Background.jpg" />
+                     </image>
+                  </ImageView>
                </children>
-            </VBox>
-            <ImageView fitHeight="348.0" fitWidth="334.0" layoutX="225.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/Spielplan.jpg" />
-               </image>
-            </ImageView>
-            <VBox layoutX="37.0" layoutY="290.0" spacing="20.0">
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="37.0" layoutY="290.0" text="Label" />
-                  <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
+                  <VBox layoutX="37.0" layoutY="26.0" spacing="10.0">
                      <children>
-                        <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
+                        <Button fx:id="btnRoll" layoutX="229.0" layoutY="110.0" mnemonicParsing="false" onAction="#handleRoll" prefWidth="150.0" styleClass="test" stylesheets="@meincss.css" text="%board.btn.roll" />
+                        <Button fx:id="btnEndMove" layoutX="229.0" layoutY="171.0" mnemonicParsing="false" onAction="#handleEndMove" prefWidth="150.0" styleClass="test" stylesheets="@meincss.css" text="%board.btn.endMove" />
+                     </children>
+                  </VBox>
+                  <ImageView fitHeight="472.0" fitWidth="507.0" layoutX="253.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Spielplan.jpg" />
+                     </image>
+                  </ImageView>
+                  <VBox layoutX="37.0" layoutY="140.0" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="177.0" layoutX="37.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Monster1.png" />
+                           </image>
+                        </ImageView>
+                        <VBox layoutX="37.0" layoutY="290.0" opacity="0.75" spacing="20.0" styleClass="boarderbox" stylesheets="@meincss.css">
                            <children>
-                              <Label layoutX="37.0" layoutY="341.0" text="Label" />
-                              <Label layoutX="37.0" layoutY="362.0" text="Label" />
-                              <Label layoutX="37.0" layoutY="383.0" text="Label" />
-                           </children>
-                        </VBox>
-                        <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
-                           <children>
-                              <Label layoutX="92.0" layoutY="341.0" text="Label" />
-                              <Label layoutX="92.0" layoutY="362.0" text="Label" />
-                              <Label layoutX="92.0" layoutY="383.0" text="Label" />
-                           </children>
-                        </VBox>
-                        <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
-                           <children>
-                              <Label layoutX="146.0" layoutY="341.0" text="Label" />
-                              <Label layoutX="146.0" layoutY="362.0" text="Label" />
-                              <Label layoutX="146.0" layoutY="383.0" text="Label" />
+                              <Label layoutX="37.0" layoutY="290.0" text="Label" />
+                              <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
+                                 <children>
+                                    <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
+                                       <children>
+                                          <Label layoutX="37.0" layoutY="341.0" text="%board.lb.lifePoints" />
+                                          <Label layoutX="37.0" layoutY="362.0" text="%board.lb.honorPoints" />
+                                          <Label layoutX="37.0" layoutY="383.0" text="%board.lb.energyPoints" />
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
+                                       <children>
+                                          <Label layoutX="92.0" layoutY="341.0" text="Label" />
+                                          <Label layoutX="92.0" layoutY="362.0" text="Label" />
+                                          <Label layoutX="92.0" layoutY="383.0" text="Label" />
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
+                                       <children>
+                                          <Label layoutX="146.0" layoutY="341.0" text="Label" />
+                                          <Label layoutX="146.0" layoutY="362.0" text="Label" />
+                                          <Label layoutX="146.0" layoutY="383.0" text="Label" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                      </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <VBox layoutX="37.0" layoutY="443.0" spacing="20.0">
-               <children>
-                  <Label layoutX="37.0" layoutY="290.0" text="Label" />
-                  <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
+                  </VBox>
+                  <VBox layoutX="37.0" layoutY="428.0" spacing="10.0">
                      <children>
-                        <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="19.0" layoutY="404.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Monster2.png" />
+                           </image>
+                        </ImageView>
+                        <VBox layoutX="26.0" layoutY="521.0" opacity="0.75" spacing="20.0" styleClass="boarderbox" stylesheets="@meincss.css">
                            <children>
-                              <Label layoutX="37.0" layoutY="341.0" text="Label" />
-                              <Label layoutX="37.0" layoutY="362.0" text="Label" />
-                              <Label layoutX="37.0" layoutY="383.0" text="Label" />
-                           </children>
-                        </VBox>
-                        <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
-                           <children>
-                              <Label layoutX="92.0" layoutY="341.0" text="Label" />
-                              <Label layoutX="92.0" layoutY="362.0" text="Label" />
-                              <Label layoutX="92.0" layoutY="383.0" text="Label" />
-                           </children>
-                        </VBox>
-                        <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
-                           <children>
-                              <Label layoutX="146.0" layoutY="341.0" text="Label" />
-                              <Label layoutX="146.0" layoutY="362.0" text="Label" />
-                              <Label layoutX="146.0" layoutY="383.0" text="Label" />
+                              <Label layoutX="37.0" layoutY="290.0" text="Label" />
+                              <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
+                                 <children>
+                                    <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
+                                       <children>
+                                          <Label layoutX="37.0" layoutY="341.0" text="%board.lb.lifePoints" />
+                                          <Label layoutX="37.0" layoutY="362.0" text="%board.lb.honorPoints" />
+                                          <Label layoutX="37.0" layoutY="383.0" text="%board.lb.energyPoints" />
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
+                                       <children>
+                                          <Label layoutX="92.0" layoutY="341.0" text="Label" />
+                                          <Label layoutX="92.0" layoutY="362.0" text="Label" />
+                                          <Label layoutX="92.0" layoutY="383.0" text="Label" />
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
+                                       <children>
+                                          <Label layoutX="146.0" layoutY="341.0" text="Label" />
+                                          <Label layoutX="146.0" layoutY="362.0" text="Label" />
+                                          <Label layoutX="146.0" layoutY="383.0" text="Label" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                      </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <VBox layoutX="631.0" layoutY="271.0" spacing="20.0">
-               <children>
-                  <Label layoutX="37.0" layoutY="290.0" text="Label" />
-                  <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
+                  </VBox>
+                  <VBox layoutX="762.0" layoutY="140.0" spacing="10.0">
                      <children>
-                        <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="604.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Monster3.png" />
+                           </image>
+                        </ImageView>
+                        <VBox layoutX="631.0" layoutY="271.0" opacity="0.75" spacing="20.0" styleClass="boarderbox" stylesheets="@meincss.css">
                            <children>
-                              <Label layoutX="37.0" layoutY="341.0" text="Label" />
-                              <Label layoutX="37.0" layoutY="362.0" text="Label" />
-                              <Label layoutX="37.0" layoutY="383.0" text="Label" />
-                           </children>
-                        </VBox>
-                        <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
-                           <children>
-                              <Label layoutX="92.0" layoutY="341.0" text="Label" />
-                              <Label layoutX="92.0" layoutY="362.0" text="Label" />
-                              <Label layoutX="92.0" layoutY="383.0" text="Label" />
-                           </children>
-                        </VBox>
-                        <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
-                           <children>
-                              <Label layoutX="146.0" layoutY="341.0" text="Label" />
-                              <Label layoutX="146.0" layoutY="362.0" text="Label" />
-                              <Label layoutX="146.0" layoutY="383.0" text="Label" />
+                              <Label layoutX="37.0" layoutY="290.0" text="Label" />
+                              <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
+                                 <children>
+                                    <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
+                                       <children>
+                                          <Label layoutX="37.0" layoutY="341.0" text="%board.lb.lifePoints" />
+                                          <Label layoutX="37.0" layoutY="362.0" text="%board.lb.honorPoints" />
+                                          <Label layoutX="37.0" layoutY="383.0" text="%board.lb.energyPoints" />
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
+                                       <children>
+                                          <Label layoutX="92.0" layoutY="341.0" text="Label" />
+                                          <Label layoutX="92.0" layoutY="362.0" text="Label" />
+                                          <Label layoutX="92.0" layoutY="383.0" text="Label" />
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
+                                       <children>
+                                          <Label layoutX="146.0" layoutY="341.0" text="Label" />
+                                          <Label layoutX="146.0" layoutY="362.0" text="Label" />
+                                          <Label layoutX="146.0" layoutY="383.0" text="Label" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                      </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <VBox layoutX="631.0" layoutY="451.0" spacing="20.0">
-               <children>
-                  <Label layoutX="37.0" layoutY="290.0" text="Label" />
-                  <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
+                  </VBox>
+                  <VBox layoutX="762.0" layoutY="428.0" spacing="10.0">
                      <children>
-                        <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="595.0" layoutY="358.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Monster4.png" />
+                           </image>
+                        </ImageView>
+                        <VBox layoutX="631.0" layoutY="451.0" opacity="0.75" spacing="20.0" styleClass="boarderbox" stylesheets="@meincss.css">
                            <children>
-                              <Label layoutX="37.0" layoutY="341.0" text="Label" />
-                              <Label layoutX="37.0" layoutY="362.0" text="Label" />
-                              <Label layoutX="37.0" layoutY="383.0" text="Label" />
-                           </children>
-                        </VBox>
-                        <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
-                           <children>
-                              <Label layoutX="92.0" layoutY="341.0" text="Label" />
-                              <Label layoutX="92.0" layoutY="362.0" text="Label" />
-                              <Label layoutX="92.0" layoutY="383.0" text="Label" />
-                           </children>
-                        </VBox>
-                        <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
-                           <children>
-                              <Label layoutX="146.0" layoutY="341.0" text="Label" />
-                              <Label layoutX="146.0" layoutY="362.0" text="Label" />
-                              <Label layoutX="146.0" layoutY="383.0" text="Label" />
+                              <Label layoutX="37.0" layoutY="290.0" text="Label" />
+                              <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
+                                 <children>
+                                    <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
+                                       <children>
+                                          <Label layoutX="37.0" layoutY="341.0" text="%board.lb.lifePoints" />
+                                          <Label layoutX="37.0" layoutY="362.0" text="%board.lb.honorPoints" />
+                                          <Label layoutX="37.0" layoutY="383.0" text="%board.lb.energyPoints" />
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
+                                       <children>
+                                          <Label layoutX="92.0" layoutY="341.0" text="Label" />
+                                          <Label layoutX="92.0" layoutY="362.0" text="Label" />
+                                          <Label layoutX="92.0" layoutY="383.0" text="Label" />
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
+                                       <children>
+                                          <Label layoutX="146.0" layoutY="341.0" text="Label" />
+                                          <Label layoutX="146.0" layoutY="362.0" text="Label" />
+                                          <Label layoutX="146.0" layoutY="383.0" text="Label" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                      </children>
+                  </VBox>
+                  <HBox layoutX="317.0" layoutY="719.0">
+                     <children>
+                        <TextField layoutX="317.0" layoutY="719.0" />
+                        <Button layoutX="504.0" layoutY="719.0" mnemonicParsing="false" text="Button" />
+                     </children>
+                  </HBox>
+                  <VBox layoutX="689.0" layoutY="-18.0" spacing="10.0">
+                     <children>
+                        <StackPane layoutX="698.0" layoutY="-9.0" styleClass="stack" stylesheets="@meincss.css">
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="109.0" pickOnBounds="true">
+                                 <image>
+                                    <Image url="@../images/KingOfTokyo.jpg" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust hue="-1.0" saturation="-1.0" />
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </VBox>
+                  <HBox layoutX="900.0" layoutY="119.0">
+                     <children>
+                        <Label layoutX="900.0" layoutY="119.0" text="%board.lb.yourCards" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="697.0" layoutY="146.0" opacity="0.75" styleClass="boarderbox" stylesheets="@meincss.css">
+                     <children>
+                        <Label alignment="CENTER" layoutX="752.0" layoutY="119.0" opacity="0.75" text="%board.lb.stack" />
+                     </children>
                   </HBox>
                </children>
-            </VBox>
+            </AnchorPane>
          </children>
-      </AnchorPane>
+      </StackPane>
    </center>
 </BorderPane>
