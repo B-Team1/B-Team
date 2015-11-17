@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane prefHeight="800.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox layoutX="81.0" layoutY="66.0" spacing="10.0">
+               <children>
+                  <Button layoutX="229.0" layoutY="110.0" mnemonicParsing="false" styleClass="test" stylesheets="@meincss.css" text="Button" />
+                  <Button layoutX="229.0" layoutY="171.0" mnemonicParsing="false" styleClass="test" stylesheets="@meincss.css" text="Button" />
+               </children>
+            </VBox>
+            <ImageView fitHeight="348.0" fitWidth="334.0" layoutX="225.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Spielplan.jpg" />
+               </image>
+            </ImageView>
+            <VBox layoutX="37.0" layoutY="290.0" spacing="20.0">
+               <children>
+                  <Label layoutX="37.0" layoutY="290.0" text="Label" />
+                  <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
+                     <children>
+                        <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
+                           <children>
+                              <Label layoutX="37.0" layoutY="341.0" text="Label" />
+                              <Label layoutX="37.0" layoutY="362.0" text="Label" />
+                              <Label layoutX="37.0" layoutY="383.0" text="Label" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
+                           <children>
+                              <Label layoutX="92.0" layoutY="341.0" text="Label" />
+                              <Label layoutX="92.0" layoutY="362.0" text="Label" />
+                              <Label layoutX="92.0" layoutY="383.0" text="Label" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
+                           <children>
+                              <Label layoutX="146.0" layoutY="341.0" text="Label" />
+                              <Label layoutX="146.0" layoutY="362.0" text="Label" />
+                              <Label layoutX="146.0" layoutY="383.0" text="Label" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox layoutX="37.0" layoutY="443.0" spacing="20.0">
+               <children>
+                  <Label layoutX="37.0" layoutY="290.0" text="Label" />
+                  <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
+                     <children>
+                        <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
+                           <children>
+                              <Label layoutX="37.0" layoutY="341.0" text="Label" />
+                              <Label layoutX="37.0" layoutY="362.0" text="Label" />
+                              <Label layoutX="37.0" layoutY="383.0" text="Label" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
+                           <children>
+                              <Label layoutX="92.0" layoutY="341.0" text="Label" />
+                              <Label layoutX="92.0" layoutY="362.0" text="Label" />
+                              <Label layoutX="92.0" layoutY="383.0" text="Label" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
+                           <children>
+                              <Label layoutX="146.0" layoutY="341.0" text="Label" />
+                              <Label layoutX="146.0" layoutY="362.0" text="Label" />
+                              <Label layoutX="146.0" layoutY="383.0" text="Label" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox layoutX="631.0" layoutY="271.0" spacing="20.0">
+               <children>
+                  <Label layoutX="37.0" layoutY="290.0" text="Label" />
+                  <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
+                     <children>
+                        <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
+                           <children>
+                              <Label layoutX="37.0" layoutY="341.0" text="Label" />
+                              <Label layoutX="37.0" layoutY="362.0" text="Label" />
+                              <Label layoutX="37.0" layoutY="383.0" text="Label" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
+                           <children>
+                              <Label layoutX="92.0" layoutY="341.0" text="Label" />
+                              <Label layoutX="92.0" layoutY="362.0" text="Label" />
+                              <Label layoutX="92.0" layoutY="383.0" text="Label" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
+                           <children>
+                              <Label layoutX="146.0" layoutY="341.0" text="Label" />
+                              <Label layoutX="146.0" layoutY="362.0" text="Label" />
+                              <Label layoutX="146.0" layoutY="383.0" text="Label" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox layoutX="631.0" layoutY="451.0" spacing="20.0">
+               <children>
+                  <Label layoutX="37.0" layoutY="290.0" text="Label" />
+                  <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
+                     <children>
+                        <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
+                           <children>
+                              <Label layoutX="37.0" layoutY="341.0" text="Label" />
+                              <Label layoutX="37.0" layoutY="362.0" text="Label" />
+                              <Label layoutX="37.0" layoutY="383.0" text="Label" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
+                           <children>
+                              <Label layoutX="92.0" layoutY="341.0" text="Label" />
+                              <Label layoutX="92.0" layoutY="362.0" text="Label" />
+                              <Label layoutX="92.0" layoutY="383.0" text="Label" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
+                           <children>
+                              <Label layoutX="146.0" layoutY="341.0" text="Label" />
+                              <Label layoutX="146.0" layoutY="362.0" text="Label" />
+                              <Label layoutX="146.0" layoutY="383.0" text="Label" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

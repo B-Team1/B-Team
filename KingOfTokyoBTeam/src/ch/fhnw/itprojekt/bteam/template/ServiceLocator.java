@@ -21,8 +21,8 @@ public class ServiceLocator {
     private static ServiceLocator serviceLocator; // singleton
 
     // Application-global constants
-    final private Class<?> APP_CLASS = JavaFX_App_Template.class;
-    final private String APP_NAME = "JavaFX_App_Template";
+    final private Class<?> APP_CLASS = JavaFXAppTemplate.class;
+    final private String APP_NAME = "JavaFXAppTemplate";
     
     // Supported locales (for translations)
     final private Locale[] locales = new Locale[] { new Locale("en"), new Locale("de") };
