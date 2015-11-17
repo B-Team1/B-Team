@@ -37,6 +37,7 @@ public class LoginController implements Initializable {
 	public void handleRegistry(ActionEvent event) {   
 	        RegistrationModel registryModel = new RegistrationModel();
 			registryModel.start(new Stage());
+			model.sendLogin();
 	}
 	
 }

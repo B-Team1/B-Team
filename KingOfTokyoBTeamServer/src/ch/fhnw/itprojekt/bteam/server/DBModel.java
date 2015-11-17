@@ -1,7 +1,12 @@
 package ch.fhnw.itprojekt.bteam.server;
 import java.sql.*;
 
+
+
 public class DBModel {
+	// Klassenvariablen
+	public String Nickname;
+	
 	// JDBC driver name and database URL
 	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	   static final String DB_URL = "jdbc:mysql://localhost:3306/bteam";
@@ -69,7 +74,7 @@ public  boolean InsertPlayersIntoDB(){
 	return Completed; 
 }
 
-public boolean Benutzervalidierung(String NickName, String Passwort ){
+public boolean UserValidation(String NickName, String Passwort ){
 	boolean Loginstatus = false;
 	Connection conn;
 	Statement stmt;
@@ -78,8 +83,14 @@ public boolean Benutzervalidierung(String NickName, String Passwort ){
 	// Select query
     stmt = conn.createStatement();
 
-    String sql = "SELECT * FROM user where NickName = "+NickName +"";
+    String sql = "SELECT * FROM user where NickName = '"+NickName +"' && Passwort = '"+ Passwort +"'";
     ResultSet rs = stmt.executeQuery(sql);
+    rs.next();
+    if (NickName.equals(rs.getString("NickName"))  && Passwort.equals(rs.getString("Passwort"))){
+    Loginstatus = true;
+    System.out.println(Loginstatus);
+    }
+    	
 	}
 	catch(SQLException se){
 	      //Handle errors for JDBC
@@ -88,8 +99,57 @@ public boolean Benutzervalidierung(String NickName, String Passwort ){
 	      //Handle errors for Class.forName
 	      e.printStackTrace();
 	   }
-	
+	System.out.println(Loginstatus);
 	return Loginstatus;
 	
+}
+
+public String getSecurityQuestion (String NickName, String NName, String VName){
+	String SecurityQuestion = "";
+	Connection conn;
+	Statement stmt;
+	try {
+		conn = DBConnect();
+	// Select query
+    stmt = conn.createStatement();
+
+    String sql = "SELECT Sicherheitsfrage FROM user where NickName = '"+NickName +"' && NName = '"+ NName +"' && VName = '"+ VName +"'";
+    ResultSet rs = stmt.executeQuery(sql);
+    rs.next();
+    SecurityQuestion = rs.getString("Sicherheitsfrage");
+    	}
+	catch(SQLException se){
+	      //Handle errors for JDBC
+	      se.printStackTrace();
+	   }catch(Exception e){
+	      //Handle errors for Class.forName
+	      e.printStackTrace();
+	   }
+	return SecurityQuestion;
+}
+
+public String getSecurityAnswer (String NickName, String NName, String VName){
+	String SecurityAnswer = "";
+	Connection conn;
+	Statement stmt;
+	try {
+		conn = DBConnect();
+	// Select query
+    stmt = conn.createStatement();
+
+    String sql = "SELECT Antwort FROM user where NickName = '"+NickName +"' && NName = '"+ NName +"' && VName = '"+ VName +"'";
+    ResultSet rs = stmt.executeQuery(sql);
+    rs.next();
+    SecurityAnswer = rs.getString("Antwort");
+    System.out.println(SecurityAnswer);
+    	}
+	catch(SQLException se){
+	      //Handle errors for JDBC
+	      se.printStackTrace();
+	   }catch(Exception e){
+	      //Handle errors for Class.forName
+	      e.printStackTrace();
+	   }
+	return SecurityAnswer;
 }
 }
