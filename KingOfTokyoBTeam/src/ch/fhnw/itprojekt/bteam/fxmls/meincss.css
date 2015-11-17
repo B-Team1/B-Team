@@ -19,10 +19,11 @@ display: block;
     -fx-padding: 10 20 10 20;
 }
 
-.box {
+.boarderbox {
+	-fx-background-color: white;
 	-fx-border-style: solid;
                 -fx-border-width: 1;
-                -fx-border-color: black;
+                -fx-border-color: white;
 }
 
 .hbox {
@@ -32,4 +33,31 @@ display: block;
 	-fx-border-style: solid;
                 -fx-border-width: 1;
                 -fx-border-color: black;
+}
+
+.stack {
+-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-padding: 4;
+-fx-background-color: firebrick;
+-fx-background-radius: 5;
+}
+
+.dicebutton {
+
+}
+
+.cb1 {
+	-fx-background-color: red;
+}
+
+.check-box>.box>.mark {
+  -fx-background-image: url("ch\fhnw\itprojekt\bteam\images\dice3.png");
+  -fx-background-position: center;
+  -fx-background-repeat: stretch;
+  -fx-shape: none;
+}
+
+.check-box:selected>.box>.mark{
+  -fx-background-color: transparent;
+  -fx-background-image: url("marked.png");
 }
