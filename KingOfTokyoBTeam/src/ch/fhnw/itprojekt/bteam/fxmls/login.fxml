@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="480.0" styleClass="root" stylesheets="@meincss.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.fhnw.itprojekt.bteam.appClasses.LoginController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="%login.menu.options">
+            <items>
+              <MenuItem mnemonicParsing="false" text="%login.menuitem.language" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="%login.menu.help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="%login.menuitem.info" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <StackPane>
+         <children>
+            <AnchorPane>
+               <children>
+                  <ImageView fitHeight="216.0" fitWidth="216.0" layoutX="207.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="58.0">
+                     <image>
+                        <Image url="@../images/Monster1.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox layoutX="55.0" layoutY="24.0" spacing="80.0">
+                     <children>
+                        <VBox layoutX="55.0" layoutY="24.0" spacing="30.0">
+                           <children>
+                              <VBox layoutX="55.0" layoutY="24.0" spacing="10.0">
+                                 <children>
+                                    <Label fx:id="lbNickname" layoutX="58.0" layoutY="24.0" text="%login.nickname" />
+                                    <TextField fx:id="tfNickname" layoutX="55.0" layoutY="54.0" />
+                                    <Label fx:id="lbPassword" layoutX="58.0" layoutY="85.0" text="%login.password" />
+                                    <PasswordField fx:id="pfPassword" layoutX="57.0" layoutY="119.0" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" layoutX="89.0" layoutY="173.0" spacing="20.0">
+                                 <children>
+                                    <Button fx:id="btnLogin" layoutX="93.0" layoutY="173.0" mnemonicParsing="false" styleClass="test" stylesheets="@meincss.css" text="%login.btn.login" />
+                                    <Hyperlink fx:id="hlForgotPassword" layoutX="89.0" layoutY="219.0" text="%login.link.forget" visited="true" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <Button fx:id="btnRegistry" layoutX="254.0" layoutY="54.0" mnemonicParsing="false" onAction="#handleRegistry" styleClass="test" stylesheets="@meincss.css" text="%login.btn.registry">
+                           <HBox.margin>
+                              <Insets top="30.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </AnchorPane>
+         </children>
+      </StackPane>
+   </center>
+</BorderPane>

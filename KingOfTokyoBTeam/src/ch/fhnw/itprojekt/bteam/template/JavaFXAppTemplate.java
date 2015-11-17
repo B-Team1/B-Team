@@ -1,13 +1,15 @@
 package ch.fhnw.itprojekt.bteam.template;
 
-import ch.fhnw.itprojekt.bteam.appClasses.App_Controller;
-import ch.fhnw.itprojekt.bteam.appClasses.App_Model;
-import ch.fhnw.itprojekt.bteam.appClasses.App_View;
+import ch.fhnw.itprojekt.bteam.appClasses.LoginController;
+import ch.fhnw.itprojekt.bteam.appClasses.LoginModel;
 import ch.fhnw.itprojekt.bteam.splashScreen.Splash_Controller;
 import ch.fhnw.itprojekt.bteam.splashScreen.Splash_Model;
 import ch.fhnw.itprojekt.bteam.splashScreen.Splash_View;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 /**
@@ -17,10 +19,9 @@ import javafx.stage.Stage;
  * 
  * @author Brad Richards
  */
-public class JavaFX_App_Template extends Application {
-    private static JavaFX_App_Template mainProgram; // singleton
+public class JavaFXAppTemplate extends Application {
+    private static JavaFXAppTemplate mainProgram; // singleton
     private Splash_View splashView;
-    private App_View view;
 
     private ServiceLocator serviceLocator; // resources, after initialization
 
@@ -67,11 +68,15 @@ public class JavaFX_App_Template extends Application {
         // Create and display the splash screen and model
         Splash_Model splashModel = new Splash_Model();
         splashView = new Splash_View(primaryStage, splashModel);
+        
         new Splash_Controller(this, splashModel, splashView);
         splashView.start();
+        
 
         // Display the splash screen and begin the initialization
         splashModel.initialize();
+        
+        
     }
 
     /**
@@ -86,24 +91,17 @@ public class JavaFX_App_Template extends Application {
      * http://docs.oracle.com/javafx/2/threads/jfxpub-threads.htm
      */
     public void startApp() {
-        Stage appStage = new Stage();
-
-        // Initialize the application MVC components. Note that these components
-        // can only be initialized now, because they may depend on the
-        // resources initialized by the splash screen
-        App_Model model = new App_Model();
-        view = new App_View(appStage, model);
-        new App_Controller(model, view);
+        
+        LoginModel loginModel = new LoginModel();
+		loginModel.start(new Stage());
 
         // Resources are now initialized
-        serviceLocator = ServiceLocator.getServiceLocator();
+//        serviceLocator = ServiceLocator.getServiceLocator();
 
-        // Close the splash screen, and set the reference to null, so that all
+        // Splash Screen schliessen und Referenzen auf null setzen, so that all
         // Splash_XXX objects can be garbage collected
         splashView.stop();
         splashView = null;
-
-        view.start();
     }
 
     /**
@@ -117,19 +115,19 @@ public class JavaFX_App_Template extends Application {
      */
     @Override
     public void stop() {
-        serviceLocator.getConfiguration().save();
-        if (view != null) {
+//        serviceLocator.getConfiguration().save();
+//        if (view != null) {
             // Make the view invisible
-            view.stop();
+//            view.stop();
         }
 
         // More cleanup code as needed
 
-        serviceLocator.getLogger().info("Application terminated");
-    }
+//        serviceLocator.getLogger().info("Application terminated");
+//    }
 
     // Static getter for a reference to the main program object
-    protected static JavaFX_App_Template getMainProgram() {
+    protected static JavaFXAppTemplate getMainProgram() {
         return mainProgram;
     }
 }

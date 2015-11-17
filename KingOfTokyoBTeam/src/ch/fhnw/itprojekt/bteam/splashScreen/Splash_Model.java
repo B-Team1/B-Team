@@ -40,11 +40,11 @@ public class Splash_Model extends Model {
             serviceLocator.setLogger(configureLogging());
             this.updateProgress(3,  6);
 
-            serviceLocator.setConfiguration(new Configuration());
+//            serviceLocator.setConfiguration(new Configuration());
             this.updateProgress(4,  6);
 
-            String language = serviceLocator.getConfiguration().getOption("Language");
-            serviceLocator.setTranslator(new Translator(language));
+//            String language = serviceLocator.getConfiguration().getOption("Language");
+//            serviceLocator.setTranslator(new Translator(language));
             this.updateProgress(5,  6);
             
             // ... more resources would go here...
