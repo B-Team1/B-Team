@@ -12,7 +12,7 @@ public class DBModel {
 	   
 	   
 	   
-public static Connection DBConnect() { 
+public Connection DBConnect() { 
 		Connection conn = null;
 	   try{
 	      //STEP 2: Register JDBC driver
@@ -34,7 +34,7 @@ public static Connection DBConnect() {
 	   
 }
 
-public static boolean InsertPlayersIntoDB(){
+public  boolean InsertPlayersIntoDB(){
 	boolean Completed = false;
 	String NName = "Lüthi";
 	String VName = "Luzian";

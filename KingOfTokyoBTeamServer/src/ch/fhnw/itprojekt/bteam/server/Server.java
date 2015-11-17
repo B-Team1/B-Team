@@ -13,7 +13,10 @@ public class Server extends Application {
 	private ConnectionModel connectionModel;
 
 	public static void main(String[] args) {
-		DBModel.DBConnect();
+		DBModel dbconnect = new DBModel();
+		dbconnect.DBConnect();
+		dbconnect.InsertPlayersIntoDB();
+	
 		launch(args);
 		        }
  
