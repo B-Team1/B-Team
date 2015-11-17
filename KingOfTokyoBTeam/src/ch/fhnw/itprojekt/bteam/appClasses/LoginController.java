@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 
 
 public class LoginController implements Initializable {
-
+	LoginModel model = new LoginModel();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -30,12 +30,11 @@ public class LoginController implements Initializable {
 	
 	@FXML
 	public void handleLogin(ActionEvent event) {
-		
+		model.sendLogin();
 	}
 
 	@FXML
-	public void handleRegistry(ActionEvent event) {
-			        
+	public void handleRegistry(ActionEvent event) {   
 	        RegistrationModel registryModel = new RegistrationModel();
 			registryModel.start(new Stage());
 	}

@@ -16,15 +16,9 @@ import ch.fhnw.itprojekt.bteam.abstractClasses.Model;
 import ch.fhnw.itprojekt.bteam.template.Properties;
 import ch.fhnw.itprojekt.bteam.template.ServiceLocator;
 
-/**
- * Copyright 2015, FHNW, Prof. Dr. Brad Richards. All rights reserved. This code
- * is licensed under the terms of the BSD 3-clause license (see the file
- * license.txt).
- * 
- * @author Brad Richards
- */
 public class LoginModel extends Application {
     ServiceLocator serviceLocator;
+    ConnectionModel connectionModel = new ConnectionModel();
     
     public LoginModel() {
         
@@ -50,5 +44,9 @@ public class LoginModel extends Application {
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
+    }
+    
+    public void sendLogin(){
+    	connectionModel.sayHello();
     }
 }
