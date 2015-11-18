@@ -55,6 +55,7 @@ public class ServerThreadForClient extends Thread {
 		case Goodbye:
 			msgOut = new Message(Message.MessageType.Goodbye);
 			break;
+		
 		default:
 			msgOut = new Message(Message.MessageType.Error);
 		}
