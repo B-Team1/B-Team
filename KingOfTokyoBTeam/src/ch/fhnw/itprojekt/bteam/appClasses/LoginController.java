@@ -41,7 +41,7 @@ public class LoginController implements Initializable {
 	public void handleLogin(ActionEvent event) {
 		LoginModel model = new LoginModel();
 		model.connectToServer(); //Verbindung zum Server wird Hergestellt
-		//String t = pfPassword.getPromptText();
+		String t = pfPassword.getPromptText();
 		model.sendLogin(new User(tfNickname.getText(), "hallo"));
 	}
 
