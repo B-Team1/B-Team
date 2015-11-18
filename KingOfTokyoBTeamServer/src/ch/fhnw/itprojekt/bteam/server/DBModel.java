@@ -192,7 +192,7 @@ public String getSecurityAnswer (String NickName, String NName, String VName){
  * @return
  */
 public Stats getStats (String NickName){
-	Stats UserStats = new Stats(0,0,0);
+	Stats UserStats = new Stats("",0,0,0);
 	Connection conn;
 	Statement stmt;
 	try {
@@ -221,5 +221,28 @@ public Stats getStats (String NickName){
 		return UserStats;
 }
 
+/**
+ * Update der Statistik in der Datenbank
+ * @author Luzian
+ * @param UserStats
+ */
+public void setStats (Stats UserStats){
+		Connection conn;
+	Statement stmt;
+	try {
+		conn = DBConnect();
+		// Update query
+		stmt = conn.createStatement();
+		String sql = "Update user set AnzahlSpiele = '"+UserStats.getSumGames()+"' , Gewonnen = '"+UserStats.getWonGames()+"', Verloren = '"+UserStats.getLosedGames()+"' where NickName = '"+UserStats.getNickName()+"'";
+		stmt.executeUpdate(sql);
+		}
+	catch(SQLException se){
+	      //Handle errors for JDBC
+	      se.printStackTrace();
+	   }catch(Exception e){
+	      //Handle errors for Class.forName
+	      e.printStackTrace();
+	   } 
+}
 
 }

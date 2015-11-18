@@ -14,12 +14,14 @@ public class Server extends Application {
 
 	public static void main(String[] args) {
 		DBModel dbconnect = new DBModel();
-		dbconnect.DBConnect();
+		//dbconnect.DBConnect();
 		//dbconnect.InsertPlayersIntoDB();
 		//dbconnect.UserValidation("sico","1234");
 		//dbconnect.getSecurityQuestion("sico","Lüthi", "Luzian");
 		//dbconnect.getSecurityAnswer("sico","Lüthi", "Luzian");
-		dbconnect.getStats("sico");
+		//dbconnect.getStats("sico");
+		Stats UserStats = new Stats("sico", 50,40,10);
+		dbconnect.setStats(UserStats);
 	
 		launch(args);
 		        }
