@@ -21,9 +21,9 @@ public class Server extends Application {
 		//dbconnect.UserValidation(user);
 		//dbconnect.getSecurityQuestion(user);
 		//dbconnect.getSecurityAnswer(user);
-		//dbconnect.getStats(userstats);
+		dbconnect.getStats(userstats);
 		//Stats UserStats = new Stats("sico", 50,40,10);
-		dbconnect.setStats(userstats);
+		//dbconnect.setStats(userstats);
 	
 		launch(args);
 		        }
