@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -20,24 +21,39 @@ import javafx.stage.Stage;
 
 
 public class LoginController implements Initializable {
-	LoginModel model = new LoginModel();
+		
+	@FXML
+	TextField tfNickname;
+	PasswordField pfPassword;
+	
+	public LoginController() {
+		//model.connectToServer(); //Verbindung zum Server wird Hergestellt
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 	}
 
 	
-	
 	@FXML
 	public void handleLogin(ActionEvent event) {
-		model.sendLogin();
+		LoginModel model = new LoginModel();
+		model.sendLogin(new User(tfNickname.getText(), pfPassword.getText()));
 	}
 
 	@FXML
-	public void handleRegistry(ActionEvent event) {   
-	        RegistrationModel registryModel = new RegistrationModel();
-			registryModel.start(new Stage());
-			model.sendLogin();
+	public void handleRegistry(ActionEvent event) {      
+		RegistrationModel registryModel = new RegistrationModel();
+		registryModel.start(new Stage());
+			
+	}
+	
+	/**
+	 * Diese Methode zeigt dem Benutzer an, dass er etwas falsch eingegeben hat.
+	 * @author Tobias
+	 */
+	public void wrongLogin(){
+		
 	}
 	
 }

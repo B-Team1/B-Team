@@ -19,6 +19,7 @@ import ch.fhnw.itprojekt.bteam.template.ServiceLocator;
 public class LoginModel extends Application {
     ServiceLocator serviceLocator;
     ConnectionModel connectionModel = new ConnectionModel();
+    LoginController loginController = new LoginController();
     
     public LoginModel() {
         
@@ -46,7 +47,27 @@ public class LoginModel extends Application {
     	}
     }
     
-    public void sendLogin(){
-    	connectionModel.sayHello();
+    /**
+     * Sendet die Logininformationen ans Connection Model
+     * @author Tobias
+     */
+    public void sendLogin(User user){
+    	if(user.getNickname() == "" | user.getPassword() == ""){
+    		loginController.wrongLogin();
+    	}
+    	
+    	if(connectionModel.sendLogin(user)){
+    		serviceLocator.getLogger().info("Passwort ok!");
+    	}
     }
+    
+    /**
+     * Verbindung zum Server wird für das ganze Programm aufgebaut
+     * @author Tobias
+     */
+    public void connectToServer(){
+    	connectionModel.connect("127.0.0.1", 8080);    	
+    }
+    
+    
 }
