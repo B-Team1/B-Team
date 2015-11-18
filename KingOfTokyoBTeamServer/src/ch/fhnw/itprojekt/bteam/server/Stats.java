@@ -1,4 +1,5 @@
-package ch.fhnw.itprojekt.bteam.appClasses;
+package ch.fhnw.itprojekt.bteam.server;
+
 /**
  * StatsObjekt, wird benutzt um die Stats von der Datenbank auf den Client zu verschieben und umgekehrt
  * @author Luzian

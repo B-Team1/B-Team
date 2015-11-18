@@ -185,8 +185,14 @@ public String getSecurityAnswer (String NickName, String NName, String VName){
 	return SecurityAnswer;
 }
 
-public int getStats (String NickName){
-	int test = 0;
+/**
+ * Erstellt ein StatsObjekt, füllt StatsObjekt mit den Daten der DB aufgrund des NickNames und gibt StatsObjekt zurück
+ * @author Luzian
+ * @param NickName
+ * @return
+ */
+public Stats getStats (String NickName){
+	Stats UserStats = new Stats(0,0,0);
 	Connection conn;
 	Statement stmt;
 	try {
@@ -197,9 +203,12 @@ public int getStats (String NickName){
 		String sql = "SELECT AnzahlSpiele, Gewonnen, Verloren from user where NickName = '"+ NickName+"'";
 		ResultSet rs = stmt.executeQuery(sql);
 		rs.next();
-		//Stats UserStats = new Stats();
-		//stats.set = rs.getString("Antwort");
-		//System.out.println(SecurityAnswer);
+		UserStats.setSumGames(rs.getInt("AnzahlSpiele"));
+		UserStats.setWonGames(rs.getInt("Gewonnen"));
+		UserStats.setLosedGames(rs.getInt("Verloren"));
+		System.out.println(UserStats.getSumGames());
+		System.out.println(UserStats.getWonGames());
+		System.out.println(UserStats.getLosedGames());
     	}
 	catch(SQLException se){
 	      //Handle errors for JDBC
@@ -209,7 +218,7 @@ public int getStats (String NickName){
 	      e.printStackTrace();
 	   }
 	
-		return test;
+		return UserStats;
 }
 
 

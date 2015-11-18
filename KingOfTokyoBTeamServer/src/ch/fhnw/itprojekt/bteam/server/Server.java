@@ -18,7 +18,8 @@ public class Server extends Application {
 		//dbconnect.InsertPlayersIntoDB();
 		//dbconnect.UserValidation("sico","1234");
 		//dbconnect.getSecurityQuestion("sico","Lüthi", "Luzian");
-		dbconnect.getSecurityAnswer("sico","Lüthi", "Luzian");
+		//dbconnect.getSecurityAnswer("sico","Lüthi", "Luzian");
+		dbconnect.getStats("sico");
 	
 		launch(args);
 		        }
