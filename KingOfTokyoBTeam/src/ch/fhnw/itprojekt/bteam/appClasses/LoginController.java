@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -25,6 +26,7 @@ public class LoginController implements Initializable {
 	@FXML
 	TextField tfNickname;
 	PasswordField pfPassword;
+	Button btnRegistry;
 	
 	public LoginController() {
 		//model.connectToServer(); //Verbindung zum Server wird Hergestellt
@@ -45,7 +47,8 @@ public class LoginController implements Initializable {
 	public void handleRegistry(ActionEvent event) {      
 			LoginModel model = new LoginModel();
 			model.startRegistry(new Stage());
-			Stage stage = (Stage) btnRegistry.getScene().getWindow();
+			Node node= (Node)event.getSource();
+			Stage stage = (Stage) node.getScene().getWindow();
 			stage.close();
 	}
 	
