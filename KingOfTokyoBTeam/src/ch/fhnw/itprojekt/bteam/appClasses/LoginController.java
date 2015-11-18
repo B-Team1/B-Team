@@ -43,9 +43,10 @@ public class LoginController implements Initializable {
 
 	@FXML
 	public void handleRegistry(ActionEvent event) {      
-		RegistrationModel registryModel = new RegistrationModel();
-		registryModel.start(new Stage());
-			
+			LoginModel model = new LoginModel();
+			model.startRegistry(new Stage());
+			Stage stage = (Stage) btnRegistry.getScene().getWindow();
+			stage.close();
 	}
 	
 	/**
