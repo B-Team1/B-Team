@@ -48,34 +48,42 @@ public Connection DBConnect() {
  * @author Luzian
  * @return
  */
-public boolean InsertPlayersIntoDB(String NName, String VName, String NickName){
+public boolean InsertPlayersIntoDB(User user){
 	boolean PlayerAdd = true;
-	Statement stmt;
+	PreparedStatement stmtabfrage;
+	PreparedStatement stmt;
 	Connection conn;
 	String sqlcontrol;
 	try{
-			 // Execute a query
     conn = DBConnect();
-    stmt = conn.createStatement();
-    sqlcontrol = "Select * from user where NickName = '"+NickName+"' && NName = '"+NName+"'";
-    ResultSet rs = stmt.executeQuery(sqlcontrol);
+ // Select query    
+    sqlcontrol = "SELECT * FROM user WHERE NickName = ? && NName = ?";
+    stmtabfrage = conn.prepareStatement(sqlcontrol, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+    stmtabfrage.setString(1, user.getNickname());
+    stmtabfrage.setString(2, user.getnName());
+    ResultSet rs = stmtabfrage.executeQuery();
     // Checkt ob Resultset mit Daten gefüllt wurde
     if(rs.first()) {
     	//ResultSet beinhaltet Daten
-    	PlayerAdd = false;
     	// Checkt ob es tatsächlich die gleichen Daten auf der Datenbank bereits vorhanden sind
-        if (NickName.equals(rs.getString("NickName"))  && NName.equals(rs.getString("NName"))){
+        if (user.getNickname().equals(rs.getString("NickName"))  && user.getnName().equals(rs.getString("NName"))){
             PlayerAdd = false;        
         }
     } else {
     	//ResultSet leer ->>
         PlayerAdd = true;
     }
-    //verhindert Doppelte Einträge von Nicknammen
+    //verhindert Doppelte Einträge von Nicknamen
     if (PlayerAdd == true){
-    	String sql = "INSERT INTO user(NName, VName, NickName) " +
-				"VALUES ('"+NName+"', '"+VName+"', '"+NickName+"')";
-        stmt.executeUpdate(sql);
+    	String sql = "INSERT INTO user (NName, VName, NickName, Passwort, Sicherheitsfrage, Antwort) VALUES (?,?,?,?,?,?)";
+        stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+        stmt.setString(1, user.getnName());
+        stmt.setString(2, user.getvName());
+        stmt.setString(3, user.getNickname());
+        stmt.setString(4, user.getPassword());
+        stmt.setString(5, user.getSecurityQuestion());
+        stmt.setString(6, user.getSecurityAnswer());
+        stmt.executeUpdate();
     }
             }catch(SQLException se){
     	//Handle errors for JDBC
@@ -95,21 +103,23 @@ public boolean InsertPlayersIntoDB(String NName, String VName, String NickName){
  * @param Passwort
  * @return
  */
-public boolean UserValidation(String NickName, String Passwort ){
+public boolean UserValidation(User user ){
 	boolean Loginstatus = false;
 	Connection conn;
-	Statement stmt;
+	PreparedStatement stmt;
+	ResultSet rs;
 	try {
 		conn = DBConnect();
 	// Select query
-    stmt = conn.createStatement();
-
-    String sql = "SELECT * FROM user where NickName = '"+NickName +"' && Passwort = '"+ Passwort +"'";
-    ResultSet rs = stmt.executeQuery(sql);
-    rs.next();
-    if (NickName.equals(rs.getString("NickName"))  && Passwort.equals(rs.getString("Passwort"))){
-    Loginstatus = true;
-    System.out.println(Loginstatus);
+		String sql = "SELECT * FROM user where NickName = ? && Passwort = ?";
+        stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+        stmt.setString(1, user.getNickname());
+        stmt.setString(2, user.getPassword());
+        
+        rs = stmt.executeQuery();
+        rs.next();
+        if (user.getNickname().equals(rs.getString("NickName"))  && user.getPassword().equals(rs.getString("Passwort"))){
+        	Loginstatus = true;
     }
     	
 	}
@@ -120,10 +130,8 @@ public boolean UserValidation(String NickName, String Passwort ){
 	      //Handle errors for Class.forName
 	      e.printStackTrace();
 	   }
-	System.out.println(Loginstatus);
 	return Loginstatus;
-	
-}
+	}
 
 /**
  * Gibt die Sicherheitsfrage für den entsprechenden Nicknamen,Namen und Vornamen zurück
@@ -133,26 +141,23 @@ public boolean UserValidation(String NickName, String Passwort ){
  * @param VName
  * @return
  */
-public String getSecurityQuestion (String NickName, String NName, String VName){
+public String getSecurityQuestion (User user){
 	String SecurityQuestion = "";
 	Connection conn;
 	PreparedStatement stmt;
+	ResultSet rs;
 	try {
 		conn = DBConnect();
-	// Select query
-    //stmt = conn.createStatement();
-    //neu
+	// Select query    
     String sql = "SELECT Sicherheitsfrage FROM user WHERE NickName = ? && NName = ? && VName = ?";
     stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-    stmt.setString(1, NickName);
-    
-    //neu
-
-    //String sql = "SELECT Sicherheitsfrage FROM user where NickName = '"+NickName +"' && NName = '"+ NName +"' && VName = '"+ VName +"'";
-    ResultSet rs = stmt.executeQuery(sql);
+    stmt.setString(1, user.getNickname());
+    stmt.setString(2, user.getnName());
+    stmt.setString(3, user.getvName());
+    rs = stmt.executeQuery();
     rs.next();
     SecurityQuestion = rs.getString("Sicherheitsfrage");
-    	}
+   	}
 	catch(SQLException se){
 	      //Handle errors for JDBC
 	      se.printStackTrace();
@@ -171,17 +176,21 @@ public String getSecurityQuestion (String NickName, String NName, String VName){
  * @param VName
  * @return
  */
-public String getSecurityAnswer (String NickName, String NName, String VName){
+public String getSecurityAnswer (User user){
 	String SecurityAnswer = "";
+	String sql;
 	Connection conn;
-	Statement stmt;
-	try {
+	PreparedStatement stmt;
+	ResultSet rs;
+		try {
 		conn = DBConnect();
 	// Select query
-    stmt = conn.createStatement();
-
-    String sql = "SELECT Antwort FROM user where NickName = '"+NickName +"' && NName = '"+ NName +"' && VName = '"+ VName +"'";
-    ResultSet rs = stmt.executeQuery(sql);
+    sql = "SELECT Antwort FROM user WHERE NickName = ? && NName = ? && VName = ?";
+    stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+    stmt.setString(1, user.getNickname());
+    stmt.setString(2, user.getnName());
+    stmt.setString(3, user.getvName());
+    rs = stmt.executeQuery();
     rs.next();
     SecurityAnswer = rs.getString("Antwort");
     System.out.println(SecurityAnswer);
@@ -202,24 +211,22 @@ public String getSecurityAnswer (String NickName, String NName, String VName){
  * @param NickName
  * @return
  */
-public Stats getStats (String NickName){
-	Stats UserStats = new Stats("",0,0,0);
+public Stats getStats (Stats userstats){
+	String sql;
 	Connection conn;
-	Statement stmt;
+	PreparedStatement stmt;
+	ResultSet rs;
 	try {
 		conn = DBConnect();
 		// Select query
-		stmt = conn.createStatement();
-
-		String sql = "SELECT AnzahlSpiele, Gewonnen, Verloren from user where NickName = '"+ NickName+"'";
-		ResultSet rs = stmt.executeQuery(sql);
+		sql = "SELECT AnzahlSpiele, Gewonnen, Verloren from user where NickName = ?";
+	    stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+	    stmt.setString(1, userstats.getNickName());
+	    rs = stmt.executeQuery();
 		rs.next();
-		UserStats.setSumGames(rs.getInt("AnzahlSpiele"));
-		UserStats.setWonGames(rs.getInt("Gewonnen"));
-		UserStats.setLosedGames(rs.getInt("Verloren"));
-		System.out.println(UserStats.getSumGames());
-		System.out.println(UserStats.getWonGames());
-		System.out.println(UserStats.getLosedGames());
+		userstats.setSumGames(rs.getInt("AnzahlSpiele"));
+		userstats.setWonGames(rs.getInt("Gewonnen"));
+		userstats.setLosedGames(rs.getInt("Verloren"));
     	}
 	catch(SQLException se){
 	      //Handle errors for JDBC
@@ -229,7 +236,7 @@ public Stats getStats (String NickName){
 	      e.printStackTrace();
 	   }
 	
-		return UserStats;
+		return userstats;
 }
 
 /**
@@ -237,16 +244,21 @@ public Stats getStats (String NickName){
  * @author Luzian
  * @param UserStats
  */
-public void setStats (Stats UserStats){
-		Connection conn;
-	Statement stmt;
+public void setStats (Stats userstats){
+	Connection conn;
+	PreparedStatement stmt;
+	String sql;
 	try {
 		conn = DBConnect();
 		// Update query
-		stmt = conn.createStatement();
-		String sql = "Update user set AnzahlSpiele = '"+UserStats.getSumGames()+"' , Gewonnen = '"+UserStats.getWonGames()+"', Verloren = '"+UserStats.getLosedGames()+"' where NickName = '"+UserStats.getNickName()+"'";
-		stmt.executeUpdate(sql);
-		}
+		sql = "Update user set AnzahlSpiele = ?, Gewonnen = ?, Verloren = ? WHERE NickName = ?";
+        stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+        stmt.setInt(1, userstats.getSumGames());
+        stmt.setInt(2, userstats.getWonGames());
+        stmt.setInt(3, userstats.getLosedGames());     
+        stmt.setString(4, userstats.getNickName());
+        stmt.executeUpdate();
+				}
 	catch(SQLException se){
 	      //Handle errors for JDBC
 	      se.printStackTrace();

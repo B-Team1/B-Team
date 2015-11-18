@@ -14,14 +14,16 @@ public class Server extends Application {
 
 	public static void main(String[] args) {
 		DBModel dbconnect = new DBModel();
+		User user = new User("testnick", "testvname","testnName","1234","Nein","Schwul?");
+		Stats userstats = new Stats(user.getNickname(),100,5,95);
 		//dbconnect.DBConnect();
-		//dbconnect.InsertPlayersIntoDB("Loosli2","Marco","malo");
-		//dbconnect.UserValidation("sico","1234");
-		//dbconnect.getSecurityQuestion("sico","Lüthi", "Luzian");
-		//dbconnect.getSecurityAnswer("sico","Lüthi", "Luzian");
-		//dbconnect.getStats("sico");
+		//dbconnect.InsertPlayersIntoDB(user);
+		//dbconnect.UserValidation(user);
+		//dbconnect.getSecurityQuestion(user);
+		//dbconnect.getSecurityAnswer(user);
+		//dbconnect.getStats(userstats);
 		//Stats UserStats = new Stats("sico", 50,40,10);
-		//dbconnect.setStats(UserStats);
+		dbconnect.setStats(userstats);
 	
 		launch(args);
 		        }
