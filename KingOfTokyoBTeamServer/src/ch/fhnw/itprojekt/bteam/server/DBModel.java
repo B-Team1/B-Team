@@ -16,7 +16,11 @@ public class DBModel {
 	   static final String PASS = "1234";
 	   
 	   
-	   
+/**
+ * Stellt eine Datenbankverbindung her
+ * @author Luzian	   
+ * @return
+ */
 public Connection DBConnect() { 
 		Connection conn = null;
 	   try{
@@ -39,6 +43,11 @@ public Connection DBConnect() {
 	   
 }
 
+/** 
+ * Fügt neuen Spieler in die Datenbank hinzu
+ * @author Luzian
+ * @return
+ */
 public  boolean InsertPlayersIntoDB(){
 	boolean Completed = false;
 	String NName = "Lüthi";
@@ -74,6 +83,13 @@ public  boolean InsertPlayersIntoDB(){
 	return Completed; 
 }
 
+/**
+ * Validiert die Benutzereingaben beim Login, ob der richtige Nickname mit dem zugehörigen Passwort in der Datenbank vorhanden ist
+ * @author Luzian
+ * @param NickName
+ * @param Passwort
+ * @return
+ */
 public boolean UserValidation(String NickName, String Passwort ){
 	boolean Loginstatus = false;
 	Connection conn;
@@ -104,6 +120,14 @@ public boolean UserValidation(String NickName, String Passwort ){
 	
 }
 
+/**
+ * Gibt die Sicherheitsfrage für den entsprechenden Nicknamen,Namen und Vornamen zurück
+ * @author Luzian
+ * @param NickName
+ * @param NName
+ * @param VName
+ * @return
+ */
 public String getSecurityQuestion (String NickName, String NName, String VName){
 	String SecurityQuestion = "";
 	Connection conn;
@@ -128,6 +152,14 @@ public String getSecurityQuestion (String NickName, String NName, String VName){
 	return SecurityQuestion;
 }
 
+/**
+ * Gibt die Antwort auf die Sicherheitsfrage für den entsprechenden Nicknamen, Namen und Vornamen zurück
+ * @author Luzian
+ * @param NickName
+ * @param NName
+ * @param VName
+ * @return
+ */
 public String getSecurityAnswer (String NickName, String NName, String VName){
 	String SecurityAnswer = "";
 	Connection conn;
@@ -152,4 +184,33 @@ public String getSecurityAnswer (String NickName, String NName, String VName){
 	   }
 	return SecurityAnswer;
 }
+
+public int getStats (String NickName){
+	int test = 0;
+	Connection conn;
+	Statement stmt;
+	try {
+		conn = DBConnect();
+		// Select query
+		stmt = conn.createStatement();
+
+		String sql = "SELECT AnzahlSpiele, Gewonnen, Verloren from user where NickName = '"+ NickName+"'";
+		ResultSet rs = stmt.executeQuery(sql);
+		rs.next();
+		//Stats UserStats = new Stats();
+		//stats.set = rs.getString("Antwort");
+		//System.out.println(SecurityAnswer);
+    	}
+	catch(SQLException se){
+	      //Handle errors for JDBC
+	      se.printStackTrace();
+	   }catch(Exception e){
+	      //Handle errors for Class.forName
+	      e.printStackTrace();
+	   }
+	
+		return test;
+}
+
+
 }
