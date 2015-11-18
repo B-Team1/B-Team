@@ -101,4 +101,23 @@ public class LoginMessage {
 	public boolean getCheckLogin() {
 		return checkLogin;
 	}
+
+	public void setType(MessageType type) {
+		this.type = type;
+	}
+
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public void setCheckLogin(boolean checkLogin) {
+		this.checkLogin = checkLogin;
+	}
 }

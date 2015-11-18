@@ -45,21 +45,16 @@ public class ServerThreadForClient extends Thread {
 
 		Message msgOut = null;
 		switch (msgIn.getType()) {
-		case Hello:
-			msgOut = new Message(Message.MessageType.Hello);
-			break;
-		case NewClient:
+		case Login:
 			msgOut = new Message(Message.MessageType.NewClientAccepted);
-			msgOut.setName(msgIn.getName());
+			msgOut.setCheckLogin(true);
 			break;
-		case Goodbye:
-			msgOut = new Message(Message.MessageType.Goodbye);
-			break;
+		
 		
 		default:
 			msgOut = new Message(Message.MessageType.Error);
 		}
     	logger.info("Message answered: " + msgOut.toString());
     	return msgOut;
-    }
+    }       
 }

@@ -29,7 +29,7 @@ public class LoginController implements Initializable {
 	Button btnRegistry;
 	
 	public LoginController() {
-		//model.connectToServer(); //Verbindung zum Server wird Hergestellt
+		
 	}
 
 	@Override
@@ -40,7 +40,9 @@ public class LoginController implements Initializable {
 	@FXML
 	public void handleLogin(ActionEvent event) {
 		LoginModel model = new LoginModel();
-		model.sendLogin(new User(tfNickname.getText(), pfPassword.getText()));
+		model.connectToServer(); //Verbindung zum Server wird Hergestellt
+		//String t = pfPassword.getPromptText();
+		model.sendLogin(new User(tfNickname.getText(), "hallo"));
 	}
 
 	@FXML
