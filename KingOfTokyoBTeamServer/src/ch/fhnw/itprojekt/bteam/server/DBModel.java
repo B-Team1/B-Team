@@ -48,39 +48,44 @@ public Connection DBConnect() {
  * @author Luzian
  * @return
  */
-public  boolean InsertPlayersIntoDB(){
-	boolean Completed = false;
-	String NName = "Lüthi";
-	String VName = "Luzian";
-	String NickName = "sico";
-	String Sicherheitsfrage = "Plan";
-	String Antwort = "B";
+public boolean InsertPlayersIntoDB(String NName, String VName, String NickName){
+	boolean PlayerAdd = true;
 	Statement stmt;
 	Connection conn;
+	String sqlcontrol;
 	try{
 			 // Execute a query
     conn = DBConnect();
     stmt = conn.createStatement();
-    
-    String sql = "INSERT INTO user(NName, VName) " +
-    				"VALUES ('Lüthi', 'Luzian')";
-    stmt.executeUpdate(sql);
-    
-    System.out.println("Inserted records into the table...");
-    
-    Completed = true;
-	
-	 }catch(SQLException se){
-	      //Handle errors for JDBC
-	      se.printStackTrace();
-	   }catch(Exception e){
-	      //Handle errors for Class.forName
-	      e.printStackTrace();
-	   }
-	      
-
-
-	return Completed; 
+    sqlcontrol = "Select * from user where NickName = '"+NickName+"' && NName = '"+NName+"'";
+    ResultSet rs = stmt.executeQuery(sqlcontrol);
+    // Checkt ob Resultset mit Daten gefüllt wurde
+    if(rs.first()) {
+    	//ResultSet beinhaltet Daten
+    	PlayerAdd = false;
+    	// Checkt ob es tatsächlich die gleichen Daten auf der Datenbank bereits vorhanden sind
+        if (NickName.equals(rs.getString("NickName"))  && NName.equals(rs.getString("NName"))){
+            PlayerAdd = false;        
+        }
+    } else {
+    	//ResultSet leer ->>
+        PlayerAdd = true;
+    }
+    //verhindert Doppelte Einträge von Nicknammen
+    if (PlayerAdd == true){
+    	String sql = "INSERT INTO user(NName, VName, NickName) " +
+				"VALUES ('"+NName+"', '"+VName+"', '"+NickName+"')";
+        stmt.executeUpdate(sql);
+    }
+            }catch(SQLException se){
+    	//Handle errors for JDBC
+    	se.printStackTrace();
+    }catch(Exception e){
+    	//Handle errors for Class.forName
+    	e.printStackTrace();
+    }
+    System.out.println(PlayerAdd);
+	return PlayerAdd;
 }
 
 /**
@@ -131,13 +136,19 @@ public boolean UserValidation(String NickName, String Passwort ){
 public String getSecurityQuestion (String NickName, String NName, String VName){
 	String SecurityQuestion = "";
 	Connection conn;
-	Statement stmt;
+	PreparedStatement stmt;
 	try {
 		conn = DBConnect();
 	// Select query
-    stmt = conn.createStatement();
+    //stmt = conn.createStatement();
+    //neu
+    String sql = "SELECT Sicherheitsfrage FROM user WHERE NickName = ? && NName = ? && VName = ?";
+    stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+    stmt.setString(1, NickName);
+    
+    //neu
 
-    String sql = "SELECT Sicherheitsfrage FROM user where NickName = '"+NickName +"' && NName = '"+ NName +"' && VName = '"+ VName +"'";
+    //String sql = "SELECT Sicherheitsfrage FROM user where NickName = '"+NickName +"' && NName = '"+ NName +"' && VName = '"+ VName +"'";
     ResultSet rs = stmt.executeQuery(sql);
     rs.next();
     SecurityQuestion = rs.getString("Sicherheitsfrage");
