@@ -88,5 +88,22 @@ try {
 
     }
     
+    public void startForgetPassword(Stage forgetPasswordStage) {
+    	try {
+    		Properties.getProperties().setLocale(new Locale("de"));
+            BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/forgetPassword.fxml"),
+            		ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale()));
+    	
+            Scene scene = new Scene(root);
+            // scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+            forgetPasswordStage.setScene(scene);
+            forgetPasswordStage.setTitle("King of Tokyo");
+            forgetPasswordStage.show();
+            
+    	} catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    }
+    
     
 }

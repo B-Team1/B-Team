@@ -35,7 +35,6 @@ public class LoginController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 	}
-
 	
 	@FXML
 	public void handleLogin(ActionEvent event) {
@@ -47,11 +46,20 @@ public class LoginController implements Initializable {
 
 	@FXML
 	public void handleRegistry(ActionEvent event) {      
-			LoginModel model = new LoginModel();
-			model.startRegistry(new Stage());
-			Node node= (Node)event.getSource();
-			Stage stage = (Stage) node.getScene().getWindow();
-			stage.close();
+		LoginModel model = new LoginModel();
+		model.startRegistry(new Stage());
+		Node node= (Node)event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		stage.close();
+	}
+	
+	@FXML
+	public void handleForgetPassword(ActionEvent event) {
+		LoginModel model = new LoginModel();
+		model.startForgetPassword(new Stage());
+		Node node = (Node)event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		stage.close();
 	}
 	
 	/**
