@@ -49,4 +49,24 @@ public class LoginModel extends Application {
     public void sendLogin(){
     	connectionModel.sayHello();
     }
+    
+    public void startRegistry(Stage registryStage) {
+try {
+    		
+    		Properties.getProperties().setLocale(new Locale("de"));
+            BorderPane root1 = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/registration.fxml"),
+            		ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale()));
+    	
+            Scene scene = new Scene(root1);
+            // scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+            registryStage.setScene(scene);
+            registryStage.setTitle("King of Tokyo");
+            registryStage.show();
+            
+    	} catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    }
+    
+    
 }

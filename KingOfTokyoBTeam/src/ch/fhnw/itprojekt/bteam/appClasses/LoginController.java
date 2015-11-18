@@ -22,6 +22,9 @@ import javafx.stage.Stage;
 public class LoginController implements Initializable {
 	LoginModel model = new LoginModel();
 
+	@FXML
+	Button btnRegistry;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 	}
@@ -34,10 +37,12 @@ public class LoginController implements Initializable {
 	}
 
 	@FXML
-	public void handleRegistry(ActionEvent event) {   
-	        RegistrationModel registryModel = new RegistrationModel();
-			registryModel.start(new Stage());
+	public void handleRegistry(ActionEvent event) { 
+			model.startRegistry(new Stage());
+			Stage stage = (Stage) btnRegistry.getScene().getWindow();
+			stage.close();
 			model.sendLogin();
 	}
+	
 	
 }
