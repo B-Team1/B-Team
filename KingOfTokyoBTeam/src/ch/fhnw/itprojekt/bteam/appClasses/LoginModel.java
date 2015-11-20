@@ -27,7 +27,10 @@ public class LoginModel extends Application {
         serviceLocator.getLogger().info("Application model initialized");
     }
     
-    // Login Fenster öffnen
+    /**
+     * Methode startet das Login Fenster mit den eingestellten Einstellungen
+     * @author Marco
+     */
     public void start(Stage loginStage) {
     	
     	try {

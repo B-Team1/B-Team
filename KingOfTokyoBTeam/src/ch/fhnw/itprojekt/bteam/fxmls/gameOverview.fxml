@@ -8,13 +8,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="476.0" prefWidth="651.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="476.0" prefWidth="651.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.fhnw.itprojekt.bteam.appClasses.GameOverviewController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="%overview.menu.options">
+          <Menu mnemonicParsing="false" text="%overview.menu.language">
             <items>
-              <MenuItem mnemonicParsing="false" text="%overview.menuitem.language" />
+              <MenuItem mnemonicParsing="false" text="%overview.menuitem.german" />
+                  <MenuItem mnemonicParsing="false" text="%overview.menuitem.english" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="%overview.menu.help">
@@ -82,13 +83,31 @@
                               <Font size="25.0" />
                            </font>
                         </Label>
-                        <Label layoutX="179.0" layoutY="62.0" text="Label">
+                        <Label fx:id="lbNickname" layoutX="179.0" layoutY="62.0" text="Label">
                            <font>
                               <Font size="25.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
+                  <VBox layoutX="109.0" layoutY="119.0" opacity="0.6" prefHeight="150.0" prefWidth="150.0" styleClass="hbox" stylesheets="@meincss.css">
+                     <children>
+                        <Label text="%overview.lb.game1" underline="true">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Button mnemonicParsing="false" opacity="0.5" prefHeight="83.0" prefWidth="149.0" text="eee" textFill="#0000001a" />
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="Label" />
+                              <Label text="Label" />
+                              <Label text="Label" />
+                              <Label text="Label" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
          </children>
