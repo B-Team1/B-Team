@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 public class ServerThreadForClient extends Thread {
     private final Logger logger = Logger.getLogger("");
     private Socket clientSocket;
+    DBModel dbconnect = new DBModel();
 
     public ServerThreadForClient(Socket clientSocket) {
         this.clientSocket = clientSocket;
@@ -42,12 +43,19 @@ public class ServerThreadForClient extends Thread {
     
     private Message processMessage(Message msgIn) {
 		logger.info("Message received from client: "+ msgIn.toString());						
-
 		Message msgOut = null;
 		switch (msgIn.getType()) {
 		case Login:
 			msgOut = new Message(Message.MessageType.NewClientAccepted);
 			msgOut.setCheckLogin(true);
+			break;
+			
+		case SecurityQuestion:
+			//Luzian
+			msgOut = new Message(Message.MessageType.SecurityQuestion);
+			User user = new User(msgIn.getNickname(),msgIn.getNname(), msgIn.getVName());
+			String securityQuestion = dbconnect.getSecurityQuestion(user);
+			msgOut.setSecurityQuestion(securityQuestion);
 			break;
 		
 		
