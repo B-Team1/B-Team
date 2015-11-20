@@ -6,9 +6,15 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 
 public class GameOverviewController implements Initializable {
 
+	@FXML
+	Label lbPlayGames;
+	Label lblbWonGames;
+	Label lbNickname;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 	}

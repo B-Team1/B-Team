@@ -40,10 +40,16 @@ public class LoginController implements Initializable {
 	public void handleLogin(ActionEvent event) {
 		LoginModel model = new LoginModel();
 		model.connectToServer(); //Verbindung zum Server wird Hergestellt
-		//String t = pfPassword.getPromptText();
+		String t = pfPassword.getPromptText();
 		model.sendLogin(new User(tfNickname.getText(), "hallo"));
 	}
 
+	/**
+	 * Diese Methode öffnet das Registrations Fenster beim Klick auf den "Registrieren" Button
+	 * und schliesst das Login Fenster
+	 * @author Marco
+	 * @param event
+	 */
 	@FXML
 	public void handleRegistry(ActionEvent event) {      
 		LoginModel model = new LoginModel();
@@ -53,6 +59,12 @@ public class LoginController implements Initializable {
 		stage.close();
 	}
 	
+	/**
+	 * Diese Methode öffnet das Passwort vergessen Fenster beim Klick auf den "Passwort vergessen" Link
+	 * und schliesst das Login Fenster
+	 * @author Marco
+	 * @param event
+	 */
 	@FXML
 	public void handleForgetPassword(ActionEvent event) {
 		LoginModel model = new LoginModel();
