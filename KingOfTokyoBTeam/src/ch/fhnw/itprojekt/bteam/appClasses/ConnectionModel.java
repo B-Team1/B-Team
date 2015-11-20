@@ -8,10 +8,30 @@ import ch.fhnw.itprojekt.bteam.template.ServiceLocator;
 public class ConnectionModel {
 	Socket socket;
 	ServiceLocator serviceLocator;
+	private static ConnectionModel singleton;
 	
-	public ConnectionModel(){
+	/**
+	 * Konstruktor darf nicht von aussen aufgerufen werden!
+	 * @author Tobias
+	 */
+	protected ConnectionModel(){
 		serviceLocator = ServiceLocator.getServiceLocator();        
 	}
+	
+	/**
+	 * Diese Methode prüft, ob bereits eine Instanz besteht und gibt dann eine zurück.
+	 * Wenn keine vorhanden ist wird eine neue erzeugt. Dies ist wichtig, dass nicht mehrere 
+	 * Verbindungen zum Server erstellt werden.
+	 * @return Connection Model mit bestehender Verbindung
+	 */
+	public static ConnectionModel getInstance() {
+	     if(singleton == null) {	        
+	         singleton = new ConnectionModel();
+	      }	     
+	      return singleton;
+	   }
+	
+	
 
 	public boolean connect(String ipAddress, Integer port) {
 		boolean success = false;

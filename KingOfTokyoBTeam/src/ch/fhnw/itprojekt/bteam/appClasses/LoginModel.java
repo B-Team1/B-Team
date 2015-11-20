@@ -18,16 +18,19 @@ import ch.fhnw.itprojekt.bteam.template.ServiceLocator;
 
 public class LoginModel extends Application {
     ServiceLocator serviceLocator;
-    ConnectionModel connectionModel = new ConnectionModel();
+    ConnectionModel connectionModel;
     LoginController loginController = new LoginController();
     
     public LoginModel() {
-        
+        connectionModel = ConnectionModel.getInstance();
         serviceLocator = ServiceLocator.getServiceLocator();        
         serviceLocator.getLogger().info("Application model initialized");
     }
     
-    // Login Fenster öffnen
+    /**
+     * Methode startet das Login Fenster mit den eingestellten Einstellungen
+     * @author Marco
+     */
     public void start(Stage loginStage) {
     	
     	try {
