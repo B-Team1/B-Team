@@ -1,5 +1,6 @@
 package ch.fhnw.itprojekt.bteam.template;
 
+import ch.fhnw.itprojekt.bteam.appClasses.ConnectionModel;
 import ch.fhnw.itprojekt.bteam.appClasses.LoginController;
 import ch.fhnw.itprojekt.bteam.appClasses.LoginModel;
 import ch.fhnw.itprojekt.bteam.splashScreen.Splash_Controller;
@@ -91,8 +92,9 @@ public class JavaFXAppTemplate extends Application {
      * http://docs.oracle.com/javafx/2/threads/jfxpub-threads.htm
      */
     public void startApp() {
-        
+    	 
         LoginModel loginModel = new LoginModel();
+        loginModel.connectToServer();
 		loginModel.start(new Stage());
 
         // Resources are now initialized

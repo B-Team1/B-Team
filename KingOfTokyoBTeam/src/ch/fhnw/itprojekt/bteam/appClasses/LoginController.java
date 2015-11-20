@@ -25,7 +25,11 @@ public class LoginController implements Initializable {
 		
 	@FXML
 	TextField tfNickname;
+	
+	@FXML
 	PasswordField pfPassword;
+	
+	@FXML
 	Button btnRegistry;
 	
 	public LoginController() {
@@ -36,14 +40,16 @@ public class LoginController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 	}
 	
+	/**
+	 * Button Action für im GUI. Es wird eine 
+	 * @author Tobias
+	 */
 	@FXML
 	public void handleLogin(ActionEvent event) {
 		LoginModel model = new LoginModel();
-		model.connectToServer(); //Verbindung zum Server wird Hergestellt
-		String t = pfPassword.getPromptText();
-		model.sendLogin(new User(tfNickname.getText(), "hallo"));
+		model.sendLogin(new User(tfNickname.getText(), pfPassword.getText()));
 	}
-
+	
 	/**
 	 * Diese Methode öffnet das Registrations Fenster beim Klick auf den "Registrieren" Button
 	 * und schliesst das Login Fenster

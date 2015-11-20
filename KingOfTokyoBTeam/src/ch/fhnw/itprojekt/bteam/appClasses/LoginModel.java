@@ -18,11 +18,11 @@ import ch.fhnw.itprojekt.bteam.template.ServiceLocator;
 
 public class LoginModel extends Application {
     ServiceLocator serviceLocator;
-    ConnectionModel connectionModel = new ConnectionModel();
+    ConnectionModel connectionModel;
     LoginController loginController = new LoginController();
     
     public LoginModel() {
-        
+        connectionModel = ConnectionModel.getInstance();
         serviceLocator = ServiceLocator.getServiceLocator();        
         serviceLocator.getLogger().info("Application model initialized");
     }
