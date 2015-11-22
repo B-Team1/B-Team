@@ -34,7 +34,6 @@ public class LoginModel extends Application {
     public void start(Stage loginStage) {
     	
     	try {
-    		
     		Properties.getProperties().setLocale(new Locale("de"));
             BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/login.fxml"),
             		ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale()));
@@ -43,6 +42,7 @@ public class LoginModel extends Application {
             // scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             loginStage.setScene(scene);
             loginStage.setTitle("King of Tokyo");
+            loginStage.setResizable(false);
             loginStage.show();
             
     	} catch(Exception e) {
@@ -83,6 +83,7 @@ try {
             // scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             registryStage.setScene(scene);
             registryStage.setTitle("King of Tokyo");
+            registryStage.setResizable(false);
             registryStage.show();
             
     	} catch(Exception e) {
@@ -101,6 +102,7 @@ try {
             // scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             forgetPasswordStage.setScene(scene);
             forgetPasswordStage.setTitle("King of Tokyo");
+            forgetPasswordStage.setResizable(false);
             forgetPasswordStage.show();
             
     	} catch(Exception e) {
