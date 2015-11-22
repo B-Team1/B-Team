@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 public class GameModel extends Application {
 
 	/**
-	 * Methode startet das Spielfeld und lädt die Properties
+	 * Methode öffnet das Spielfeld und lädt die Einstellungen
 	 * @author Marco
 	 */
 	@Override
@@ -27,6 +27,7 @@ public class GameModel extends Application {
             // scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             gameStage.setScene(scene);
             gameStage.setTitle("King of Tokyo");
+            gameStage.setResizable(false);
             gameStage.show();
             
     	} catch(Exception e) {

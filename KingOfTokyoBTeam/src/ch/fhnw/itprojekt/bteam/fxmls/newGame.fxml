@@ -1,8 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
+<BorderPane prefWidth="430.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.fhnw.itprojekt.bteam.appClasses.NewGameController">
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox layoutX="15.0" layoutY="30.0" spacing="40.0">
+               <children>
+                  <HBox layoutX="15.0" layoutY="30.0" spacing="40.0">
+                     <children>
+                        <VBox layoutX="15.0" layoutY="30.0" spacing="35.0">
+                           <children>
+                              <Label layoutX="20.0" layoutY="30.0" text="%newGame.lb.numPlayers" />
+                              <CheckBox fx:id="chbWinFamePoints" layoutX="15.0" layoutY="90.0" mnemonicParsing="false" text="%newGame.cb.famePoints" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="138.0" layoutY="30.0" spacing="20.0">
+                           <children>
+                              <ComboBox fx:id="cbNumPlayers" layoutX="148.0" layoutY="30.0" prefWidth="150.0" />
+                              <ComboBox fx:id="cbWinFamePoints" disable="true" layoutX="138.0" layoutY="90.0" prefWidth="150.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="TOP_CENTER">
+                     <children>
+                        <Button fx:id="btnCreateGame" layoutX="68.0" layoutY="148.0" mnemonicParsing="false" onAction="#handleCreateGame" text="%newGame.btn.createGame">
+                           <VBox.margin>
+                              <Insets left="120.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>
-
