@@ -20,6 +20,7 @@ public class LoginModel extends Application {
     ServiceLocator serviceLocator;
     ConnectionModel connectionModel;
     LoginController loginController = new LoginController();
+    //ForgetPasswordController forgetPasswordController = new ForgetPasswordController();
     
     public LoginModel() {
         connectionModel = ConnectionModel.getInstance();
@@ -62,6 +63,23 @@ public class LoginModel extends Application {
     	if(connectionModel.sendLogin(user)){
     		serviceLocator.getLogger().info("Passwort ok!");
     	}
+    }
+    
+    /**
+     * Sendet die Benutzereingaben von Passwort vergessen ans Connection Model
+     * @author Luzian
+     */
+    public String sendUserDataForPassword(User user){
+    	if(user.getNickname().equals("") | user.getnName().equals("") | user.getvName().equals("")){
+    		String error = "Nicht alle Felder ausgefüllt";
+    		return error; 
+    		
+    	}
+    	String securityQuestion = connectionModel.getSecurityQuestion(user);
+    	if (securityQuestion != null)
+    		user.setSecurityQuestion(securityQuestion);
+    	//forgetPasswordController.setlbSecureQuestion(user.getSecurityQuestion());
+    	return user.getSecurityQuestion();
     }
     
     /**

@@ -66,7 +66,7 @@ public class ConnectionModel {
 	 * @param user
 	 * @return
 	 */
-	public String sendSecurityQuestion(User user){
+	public String getSecurityQuestion(User user){
 		Message msgOut = new Message(Message.MessageType.SecurityQuestion);
 		msgOut.setNickname(user.getNickname());
 		msgOut.setNname(user.getnName());
