@@ -26,7 +26,7 @@ public class MenuModel extends Application {
 	public void start(Stage gameOverviewStage) {
 		try {
     		Properties.getProperties().setLocale(new Locale("de"));
-            BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/login.fxml"),
+            BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/gameOverview.fxml"),
             		ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale()));
     	
             Scene scene = new Scene(root);

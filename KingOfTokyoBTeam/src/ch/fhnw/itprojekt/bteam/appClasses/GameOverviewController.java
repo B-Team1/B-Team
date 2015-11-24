@@ -4,14 +4,13 @@ import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.swing.text.TabableView;
-
 import ch.fhnw.itprojekt.bteam.template.Properties;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 public class GameOverviewController implements Initializable {
@@ -26,7 +25,7 @@ public class GameOverviewController implements Initializable {
 	Label lbNickname;
 	
 	@FXML
-	TabableView tvOpenGames;
+	TableView<String> tvOpenGames;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

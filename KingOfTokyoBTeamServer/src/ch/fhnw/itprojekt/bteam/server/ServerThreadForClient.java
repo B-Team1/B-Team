@@ -47,7 +47,7 @@ public class ServerThreadForClient extends Thread {
 		switch (msgIn.getType()) {
 		case Login:
 			msgOut = new Message(Message.MessageType.NewClientAccepted);
-			msgOut.setCheckLogin(true);
+			msgOut.setCheckLogin(dbconnect.UserValidation(new User(msgIn.getNickname(), msgIn.getPassword())));
 			break;
 			
 		case SecurityQuestion:
