@@ -25,22 +25,35 @@ import org.simpleframework.xml.core.Persister;
 @Root
 public class Message {
 	public enum MessageType {
-		Hello, NewClient, NewClientAccepted, Goodbye, Error, Login
+		Hello, NewClient, NewClientAccepted, Goodbye, Error, Login, SecurityQuestion
 	};
 
 	// Data included in a message
 	@Element
 	private MessageType type;
-
+	
+	@Element(required = false)
+	private boolean checkLogin;
+	
 	@Element(required = false)
 	private String nickname;
+	
+	@Element(required = false)
+	private String nName;
 
 	@Element(required = false)
 	private String password;
 	
 	@Element(required = false)
-	private boolean checkLogin;
+	private String securityQuestion;
 	
+	@Element(required = false)
+	private String securityAnswer;
+	
+	@Element(required = false)
+	private String vName;
+	
+		
 	
 	public Message(@Element(name = "type") MessageType type) {
 		this.type = type;
@@ -83,11 +96,15 @@ public class Message {
 	public String getNickname() {
 		return nickname;
 	}
+	
+	public String getNname() {
+		return nName;
+	}
 
 	public String getPassword() {
 		return password;
 	}
-	
+		
 	public boolean getCheckLogin() {
 		return checkLogin;
 	}
@@ -96,23 +113,47 @@ public class Message {
 		return type;
 	}
 	
-
 	public void setType(MessageType type) {
 		this.type = type;
 	}
-
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
 
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-
 	public void setCheckLogin(boolean checkLogin) {
 		this.checkLogin = checkLogin;
+	}
+
+	public void setNname(String nName) {
+		this.nName = nName;
+	}
+
+	public void setVname(String vName) {
+		this.vName = vName;
+	}
+	
+	public String getSecurityQuestion() {
+		return securityQuestion;
+	}
+	
+	public void setSecurityQuestion(String securityQuestion) {
+		this.securityQuestion = securityQuestion;
+	}
+	
+	public String getSecurityAnswer() {
+		return securityAnswer;
+	}
+	
+	public void setSecurityAnswer(String securityAnswer) {
+		this.securityAnswer = securityAnswer;
+	}
+	
+	public String getVName() {
+		return vName;
 	}
 }

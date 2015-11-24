@@ -65,4 +65,25 @@ public class ConnectionModel {
 		}
 		return result;
 	}
+
+	/**
+	 * @author Luzian
+	 * @param user
+	 * @return
+	 */
+	public String getSecurityQuestion(User user){
+		Message msgOut = new Message(Message.MessageType.SecurityQuestion);
+		msgOut.setNickname(user.getNickname());
+		msgOut.setNname(user.getnName());
+		msgOut.setVname(user.getvName());
+		String securityQuestion = null;
+		try {
+			msgOut.send(socket);
+			Message msgIn = Message.receive(socket);
+			securityQuestion = msgIn.getSecurityQuestion();
+		} catch (Exception e) {
+			serviceLocator.getLogger().warning(e.toString());
+		}
+		return securityQuestion;
+	}
 }

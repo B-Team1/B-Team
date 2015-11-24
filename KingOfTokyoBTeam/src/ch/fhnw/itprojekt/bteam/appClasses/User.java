@@ -30,6 +30,12 @@ public class User {
 		this.password = password;
 	}
 	
+	public User(String nickname, String nName, String vName){
+		this.nickname = nickname;
+		this.nName = nName;
+		this.vName = vName;
+	}
+	
 	public String getNickname() {
 		return nickname;
 	}
