@@ -177,8 +177,12 @@ public String getSecurityQuestion (User user){
     stmt.setString(2, user.getnName());
     stmt.setString(3, user.getvName());
     rs = stmt.executeQuery();
-    rs.next();
-    SecurityQuestion = rs.getString("Sicherheitsfrage");
+    if (rs != null){
+    	rs.next();
+    	SecurityQuestion = rs.getString("Sicherheitsfrage");
+    }else{
+    	SecurityQuestion = null;
+    }
    	}
 	catch(SQLException se){
 	      //Handle errors for JDBC
@@ -216,8 +220,13 @@ public String getPassword (User user){
     stmt.setString(2, user.getnName());
     stmt.setString(3, user.getvName());
     rs = stmt.executeQuery();
-    rs.next();
-    password = rs.getString("Passwort");
+    if (rs != null){
+    	rs.next();
+    	password = rs.getString("Passwort");
+    }else{
+    	password = null;
+    }
+   
    	}
 	catch(SQLException se){
 	      //Handle errors for JDBC
@@ -257,9 +266,14 @@ public String getSecurityAnswer (User user){
     stmt.setString(2, user.getnName());
     stmt.setString(3, user.getvName());
     rs = stmt.executeQuery();
-    rs.next();
-    SecurityAnswer = rs.getString("Antwort");
-    System.out.println(SecurityAnswer);
+    if(rs != null){
+    	rs.next();
+    	SecurityAnswer = rs.getString("Antwort");
+    	System.out.println(SecurityAnswer);
+    }else{
+    	SecurityAnswer = null;
+    }
+    
     	}
 	catch(SQLException se){
 	      //Handle errors for JDBC

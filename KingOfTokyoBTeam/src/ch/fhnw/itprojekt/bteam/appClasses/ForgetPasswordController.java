@@ -65,22 +65,28 @@ public class ForgetPasswordController implements Initializable {
 		LoginModel model = new LoginModel();
 		String returnvalue;
 		returnvalue = model.sendUserDataForPassword(getUser());
-		if(returnvalue.equals("Nicht alle Felder ausgefüllt")){
-			wrongUserDataForPassword();
+		if(returnvalue != null){
+			if(returnvalue.equals("Nicht alle Felder ausgefüllt")){
+				missingUserDataForPassword();
+			}else{
+				setlbSecureQuestion(returnvalue);
+			}
 		}else{
-			setlbSecureQuestion(returnvalue);
-			}		
+			JOptionPane.showMessageDialog(null, "Ihre Benutzerdaten sind nicht korrekt");
+		}
+		
 	}
 	
 	/**
-	 * Diese Methode zeigt dem Benutzer an, dass er etwas falsch eingegeben hat.
+	 * Diese Methode zeigt dem Benutzer an, dass er nicht alles Benutzerdaten eingegeben hat.
 	 * @author Luzian
 	 */
-	public void wrongUserDataForPassword(){
+	public void missingUserDataForPassword(){
 		JOptionPane.showMessageDialog(null, "Bitte füllen Sie alle Felder korrekt aus");
 	}
 	
 	/**
+	 * Schreibt die entsprechende SecurityQuestion ins Label 
 	 * @author Luzian
 	 * @param securityQuestion
 	 */
@@ -89,6 +95,7 @@ public class ForgetPasswordController implements Initializable {
 	}
 	
 	/**
+	 * Schreibt das entsprechende Passwort in das PasswordLabel
 	 * @author Luzian
 	 * @param securityQuestion
 	 */
@@ -97,7 +104,8 @@ public class ForgetPasswordController implements Initializable {
 	}
 	
 	/**
-	 * 
+	 * Holt Security Answer von der DB und vergleicht diese mit der Benutzerantwort.
+	 * @author Luzian
 	 * @param event
 	 */
 	@FXML
@@ -105,10 +113,22 @@ public class ForgetPasswordController implements Initializable {
 		LoginModel model = new LoginModel();
 		String returnvalue = model.getSecurityAnswer(getUser());
 		String useranswer = tfAnswer.getText();
-		if (useranswer.equals(returnvalue)){
-		String password = model.getPassword(getUser());
-		setlbYourPassword(password);
+		if (returnvalue != null){
+			if (useranswer.equals(returnvalue)){
+				// Antwort stimmt
+				String password = model.getPassword(getUser());
+					if (password != null){
+						setlbYourPassword(password);
+					}else{
+						JOptionPane.showMessageDialog(null, "Es wurde kein Passwort zu Ihrem Benutzer gefunden");
+					}		
+			}else{
+				JOptionPane.showMessageDialog(null, "Die Antwort ist fehlerhaft");
+			}	
+		}else{
+			JOptionPane.showMessageDialog(null, "Es wurde keine Antwort zu Ihrem Benutzer gefunden");
 		}
+		
 		
 	}
 	
