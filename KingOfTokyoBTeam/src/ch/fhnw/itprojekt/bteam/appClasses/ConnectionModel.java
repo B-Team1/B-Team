@@ -103,7 +103,7 @@ public class ConnectionModel {
 		try {
 			msgOut.send(socket);
 			Message msgIn = Message.receive(socket);
-			result = msgIn.getCheckLogin();
+			result = msgIn.getWriteCheck();
 		} catch (Exception e) {
 			serviceLocator.getLogger().warning(e.toString());
 		}

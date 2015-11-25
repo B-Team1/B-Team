@@ -49,7 +49,7 @@ public Connection DBConnect() {
  * @return
  */
 public boolean InsertPlayersIntoDB(User user){
-	boolean PlayerAdd = true;
+	boolean playerAdd = true;
 	PreparedStatement stmtabfrage = null;
 	PreparedStatement stmt = null;
 	Connection conn = null;
@@ -57,47 +57,49 @@ public boolean InsertPlayersIntoDB(User user){
 	String sqlcontrol;
 	String sql;
 	try{
-    conn = DBConnect();
- // Select query    
-    sqlcontrol = "SELECT * FROM user WHERE NickName = ? && NName = ?";
-    stmtabfrage = conn.prepareStatement(sqlcontrol, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-    stmtabfrage.setString(1, user.getNickname());
-    stmtabfrage.setString(2, user.getnName());
-    rs = stmtabfrage.executeQuery();
-    // Checkt ob Resultset mit Daten gefüllt wurde
-    
-    if(rs.first()) {
-    	
-    	//ResultSet beinhaltet Daten
-    	// Checkt ob es tatsächlich die gleichen Daten auf der Datenbank bereits vorhanden sind
-    	
-        if (user.getNickname().equals(rs.getString("NickName"))  && user.getnName().equals(rs.getString("NName"))){
-            PlayerAdd = false;        
-        }
-    } else {
-    	//ResultSet leer ->>
-        PlayerAdd = true;
-    }
-    
-    //verhindert Doppelte Einträge von Nicknamen
-    
-    if (PlayerAdd == true){
-    	sql = "INSERT INTO user (NName, VName, NickName, Passwort, Sicherheitsfrage, Antwort) VALUES (?,?,?,?,?,?)";
-        stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-        stmt.setString(1, user.getnName());
-        stmt.setString(2, user.getvName());
-        stmt.setString(3, user.getNickname());
-        stmt.setString(4, user.getPassword());
-        stmt.setString(5, user.getSecurityQuestion());
-        stmt.setString(6, user.getSecurityAnswer());
-        stmt.executeUpdate();
-    }
-            }catch(SQLException se){
+	    conn = DBConnect();
+	    // Select query    
+	    sqlcontrol = "SELECT * FROM user WHERE NickName = ? && NName = ?";
+	    stmtabfrage = conn.prepareStatement(sqlcontrol, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+	    stmtabfrage.setString(1, user.getNickname());
+	    stmtabfrage.setString(2, user.getnName());
+	    rs = stmtabfrage.executeQuery();
+	    // Checkt ob Resultset mit Daten gefüllt wurde
+	    
+	    if(rs.first()) {
+	    	
+	    	//ResultSet beinhaltet Daten
+	    	// Checkt ob es tatsächlich die gleichen Daten auf der Datenbank bereits vorhanden sind
+	    	
+	        if (user.getNickname().equals(rs.getString("NickName"))  && user.getnName().equals(rs.getString("NName"))){
+	            playerAdd = false;        
+	        }
+	    } else {
+	    	//ResultSet leer ->>
+	        playerAdd = true;
+	    }
+	    
+	    //verhindert Doppelte Einträge von Nicknamen
+	    
+	    if (playerAdd == true){
+	    	sql = "INSERT INTO user (NName, VName, NickName, Passwort, Sicherheitsfrage, Antwort) VALUES (?,?,?,?,?,?)";
+	        stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+	        stmt.setString(1, user.getnName());
+	        stmt.setString(2, user.getvName());
+	        stmt.setString(3, user.getNickname());
+	        stmt.setString(4, user.getPassword());
+	        stmt.setString(5, user.getSecurityQuestion());
+	        stmt.setString(6, user.getSecurityAnswer());
+	        stmt.executeUpdate();
+	    }
+    }catch(SQLException se){
     	//Handle errors for JDBC
     	se.printStackTrace();
+    	playerAdd = false;
     }catch(Exception e){
     	//Handle errors for Class.forName
     	e.printStackTrace();
+    	playerAdd = false;
     }finally {
     	// Close Conn, rs, stmt, stmtabfrage
         try { if (rs != null) rs.close(); } catch (Exception e) {};
@@ -105,8 +107,8 @@ public boolean InsertPlayersIntoDB(User user){
         try { if (stmtabfrage != null) stmtabfrage.close(); } catch (Exception e) {};
         try { if (conn != null) conn.close(); } catch (Exception e) {};
     }
-    System.out.println(PlayerAdd);
-	return PlayerAdd;
+    System.out.println(playerAdd);
+	return playerAdd;
 }
 
 /**

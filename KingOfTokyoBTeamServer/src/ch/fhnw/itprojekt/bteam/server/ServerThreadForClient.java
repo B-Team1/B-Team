@@ -27,7 +27,7 @@ public class ServerThreadForClient extends Thread {
                 + " for server " + clientSocket.getLocalAddress().toString());
 
         try {
-            while (lastMessageType != Message.MessageType.Goodbye) {
+            while (true) {
 				// Read a message from the client
 				Message msgIn = Message.receive(clientSocket);
 				lastMessageType = msgIn.getType();
@@ -46,10 +46,10 @@ public class ServerThreadForClient extends Thread {
 		Message msgOut = null;
 		switch (msgIn.getType()) {
 		case Login:
-			msgOut = new Message(Message.MessageType.NewClientAccepted);
+			//Tobias
+			msgOut = new Message(Message.MessageType.Login);
 			msgOut.setCheckLogin(dbconnect.UserValidation(new User(msgIn.getNickname(), msgIn.getPassword())));
-			break;
-			
+			break;			
 		case SecurityQuestion:
 			//Luzian
 			msgOut = new Message(Message.MessageType.SecurityQuestion);
@@ -71,6 +71,18 @@ public class ServerThreadForClient extends Thread {
 			String password = dbconnect.getPassword(userPassword);
 			msgOut.setPassword(password);
 			break;
+		case Registration:
+			//Tobias
+			msgOut = new Message(Message.MessageType.Registration);
+			User user = new User(msgIn.getNickname(),
+								msgIn.getVName(), 
+								msgIn.getNname(), 
+								msgIn.getPassword(), 
+								msgIn.getSecurityAnswer(), 
+								msgIn.getSecurityQuestion());
+			msgOut.setWriteCheck(dbconnect.InsertPlayersIntoDB(user));
+			break;	
+		
 		
 		default:
 			msgOut = new Message(Message.MessageType.Error);
