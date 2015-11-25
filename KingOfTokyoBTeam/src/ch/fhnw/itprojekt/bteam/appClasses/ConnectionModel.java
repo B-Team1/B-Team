@@ -109,7 +109,7 @@ public class ConnectionModel {
 		}
 		return result;
 	}
-}
+
 
 	
 	public String getPassword(User user){
