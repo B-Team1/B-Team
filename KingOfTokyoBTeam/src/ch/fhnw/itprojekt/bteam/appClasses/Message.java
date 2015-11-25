@@ -25,7 +25,7 @@ import org.simpleframework.xml.core.Persister;
 @Root
 public class Message {
 	public enum MessageType {
-		Hello, NewClient, NewClientAccepted, Goodbye, Error, Login, SecurityQuestion
+		Error, Login, SecurityQuestion, Registration
 	};
 
 	// Data included in a message

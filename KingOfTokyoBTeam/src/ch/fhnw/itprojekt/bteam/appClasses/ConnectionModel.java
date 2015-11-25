@@ -50,7 +50,10 @@ public class ConnectionModel {
 	}
 
 
-	
+	/**
+	 * Diese Methode sendet die Login Informatinen an den Server und erhält die Antwort von ihm.
+	 * @author Tobias
+	 */
 	public boolean sendLogin(User user){
 		Message msgOut = new Message(Message.MessageType.Login);
 		msgOut.setNickname(user.getNickname());
@@ -85,5 +88,24 @@ public class ConnectionModel {
 			serviceLocator.getLogger().warning(e.toString());
 		}
 		return securityQuestion;
+	}
+	
+	public boolean sendRegistration(User user){
+		Message msgOut = new Message(Message.MessageType.Registration);
+		msgOut.setNickname(user.getNickname());
+		msgOut.setPassword(user.getPassword());
+		msgOut.setVname(user.getvName());
+		msgOut.setNname(user.getnName());
+		msgOut.setSecurityAnswer(user.getSecurityAnswer());
+		msgOut.setSecurityQuestion(user.getSecurityQuestion());
+		boolean result = false;
+		try {
+			msgOut.send(socket);
+			Message msgIn = Message.receive(socket);
+			result = msgIn.getCheckLogin();
+		} catch (Exception e) {
+			serviceLocator.getLogger().warning(e.toString());
+		}
+		return result;
 	}
 }
