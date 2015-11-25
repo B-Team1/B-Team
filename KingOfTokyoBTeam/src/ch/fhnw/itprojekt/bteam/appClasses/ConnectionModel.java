@@ -112,6 +112,29 @@ public class ConnectionModel {
 
 
 	
+	/**
+	 * holt die Sicherheitsanwort über den Server auf der Datebank wieder zurück an den Client
+	 * @author Luzian
+	 * @param user
+	 * @return
+	 */
+	public String getSecurityAnswer(User user){
+		Message msgOut = new Message(Message.MessageType.SecurityAnswer);
+		msgOut.setNickname(user.getNickname());
+		msgOut.setNname(user.getnName());
+		msgOut.setVname(user.getvName());
+		String securityAnswer = null;
+		try {
+			msgOut.send(socket);
+			Message msgIn = Message.receive(socket);
+			securityAnswer = msgIn.getSecurityAnswer();
+			} catch (Exception e) {
+				serviceLocator.getLogger().warning(e.toString());
+	}
+	return securityAnswer;
+}
+
+	
 	public String getPassword(User user){
 		Message msgOut = new Message(Message.MessageType.Password);
 		msgOut.setNickname(user.getNickname());
