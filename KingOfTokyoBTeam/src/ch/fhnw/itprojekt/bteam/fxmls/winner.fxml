@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane prefHeight="400.0" prefWidth="560.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<BorderPane prefHeight="400.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.fhnw.itprojekt.bteam.appClasses.WinController">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -24,7 +23,7 @@
                         <Image url="@../images/winner.gif" />
                      </image>
                   </ImageView>
-                  <Button layoutX="193.0" layoutY="321.0" mnemonicParsing="false" text="%winner.btn.close" />
+                  <Button fx:id="btnQuitGame" layoutX="193.0" layoutY="321.0" mnemonicParsing="false" onAction="#handleQuestion" stylesheets="@meincss.css" text="%winner.btn.close" />
                </children>
             </VBox>
          </children>

@@ -70,6 +70,7 @@ public class ConnectionModel {
 	}
 
 	/**
+	 * holt die Sicherheitsfrage über den Server auf der Datebank wieder zurück an den Client
 	 * @author Luzian
 	 * @param user
 	 * @return
@@ -109,3 +110,23 @@ public class ConnectionModel {
 		return result;
 	}
 }
+
+	
+	public String getPassword(User user){
+		Message msgOut = new Message(Message.MessageType.Password);
+		msgOut.setNickname(user.getNickname());
+		msgOut.setNname(user.getnName());
+		msgOut.setVname(user.getvName());
+		String password = null;
+		try {
+			msgOut.send(socket);
+			Message msgIn = Message.receive(socket);
+			password = msgIn.getPassword();
+			} catch (Exception e) {
+				serviceLocator.getLogger().warning(e.toString());
+	}
+	return password;
+	}
+}
+
+

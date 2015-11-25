@@ -14,7 +14,6 @@ public class Server extends Application {
 
 	public static void main(String[] args) {
 		DBModel dbconnect = new DBModel();
-			
 		launch(args);
     }
  
