@@ -149,5 +149,32 @@ public class LoginModel extends Application {
     	}
     }
     
+    public boolean addNewUser(User user){
+    	
+    	
+    	
+    	return true;
+    }
+    
+    public boolean isEmptyRegistration(User user, String passwordRepeat){
+    	if(user.getnName().equals("") |
+    			user.getvName().equals("") |
+    			user.getNickname().equals("") |
+    			user.getSecurityAnswer().equals("") |
+    			user.getSecurityQuestion().equals("") |
+    			passwordRepeat.equals("") |
+    			user.getPassword().equals("")){
+    		return true;
+    	}
+    	return false;
+    }
+    
+    public boolean checkRegistrationPassword(User user, String passwordRepeat){
+    	if(user.getPassword().equals(passwordRepeat)){
+    		return true;
+    	}
+    	return false;
+    }
+    
     
 }

@@ -3,6 +3,8 @@ package ch.fhnw.itprojekt.bteam.appClasses;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -45,17 +47,30 @@ public class RegistrationController implements Initializable {
 	
 	/**
 	 * Methode um einen neuen User hinzuzufügen beim Klick auf den "Registrieren" Button
-	 * @author
+	 * @author Tobias
 	 */
 	@FXML
 	public void handleRegistration(ActionEvent event) {
-		String firstname = tfFirstName.getText();
-		String name = tfName.getText();
-		String nickname = tfNickname.getText();
-		String question = tfSecureQuestion.getText();
-		String answer = tfAnswer.getText();
-		String password = pfPassword.getText();
-		
+		User user = new User(tfNickname.getText(),
+							tfFirstName.getText(),
+							tfName.getText(),
+							pfPassword.getText(),
+							tfAnswer.getText(),
+							tfSecureQuestion.getText());
+							
+		if(model.isEmptyRegistration(user, pfRePassword.getText())){
+			JOptionPane.showMessageDialog(null, "Bitte Eingaben überprüfen!", "Eingaben überprüfen", JOptionPane.WARNING_MESSAGE);			
+		}else{
+			if(!model.checkRegistrationPassword(user, pfRePassword.getText())){
+				JOptionPane.showMessageDialog(null, "Das eingegebene Passwort stimmt nicht mit der Passwortwiederholeung überein!", "Passwortproblem", JOptionPane.WARNING_MESSAGE);
+			}else{
+				if(model.addNewUser(user)){
+					JOptionPane.showMessageDialog(null, "Der User wurde erfolgreich angelegt!", "Registration erfolgreich", JOptionPane.PLAIN_MESSAGE);
+				}else{
+					JOptionPane.showMessageDialog(null, "Es ist ein Fehler bei der Registration aufgetretten!", "Registrationsproblem", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		}		
 	}
 	
 	/**
