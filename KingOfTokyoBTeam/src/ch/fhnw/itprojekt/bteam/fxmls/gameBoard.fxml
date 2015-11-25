@@ -70,7 +70,7 @@
                                     </ImageView>
                                     <VBox layoutX="37.0" layoutY="290.0" opacity="0.75" spacing="20.0" styleClass="boarderbox" stylesheets="@meincss.css">
                                        <children>
-                                          <Label layoutX="37.0" layoutY="290.0" text="Label" />
+                                          <Label fx:id="lbNicknamePlayer1" layoutX="37.0" layoutY="290.0" text="Label" />
                                           <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
                                              <children>
                                                 <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
@@ -82,16 +82,16 @@
                                                 </VBox>
                                                 <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
                                                    <children>
-                                                      <Label layoutX="92.0" layoutY="341.0" text="Label" />
-                                                      <Label layoutX="92.0" layoutY="362.0" text="Label" />
-                                                      <Label layoutX="92.0" layoutY="383.0" text="Label" />
+                                                      <Label fx:id="lbLifePointsPlayer1" layoutX="92.0" layoutY="341.0" text="Label" />
+                                                      <Label fx:id="lbFamePointsPlayer1" layoutX="92.0" layoutY="362.0" text="Label" />
+                                                      <Label fx:id="lbEnergyPointsPlayer1" layoutX="92.0" layoutY="383.0" text="Label" />
                                                    </children>
                                                 </VBox>
                                                 <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
                                                    <children>
-                                                      <Label layoutX="146.0" layoutY="341.0" text="Label" />
-                                                      <Label layoutX="146.0" layoutY="362.0" text="Label" />
-                                                      <Label layoutX="146.0" layoutY="383.0" text="Label" />
+                                                      <Label fx:id="lbLifePointsChangePlayer1" layoutX="146.0" layoutY="341.0" text="Label" />
+                                                      <Label fx:id="lbFamePointsChangePlayer1" layoutX="146.0" layoutY="362.0" text="Label" />
+                                                      <Label fx:id="lbEnergyPointsChangePlayer1" layoutX="146.0" layoutY="383.0" text="Label" />
                                                    </children>
                                                 </VBox>
                                              </children>
@@ -109,7 +109,7 @@
                                     </ImageView>
                                     <VBox layoutX="26.0" layoutY="521.0" opacity="0.75" spacing="20.0" styleClass="boarderbox" stylesheets="@meincss.css">
                                        <children>
-                                          <Label layoutX="37.0" layoutY="290.0" text="Label" />
+                                          <Label fx:id="lbNicknamePlayer3" layoutX="37.0" layoutY="290.0" text="Label" />
                                           <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
                                              <children>
                                                 <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
@@ -121,16 +121,16 @@
                                                 </VBox>
                                                 <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
                                                    <children>
-                                                      <Label layoutX="92.0" layoutY="341.0" text="Label" />
-                                                      <Label layoutX="92.0" layoutY="362.0" text="Label" />
-                                                      <Label layoutX="92.0" layoutY="383.0" text="Label" />
+                                                      <Label fx:id="lbLifePointsPlayer3" layoutX="92.0" layoutY="341.0" text="Label" />
+                                                      <Label fx:id="lbFamePointsPlayer3" layoutX="92.0" layoutY="362.0" text="Label" />
+                                                      <Label fx:id="lbEnergyPointsPlayer3" layoutX="92.0" layoutY="383.0" text="Label" />
                                                    </children>
                                                 </VBox>
                                                 <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
                                                    <children>
-                                                      <Label layoutX="146.0" layoutY="341.0" text="Label" />
-                                                      <Label layoutX="146.0" layoutY="362.0" text="Label" />
-                                                      <Label layoutX="146.0" layoutY="383.0" text="Label" />
+                                                      <Label fx:id="lbLifePointsChangePlayer3" layoutX="146.0" layoutY="341.0" text="Label" />
+                                                      <Label fx:id="lbFamePointsChangePlayer3" layoutX="146.0" layoutY="362.0" text="Label" />
+                                                      <Label fx:id="lbEnergyPointsChangePlayer3" layoutX="146.0" layoutY="383.0" text="Label" />
                                                    </children>
                                                 </VBox>
                                              </children>
@@ -152,7 +152,7 @@
                                     </ImageView>
                                     <VBox layoutX="631.0" layoutY="271.0" opacity="0.75" spacing="20.0" styleClass="boarderbox" stylesheets="@meincss.css">
                                        <children>
-                                          <Label layoutX="37.0" layoutY="290.0" text="Label" />
+                                          <Label fx:id="lbNicknamePlayer2" layoutX="37.0" layoutY="290.0" text="Label" />
                                           <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
                                              <children>
                                                 <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
@@ -164,16 +164,16 @@
                                                 </VBox>
                                                 <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
                                                    <children>
-                                                      <Label layoutX="92.0" layoutY="341.0" text="Label" />
-                                                      <Label layoutX="92.0" layoutY="362.0" text="Label" />
-                                                      <Label layoutX="92.0" layoutY="383.0" text="Label" />
+                                                      <Label fx:id="lbLifePointsPlayer2" layoutX="92.0" layoutY="341.0" text="Label" />
+                                                      <Label fx:id="lbFamePointsPlayer2" layoutX="92.0" layoutY="362.0" text="Label" />
+                                                      <Label fx:id="lbEnergyPointsPlayer2" layoutX="92.0" layoutY="383.0" text="Label" />
                                                    </children>
                                                 </VBox>
                                                 <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
                                                    <children>
-                                                      <Label layoutX="146.0" layoutY="341.0" text="Label" />
-                                                      <Label layoutX="146.0" layoutY="362.0" text="Label" />
-                                                      <Label layoutX="146.0" layoutY="383.0" text="Label" />
+                                                      <Label fx:id="lbLifePointsChangePlayer2" layoutX="146.0" layoutY="341.0" text="Label" />
+                                                      <Label fx:id="lbFamePointsChangePlayer2" layoutX="146.0" layoutY="362.0" text="Label" />
+                                                      <Label fx:id="lbEnergyPointsChangePlayer2" layoutX="146.0" layoutY="383.0" text="Label" />
                                                    </children>
                                                 </VBox>
                                              </children>
@@ -191,7 +191,7 @@
                                     </ImageView>
                                     <VBox layoutX="631.0" layoutY="451.0" opacity="0.75" spacing="20.0" styleClass="boarderbox" stylesheets="@meincss.css">
                                        <children>
-                                          <Label layoutX="37.0" layoutY="290.0" text="Label" />
+                                          <Label fx:id="lbNicknamePlayer4" layoutX="37.0" layoutY="290.0" text="Label" />
                                           <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
                                              <children>
                                                 <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
@@ -203,16 +203,16 @@
                                                 </VBox>
                                                 <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
                                                    <children>
-                                                      <Label layoutX="92.0" layoutY="341.0" text="Label" />
-                                                      <Label layoutX="92.0" layoutY="362.0" text="Label" />
-                                                      <Label layoutX="92.0" layoutY="383.0" text="Label" />
+                                                      <Label fx:id="lbLifePointsPlayer4" layoutX="92.0" layoutY="341.0" text="Label" />
+                                                      <Label fx:id="lbFamePointsPlayer4" layoutX="92.0" layoutY="362.0" text="Label" />
+                                                      <Label fx:id="lbEnergyPointsPlayer4" layoutX="92.0" layoutY="383.0" text="Label" />
                                                    </children>
                                                 </VBox>
                                                 <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
                                                    <children>
-                                                      <Label layoutX="146.0" layoutY="341.0" text="Label" />
-                                                      <Label layoutX="146.0" layoutY="362.0" text="Label" />
-                                                      <Label layoutX="146.0" layoutY="383.0" text="Label" />
+                                                      <Label fx:id="lbLifePointsChangePlayer4" layoutX="146.0" layoutY="341.0" text="Label" />
+                                                      <Label fx:id="lbFamePointsChangePlayer4" layoutX="146.0" layoutY="362.0" text="Label" />
+                                                      <Label fx:id="lbEnergyPointsChangePlayer4" layoutX="146.0" layoutY="383.0" text="Label" />
                                                    </children>
                                                 </VBox>
                                              </children>
@@ -227,11 +227,11 @@
                   </HBox>
                   <VBox layoutX="348.0" layoutY="617.0" prefHeight="164.0" prefWidth="308.0">
                      <children>
-                        <TextArea prefHeight="133.0" prefWidth="335.0" />
+                        <TextArea fx:id="taChat" prefHeight="133.0" prefWidth="335.0" />
                         <HBox layoutX="317.0" layoutY="719.0">
                            <children>
-                              <TextField layoutX="317.0" layoutY="719.0" prefHeight="31.0" prefWidth="242.0" />
-                              <Button layoutX="504.0" layoutY="719.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="112.0" stylesheets="@meincss.css" text="%board.btn.send" />
+                              <TextField fx:id="tfChat" layoutX="317.0" layoutY="719.0" prefHeight="31.0" prefWidth="242.0" />
+                              <Button layoutX="504.0" layoutY="719.0" mnemonicParsing="false" onAction="#handleSend" prefHeight="35.0" prefWidth="112.0" stylesheets="@meincss.css" text="%board.btn.send" />
                            </children>
                         </HBox>
                      </children>
@@ -242,7 +242,7 @@
                            <children>
                               <StackPane layoutX="698.0" layoutY="-9.0" styleClass="stack" stylesheets="@meincss.css">
                                  <children>
-                                    <ImageView fitHeight="120.0" fitWidth="82.0" pickOnBounds="true">
+                                    <ImageView fx:id="ivCardDeck" fitHeight="120.0" fitWidth="82.0" pickOnBounds="true">
                                        <image>
                                           <Image url="@../images/KingOfTokyo.jpg" />
                                        </image>
@@ -261,11 +261,22 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <HBox layoutX="900.0" layoutY="119.0">
+                  <HBox layoutX="900.0" layoutY="119.0" />
+                  <VBox layoutX="847.0" layoutY="16.0">
                      <children>
-                        <Label layoutX="900.0" layoutY="119.0" text="%board.lb.yourCards" />
+                        <HBox layoutX="847.0" layoutY="16.0">
+                           <children>
+                              <ImageView fx:id="ivCard1" fitHeight="127.0" fitWidth="78.0" layoutX="847.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="ivCard2" fitHeight="128.0" fitWidth="78.0" layoutX="908.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="882.0" layoutY="147.0">
+                           <children>
+                              <Label contentDisplay="CENTER" layoutX="882.0" layoutY="147.0" text="%board.lb.yourCards" />
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
+                  </VBox>
                </children>
             </AnchorPane>
          </children>
