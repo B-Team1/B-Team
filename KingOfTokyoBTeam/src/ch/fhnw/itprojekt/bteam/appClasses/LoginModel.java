@@ -83,6 +83,26 @@ public class LoginModel extends Application {
     }
     
     /**
+     * @author Luzian
+     * @param user
+     * @return
+     */
+    public String getSecurityAnswer(User user){
+    	String securityAnswer = connectionModel.getSecurityAnswer(user);
+    	return securityAnswer;
+    }
+    
+    /**
+     * @author Luzian
+     * @param user
+     * @return
+     */
+    public String getPassword(User user){
+    	String password = connectionModel.getPassword(user);
+    	return password;
+    }
+   
+    /**
      * Verbindung zum Server wird für das ganze Programm aufgebaut
      * @author Tobias
      */

@@ -194,6 +194,45 @@ public String getSecurityQuestion (User user){
 }
 
 /**
+ * Gibt das Password für den entsprechenden Nicknamen, Namen und Vornamen zurück
+ * @author Luzian
+ * @param user
+ * @return
+ */
+public String getPassword (User user){
+	String password = "";
+	String sql;
+	Connection conn = null;
+	PreparedStatement stmt = null;
+	ResultSet rs = null;
+	try {
+		conn = DBConnect();
+	// Select query    
+    sql = "SELECT Passwort FROM user WHERE NickName = ? && NName = ? && VName = ?";
+    stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+    stmt.setString(1, user.getNickname());
+    stmt.setString(2, user.getnName());
+    stmt.setString(3, user.getvName());
+    rs = stmt.executeQuery();
+    rs.next();
+    password = rs.getString("Passwort");
+   	}
+	catch(SQLException se){
+	      //Handle errors for JDBC
+	      se.printStackTrace();
+	}catch(Exception e){
+	      //Handle errors for Class.forName
+	      e.printStackTrace();
+	}finally {
+	      // Close Conn, rs, stmt
+	        try { if (rs != null) rs.close(); } catch (Exception e) {};
+	        try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+	        try { if (conn != null) conn.close(); } catch (Exception e) {};
+	}
+	return password;
+}
+
+/**
  * Gibt die Antwort auf die Sicherheitsfrage für den entsprechenden Nicknamen, Namen und Vornamen zurück
  * @author Luzian
  * @param NickName

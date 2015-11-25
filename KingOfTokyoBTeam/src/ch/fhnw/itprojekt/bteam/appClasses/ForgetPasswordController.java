@@ -64,7 +64,7 @@ public class ForgetPasswordController implements Initializable {
 	public void handleEnter(ActionEvent event) {
 		LoginModel model = new LoginModel();
 		String returnvalue;
-		returnvalue = model.sendUserDataForPassword(new User(tfNickname.getText(), tfName.getText(), tfFirstName.getText()));
+		returnvalue = model.sendUserDataForPassword(getUser());
 		if(returnvalue.equals("Nicht alle Felder ausgefüllt")){
 			wrongUserDataForPassword();
 		}else{
@@ -80,19 +80,41 @@ public class ForgetPasswordController implements Initializable {
 		JOptionPane.showMessageDialog(null, "Bitte füllen Sie alle Felder korrekt aus");
 	}
 	
+	/**
+	 * @author Luzian
+	 * @param securityQuestion
+	 */
 	public void setlbSecureQuestion(String securityQuestion){
 		lbSecureQuestion.setText(securityQuestion);
 	}
+	
+	/**
+	 * @author Luzian
+	 * @param securityQuestion
+	 */
+	public void setlbYourPassword(String passwort){
+		lbYourPassword.setText(passwort);
+	}
+	
 	/**
 	 * 
 	 * @param event
 	 */
 	@FXML
 	public void handleConfirm(ActionEvent event) {
-		//LoginModel model = new LoginModel();
-		//String returnvalue;
-		//returnvalue = model.sendUserDataForPassword(new User(tfNickname.getText(), tfName.getText(), tfFirstName.getText()));
+		LoginModel model = new LoginModel();
+		String returnvalue = model.getSecurityAnswer(getUser());
+		String useranswer = tfAnswer.getText();
+		if (useranswer.equals(returnvalue)){
+		String password = model.getPassword(getUser());
+		setlbYourPassword(password);
+		}
 		
+	}
+	
+	public User getUser(){
+		User user = new User(tfNickname.getText(), tfName.getText(), tfFirstName.getText());
+		return user;
 	}
 
 }

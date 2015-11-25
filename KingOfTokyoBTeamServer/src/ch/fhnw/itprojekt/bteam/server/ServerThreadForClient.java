@@ -53,11 +53,24 @@ public class ServerThreadForClient extends Thread {
 		case SecurityQuestion:
 			//Luzian
 			msgOut = new Message(Message.MessageType.SecurityQuestion);
-			User user = new User(msgIn.getNickname(),msgIn.getNname(), msgIn.getVName());
-			String securityQuestion = dbconnect.getSecurityQuestion(user);
+			User userQuestion = new User(msgIn.getNickname(),msgIn.getNname(), msgIn.getVName());
+			String securityQuestion = dbconnect.getSecurityQuestion(userQuestion);
 			msgOut.setSecurityQuestion(securityQuestion);
 			break;
-		
+		case SecurityAnswer:
+			//Luzian
+			msgOut = new Message(Message.MessageType.SecurityAnswer);
+			User userAnswer = new User(msgIn.getNickname(),msgIn.getNname(), msgIn.getVName());
+			String securityAnswer = dbconnect.getSecurityAnswer(userAnswer);
+			msgOut.setSecurityAnswer(securityAnswer);
+			break;
+		case Password:
+			//Luzian
+			msgOut = new Message(Message.MessageType.Password);
+			User userPassword = new User(msgIn.getNickname(),msgIn.getNname(), msgIn.getVName());
+			String password = dbconnect.getPassword(userPassword);
+			msgOut.setPassword(password);
+			break;
 		
 		default:
 			msgOut = new Message(Message.MessageType.Error);
