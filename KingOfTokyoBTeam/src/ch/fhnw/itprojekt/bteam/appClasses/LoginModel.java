@@ -19,13 +19,11 @@ import ch.fhnw.itprojekt.bteam.template.ServiceLocator;
 public class LoginModel extends Application {
     ServiceLocator serviceLocator;
     ConnectionModel connectionModel;
-    LoginController loginController = new LoginController();
-    //ForgetPasswordController forgetPasswordController = new ForgetPasswordController();
     
     public LoginModel() {
         connectionModel = ConnectionModel.getInstance();
         serviceLocator = ServiceLocator.getServiceLocator();        
-        serviceLocator.getLogger().info("Application model initialized");
+        serviceLocator.getLogger().info("Application model initialized");        
     }
     
     /**
@@ -53,16 +51,19 @@ public class LoginModel extends Application {
     
     /**
      * Sendet die Logininformationen ans Connection Model
+     * Weiter wird überprüft, ob die Felder leer sind
      * @author Tobias
      */
-    public void sendLogin(User user){
-    	if(user.getNickname() == "" | user.getPassword() == ""){
-    		loginController.wrongLogin();
+    public boolean sendLogin(User user){
+    	if(user.getNickname().equals("") | user.getPassword().equals("")){
+    		return false;
     	}
     	
     	if(connectionModel.sendLogin(user)){
     		serviceLocator.getLogger().info("Passwort ok!");
+    		return true;
     	}
+    	return false;
     }
     
     /**
@@ -111,7 +112,7 @@ public class LoginModel extends Application {
     }
     
     public void startRegistry(Stage registryStage) {
-try {
+    	try {
     		
     		Properties.getProperties().setLocale(new Locale("de"));
             BorderPane root1 = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/registration.fxml"),

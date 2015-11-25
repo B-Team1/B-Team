@@ -17,7 +17,7 @@ public class GameModel extends Application {
 	 * @author Marco
 	 */
 	@Override
-	public void start(Stage gameStage) throws Exception {
+	public void start(Stage gameStage){
 		try {
     		Properties.getProperties().setLocale(new Locale("de"));
             BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/gameBoard.fxml"),

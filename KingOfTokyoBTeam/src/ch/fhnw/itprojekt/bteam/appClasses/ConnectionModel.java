@@ -32,7 +32,12 @@ public class ConnectionModel {
 	   }
 	
 	
-
+	/**
+	 * 
+	 * @param ipAddress
+	 * @param port
+	 * @return Boolean ob es Funktioniert hat
+	 */
 	public boolean connect(String ipAddress, Integer port) {
 		boolean success = false;
 		try {

@@ -4,9 +4,12 @@ import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import ch.fhnw.itprojekt.bteam.abstractClasses.Controller;
 import ch.fhnw.itprojekt.bteam.template.ServiceLocator;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,6 +19,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -23,6 +28,8 @@ import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
 		
+	LoginModel loginModel = new LoginModel();	
+	
 	@FXML
 	TextField tfNickname;
 	
@@ -32,22 +39,18 @@ public class LoginController implements Initializable {
 	@FXML
 	Button btnRegistry;
 	
-	public LoginController() {
-		
-	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 	}
 	
 	/**
-	 * Button Action für im GUI. Es wird eine 
+	 * Button Action für im GUI. Es werden Nickname und Passwort ausgelesen und dem Model übergeben.
 	 * @author Tobias
 	 */
 	@FXML
 	public void handleLogin(ActionEvent event) {
-		LoginModel model = new LoginModel();
-		model.sendLogin(new User(tfNickname.getText(), pfPassword.getText()));
+		doLogin(event);
 	}
 	
 	/**
@@ -58,8 +61,7 @@ public class LoginController implements Initializable {
 	 */
 	@FXML
 	public void handleRegistry(ActionEvent event) {      
-		LoginModel model = new LoginModel();
-		model.startRegistry(new Stage());
+		loginModel.startRegistry(new Stage());
 		Node node= (Node)event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		stage.close();
@@ -73,19 +75,38 @@ public class LoginController implements Initializable {
 	 */
 	@FXML
 	public void handleForgetPassword(ActionEvent event) {
-		LoginModel model = new LoginModel();
-		model.startForgetPassword(new Stage());
+		loginModel.startForgetPassword(new Stage());
 		Node node = (Node)event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		stage.close();
+	}		
+	
+	/**
+	 * Dieses Event wird aufgerufen, wenn im Login Fenster die Taste Enter gedrückt wird
+	 * @author Tobias
+	 */
+	@FXML
+	public void handleEnter(KeyEvent event){
+	    if (event.getCode() == KeyCode.ENTER) {
+	    	doLogin(event);
+	    }
 	}
 	
 	/**
-	 * Diese Methode zeigt dem Benutzer an, dass er etwas falsch eingegeben hat.
+	 * Übergibt die Eingaben zur Kontrolle dem Model. Sind die Eingaben richtig wird das Menü aufgerufen
+	 * und das Loginfenster geschlossen. Sind die Eingaben falsch
+	 * @param Hier kann das Event übergeben werden, welcher schon beim Eventhandler der Parameter ist
 	 * @author Tobias
 	 */
-	public void wrongLogin(){
-		
+	private void doLogin(Event event){
+		if(loginModel.sendLogin(new User(tfNickname.getText(), pfPassword.getText()))){
+			MenuModel menuModel = new MenuModel();
+			menuModel.start(new Stage());
+			Node node= (Node)event.getSource();
+			Stage stage = (Stage) node.getScene().getWindow();
+			stage.close();
+		}else{
+			JOptionPane.showMessageDialog(null, "Nickname oder Passwort sind falsch!", "Falsches Login", JOptionPane.WARNING_MESSAGE);
+		}
 	}
-	
 }
