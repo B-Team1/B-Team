@@ -156,7 +156,6 @@ public class LoginModel extends Application {
     		e.printStackTrace();
     	}
     }
-<<<<<<< HEAD
     
     public boolean addNewUser(User user){
     	
@@ -186,6 +185,5 @@ public class LoginModel extends Application {
     }
     
     
-=======
->>>>>>> refs/heads/language
+
 }

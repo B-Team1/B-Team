@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 
 public class GameOverviewController implements Initializable {
 
+	MenuModel menuModel = new MenuModel();
+	
 	@FXML Button btnStartGame;
 	@FXML Button btnNewGame;
 	@FXML Button btnCloseGame;
@@ -55,8 +57,7 @@ public class GameOverviewController implements Initializable {
 	 */
 	@FXML
 	public void handleNewGame(ActionEvent event) {
-		MenuModel model = new MenuModel();
-		model.startNewGame(new Stage());
+		menuModel.startNewGame(new Stage());
 		Node node = (Node)event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		stage.close();

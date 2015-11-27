@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 
 public class WinController implements Initializable {
 
+	MenuModel menuModel = new MenuModel();
+	
 	/**
 	 * Methode initialisiert die Komponenten
 	 * @author Marco
@@ -23,8 +25,7 @@ public class WinController implements Initializable {
 	 * @author Marco
 	 */
 	public void handleQuitGame(ActionEvent event) {
-		MenuModel model = new MenuModel();
-		model.start(new Stage());
+		menuModel.start(new Stage());
 		Node node= (Node)event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		stage.close();

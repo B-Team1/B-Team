@@ -3,10 +3,12 @@ package ch.fhnw.itprojekt.bteam.appClasses;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import ch.fhnw.itprojekt.bteam.template.Properties;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
@@ -14,6 +16,8 @@ import javafx.stage.Stage;
 
 public class NewGameController implements Initializable {
 
+	MenuModel model = new MenuModel();
+	
 	@FXML
 	ChoiceBox<String> cbNumPlayers;
 	
@@ -29,10 +33,13 @@ public class NewGameController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-	cbNumPlayers.setItems(FXCollections.observableArrayList("2 Spieler", "3 Spieler", "4 Spieler"));
-	cbNumPlayers.setValue("2 Spieler");
-	cbWinFamePoints.setItems(FXCollections.observableArrayList("15 Punkte", "20 Punkte", "25 Punkte", "30 Punkte"));
-	cbWinFamePoints.setValue("20 Punkte");
+		ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
+	cbNumPlayers.setItems(FXCollections.observableArrayList((bundle.getString("newgame.2players")),
+			(bundle.getString("newgame.3players")), (bundle.getString("newgame.3players"))));
+	cbNumPlayers.setValue(bundle.getString("newgame.2players"));
+	cbWinFamePoints.setItems(FXCollections.observableArrayList((bundle.getString("newgame.15points")),
+			(bundle.getString("newgame.20points")), (bundle.getString("newgame.25points")), (bundle.getString("newgame.30points"))));
+	cbWinFamePoints.setValue((bundle.getString("newgame.20points")));
 	cbWinFamePoints.setDisable(true);
 	}
 	
@@ -42,10 +49,13 @@ public class NewGameController implements Initializable {
 	 */
 	public void handleCreateGame(ActionEvent event) {
 		// Einstellungen übernehmen!
-		MenuModel model = new MenuModel();
 		model.startCreateGame(new Stage());
 	}
 	
+	/**
+	 * Methode für das ändern der Spielregeln; dass auch durch Ruhmpunkte ein Sieg möglich ist
+	 * @param event
+	 */
 	public void handleWinFamePoints(ActionEvent event) {
 		if (chbWinFamePoints.isSelected()) {
 			cbWinFamePoints.setDisable(false);
@@ -54,6 +64,15 @@ public class NewGameController implements Initializable {
 		}
 	}
 	
-	
+	/**
+	 * Methode öffnet das Game Overview Fenster und schliesst das aktuelle Fenster
+	 * @author Marco
+	 */
+	public void handleAbort(ActionEvent event) {
+		model.start(new Stage());
+		Node node = (Node)event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		stage.close();
+	}
 
 }

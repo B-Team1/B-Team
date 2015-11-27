@@ -27,7 +27,8 @@ import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
 		
-	LoginModel loginModel = new LoginModel();	
+	LoginModel loginModel = new LoginModel();
+	MenuModel menuModel = new MenuModel();
 	
 	@FXML TextField tfNickname;
 	@FXML PasswordField pfPassword;
@@ -128,7 +129,6 @@ public class LoginController implements Initializable {
 	 */
 	private void doLogin(Event event){
 		if(loginModel.sendLogin(new User(tfNickname.getText(), pfPassword.getText()))){
-			MenuModel menuModel = new MenuModel();
 			menuModel.start(new Stage());
 			Node node= (Node)event.getSource();
 			Stage stage = (Stage) node.getScene().getWindow();

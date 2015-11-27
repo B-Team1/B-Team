@@ -28,13 +28,14 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <HBox alignment="TOP_CENTER">
+                  <HBox alignment="TOP_CENTER" spacing="50.0">
                      <children>
                         <Button fx:id="btnCreateGame" layoutX="68.0" layoutY="148.0" mnemonicParsing="false" onAction="#handleCreateGame" stylesheets="@meincss.css" text="%newGame.btn.createGame">
                            <VBox.margin>
                               <Insets left="120.0" />
                            </VBox.margin>
                         </Button>
+                        <Button fx:id="btnAbort" mnemonicParsing="false" onAction="#handleAbort" stylesheets="@meincss.css" text="%newGame.btn.abort" />
                      </children>
                   </HBox>
                </children>
