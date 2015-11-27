@@ -16,20 +16,13 @@ import javafx.stage.Stage;
 
 public class ForgetPasswordController implements Initializable {
 	
-	@FXML
-	TextField tfName;
-	@FXML
-	TextField tfFirstName;
-	@FXML
-	TextField tfNickname;
-	@FXML
-	TextField tfAnswer;
-	@FXML
-	Label lbSecureQuestion;
-	@FXML
-	Label lbYourPassword;
-	@FXML
-	Button btnEnter;
+	@FXML TextField tfName;
+	@FXML TextField tfFirstName;
+	@FXML TextField tfNickname;
+	@FXML TextField tfAnswer;
+	@FXML Label lbSecureQuestion;
+	@FXML Label lbYourPassword;
+	@FXML Button btnEnter;
 	
 	//LoginModel loginModel;
 	

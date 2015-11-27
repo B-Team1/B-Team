@@ -13,14 +13,15 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="%login.menu.options">
+          <Menu fx:id="menuLanguage" mnemonicParsing="false" text="%login.menu.language">
             <items>
-              <MenuItem mnemonicParsing="false" text="%login.menuitem.language" />
+              <MenuItem fx:id="miGerman" mnemonicParsing="false" onAction="#handleGerman" text="%login.menuitem.german" />
+                  <MenuItem fx:id="miEnglish" mnemonicParsing="false" onAction="#handleEnglish" text="%login.menuitem.english" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="%login.menu.help">
+          <Menu fx:id="menuHelp" mnemonicParsing="false" text="%login.menu.help">
             <items>
-              <MenuItem mnemonicParsing="false" text="%login.menuitem.info" />
+              <MenuItem fx:id="miTeam" mnemonicParsing="false" text="%login.menuitem.info" />
             </items>
           </Menu>
         </menus>

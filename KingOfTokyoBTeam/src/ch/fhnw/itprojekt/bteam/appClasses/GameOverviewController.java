@@ -5,27 +5,40 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import ch.fhnw.itprojekt.bteam.template.Properties;
+import ch.fhnw.itprojekt.bteam.template.ServiceLocator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 public class GameOverviewController implements Initializable {
 
-	@FXML
-	Label lbPlayGames;
-	
-	@FXML
-	Label lblbWonGames;
-	
-	@FXML
-	Label lbNickname;
-	
-	@FXML
-	TableView<String> tvOpenGames;
+	@FXML Button btnStartGame;
+	@FXML Button btnNewGame;
+	@FXML Button btnCloseGame;
+	@FXML Label lbPlayGames;
+	@FXML Label lblbWonGames;
+	@FXML Label lbNickname;
+	@FXML Label lbPlayed;
+	@FXML Label lbWon;
+	@FXML Label lbHello;
+	@FXML Label lbOpenGames;
+	@FXML Label lbStats;
+	@FXML TableColumn<String, String> tcOpenGames;
+	@FXML TableColumn<String, String> tcOpenPlaces;
+	@FXML TableView<String> tvAvailableGames;
+	@FXML Menu menuLanguage;
+	@FXML Menu menuHelp;
+	@FXML MenuItem miGerman;
+	@FXML MenuItem miEnglish;
+	@FXML MenuItem miInfo;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -61,23 +74,52 @@ public class GameOverviewController implements Initializable {
 	}
 	
 	/**
-	 * Methode um die Sprache per MenuItem auf Deutsch zu ändern
+	 * Methode ändert die Benutzersprache auf Deutsch
 	 * @author Marco
 	 */
 	@FXML
 	public void handleGerman(ActionEvent event) {
 		Properties.getProperties().setLocale(new Locale("de"));
-//		updateTexts();
+		ServiceLocator.getServiceLocator().setLanguage("de");
+		updateTexts();
 	}
 	
 	/**
-	 * Methode um die Sprache per MenuItem auf Englisch zu ändern
+	 * Methode ändert die Benutzersprache auf Englisch
 	 * @author Marco
 	 */
 	@FXML
 	public void handleEnglish(ActionEvent event) {
 		Properties.getProperties().setLocale(new Locale("en"));
-//		updateTexts();
+		ServiceLocator.getServiceLocator().setLanguage("en");
+		updateTexts();
 	}
 	
+	/**
+	 * Aktualisierung der Texte bei Veränderung der Sprache
+	 * @author Marco
+	 */
+	public void updateTexts() {
+		ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
+        
+		/**
+		 * Aktualisierung der Befehle
+		 * @author Marco
+		 */
+		btnStartGame.setText(bundle.getString("overview.btn.start"));
+		btnNewGame.setText(bundle.getString("overview.btn.new"));
+		btnCloseGame.setText(bundle.getString("overview.btn.close"));
+		menuLanguage.setText(bundle.getString("overview.menu.language"));
+		menuHelp.setText(bundle.getString("overview.menu.help"));
+		miGerman.setText(bundle.getString("overview.menuitem.german"));
+		miEnglish.setText(bundle.getString("overview.menuitem.english"));
+		miInfo.setText(bundle.getString("overview.menuitem.info"));
+		lbPlayed.setText(bundle.getString("overview.lb.games"));
+		lbWon.setText(bundle.getString("overview.lb.won"));
+		lbHello.setText(bundle.getString("overview.lb.hello"));
+		lbOpenGames.setText(bundle.getString("overview.lb.opengames"));
+		lbStats.setText(bundle.getString("overview.lb.stats"));
+		tcOpenPlaces.setText(bundle.getString("overview.tc.openplaces"));
+		tcOpenGames.setText(bundle.getString("overview.tc.opengames"));
+	}
 }
