@@ -1,9 +1,13 @@
 package ch.fhnw.itprojekt.bteam.template;
 
 import java.util.Locale;
+import java.util.logging.Logger;
+
 
 public class Properties {
-	
+	private ServiceLocator sl = ServiceLocator.getServiceLocator();
+    private Logger logger = sl.getLogger();
+    
 	private static Properties properties;
 	private Locale locale;
 	

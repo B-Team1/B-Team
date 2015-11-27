@@ -12,15 +12,15 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="%overview.menu.language">
+          <Menu fx:id="menuLanguage" mnemonicParsing="false" text="%overview.menu.language">
             <items>
               <MenuItem fx:id="miGerman" mnemonicParsing="false" onAction="#handleGerman" text="%overview.menuitem.german" />
                   <MenuItem fx:id="miEnglish" mnemonicParsing="false" onAction="#handleEnglish" text="%overview.menuitem.english" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="%overview.menu.help">
+          <Menu fx:id="menuHelp" mnemonicParsing="false" text="%overview.menu.help">
             <items>
-              <MenuItem mnemonicParsing="false" text="%overview.menuitem.info" />
+              <MenuItem fx:id="miInfo" mnemonicParsing="false" text="%overview.menuitem.info" />
             </items>
           </Menu>
         </menus>
@@ -53,7 +53,7 @@
                   </VBox>
                   <VBox opacity="0.8" prefHeight="150.0" styleClass="hbox" stylesheets="@meincss.css" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="120.0">
                      <children>
-                        <Label text="%overview.lb.opengames" underline="true">
+                        <Label fx:id="lbOpenGames" text="%overview.lb.opengames" underline="true">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -62,8 +62,8 @@
                            <children>
                               <TableView fx:id="tvOpenGames" prefWidth="205.0">
                                 <columns>
-                                  <TableColumn prefWidth="105.0" text="%overview.tv.column1" />
-                                  <TableColumn prefWidth="100.0" text="%overview.tv.column2" />
+                                  <TableColumn fx:id="tcOpenGames" prefWidth="105.0" text="%overview.tc.opengames" />
+                                  <TableColumn fx:id="tcOpenPlaces" prefWidth="100.0" text="%overview.tc.openplaces" />
                                 </columns>
                               </TableView>
                            </children>
@@ -72,7 +72,7 @@
                   </VBox>
                   <HBox opacity="0.75" spacing="10.0" styleClass="hbox" stylesheets="@meincss.css" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="30.0">
                      <children>
-                        <Label layoutX="73.0" layoutY="62.0" text="%overview.lb.hello">
+                        <Label fx:id="lbHello" layoutX="73.0" layoutY="62.0" text="%overview.lb.hello">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -86,7 +86,7 @@
                   </HBox>
                   <VBox opacity="0.75" spacing="10.0" styleClass="hbox" stylesheets="@meincss.css" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="320.0">
                      <children>
-                        <Label layoutX="73.0" layoutY="344.0" text="%overview.lb.stats">
+                        <Label fx:id="lbStats" layoutX="73.0" layoutY="344.0" text="%overview.lb.stats">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -95,8 +95,8 @@
                            <children>
                               <VBox layoutX="14.0" layoutY="375.0">
                                  <children>
-                                    <Label layoutX="14.0" layoutY="375.0" text="%overview.lb.games" />
-                                    <Label layoutX="14.0" layoutY="404.0" text="%overview.lb.win" />
+                                    <Label fx:id="lbPlayed" layoutX="14.0" layoutY="375.0" text="%overview.lb.games" />
+                                    <Label fx:id="lbwon" layoutX="14.0" layoutY="404.0" text="%overview.lb.won" />
                                  </children>
                               </VBox>
                               <VBox layoutX="91.0" layoutY="375.0">

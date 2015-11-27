@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import ch.fhnw.itprojekt.bteam.abstractClasses.Model;
 import ch.fhnw.itprojekt.bteam.commonClasses.Configuration;
 import ch.fhnw.itprojekt.bteam.commonClasses.Translator;
+import ch.fhnw.itprojekt.bteam.template.Properties;
 import ch.fhnw.itprojekt.bteam.template.ServiceLocator;
 import javafx.concurrent.Task;
 
@@ -44,7 +45,7 @@ public class Splash_Model extends Model {
             this.updateProgress(4,  6);
 
 //            String language = serviceLocator.getConfiguration().getOption("Language");
-//            serviceLocator.setTranslator(new Translator(language));
+//            serviceLocator.setProperties(new Properties(language));
             this.updateProgress(5,  6);
             
             // ... more resources would go here...

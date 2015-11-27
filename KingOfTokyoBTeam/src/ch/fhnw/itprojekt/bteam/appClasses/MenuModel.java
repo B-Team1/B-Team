@@ -25,7 +25,7 @@ public class MenuModel extends Application {
 	 */
 	public void start(Stage gameOverviewStage) {
 		try {
-    		Properties.getProperties().setLocale(new Locale("de"));
+    		Properties.getProperties().setLocale(new Locale(ServiceLocator.getServiceLocator().getLanguage()));
             BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/gameOverview.fxml"),
             		ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale()));
     	
@@ -47,7 +47,7 @@ public class MenuModel extends Application {
 	 */
 	public void startNewGame(Stage newGameStage) {
 		try {
-    		Properties.getProperties().setLocale(new Locale("de"));
+    		Properties.getProperties().setLocale(new Locale(ServiceLocator.getServiceLocator().getLanguage()));
             BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/newGame.fxml"),
             		ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale()));
     	
@@ -69,7 +69,7 @@ public class MenuModel extends Application {
 	 */
 	public void startCreateGame(Stage createGameStage) {
 		try {
-    		Properties.getProperties().setLocale(new Locale("de"));
+    		Properties.getProperties().setLocale(new Locale(ServiceLocator.getServiceLocator().getLanguage()));
             BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/createGame.fxml"),
             		ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale()));
     	
