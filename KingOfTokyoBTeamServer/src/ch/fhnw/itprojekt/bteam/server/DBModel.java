@@ -22,16 +22,15 @@ public class DBModel {
  * @return
  */
 public Connection DBConnect() { 
-		Connection conn = null;
+	   Connection conn = null;
 	   try{
-	      //STEP 2: Register JDBC driver
+	      //Registriert JDBC driver
 	      Class.forName("com.mysql.jdbc.Driver");
 
-	      //STEP 3: Open a connection
+	      //Öffnet eine connection
 	      System.out.println("Connecting to database...");
 	      conn = DriverManager.getConnection(DB_URL,USER,PASS);
-	      //InsertPlayersIntoDB();
-	   
+	         
 	   }catch(SQLException se){
 	      //Handle errors for JDBC
 	      se.printStackTrace();
@@ -49,7 +48,7 @@ public Connection DBConnect() {
  * @return
  */
 public boolean InsertPlayersIntoDB(User user){
-	boolean PlayerAdd = true;
+	boolean playerAdd = true;
 	PreparedStatement stmtabfrage = null;
 	PreparedStatement stmt = null;
 	Connection conn = null;
@@ -57,42 +56,38 @@ public boolean InsertPlayersIntoDB(User user){
 	String sqlcontrol;
 	String sql;
 	try{
-    conn = DBConnect();
- // Select query    
-    sqlcontrol = "SELECT * FROM user WHERE NickName = ? && NName = ?";
-    stmtabfrage = conn.prepareStatement(sqlcontrol, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-    stmtabfrage.setString(1, user.getNickname());
-    stmtabfrage.setString(2, user.getnName());
-    rs = stmtabfrage.executeQuery();
-    // Checkt ob Resultset mit Daten gefüllt wurde
-    
-    if(rs.first()) {
-    	
-    	//ResultSet beinhaltet Daten
-    	// Checkt ob es tatsächlich die gleichen Daten auf der Datenbank bereits vorhanden sind
-    	
-        if (user.getNickname().equals(rs.getString("NickName"))  && user.getnName().equals(rs.getString("NName"))){
-            PlayerAdd = false;        
+		conn = DBConnect();
+		// Select query    
+		sqlcontrol = "SELECT * FROM user WHERE NickName = ? && NName = ?";
+		stmtabfrage = conn.prepareStatement(sqlcontrol, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+		stmtabfrage.setString(1, user.getNickname());
+		stmtabfrage.setString(2, user.getnName());
+		rs = stmtabfrage.executeQuery();
+		// Checkt ob Resultset mit Daten gefüllt wurde
+        if(rs.first()) { 	
+        	//ResultSet beinhaltet Daten
+        	// Checkt ob es tatsächlich die gleichen Daten auf der Datenbank bereits vorhanden sind
+        	if (user.getNickname().equals(rs.getString("NickName"))  && user.getnName().equals(rs.getString("NName"))){
+        		playerAdd = false;        
+        	}
+        }else{
+        	//ResultSet leer ->>
+        	playerAdd = true;
         }
-    } else {
-    	//ResultSet leer ->>
-        PlayerAdd = true;
-    }
     
-    //verhindert Doppelte Einträge von Nicknamen
-    
-    if (PlayerAdd == true){
-    	sql = "INSERT INTO user (NName, VName, NickName, Passwort, Sicherheitsfrage, Antwort) VALUES (?,?,?,?,?,?)";
-        stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-        stmt.setString(1, user.getnName());
-        stmt.setString(2, user.getvName());
-        stmt.setString(3, user.getNickname());
-        stmt.setString(4, user.getPassword());
-        stmt.setString(5, user.getSecurityQuestion());
-        stmt.setString(6, user.getSecurityAnswer());
-        stmt.executeUpdate();
-    }
-            }catch(SQLException se){
+        //verhindert Doppelte Einträge von Nicknamen
+        if (playerAdd == true){
+        	sql = "INSERT INTO user (NName, VName, NickName, Passwort, Sicherheitsfrage, Antwort) VALUES (?,?,?,?,?,?)";
+        	stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+        	stmt.setString(1, user.getnName());
+        	stmt.setString(2, user.getvName());
+        	stmt.setString(3, user.getNickname());
+        	stmt.setString(4, user.getPassword());
+        	stmt.setString(5, user.getSecurityQuestion());
+        	stmt.setString(6, user.getSecurityAnswer());
+        	stmt.executeUpdate();
+        }
+    }catch(SQLException se){
     	//Handle errors for JDBC
     	se.printStackTrace();
     }catch(Exception e){
@@ -105,8 +100,7 @@ public boolean InsertPlayersIntoDB(User user){
         try { if (stmtabfrage != null) stmtabfrage.close(); } catch (Exception e) {};
         try { if (conn != null) conn.close(); } catch (Exception e) {};
     }
-    System.out.println(PlayerAdd);
-	return PlayerAdd;
+	return playerAdd;
 }
 
 /**
@@ -117,38 +111,35 @@ public boolean InsertPlayersIntoDB(User user){
  * @return
  */
 public boolean UserValidation(User user ){
-	boolean Loginstatus = false;
+	boolean loginStatus = false;
 	Connection conn = null;
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
 	try {
 		conn = DBConnect();
-	// Select query
+		// Select query
 		String sql = "SELECT * FROM user where NickName = ? && Passwort = ?";
         stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
         stmt.setString(1, user.getNickname());
         stmt.setString(2, user.getPassword());
-        
         rs = stmt.executeQuery();
         rs.next();
         if (user.getNickname().equals(rs.getString("NickName"))  && user.getPassword().equals(rs.getString("Passwort"))){
-        	Loginstatus = true;
-    }
-    	
+        	loginStatus = true;
+        }
+    }catch(SQLException se){
+	    //Handle errors for JDBC
+	    se.printStackTrace();
+    }catch(Exception e){
+	    //Handle errors for Class.forName
+	    e.printStackTrace();
+    }finally {
+	    // Close Conn, rs, stmt
+	    try { if (rs != null) rs.close(); } catch (Exception e) {};
+	    try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+	    try { if (conn != null) conn.close(); } catch (Exception e) {};
 	}
-	catch(SQLException se){
-	      //Handle errors for JDBC
-	      se.printStackTrace();
-	   }catch(Exception e){
-	      //Handle errors for Class.forName
-	      e.printStackTrace();
-	   }finally {
-	    	// Close Conn, rs, stmt
-	        try { if (rs != null) rs.close(); } catch (Exception e) {};
-	        try { if (stmt != null) stmt.close(); } catch (Exception e) {};
-	        try { if (conn != null) conn.close(); } catch (Exception e) {};
-	   }
-	return Loginstatus;
+	return loginStatus;
 	   
 	}
 
@@ -161,40 +152,39 @@ public boolean UserValidation(User user ){
  * @return
  */
 public String getSecurityQuestion (User user){
-	String SecurityQuestion = "";
+	String securityQuestion = "";
 	String sql;
 	Connection conn = null;
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
 	try {
 		conn = DBConnect();
-	// Select query    
-    sql = "SELECT Sicherheitsfrage FROM user WHERE NickName = ? && NName = ? && VName = ?";
-    stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-    stmt.setString(1, user.getNickname());
-    stmt.setString(2, user.getnName());
-    stmt.setString(3, user.getvName());
-    rs = stmt.executeQuery();
-    if (rs != null){
-    	rs.next();
-    	SecurityQuestion = rs.getString("Sicherheitsfrage");
-    }else{
-    	SecurityQuestion = null;
-    }
-   	}
-	catch(SQLException se){
-	      //Handle errors for JDBC
-	      se.printStackTrace();
-	   }catch(Exception e){
-	      //Handle errors for Class.forName
-	      e.printStackTrace();
-	   }finally {
-	    	// Close Conn, rs, stmt
-	        try { if (rs != null) rs.close(); } catch (Exception e) {};
-	        try { if (stmt != null) stmt.close(); } catch (Exception e) {};
-	        try { if (conn != null) conn.close(); } catch (Exception e) {};
+		// Select query    
+		sql = "SELECT Sicherheitsfrage FROM user WHERE NickName = ? && NName = ? && VName = ?";
+		stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+		stmt.setString(1, user.getNickname());
+		stmt.setString(2, user.getnName());
+		stmt.setString(3, user.getvName());
+		rs = stmt.executeQuery();
+		if (rs != null){
+			rs.next();
+			securityQuestion = rs.getString("Sicherheitsfrage");
+		}else{
+			securityQuestion = null;
+		}
+   	}catch(SQLException se){
+	    //Handle errors for JDBC
+	    se.printStackTrace();
+   	}catch(Exception e){
+	    //Handle errors for Class.forName
+	    e.printStackTrace();
+	}finally {
+	    // Close Conn, rs, stmt
+	    try { if (rs != null) rs.close(); } catch (Exception e) {};
+	    try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+	    try { if (conn != null) conn.close(); } catch (Exception e) {};
 	   }
-	return SecurityQuestion;
+	return securityQuestion;
 }
 
 /**
@@ -211,32 +201,30 @@ public String getPassword (User user){
 	ResultSet rs = null;
 	try {
 		conn = DBConnect();
-	// Select query    
-    sql = "SELECT Passwort FROM user WHERE NickName = ? && NName = ? && VName = ?";
-    stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-    stmt.setString(1, user.getNickname());
-    stmt.setString(2, user.getnName());
-    stmt.setString(3, user.getvName());
-    rs = stmt.executeQuery();
-    if (rs != null){
-    	rs.next();
-    	password = rs.getString("Passwort");
-    }else{
-    	password = null;
-    }
-   
-   	}
-	catch(SQLException se){
-	      //Handle errors for JDBC
-	      se.printStackTrace();
-	}catch(Exception e){
-	      //Handle errors for Class.forName
-	      e.printStackTrace();
-	}finally {
-	      // Close Conn, rs, stmt
-	        try { if (rs != null) rs.close(); } catch (Exception e) {};
-	        try { if (stmt != null) stmt.close(); } catch (Exception e) {};
-	        try { if (conn != null) conn.close(); } catch (Exception e) {};
+		// Select query    
+		sql = "SELECT Passwort FROM user WHERE NickName = ? && NName = ? && VName = ?";
+		stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+		stmt.setString(1, user.getNickname());
+		stmt.setString(2, user.getnName());
+		stmt.setString(3, user.getvName());
+		rs = stmt.executeQuery();
+		if (rs != null){
+			rs.next();
+			password = rs.getString("Passwort");
+		}else{
+			password = null;
+		}
+   }catch(SQLException se){
+	    //Handle errors for JDBC
+	    se.printStackTrace();
+   }catch(Exception e){
+	   	//Handle errors for Class.forName
+	    e.printStackTrace();
+   }finally {
+	   	// Close Conn, rs, stmt
+	    try { if (rs != null) rs.close(); } catch (Exception e) {};
+	    try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+	    try { if (conn != null) conn.close(); } catch (Exception e) {};
 	}
 	return password;
 }
@@ -250,42 +238,39 @@ public String getPassword (User user){
  * @return
  */
 public String getSecurityAnswer (User user){
-	String SecurityAnswer = "";
+	String securityAnswer = "";
 	String sql;
 	Connection conn = null;
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
-		try {
+	try {
 		conn = DBConnect();
-	// Select query
-    sql = "SELECT Antwort FROM user WHERE NickName = ? && NName = ? && VName = ?";
-    stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-    stmt.setString(1, user.getNickname());
-    stmt.setString(2, user.getnName());
-    stmt.setString(3, user.getvName());
-    rs = stmt.executeQuery();
-    if(rs != null){
-    	rs.next();
-    	SecurityAnswer = rs.getString("Antwort");
-    	System.out.println(SecurityAnswer);
-    }else{
-    	SecurityAnswer = null;
-    }
-    
-    	}
-	catch(SQLException se){
-	      //Handle errors for JDBC
-	      se.printStackTrace();
-	   }catch(Exception e){
-	      //Handle errors for Class.forName
-	      e.printStackTrace();
-	   }finally {
-	    	// Close Conn, rs, stmt
-	        try { if (rs != null) rs.close(); } catch (Exception e) {};
-	        try { if (stmt != null) stmt.close(); } catch (Exception e) {};
-	        try { if (conn != null) conn.close(); } catch (Exception e) {};
+		// Select query
+		sql = "SELECT Antwort FROM user WHERE NickName = ? && NName = ? && VName = ?";
+		stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+		stmt.setString(1, user.getNickname());
+		stmt.setString(2, user.getnName());
+		stmt.setString(3, user.getvName());
+		rs = stmt.executeQuery();
+		if(rs != null){
+			rs.next();
+			securityAnswer = rs.getString("Antwort");
+		}else{
+			securityAnswer = null;
+		}    
+    }catch(SQLException se){
+	    //Handle errors for JDBC
+	    se.printStackTrace();
+    }catch(Exception e){
+    	//Handle errors for Class.forName
+	    e.printStackTrace();
+	}finally {
+    	// Close Conn, rs, stmt
+		try { if (rs != null) rs.close(); } catch (Exception e) {};
+	    try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+	    try { if (conn != null) conn.close(); } catch (Exception e) {};
 	   }
-	return SecurityAnswer;
+	return securityAnswer;
 }
 
 /**
@@ -310,21 +295,19 @@ public Stats getStats (Stats userstats){
 		userstats.setSumGames(rs.getInt("AnzahlSpiele"));
 		userstats.setWonGames(rs.getInt("Gewonnen"));
 		userstats.setLosedGames(rs.getInt("Verloren"));
-    	}
-	catch(SQLException se){
-	      //Handle errors for JDBC
-	      se.printStackTrace();
-	   }catch(Exception e){
-	      //Handle errors for Class.forName
-	      e.printStackTrace();
-	   }finally {
-	    	// Close Conn, rs, stmt
-	        try { if (rs != null) rs.close(); } catch (Exception e) {};
-	        try { if (stmt != null) stmt.close(); } catch (Exception e) {};
-	        try { if (conn != null) conn.close(); } catch (Exception e) {};
-	   }
-	
-		return userstats;
+    }catch(SQLException se){
+    	//Handle errors for JDBC
+	    se.printStackTrace();
+    }catch(Exception e){
+    	//Handle errors for Class.forName
+	    e.printStackTrace();
+    }finally {
+    	// Close Conn, rs, stmt
+    	try { if (rs != null) rs.close(); } catch (Exception e) {};
+	    try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+	    try { if (conn != null) conn.close(); } catch (Exception e) {};
+	}
+	return userstats;
 }
 
 /**
@@ -346,18 +329,16 @@ public void setStats (Stats userstats){
         stmt.setInt(3, userstats.getLosedGames());     
         stmt.setString(4, userstats.getNickName());
         stmt.executeUpdate();
-				}
-	catch(SQLException se){
-	      //Handle errors for JDBC
-	      se.printStackTrace();
-	   }catch(Exception e){
-	      //Handle errors for Class.forName
-	      e.printStackTrace();
-	   } finally {
-	    	// Close Conn, stmt
-	        try { if (stmt != null) stmt.close(); } catch (Exception e) {};
-	        try { if (conn != null) conn.close(); } catch (Exception e) {};
-	   }
+	}catch(SQLException se){
+	    //Handle errors for JDBC
+	    se.printStackTrace();
+	}catch(Exception e){
+	    //Handle errors for Class.forName
+		e.printStackTrace();
+	}finally{
+	    // Close Conn, stmt
+	    try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+	    try { if (conn != null) conn.close(); } catch (Exception e) {};
+	}
 }
-
 }

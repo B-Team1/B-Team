@@ -1,5 +1,6 @@
 package ch.fhnw.itprojekt.bteam.appClasses;
 
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -34,6 +35,19 @@ public class GameModel extends Application {
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
+	}
+
+	/**
+	 * @author Luzian
+	 * @return
+	 */
+	public ArrayList getDiceResult(){
+		ArrayList<Dice> diceResult= new ArrayList<Dice>();
+	for(int i = 0; i <= 6; i++){	
+		Dice dice = new Dice();
+		diceResult.add(dice.roll());	
+	}
+	return diceResult;
 	}
 
 }
