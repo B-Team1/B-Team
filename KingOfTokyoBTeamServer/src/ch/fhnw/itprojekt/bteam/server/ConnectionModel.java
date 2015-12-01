@@ -64,6 +64,9 @@ public class ConnectionModel {
         new Thread(serverTask).start();
     }
     
+    /**
+     * Test Methode
+     */
     public void sendBroadcast(){
     	for (Socket s : socketList) {
     		Message msgOut = new Message(Message.MessageType.Broadcast);

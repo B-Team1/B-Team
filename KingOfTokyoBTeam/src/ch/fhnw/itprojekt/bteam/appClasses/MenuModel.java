@@ -87,8 +87,5 @@ public class MenuModel extends Application {
     	}
 	}
 	
-	public void test(){
-		connectionModel.test();
-	}
 
 }

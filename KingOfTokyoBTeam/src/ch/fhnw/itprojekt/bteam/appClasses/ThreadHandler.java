@@ -17,12 +17,12 @@ public class ThreadHandler extends Thread{
 		try {			
 			while(true){
 				synchronized (socket) {
-					Message msgIn = connectionModel.getMi();				
+					Message msgIn = connectionModel.getMsgIn();				
 	        		msgIn = Message.receive(socket);
 					if(msgIn.getType() == Message.MessageType.Broadcast){
 	                 	JOptionPane.showMessageDialog(null, "Gratullation!", "Gratullation", JOptionPane.WARNING_MESSAGE);
 	                }
-					connectionModel.setMi(msgIn);		
+					connectionModel.setMsgIn(msgIn);		
 				}
 	    	}
 		} catch (Exception e) {

@@ -1,21 +1,14 @@
 package ch.fhnw.itprojekt.bteam.appClasses;
 
-import java.io.IOException;
-import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.Logger;
-
-import javax.swing.JOptionPane;
-
 import ch.fhnw.itprojekt.bteam.template.ServiceLocator;
-import javafx.concurrent.Task;
 
 
 public class ConnectionModel {
 	Socket socket;
 	ServiceLocator serviceLocator;
 	private static ConnectionModel singleton;
-	Message mi = null;
+	Message msgIn = null;
 	
 	
 	/**
@@ -24,7 +17,7 @@ public class ConnectionModel {
 	 */
 	protected ConnectionModel(){
 		serviceLocator = ServiceLocator.getServiceLocator();
-		mi = new Message(Message.MessageType.Error);
+		msgIn = new Message(Message.MessageType.Error);
 		
 	}
 	
@@ -42,20 +35,22 @@ public class ConnectionModel {
 	      return singleton;
 	}	
 
-	public Message getMi() {
-		return mi;
+	//Getter und Setter für den Thread
+	public Message getMsgIn() {
+		return msgIn;
 	}
 
-	public void setMi(Message mi) {
-		this.mi = mi;
+	public void setMsgIn(Message mi) {
+		this.msgIn = mi;
 	}
 	
 	
 	/**
-	 * 
+	 * Diese Methode stellt die Verbindung zum Server her und startet den Thread um Messages zu erhalten.
 	 * @param ipAddress
 	 * @param port
 	 * @return Boolean ob es Funktioniert hat
+	 * @author Tobias
 	 */
 	public boolean connect(String ipAddress, Integer port) {
 		boolean success = false;
@@ -85,7 +80,7 @@ public class ConnectionModel {
 		try {
 			msgOut.send(socket);
 			Thread.sleep(1000);
-			result = mi.getCheckLogin();
+			result = msgIn.getCheckLogin();
 		} catch (Exception e) {
 			serviceLocator.getLogger().warning(e.toString());
 		}
@@ -107,13 +102,19 @@ public class ConnectionModel {
 		try {
 			msgOut.send(socket);
 			Thread.sleep(1000);
-			securityQuestion = mi.getSecurityQuestion();
+			securityQuestion = msgIn.getSecurityQuestion();
 		} catch (Exception e) {
 			serviceLocator.getLogger().warning(e.toString());
 		}
 		return securityQuestion;
 	}
 	
+	/**
+	 * Sendet einen neuen Benutzer zum Schreiben in die DB an den Server
+	 * @author Tobias
+	 * @param user
+	 * @return true wenn der User erfolgreich in die DB geschrieben wurde.
+	 */
 	public boolean sendRegistration(User user){
 		Message msgOut = new Message(Message.MessageType.Registration);
 		msgOut.setNickname(user.getNickname());
@@ -126,7 +127,7 @@ public class ConnectionModel {
 		try {
 			msgOut.send(socket);
 			Thread.sleep(1000);
-			result = mi.getWriteCheck();
+			result = msgIn.getWriteCheck();
 		} catch (Exception e) {
 			serviceLocator.getLogger().warning(e.toString());
 		}
@@ -150,7 +151,7 @@ public class ConnectionModel {
 		try {
 			msgOut.send(socket);
 			Thread.sleep(1000);
-			securityAnswer = mi.getSecurityAnswer();
+			securityAnswer = msgIn.getSecurityAnswer();
 			} catch (Exception e) {
 				serviceLocator.getLogger().warning(e.toString());
 	}
@@ -167,19 +168,20 @@ public class ConnectionModel {
 		try {
 			msgOut.send(socket);
 			Thread.sleep(1000);
-			password = mi.getPassword();
+			password = msgIn.getPassword();
 			} catch (Exception e) {
 				serviceLocator.getLogger().warning(e.toString());
 	}
 	return password;
 	}
 	
+	//Testmethode
 	public void test(){
 		Message msgOut = new Message(Message.MessageType.Test);
 		
 		try {
 			msgOut.send(socket);
-			Message msgIn = Message.receive(socket);
+			//Message msgIn = Message.receive(socket);
 			
 		} catch (Exception e) {
 			serviceLocator.getLogger().warning(e.toString());
