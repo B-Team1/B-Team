@@ -1,21 +1,24 @@
 package ch.fhnw.itprojekt.bteam.appClasses;
 
-import java.io.IOException;
 import java.net.Socket;
-
 import ch.fhnw.itprojekt.bteam.template.ServiceLocator;
+
 
 public class ConnectionModel {
 	Socket socket;
 	ServiceLocator serviceLocator;
 	private static ConnectionModel singleton;
+	Message msgIn = null;
+	
 	
 	/**
 	 * Konstruktor darf nicht von aussen aufgerufen werden!
 	 * @author Tobias
 	 */
 	protected ConnectionModel(){
-		serviceLocator = ServiceLocator.getServiceLocator();        
+		serviceLocator = ServiceLocator.getServiceLocator();
+		msgIn = new Message(Message.MessageType.Error);
+		
 	}
 	
 	/**
@@ -23,33 +26,48 @@ public class ConnectionModel {
 	 * Wenn keine vorhanden ist wird eine neue erzeugt. Dies ist wichtig, dass nicht mehrere 
 	 * Verbindungen zum Server erstellt werden.
 	 * @return Connection Model mit bestehender Verbindung
+	 * @author Tobias
 	 */
 	public static ConnectionModel getInstance() {
 	     if(singleton == null) {	        
 	         singleton = new ConnectionModel();
 	      }	     
 	      return singleton;
-	   }
+	}	
+
+	//Getter und Setter für den Thread
+	public Message getMsgIn() {
+		return msgIn;
+	}
+
+	public void setMsgIn(Message mi) {
+		this.msgIn = mi;
+	}
 	
 	
 	/**
-	 * 
+	 * Diese Methode stellt die Verbindung zum Server her und startet den Thread um Messages zu erhalten.
 	 * @param ipAddress
 	 * @param port
 	 * @return Boolean ob es Funktioniert hat
+	 * @author Tobias
 	 */
 	public boolean connect(String ipAddress, Integer port) {
 		boolean success = false;
 		try {
 			socket = new Socket(ipAddress, port);
-			success = true;
+			success = true;	
+			 //new Thread(serverTask).start();
+			new ThreadHandler(socket).start();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 		}
 		return success;
 	}
-
-
+	   	
+	
+	    
+    
 	/**
 	 * Diese Methode sendet die Login Informatinen an den Server und erhält die Antwort von ihm.
 	 * @author Tobias
@@ -61,7 +79,7 @@ public class ConnectionModel {
 		boolean result = false;
 		try {
 			msgOut.send(socket);
-			Message msgIn = Message.receive(socket);
+			Thread.sleep(1000);
 			result = msgIn.getCheckLogin();
 		} catch (Exception e) {
 			serviceLocator.getLogger().warning(e.toString());
@@ -83,7 +101,7 @@ public class ConnectionModel {
 		String securityQuestion = null;
 		try {
 			msgOut.send(socket);
-			Message msgIn = Message.receive(socket);
+			Thread.sleep(1000);
 			securityQuestion = msgIn.getSecurityQuestion();
 		} catch (Exception e) {
 			serviceLocator.getLogger().warning(e.toString());
@@ -91,6 +109,12 @@ public class ConnectionModel {
 		return securityQuestion;
 	}
 	
+	/**
+	 * Sendet einen neuen Benutzer zum Schreiben in die DB an den Server
+	 * @author Tobias
+	 * @param user
+	 * @return true wenn der User erfolgreich in die DB geschrieben wurde.
+	 */
 	public boolean sendRegistration(User user){
 		Message msgOut = new Message(Message.MessageType.Registration);
 		msgOut.setNickname(user.getNickname());
@@ -102,8 +126,8 @@ public class ConnectionModel {
 		boolean result = false;
 		try {
 			msgOut.send(socket);
-			Message msgIn = Message.receive(socket);
-			result = msgIn.getCheckLogin();
+			Thread.sleep(1000);
+			result = msgIn.getWriteCheck();
 		} catch (Exception e) {
 			serviceLocator.getLogger().warning(e.toString());
 		}
@@ -126,7 +150,7 @@ public class ConnectionModel {
 		String securityAnswer = null;
 		try {
 			msgOut.send(socket);
-			Message msgIn = Message.receive(socket);
+			Thread.sleep(1000);
 			securityAnswer = msgIn.getSecurityAnswer();
 			} catch (Exception e) {
 				serviceLocator.getLogger().warning(e.toString());
@@ -143,12 +167,26 @@ public class ConnectionModel {
 		String password = null;
 		try {
 			msgOut.send(socket);
-			Message msgIn = Message.receive(socket);
+			Thread.sleep(1000);
 			password = msgIn.getPassword();
 			} catch (Exception e) {
 				serviceLocator.getLogger().warning(e.toString());
 	}
 	return password;
+	}
+	
+	//Testmethode
+	public void test(){
+		Message msgOut = new Message(Message.MessageType.Test);
+		
+		try {
+			msgOut.send(socket);
+			//Message msgIn = Message.receive(socket);
+			
+		} catch (Exception e) {
+			serviceLocator.getLogger().warning(e.toString());
+		}
+		
 	}
 }
 

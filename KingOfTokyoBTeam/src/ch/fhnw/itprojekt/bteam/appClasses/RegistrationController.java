@@ -67,7 +67,7 @@ public class RegistrationController implements Initializable {
 				if(model.addNewUser(user)){
 					JOptionPane.showMessageDialog(null, "Der User wurde erfolgreich angelegt!", "Registration erfolgreich", JOptionPane.PLAIN_MESSAGE);
 				}else{
-					JOptionPane.showMessageDialog(null, "Es ist ein Fehler bei der Registration aufgetretten!", "Registrationsproblem", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Es ist ein Fehler bei der Registration aufgetretten! Möglicherweise besteht der Benutzer bereits.", "Registrationsproblem", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		}		

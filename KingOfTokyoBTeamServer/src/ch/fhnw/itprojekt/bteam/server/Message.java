@@ -10,22 +10,11 @@ import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
-
-
-/**
- * A simple example showing how to encapsulate messages in a class. This class sends and receives
- * some simple data via sockets. The data is formatted in XML.
- * 
- * Each message is uniquely identified with an ID and a timestamp. This can be useful, for example,
- * if you want to keep a log of messages.
- * 
- * @author brad
- * 
- */
 @Root
 public class Message {
 	public enum MessageType {
-		 Error, Login, SecurityQuestion, SecurityAnswer, Password
+
+		Error, Login, SecurityQuestion, Registration, SecurityAnswer, Password, Test, Broadcast
 	};
 
 	// Data included in a message
@@ -53,8 +42,10 @@ public class Message {
 	@Element(required = false)
 	private String vName;
 	
-		
+	@Element(required = false)
+	private boolean writeCheck;
 	
+		
 	public Message(@Element(name = "type") MessageType type) {
 		this.type = type;
 	}
@@ -156,4 +147,13 @@ public class Message {
 	public String getVName() {
 		return vName;
 	}
+	
+	public boolean getWriteCheck() {
+		return writeCheck;
+	}
+
+	public void setWriteCheck(boolean writeCheck) {
+		this.writeCheck = writeCheck;
+	}
+
 }

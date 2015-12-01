@@ -13,10 +13,12 @@ import javafx.stage.Stage;
 
 public class MenuModel extends Application {
 	ServiceLocator serviceLocator;
+	ConnectionModel connectionModel;
 	
 	public MenuModel() {
         serviceLocator = ServiceLocator.getServiceLocator();        
         serviceLocator.getLogger().info("MenuModel initialized");
+        connectionModel = ConnectionModel.getInstance();
     }
 
 	/**
@@ -84,5 +86,6 @@ public class MenuModel extends Application {
     		e.printStackTrace();
     	}
 	}
+	
 
 }
