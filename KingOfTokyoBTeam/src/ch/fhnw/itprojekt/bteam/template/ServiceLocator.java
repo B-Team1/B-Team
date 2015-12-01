@@ -6,17 +6,6 @@ import java.util.logging.Logger;
 import ch.fhnw.itprojekt.bteam.commonClasses.Configuration;
 import ch.fhnw.itprojekt.bteam.commonClasses.Translator;
 
-/**
- * Copyright 2015, FHNW, Prof. Dr. Brad Richards. All rights reserved. This code
- * is licensed under the terms of the BSD 3-clause license (see the file
- * license.txt).
- * 
- * The singleton instance of this class provide central storage for resources
- * used by the program. It also defines application-global constants, such as
- * the application name.
- * 
- * @author Brad Richards
- */
 public class ServiceLocator {
     private static ServiceLocator serviceLocator; // singleton
 
@@ -30,7 +19,8 @@ public class ServiceLocator {
     // Resources
     private Logger logger;
     private Configuration configuration;
-    private Translator translator;
+    private Properties properties;
+    private String language = "de";
 
     /**
      * Factory method for returning the singleton
@@ -80,11 +70,19 @@ public class ServiceLocator {
         return locales;
     }
 
-    public Translator getTranslator() {
-        return translator;
+    public Properties getProperties() {
+        return properties;
     }
     
-    public void setTranslator(Translator translator) {
-        this.translator = translator;
+    public void setProperties(Properties properties) {
+        this.properties = properties;
+    }
+    
+    public void setLanguage(String language) {
+    	this.language = language;
+    }
+    
+    public String getLanguage() {
+    	return language;
     }
 }

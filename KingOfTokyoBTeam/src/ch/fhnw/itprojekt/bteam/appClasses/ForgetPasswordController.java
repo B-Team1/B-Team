@@ -16,22 +16,15 @@ import javafx.stage.Stage;
 
 public class ForgetPasswordController implements Initializable {
 	
-	@FXML
-	TextField tfName;
-	@FXML
-	TextField tfFirstName;
-	@FXML
-	TextField tfNickname;
-	@FXML
-	TextField tfAnswer;
-	@FXML
-	Label lbSecureQuestion;
-	@FXML
-	Label lbYourPassword;
-	@FXML
-	Button btnEnter;
+	@FXML TextField tfName;
+	@FXML TextField tfFirstName;
+	@FXML TextField tfNickname;
+	@FXML TextField tfAnswer;
+	@FXML Label lbSecureQuestion;
+	@FXML Label lbYourPassword;
+	@FXML Button btnEnter;
 	
-	//LoginModel loginModel;
+	LoginModel loginModel = new LoginModel();
 	
 	//public ForgetPasswordController(LoginModel loginModel){
 	//	this.loginModel = loginModel;
@@ -48,8 +41,7 @@ public class ForgetPasswordController implements Initializable {
 	 */
 	@FXML
 	public void handleToLogin(ActionEvent event) {
-		LoginModel model = new LoginModel();
-		model.start(new Stage());
+		loginModel.start(new Stage());
 		Node node= (Node)event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		stage.close();
@@ -62,9 +54,8 @@ public class ForgetPasswordController implements Initializable {
 	 */
 	@FXML
 	public void handleEnter(ActionEvent event) {
-		LoginModel model = new LoginModel();
 		String returnvalue;
-		returnvalue = model.sendUserDataForPassword(getUser());
+		returnvalue = loginModel.sendUserDataForPassword(getUser());
 		if(returnvalue != null){
 			if(returnvalue.equals("Nicht alle Felder ausgefüllt")){
 				missingUserDataForPassword();
@@ -110,13 +101,12 @@ public class ForgetPasswordController implements Initializable {
 	 */
 	@FXML
 	public void handleConfirm(ActionEvent event) {
-		LoginModel model = new LoginModel();
-		String returnvalue = model.getSecurityAnswer(getUser());
+		String returnvalue = loginModel.getSecurityAnswer(getUser());
 		String useranswer = tfAnswer.getText();
 		if (returnvalue != null){
 			if (useranswer.equals(returnvalue)){
 				// Antwort stimmt
-				String password = model.getPassword(getUser());
+				String password = loginModel.getPassword(getUser());
 					if (password != null){
 						setlbYourPassword(password);
 					}else{

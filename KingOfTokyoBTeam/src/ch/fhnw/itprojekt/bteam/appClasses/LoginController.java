@@ -6,40 +6,47 @@ import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
-import ch.fhnw.itprojekt.bteam.abstractClasses.Controller;
+import ch.fhnw.itprojekt.bteam.template.Properties;
 import ch.fhnw.itprojekt.bteam.template.ServiceLocator;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 
 public class LoginController implements Initializable {
 		
-	LoginModel loginModel = new LoginModel();	
+	LoginModel loginModel = new LoginModel();
+	MenuModel menuModel = new MenuModel();
 	
-	@FXML
-	TextField tfNickname;
+	@FXML TextField tfNickname;
+	@FXML PasswordField pfPassword;
+	@FXML Button btnRegistry;
+	@FXML Button btnLogin;
+	@FXML Label lbNickname;
+	@FXML Label lbPassword;
+	@FXML Hyperlink hlForgetPassword;
+	@FXML Menu menuLanguage;
+	@FXML Menu menuHelp;
+	@FXML MenuItem miGerman;
+	@FXML MenuItem miEnglish;
+	@FXML MenuItem miTeam;
 	
-	@FXML
-	PasswordField pfPassword;
-	
-	@FXML
-	Button btnRegistry;
-	
-
+	/**
+	 * Methode initialisiert die Komponenten
+	 * @author Marco
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 	}
@@ -79,7 +86,29 @@ public class LoginController implements Initializable {
 		Node node = (Node)event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		stage.close();
-	}		
+	}
+	
+	/**
+	 * Methode ändert die Benutzersprache auf Deutsch
+	 * @author Marco
+	 */
+	@FXML
+	public void handleGerman(ActionEvent event) {
+		Properties.getProperties().setLocale(new Locale("de"));
+		ServiceLocator.getServiceLocator().setLanguage("de");
+		updateTexts();
+	}
+	
+	/**
+	 * Methode ändert die Benutzersprache auf Englisch
+	 * @author Marco
+	 */
+	@FXML
+	public void handleEnglish(ActionEvent event) {
+		Properties.getProperties().setLocale(new Locale("en"));
+		ServiceLocator.getServiceLocator().setLanguage("en");
+		updateTexts();
+	}
 	
 	/**
 	 * Dieses Event wird aufgerufen, wenn im Login Fenster die Taste Enter gedrückt wird
@@ -100,7 +129,6 @@ public class LoginController implements Initializable {
 	 */
 	private void doLogin(Event event){
 		if(loginModel.sendLogin(new User(tfNickname.getText(), pfPassword.getText()))){
-			MenuModel menuModel = new MenuModel();
 			menuModel.start(new Stage());
 			Node node= (Node)event.getSource();
 			Stage stage = (Stage) node.getScene().getWindow();
@@ -109,4 +137,28 @@ public class LoginController implements Initializable {
 			JOptionPane.showMessageDialog(null, "Nickname oder Passwort sind falsch!", "Falsches Login", JOptionPane.WARNING_MESSAGE);
 		}
 	}
+	
+	/**
+	 * Aktualisierung der Texte bei Veränderung der Sprache
+	 * @author Marco
+	 */
+	private void updateTexts() {
+		ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
+        
+		/**
+		 * Aktualisierung der Befehle
+		 * @author Marco
+		 */
+		menuLanguage.setText(bundle.getString("login.menu.language"));
+		menuHelp.setText(bundle.getString("login.menu.help"));
+		miGerman.setText(bundle.getString("login.menuitem.german"));
+		miEnglish.setText(bundle.getString("login.menuitem.english"));
+		miTeam.setText(bundle.getString("login.menuitem.info"));
+		btnRegistry.setText(bundle.getString("login.btn.registry"));
+		btnLogin.setText(bundle.getString("login.btn.login"));
+		lbNickname.setText(bundle.getString("login.nickname"));
+		lbPassword.setText(bundle.getString("login.password"));
+		hlForgetPassword.setText(bundle.getString("login.link.forget"));
+	    }
+	
 }

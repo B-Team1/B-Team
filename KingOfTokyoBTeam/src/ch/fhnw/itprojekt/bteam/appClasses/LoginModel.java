@@ -27,13 +27,13 @@ public class LoginModel extends Application {
     }
     
     /**
-     * Methode startet das Login Fenster mit den eingestellten Einstellungen
+     * Methode startet das Login Fenster mit den gespeicherten Einstellungen
      * @author Marco
      */
     public void start(Stage loginStage) {
     	
     	try {
-    		Properties.getProperties().setLocale(new Locale("de"));
+    		Properties.getProperties().setLocale(new Locale(ServiceLocator.getServiceLocator().getLanguage()));
             BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/login.fxml"),
             		ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale()));
     	
@@ -111,10 +111,14 @@ public class LoginModel extends Application {
     	connectionModel.connect("127.0.0.1", 8080);    	
     }
     
+    /**
+     * Methode lädt das Fenster Registration und die gespeicherten Einstellungen
+     * @author Marco
+     */
     public void startRegistry(Stage registryStage) {
     	try {
     		
-    		Properties.getProperties().setLocale(new Locale("de"));
+    		Properties.getProperties().setLocale(new Locale(ServiceLocator.getServiceLocator().getLanguage()));
             BorderPane root1 = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/registration.fxml"),
             		ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale()));
     	
@@ -131,9 +135,13 @@ public class LoginModel extends Application {
 
     }
     
+    /**
+     * Methode lädt das Fenster ForgetPassword und die gespeicherten Einstellungen
+     * @author Marco
+     */
     public void startForgetPassword(Stage forgetPasswordStage) {
     	try {
-    		Properties.getProperties().setLocale(new Locale("de"));
+    		Properties.getProperties().setLocale(new Locale(ServiceLocator.getServiceLocator().getLanguage()));
             BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/forgetPassword.fxml"),
             		ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale()));
     	
@@ -174,4 +182,5 @@ public class LoginModel extends Application {
     }
     
     
+
 }

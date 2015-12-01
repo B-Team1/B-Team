@@ -6,21 +6,19 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 public class CreateGameController implements Initializable {
 
-	@FXML
-	Label lbPlayer1;
+	MenuModel menuModel = new MenuModel();
+	GameModel gameModel = new GameModel();
 	
-	@FXML
-	Label lbPlayer2;
-	
-	@FXML
-	Label lbPlayer3;
-	
-	@FXML
-	Label lbPlayer4;
+	@FXML Label lbPlayer1;
+	@FXML Label lbPlayer2;
+	@FXML Label lbPlayer3;
+	@FXML Label lbPlayer4;
 	
 	/**
 	 * Methode initialisiert die Komponenten
@@ -35,7 +33,12 @@ public class CreateGameController implements Initializable {
 	 * @author Marco
 	 */
 	public void handleToGame(ActionEvent event) {
+		//laden der Mitspieler oder Bots
 		
+		gameModel.start(new Stage());
+		Node node= (Node)event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		stage.close();
 	}
 	
 	/**
@@ -43,7 +46,9 @@ public class CreateGameController implements Initializable {
 	 * @author Marco
 	 */
 	public void handleAbortGame(ActionEvent event) {
-		
+		menuModel.start(new Stage());
+		Node node= (Node)event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		stage.close();
 	}
-	
 }
