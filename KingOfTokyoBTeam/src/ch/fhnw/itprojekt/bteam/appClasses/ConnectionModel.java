@@ -1,21 +1,31 @@
 package ch.fhnw.itprojekt.bteam.appClasses;
 
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Logger;
+
+import javax.swing.JOptionPane;
 
 import ch.fhnw.itprojekt.bteam.template.ServiceLocator;
+import javafx.concurrent.Task;
+
 
 public class ConnectionModel {
 	Socket socket;
 	ServiceLocator serviceLocator;
 	private static ConnectionModel singleton;
+	Message mi = null;
+	
 	
 	/**
 	 * Konstruktor darf nicht von aussen aufgerufen werden!
 	 * @author Tobias
 	 */
 	protected ConnectionModel(){
-		serviceLocator = ServiceLocator.getServiceLocator();        
+		serviceLocator = ServiceLocator.getServiceLocator();
+		mi = new Message(Message.MessageType.Error);
+		
 	}
 	
 	/**
@@ -23,13 +33,22 @@ public class ConnectionModel {
 	 * Wenn keine vorhanden ist wird eine neue erzeugt. Dies ist wichtig, dass nicht mehrere 
 	 * Verbindungen zum Server erstellt werden.
 	 * @return Connection Model mit bestehender Verbindung
+	 * @author Tobias
 	 */
 	public static ConnectionModel getInstance() {
 	     if(singleton == null) {	        
 	         singleton = new ConnectionModel();
 	      }	     
 	      return singleton;
-	   }
+	}	
+
+	public Message getMi() {
+		return mi;
+	}
+
+	public void setMi(Message mi) {
+		this.mi = mi;
+	}
 	
 	
 	/**
@@ -42,14 +61,18 @@ public class ConnectionModel {
 		boolean success = false;
 		try {
 			socket = new Socket(ipAddress, port);
-			success = true;
+			success = true;	
+			 //new Thread(serverTask).start();
+			new ThreadHandler(socket).start();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 		}
 		return success;
 	}
-
-
+	   	
+	
+	    
+    
 	/**
 	 * Diese Methode sendet die Login Informatinen an den Server und erhält die Antwort von ihm.
 	 * @author Tobias
@@ -61,8 +84,8 @@ public class ConnectionModel {
 		boolean result = false;
 		try {
 			msgOut.send(socket);
-			Message msgIn = Message.receive(socket);
-			result = msgIn.getCheckLogin();
+			Thread.sleep(1000);
+			result = mi.getCheckLogin();
 		} catch (Exception e) {
 			serviceLocator.getLogger().warning(e.toString());
 		}
@@ -83,8 +106,8 @@ public class ConnectionModel {
 		String securityQuestion = null;
 		try {
 			msgOut.send(socket);
-			Message msgIn = Message.receive(socket);
-			securityQuestion = msgIn.getSecurityQuestion();
+			Thread.sleep(1000);
+			securityQuestion = mi.getSecurityQuestion();
 		} catch (Exception e) {
 			serviceLocator.getLogger().warning(e.toString());
 		}
@@ -102,8 +125,8 @@ public class ConnectionModel {
 		boolean result = false;
 		try {
 			msgOut.send(socket);
-			Message msgIn = Message.receive(socket);
-			result = msgIn.getWriteCheck();
+			Thread.sleep(1000);
+			result = mi.getWriteCheck();
 		} catch (Exception e) {
 			serviceLocator.getLogger().warning(e.toString());
 		}
@@ -126,8 +149,8 @@ public class ConnectionModel {
 		String securityAnswer = null;
 		try {
 			msgOut.send(socket);
-			Message msgIn = Message.receive(socket);
-			securityAnswer = msgIn.getSecurityAnswer();
+			Thread.sleep(1000);
+			securityAnswer = mi.getSecurityAnswer();
 			} catch (Exception e) {
 				serviceLocator.getLogger().warning(e.toString());
 	}
@@ -143,12 +166,25 @@ public class ConnectionModel {
 		String password = null;
 		try {
 			msgOut.send(socket);
-			Message msgIn = Message.receive(socket);
-			password = msgIn.getPassword();
+			Thread.sleep(1000);
+			password = mi.getPassword();
 			} catch (Exception e) {
 				serviceLocator.getLogger().warning(e.toString());
 	}
 	return password;
+	}
+	
+	public void test(){
+		Message msgOut = new Message(Message.MessageType.Test);
+		
+		try {
+			msgOut.send(socket);
+			Message msgIn = Message.receive(socket);
+			
+		} catch (Exception e) {
+			serviceLocator.getLogger().warning(e.toString());
+		}
+		
 	}
 }
 

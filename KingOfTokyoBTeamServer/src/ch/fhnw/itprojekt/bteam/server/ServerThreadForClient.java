@@ -7,13 +7,17 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.logging.Logger;
 
+import ch.fhnw.itprojekt.bteam.server.Message.MessageType;
+
 public class ServerThreadForClient extends Thread {
     private final Logger logger = Logger.getLogger("");
     private Socket clientSocket;
     DBModel dbconnect = new DBModel();
+    ConnectionModel connectionModel;
 
     public ServerThreadForClient(Socket clientSocket) {
         this.clientSocket = clientSocket;
+        connectionModel = ConnectionModel.getInstance();
     }
 
     /**
@@ -30,9 +34,11 @@ public class ServerThreadForClient extends Thread {
             while (true) {
 				// Read a message from the client
 				Message msgIn = Message.receive(clientSocket);
-				lastMessageType = msgIn.getType();
-				Message msgOut = processMessage(msgIn);				
-				msgOut.send(clientSocket);
+				lastMessageType = msgIn.getType();				
+				Message msgOut = processMessage(msgIn);
+				if(msgIn.getType() != Message.MessageType.Broadcast){
+					msgOut.send(clientSocket);
+				}
             }
         } catch (Exception e) {
             logger.severe(e.toString());
@@ -81,13 +87,17 @@ public class ServerThreadForClient extends Thread {
 								msgIn.getSecurityAnswer(), 
 								msgIn.getSecurityQuestion());
 			msgOut.setWriteCheck(dbconnect.InsertPlayersIntoDB(user));
-			break;	
+			break;
+		case Test:
+			connectionModel.sendBroadcast();
+			msgOut = new Message(Message.MessageType.Broadcast);
+			break;
 		
 		
 		default:
 			msgOut = new Message(Message.MessageType.Error);
 		}
-    	logger.info("Message answered: " + msgOut.toString());
+    	//logger.info("Message answered: " + msgOut.toString());
     	return msgOut;
     }       
 }

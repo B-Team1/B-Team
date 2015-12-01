@@ -22,6 +22,13 @@ public class ServerController {
                 model.startServerSocket(port);
             }
         });
+        
+        view.btna.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                model.sendBroadcast();
+            }
+        });
 
         // register ourselves to handle window-closing event
         view.getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
