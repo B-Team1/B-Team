@@ -1,7 +1,10 @@
 package ch.fhnw.itprojekt.bteam.appClasses;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class GameController implements Initializable {
@@ -97,19 +101,51 @@ public class GameController implements Initializable {
 	@FXML
 	ImageView ivCard2;
 	
+	GameModel gameModel = new GameModel();
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 	}
 
 	/**
 	 * Methode würfelt die Würfel
-	 * @author Marco
+	 * @author Marco / Luzian
 	 */
 	@FXML
 	public void handleRollDice(ActionEvent event) {
-	
+	ArrayList<Dice> diceResult= new ArrayList<Dice>();
+	diceResult = gameModel.getDiceResult();
+	int i = 0 ;
+	for(i = 0; i<=5; i++){
+		Dice dice = new Dice();
+		dice = diceResult.get(i);
+		switch (i) {
+			case 0:  i = 0;
+				btnDice1.setGraphic(new ImageView(dice.image));
+				break;
+			case 1:  i = 1;
+    		 	btnDice2.setGraphic(new ImageView(dice.image));
+    		 	break;
+			case 2:  i = 2;
+    		 	btnDice3.setGraphic(new ImageView(dice.image));
+    		 	break;
+			case 3:  i = 3;
+    		 	btnDice4.setGraphic(new ImageView(dice.image));
+    		 	break;
+			case 4:  i = 4;
+    		 	btnDice5.setGraphic(new ImageView(dice.image));
+    		 	break;
+			case 5:  i = 5;
+    		 	btnDice6.setGraphic(new ImageView(dice.image));
+    		 	break;
+    	
+	 } 		
+		
+		
 	}
-	
+		
+	btnDice1.setText(diceResult.get(0).toString());
+	}
 	/**
 	 * Methode um den Spielzug zu beenden und die Ergebnisse ausführen
 	 * @author Marco
