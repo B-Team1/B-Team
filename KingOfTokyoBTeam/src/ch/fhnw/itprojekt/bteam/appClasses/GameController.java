@@ -7,21 +7,24 @@ import java.util.ResourceBundle;
 import javax.swing.text.html.HTMLDocument.Iterator;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class GameController implements Initializable {
 
 	@FXML
-	Button btnDice1;
+	ToggleButton btnDice1;
 	@FXML
-	Button btnDice2;
+	ToggleButton btnDice2;
 	@FXML
 	Button btnDice3;
 	@FXML
@@ -34,6 +37,7 @@ public class GameController implements Initializable {
 	Button btnDice7;
 	@FXML
 	Button btnDice8;
+	@FXML Button btnCardDeck;
 	@FXML
 	Label lbLifePointsPlayer1;
 	@FXML
@@ -101,10 +105,13 @@ public class GameController implements Initializable {
 	@FXML
 	ImageView ivCard2;
 	
+
 	GameModel gameModel = new GameModel();
+
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+//		btnCardDeck.setGraphic("../images/KingOfTokyo.jpg");
 	}
 
 	/**Bei Klick auf Würfeln wird gameModel aufgerufen, welche das Würfelresultat zurückgibt. Zudem wird hier das Wüfelbild geladen.
@@ -167,6 +174,14 @@ public class GameController implements Initializable {
 		
 	}
 	
-	
-	
+	/**
+	 * Methode zieht eine neue zufällige Karte
+	 * @author Marco
+	 */
+	    @FXML public void handle(ActionEvent event) {
+	    	Card card = new Card();
+			card = gameModel.pullCard();
+			ivCard1.setImage(card.getCardImage());
+	    }
+
 }
