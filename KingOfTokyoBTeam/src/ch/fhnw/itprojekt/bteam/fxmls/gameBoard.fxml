@@ -242,7 +242,7 @@
                            <children>
                               <StackPane layoutX="698.0" layoutY="-9.0" styleClass="stack" stylesheets="@meincss.css">
                                  <children>
-                                    <ImageView fx:id="ivCardDeck" fitHeight="120.0" fitWidth="82.0" onMouseClicked="#handleCardDeck" pickOnBounds="true">
+                                    <ImageView fx:id="ivCardDeck" fitHeight="120.0" fitWidth="82.0" pickOnBounds="true">
                                        <image>
                                           <Image url="@../images/KingOfTokyo.jpg" />
                                        </image>

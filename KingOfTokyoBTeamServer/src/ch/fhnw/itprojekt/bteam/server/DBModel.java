@@ -55,6 +55,7 @@ public boolean InsertPlayersIntoDB(User user){
 	ResultSet rs = null;
 	String sqlcontrol;
 	String sql;
+
 	try{
 		conn = DBConnect();
 		// Select query    
@@ -87,42 +88,6 @@ public boolean InsertPlayersIntoDB(User user){
         	stmt.setString(6, user.getSecurityAnswer());
         	stmt.executeUpdate();
         }
-	    conn = DBConnect();
-	    // Select query    
-	    sqlcontrol = "SELECT * FROM user WHERE NickName = ? && NName = ?";
-	    stmtabfrage = conn.prepareStatement(sqlcontrol, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-	    stmtabfrage.setString(1, user.getNickname());
-	    stmtabfrage.setString(2, user.getnName());
-	    rs = stmtabfrage.executeQuery();
-	    // Checkt ob Resultset mit Daten gefüllt wurde
-	    
-	    if(rs.first()) {
-	    	
-	    	//ResultSet beinhaltet Daten
-	    	// Checkt ob es tatsächlich die gleichen Daten auf der Datenbank bereits vorhanden sind
-	    	
-	        if (user.getNickname().equals(rs.getString("NickName"))  && user.getnName().equals(rs.getString("NName"))){
-	            playerAdd = false;        
-	        }
-	    } else {
-	    	//ResultSet leer ->>
-	        playerAdd = true;
-	    }
-	    
-	    //verhindert Doppelte Einträge von Nicknamen
-	    
-	    if (playerAdd == true){
-	    	sql = "INSERT INTO user (NName, VName, NickName, Passwort, Sicherheitsfrage, Antwort) VALUES (?,?,?,?,?,?)";
-	        stmt = conn.prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-	        stmt.setString(1, user.getnName());
-	        stmt.setString(2, user.getvName());
-	        stmt.setString(3, user.getNickname());
-	        stmt.setString(4, user.getPassword());
-	        stmt.setString(5, user.getSecurityQuestion());
-	        stmt.setString(6, user.getSecurityAnswer());
-	        stmt.executeUpdate();
-	    }
-
     }catch(SQLException se){
     	//Handle errors for JDBC
     	se.printStackTrace();
@@ -132,15 +97,13 @@ public boolean InsertPlayersIntoDB(User user){
     	e.printStackTrace();
     	playerAdd = false;
     }finally {
+    	//test
     	// Close Conn, rs, stmt, stmtabfrage
         try { if (rs != null) rs.close(); } catch (Exception e) {};
         try { if (stmt != null) stmt.close(); } catch (Exception e) {};
         try { if (stmtabfrage != null) stmtabfrage.close(); } catch (Exception e) {};
         try { if (conn != null) conn.close(); } catch (Exception e) {};
     }
-
-    //System.out.println(playerAdd);
-
 	return playerAdd;
 }
 
@@ -381,8 +344,15 @@ public void setStats (Stats userstats){
 	    try { if (stmt != null) stmt.close(); } catch (Exception e) {};
 	    try { if (conn != null) conn.close(); } catch (Exception e) {};
 	}
+<<<<<<< HEAD
 }
 
 
+=======
 }
+>>>>>>> refs/heads/merge
+}
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/heads/merge
