@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 public class GameOverviewController implements Initializable {
 
 
-	MenuModel model = new MenuModel();
+	MenuModel model;
 	
 	
 	
@@ -29,7 +29,7 @@ public class GameOverviewController implements Initializable {
 	@FXML Button btnNewGame;
 	@FXML Button btnCloseGame;
 	@FXML Label lbPlayGames;
-	@FXML Label lblbWonGames;
+	@FXML Label lbWonGames;
 	@FXML Label lbNickname;
 	@FXML Label lbPlayed;
 	@FXML Label lbWon;
@@ -45,8 +45,18 @@ public class GameOverviewController implements Initializable {
 	@FXML MenuItem miEnglish;
 	@FXML MenuItem miInfo;
 	
+	/**
+	 * Holt die Instanz des Menumodels, da der Nickname dort abgelegt ist
+	 * Holt vom Server die Statistikwerte anhand des Nicknames des Spielers
+	 * @author Tobias
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		model = MenuModel.getInstance();
+		lbNickname.setText(model.getNickname());
+		Stats stats = model.getStats();
+		lbPlayGames.setText(stats.getSumGames() + "");
+		lbWonGames.setText(stats.getWonGames() + "");
 	}
 	
 	@FXML
@@ -60,7 +70,6 @@ public class GameOverviewController implements Initializable {
 	 */
 	@FXML
 	public void handleNewGame(ActionEvent event) {
-		MenuModel model = new MenuModel();
 		model.startNewGame(new Stage());
 		Node node = (Node)event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();

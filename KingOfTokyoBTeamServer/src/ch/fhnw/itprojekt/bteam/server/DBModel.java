@@ -55,7 +55,6 @@ public boolean InsertPlayersIntoDB(User user){
 	ResultSet rs = null;
 	String sqlcontrol;
 	String sql;
-
 	try{
 		conn = DBConnect();
 		// Select query    
@@ -97,7 +96,6 @@ public boolean InsertPlayersIntoDB(User user){
     	e.printStackTrace();
     	playerAdd = false;
     }finally {
-    	//test
     	// Close Conn, rs, stmt, stmtabfrage
         try { if (rs != null) rs.close(); } catch (Exception e) {};
         try { if (stmt != null) stmt.close(); } catch (Exception e) {};
@@ -346,4 +344,3 @@ public void setStats (Stats userstats){
 	}
 }
 }
-
