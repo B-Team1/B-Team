@@ -2,7 +2,6 @@ package ch.fhnw.itprojekt.bteam.appClasses;
 
 import java.util.ArrayList;
 import java.util.Random;
-
 import javafx.scene.image.Image;
 
 
