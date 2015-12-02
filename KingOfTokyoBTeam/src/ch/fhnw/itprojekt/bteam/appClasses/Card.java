@@ -46,7 +46,7 @@ public class Card {
 			Card newCard = evaluateCard();
 			return newCard;
 		} else {
-			JOptionPane.showMessageDialog(null, FXCollections.observableArrayList((bundle.getString("card.twocards"))));
+			JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("card.twocards")));
 			return null;
 		}
 	}
