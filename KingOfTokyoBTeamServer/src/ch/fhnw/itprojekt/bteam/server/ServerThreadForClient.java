@@ -27,7 +27,7 @@ public class ServerThreadForClient extends Thread {
                 + " for server " + clientSocket.getLocalAddress().toString());
 
         try {
-            while (lastMessageType != Message.MessageType.Goodbye) {
+            while (true) {
 				// Read a message from the client
 				Message msgIn = Message.receive(clientSocket);
 				lastMessageType = msgIn.getType();
@@ -46,7 +46,7 @@ public class ServerThreadForClient extends Thread {
 		Message msgOut = null;
 		switch (msgIn.getType()) {
 		case Login:
-			msgOut = new Message(Message.MessageType.NewClientAccepted);
+			msgOut = new Message(Message.MessageType.Login);
 			msgOut.setCheckLogin(dbconnect.UserValidation(new User(msgIn.getNickname(), msgIn.getPassword())));
 			break;
 			
