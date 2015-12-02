@@ -37,6 +37,8 @@ public class GameController implements Initializable {
 	Button btnDice7;
 	@FXML
 	Button btnDice8;
+	@FXML
+	Button btnRollDice;
 	@FXML Button btnCardDeck;
 	@FXML
 	Label lbLifePointsPlayer1;
@@ -125,36 +127,36 @@ public class GameController implements Initializable {
 	int i = 0 ;
 	for(i = 0; i<=5; i++){
 		Dice dice = new Dice();
-		dice = diceResult.get(i);
-		switch (i) {
-			case 0:  i = 0;
-				if (btnDice1.isPressed() != true){
-					btnDice1.setGraphic(new ImageView(dice.image));
-				}
-				
-				break;
-			case 1:  i = 1;
-    		 	btnDice2.setGraphic(new ImageView(dice.image));
-    		 	break;
-			case 2:  i = 2;
-    		 	btnDice3.setGraphic(new ImageView(dice.image));
-    		 	break;
-			case 3:  i = 3;
-    		 	btnDice4.setGraphic(new ImageView(dice.image));
-    		 	break;
-			case 4:  i = 4;
-    		 	btnDice5.setGraphic(new ImageView(dice.image));
-    		 	break;
-			case 5:  i = 5;
-    		 	btnDice6.setGraphic(new ImageView(dice.image));
-    		 	break;
-    	
-	 } 		
-		
-		
+		if (diceResult != null){
+			dice = diceResult.get(i);
+				switch (i) {
+					case 0:  i = 0;
+						if (btnDice1.isSelected() != true){
+							btnDice1.setGraphic(new ImageView(dice.image));
+						}
+						break;
+					case 1:  i = 1;
+						if (btnDice2.isSelected() != true){
+							btnDice2.setGraphic(new ImageView(dice.image));
+						}
+						break;
+					case 2:  i = 2;
+						btnDice3.setGraphic(new ImageView(dice.image));
+						break;
+					case 3:  i = 3;
+						btnDice4.setGraphic(new ImageView(dice.image));
+						break;
+					case 4:  i = 4;
+						btnDice5.setGraphic(new ImageView(dice.image));
+						break;
+					case 5:  i = 5;
+						btnDice6.setGraphic(new ImageView(dice.image));
+						break;    	
+				} 	
+		}else{
+			//Message das drei mal gewürfelt wurde
+		}
 	}
-		
-	btnDice1.setText(diceResult.get(0).toString());
 	}
 	/**
 	 * Methode um den Spielzug zu beenden und die Ergebnisse ausführen
@@ -183,5 +185,6 @@ public class GameController implements Initializable {
 			card = gameModel.pullCard();
 			ivCard1.setImage(card.getCardImage());
 	    }
+
 
 }

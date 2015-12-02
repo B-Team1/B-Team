@@ -15,7 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class GameModel extends Application {
-
+	private int count;
 	static public ArrayList<Card> cardList = new ArrayList<Card>();
 	
 	/**
@@ -53,17 +53,23 @@ public class GameModel extends Application {
 	}
 
 	/**
-	 * Ruft die Klasse Dice auf, und gibt eine Arraylist mit 6 Würfel Objekten zurück.
+	 * Ruft die Klasse Dice auf, und gibt eine Arraylist mit 6 Würfel Objekten zurück. Variable count verhindert das mehr als drei Mal gewürfelt wird
 	 * @author Luzian
 	 * @return
 	 */
 	public ArrayList getDiceResult(){
 		ArrayList<Dice> diceResult= new ArrayList<Dice>();
-	for(int i = 0; i <= 6; i++){	
-		Dice dice = new Dice();
-		diceResult.add(dice.roll());	
-	}
-	return diceResult;
+		if (count <=2){
+			for(int i = 0; i <= 6; i++){	
+				Dice dice = new Dice();
+				diceResult.add(dice.roll());	
+			}
+			count++;
+			return diceResult;
+		}else{
+			diceResult = null;
+			return diceResult;
+		}
 	}
 
 }

@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
+import ch.fhnw.itprojekt.bteam.template.Properties;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -55,6 +57,7 @@ public class ForgetPasswordController implements Initializable {
 	@FXML
 	public void handleEnter(ActionEvent event) {
 		String returnvalue;
+		ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
 		returnvalue = loginModel.sendUserDataForPassword(getUser());
 		if(returnvalue != null){
 			if(returnvalue.equals("Nicht alle Felder ausgefüllt")){
@@ -63,7 +66,7 @@ public class ForgetPasswordController implements Initializable {
 				setlbSecureQuestion(returnvalue);
 			}
 		}else{
-			JOptionPane.showMessageDialog(null, "Ihre Benutzerdaten sind nicht korrekt");
+				JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("forget.wrongUserData")));
 		}
 		
 	}
@@ -73,7 +76,8 @@ public class ForgetPasswordController implements Initializable {
 	 * @author Luzian
 	 */
 	public void missingUserDataForPassword(){
-		JOptionPane.showMessageDialog(null, "Bitte füllen Sie alle Felder korrekt aus");
+		ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
+		JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("forget.wrongUserData")));
 	}
 	
 	/**
@@ -103,6 +107,7 @@ public class ForgetPasswordController implements Initializable {
 	public void handleConfirm(ActionEvent event) {
 		String returnvalue = loginModel.getSecurityAnswer(getUser());
 		String useranswer = tfAnswer.getText();
+		ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
 		if (returnvalue != null){
 			if (useranswer.equals(returnvalue)){
 				// Antwort stimmt
@@ -110,13 +115,13 @@ public class ForgetPasswordController implements Initializable {
 					if (password != null){
 						setlbYourPassword(password);
 					}else{
-						JOptionPane.showMessageDialog(null, "Es wurde kein Passwort zu Ihrem Benutzer gefunden");
+						JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("forget.noAnswerFound")));
 					}		
 			}else{
-				JOptionPane.showMessageDialog(null, "Die Antwort ist fehlerhaft");
+				JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("forget.wrongAnswer")));
 			}	
 		}else{
-			JOptionPane.showMessageDialog(null, "Es wurde keine Antwort zu Ihrem Benutzer gefunden");
+			JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("forget.noAnswerFound")));
 		}
 		
 		

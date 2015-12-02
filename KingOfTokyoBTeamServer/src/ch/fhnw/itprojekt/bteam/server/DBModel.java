@@ -344,15 +344,6 @@ public void setStats (Stats userstats){
 	    try { if (stmt != null) stmt.close(); } catch (Exception e) {};
 	    try { if (conn != null) conn.close(); } catch (Exception e) {};
 	}
-<<<<<<< HEAD
+}
 }
 
-
-=======
-}
->>>>>>> refs/heads/merge
-}
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/heads/merge
