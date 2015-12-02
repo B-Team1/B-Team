@@ -13,6 +13,7 @@ public class Dice {
 	
 
 	/**
+	 * Setzt eine Radom Zahl als Würfelwert und setzt zu dem das passende Bild des Würfels und gibt ein Würfel Objekt zurück
 	 * @author Luzian
 	 * @return
 	 */

@@ -107,7 +107,7 @@ public class GameController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 	}
 
-	/**
+	/**Bei Klick auf Würfeln wird gameModel aufgerufen, welche das Würfelresultat zurückgibt. Zudem wird hier das Wüfelbild geladen.
 	 * Methode würfelt die Würfel
 	 * @author Marco / Luzian
 	 */
@@ -121,7 +121,10 @@ public class GameController implements Initializable {
 		dice = diceResult.get(i);
 		switch (i) {
 			case 0:  i = 0;
-				btnDice1.setGraphic(new ImageView(dice.image));
+				if (btnDice1.isPressed() != true){
+					btnDice1.setGraphic(new ImageView(dice.image));
+				}
+				
 				break;
 			case 1:  i = 1;
     		 	btnDice2.setGraphic(new ImageView(dice.image));

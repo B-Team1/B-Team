@@ -38,6 +38,7 @@ public class GameModel extends Application {
 	}
 
 	/**
+	 * Ruft die Klasse Dice auf, und gibt eine Arraylist mit 6 Würfel Objekten zurück.
 	 * @author Luzian
 	 * @return
 	 */

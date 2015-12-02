@@ -56,7 +56,6 @@ public boolean InsertPlayersIntoDB(User user){
 	String sqlcontrol;
 	String sql;
 	try{
-<<<<<<< HEAD
 		conn = DBConnect();
 		// Select query    
 		sqlcontrol = "SELECT * FROM user WHERE NickName = ? && NName = ?";
@@ -88,7 +87,6 @@ public boolean InsertPlayersIntoDB(User user){
         	stmt.setString(6, user.getSecurityAnswer());
         	stmt.executeUpdate();
         }
-=======
 	    conn = DBConnect();
 	    // Select query    
 	    sqlcontrol = "SELECT * FROM user WHERE NickName = ? && NName = ?";
@@ -124,7 +122,7 @@ public boolean InsertPlayersIntoDB(User user){
 	        stmt.setString(6, user.getSecurityAnswer());
 	        stmt.executeUpdate();
 	    }
->>>>>>> refs/heads/merge
+
     }catch(SQLException se){
     	//Handle errors for JDBC
     	se.printStackTrace();
@@ -140,10 +138,9 @@ public boolean InsertPlayersIntoDB(User user){
         try { if (stmtabfrage != null) stmtabfrage.close(); } catch (Exception e) {};
         try { if (conn != null) conn.close(); } catch (Exception e) {};
     }
-<<<<<<< HEAD
-=======
-    System.out.println(playerAdd);
->>>>>>> refs/heads/merge
+
+    //System.out.println(playerAdd);
+
 	return playerAdd;
 }
 
@@ -385,9 +382,7 @@ public void setStats (Stats userstats){
 	    try { if (conn != null) conn.close(); } catch (Exception e) {};
 	}
 }
-<<<<<<< HEAD
-}
-=======
+
 
 }
->>>>>>> refs/heads/merge
+
