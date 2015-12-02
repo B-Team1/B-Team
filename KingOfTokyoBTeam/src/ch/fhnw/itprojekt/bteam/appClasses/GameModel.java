@@ -4,16 +4,20 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import ch.fhnw.itprojekt.bteam.appClasses.Card.CardType;
 import ch.fhnw.itprojekt.bteam.template.Properties;
 import ch.fhnw.itprojekt.bteam.template.ServiceLocator;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class GameModel extends Application {
 
+	static public ArrayList<Card> cardList = new ArrayList<Card>();
+	
 	/**
 	 * Methode öffnet das Spielfeld und lädt die Einstellungen
 	 * @author Marco
@@ -35,6 +39,17 @@ public class GameModel extends Application {
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
+	}
+	
+	/**
+	 * Methode zieht eine Karte in der Klasse Card
+	 * @author Marco
+	 */
+	public Card pullCard(){
+		Card newcard = new Card();
+		newcard = newcard.pullCard();
+		
+		return newcard;
 	}
 
 	/**
