@@ -2,7 +2,6 @@ package ch.fhnw.itprojekt.bteam.appClasses;
 
 import java.util.ArrayList;
 import java.util.Random;
-
 import javafx.scene.image.Image;
 
 
@@ -13,6 +12,7 @@ public class Dice {
 	
 
 	/**
+	 * Setzt eine Radom Zahl als Würfelwert und setzt zu dem das passende Bild des Würfels und gibt ein Würfel Objekt zurück
 	 * @author Luzian
 	 * @return
 	 */

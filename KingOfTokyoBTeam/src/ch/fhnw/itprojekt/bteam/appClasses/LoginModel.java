@@ -79,11 +79,11 @@ public class LoginModel extends Application {
     	String securityQuestion = connectionModel.getSecurityQuestion(user);
     	if (securityQuestion != null)
     		user.setSecurityQuestion(securityQuestion);
-    	//forgetPasswordController.setlbSecureQuestion(user.getSecurityQuestion());
     	return user.getSecurityQuestion();
     }
     
     /**
+     * holt die Sicherheitsantwort von der DB
      * @author Luzian
      * @param user
      * @return
@@ -94,6 +94,7 @@ public class LoginModel extends Application {
     }
     
     /**
+     * holt das Passwort von der DB
      * @author Luzian
      * @param user
      * @return
