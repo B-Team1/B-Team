@@ -154,9 +154,9 @@ public class ConnectionModel {
 			securityAnswer = msgIn.getSecurityAnswer();
 			} catch (Exception e) {
 				serviceLocator.getLogger().warning(e.toString());
+		}
+		return securityAnswer;
 	}
-	return securityAnswer;
-}
 
 	
 	public String getPassword(User user){
@@ -171,23 +171,30 @@ public class ConnectionModel {
 			password = msgIn.getPassword();
 			} catch (Exception e) {
 				serviceLocator.getLogger().warning(e.toString());
-	}
-	return password;
+		}
+		return password;
 	}
 	
-	//Testmethode
-	public void test(){
-		Message msgOut = new Message(Message.MessageType.Test);
-		
+	/**
+	 * Holt vom Server anhand des Nicknames die Statistik
+	 * @author Tobias
+	 * @param nickname
+	 * @return Statistik Objekt mit Nickname, gewonnene Spiele und gespielte Spiele
+	 */
+	public Stats getStat(String nickname){
+		Message msgOut = new Message(Message.MessageType.getStat);
+		msgOut.setNickname(nickname);
+		Stats respons = null;
 		try {
 			msgOut.send(socket);
-			//Message msgIn = Message.receive(socket);
-			
-		} catch (Exception e) {
-			serviceLocator.getLogger().warning(e.toString());
+			Thread.sleep(1000);
+			respons = new Stats(nickname, msgIn.getPlayedGames(), msgIn.getWonGames(), 0);
+			} catch (Exception e) {
+				serviceLocator.getLogger().warning(e.toString());
 		}
-		
+		return respons;
 	}
+	
 }
 
 

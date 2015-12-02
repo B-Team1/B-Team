@@ -14,12 +14,30 @@ import javafx.stage.Stage;
 public class MenuModel extends Application {
 	ServiceLocator serviceLocator;
 	ConnectionModel connectionModel;
+	private String currentNickname;
+	private static MenuModel singleton;
 	
+	public MenuModel(String currentNickname) {
+		this.currentNickname = currentNickname;
+		serviceLocator = ServiceLocator.getServiceLocator();        
+        serviceLocator.getLogger().info("MenuModel initialized");
+        connectionModel = ConnectionModel.getInstance();
+	}
+
 	public MenuModel() {
         serviceLocator = ServiceLocator.getServiceLocator();        
         serviceLocator.getLogger().info("MenuModel initialized");
         connectionModel = ConnectionModel.getInstance();
     }
+	
+	
+	public static MenuModel getInstance() {
+	     if(singleton == null) {	        
+	         singleton = new MenuModel();
+	      }	     
+	      return singleton;
+	}	
+
 
 	/**
 	 * Methode öffnet das Fenster GameOverview und lädt die Einstellungen
@@ -85,6 +103,23 @@ public class MenuModel extends Application {
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
+	}
+		
+	/**
+	 * Ruft im ConnectionModel die Statistik anhand des Nicknames ab. Nickname ist im Model gespeichert.
+	 * @author Tobias
+	 * @return
+	 */
+	public Stats getStats(){
+		return connectionModel.getStat(currentNickname);
+	}
+	
+	public String getNickname(){
+		return currentNickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.currentNickname = nickname;
 	}
 	
 

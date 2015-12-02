@@ -16,6 +16,11 @@ public class Stats {
     }
 	
 	
+	public Stats(String nickname) {
+		this.NickName = nickname;
+	}
+
+
 	public String getNickName() {
 		return NickName;
 	}

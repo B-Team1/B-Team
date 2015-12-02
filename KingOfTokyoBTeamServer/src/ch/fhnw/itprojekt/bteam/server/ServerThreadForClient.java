@@ -80,9 +80,13 @@ public class ServerThreadForClient extends Thread {
 									msgIn.getSecurityQuestion());
 				msgOut.setWriteCheck(dbconnect.InsertPlayersIntoDB(user));
 				break;
-			case Test:
-				connectionModel.sendBroadcast();
-				msgOut = new Message(Message.MessageType.Broadcast);
+			case getStat:
+				//Tobias
+				msgOut = new Message(Message.MessageType.getStat);
+				Stats stats = dbconnect.getStats(new Stats(msgIn.getNickname()));
+				msgOut.setNickname(stats.getNickName());
+				msgOut.setPlayedGames(stats.getSumGames());
+				msgOut.setWonGames(stats.getWonGames());
 				break;	
 		
 		default:

@@ -16,6 +16,9 @@ public class Stats {
          this.LosedGames = LosedGames;
     }
 	
+	public Stats(String nickname) {
+		this.NickName = nickname;
+	}
 	
 	public String getNickName() {
 		return NickName;
