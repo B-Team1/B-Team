@@ -15,7 +15,11 @@ import org.simpleframework.xml.core.Persister;
 @Root
 public class Message {
 	public enum MessageType {
+<<<<<<< HEAD
 		Error, Login, SecurityQuestion, Registration, SecurityAnswer, Password, Test, Broadcast, getStat
+=======
+		Error, Login, SecurityQuestion, Registration, SecurityAnswer, Password, Test, Broadcast
+>>>>>>> refs/heads/merge
 	};
 
 	// Data included in a message
