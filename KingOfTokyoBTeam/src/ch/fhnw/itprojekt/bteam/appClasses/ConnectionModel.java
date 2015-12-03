@@ -195,6 +195,22 @@ public class ConnectionModel {
 		return respons;
 	}
 	
+	public boolean sendNewGame(int numPlayer, boolean famePointsWin, int winFamePoins){
+		Message msgOut = new Message(Message.MessageType.openNewGame);
+		msgOut.setNumPlayer(numPlayer);
+		msgOut.setFamePointsWin(famePointsWin);
+		msgOut.setWinFamePoins(winFamePoins);
+		boolean respons = false;
+		try {
+			msgOut.send(socket);
+			Thread.sleep(1000);
+			respons = msgIn.getWriteCheck();
+			} catch (Exception e) {
+				serviceLocator.getLogger().warning(e.toString());
+		}
+		return respons;
+	}
+	
 }
 
 

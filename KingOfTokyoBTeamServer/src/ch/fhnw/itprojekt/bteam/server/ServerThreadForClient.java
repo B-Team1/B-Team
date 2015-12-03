@@ -87,7 +87,12 @@ public class ServerThreadForClient extends Thread {
 				msgOut.setNickname(stats.getNickName());
 				msgOut.setPlayedGames(stats.getSumGames());
 				msgOut.setWonGames(stats.getWonGames());
-				break;	
+				break;
+			case openNewGame:
+				//Tobias
+				msgOut = new Message(Message.MessageType.openNewGame);
+				
+				msgOut.setWriteCheck(true);
 		
 		default:
 			msgOut = new Message(Message.MessageType.Error);

@@ -122,5 +122,17 @@ public class MenuModel extends Application {
 		this.currentNickname = nickname;
 	}
 	
+	public boolean openNewGame(String numPlayer, boolean famePointsWin, String winFamePoins){
+		 return connectionModel.sendNewGame(convertPlayerChoiceBox(numPlayer), famePointsWin, convertFamePointsChoiceBox(winFamePoins));
+	}
+	
+	private int convertPlayerChoiceBox(String numPlayer){
+		return Integer.parseInt(numPlayer.split(" ")[0]);		
+	}
+	
+	private int convertFamePointsChoiceBox(String winFamePoins){
+		return Integer.parseInt(winFamePoins.split(" ")[0]);		
+	}
+	
 
 }
