@@ -55,13 +55,13 @@
                               </VBox>
                               <VBox alignment="CENTER" layoutX="89.0" layoutY="173.0" spacing="20.0">
                                  <children>
-                                    <Button fx:id="btnLogin" layoutX="93.0" layoutY="173.0" mnemonicParsing="false" onAction="#handleLogin" styleClass="test" stylesheets="@meincss.css" text="%login.btn.login" />
+                                    <Button fx:id="btnLogin" layoutX="93.0" layoutY="173.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="35.0" prefWidth="80.0" styleClass="test" stylesheets="@meincss.css" text="%login.btn.login" />
                                     <Hyperlink fx:id="hlForgetPassword" layoutX="89.0" layoutY="219.0" onAction="#handleForgetPassword" text="%login.link.forget" visited="true" />
                                  </children>
                               </VBox>
                            </children>
                         </VBox>
-                        <Button fx:id="btnRegistry" layoutX="254.0" layoutY="54.0" mnemonicParsing="false" onAction="#handleRegistry" styleClass="test" stylesheets="@meincss.css" text="%login.btn.registry">
+                        <Button fx:id="btnRegistry" layoutX="254.0" layoutY="54.0" mnemonicParsing="false" onAction="#handleRegistry" prefHeight="35.0" prefWidth="100.0" styleClass="test" stylesheets="@meincss.css" text="%login.btn.registry">
                            <HBox.margin>
                               <Insets top="30.0" />
                            </HBox.margin>

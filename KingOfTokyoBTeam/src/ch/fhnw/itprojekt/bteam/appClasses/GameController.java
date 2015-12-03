@@ -14,104 +14,59 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class GameController implements Initializable {
 
-	@FXML
-	ToggleButton btnDice1;
-	@FXML
-	ToggleButton btnDice2;
-	@FXML
-	Button btnDice3;
-	@FXML
-	Button btnDice4;
-	@FXML
-	Button btnDice5;
-	@FXML
-	Button btnDice6;
-	@FXML
-	Button btnDice7;
-	@FXML
-	Button btnDice8;
+	@FXML ToggleButton btnDice1;
+	@FXML ToggleButton btnDice2;
+	@FXML ToggleButton btnDice3;
+	@FXML ToggleButton btnDice4;
+	@FXML ToggleButton btnDice5;
+	@FXML ToggleButton btnDice6;
+	@FXML ToggleButton btnDice7;
+	@FXML ToggleButton btnDice8;
 	@FXML Button btnCardDeck;
-	@FXML
-	Label lbLifePointsPlayer1;
-	@FXML
-	Label lbLifePointsPlayer2;
-	@FXML
-	Label lbLifePointsPlayer3;
-	@FXML
-	Label lbLifePointsPlayer4;
-	@FXML
-	Label lbFamePointsPlayer1;
-	@FXML
-	Label lbFamePointsPlayer2;
-	@FXML
-	Label lbFamePointsPlayer3;
-	@FXML
-	Label lbFamePointsPlayer4;
-	@FXML
-	Label lbEnergyPointsPlayer1;
-	@FXML
-	Label lbEnergyPointsPlayer2;
-	@FXML
-	Label lbEnergyPointsPlayer3;
-	@FXML
-	Label lbEnergyPointsPlayer4;
-	@FXML
-	Label lbLifePointsChangePlayer1;
-	@FXML
-	Label lbLifePointsChangePlayer2;
-	@FXML
-	Label lbLifePointsChangePlayer3;
-	@FXML
-	Label lbLifePointsChangePlayer4;
-	@FXML
-	Label lbFamePointsChangePlayer1;
-	@FXML
-	Label lbFamePointsChangePlayer2;
-	@FXML
-	Label lbFamePointsChangePlayer3;
-	@FXML
-	Label lbFamePointsChangePlayer4;
-	@FXML
-	Label lbEnergyPointsChangePlayer1;
-	@FXML
-	Label lbEnergyPointsChangePlayer2;
-	@FXML
-	Label lbEnergyPointsChangePlayer3;
-	@FXML
-	Label lbEnergyPointsChangePlayer4;
-	@FXML
-	Label lbNicknamePlayer1;
-	@FXML
-	Label lbNicknamePlayer2;
-	@FXML
-	Label lbNicknamePlayer3;
-	@FXML
-	Label lbNicknamePlayer4;
-	@FXML
-	TextField tfChat;
-	@FXML
-	TextArea taChat;
-	@FXML
-	ImageView ivCardDeck;
-	@FXML
-	ImageView ivCard1;
-	@FXML
-	ImageView ivCard2;
+	@FXML Label lbLifePointsPlayer1;
+	@FXML Label lbLifePointsPlayer2;
+	@FXML Label lbLifePointsPlayer3;
+	@FXML Label lbLifePointsPlayer4;
+	@FXML Label lbFamePointsPlayer1;
+	@FXML Label lbFamePointsPlayer2;
+	@FXML Label lbFamePointsPlayer3;
+	@FXML Label lbFamePointsPlayer4;
+	@FXML Label lbEnergyPointsPlayer1;
+	@FXML Label lbEnergyPointsPlayer2;
+	@FXML Label lbEnergyPointsPlayer3;
+	@FXML Label lbEnergyPointsPlayer4;
+	@FXML Label lbLifePointsChangePlayer1;
+	@FXML Label lbLifePointsChangePlayer2;
+	@FXML Label lbLifePointsChangePlayer3;
+	@FXML Label lbLifePointsChangePlayer4;
+	@FXML Label lbFamePointsChangePlayer1;
+	@FXML Label lbFamePointsChangePlayer2;
+	@FXML Label lbFamePointsChangePlayer3;
+	@FXML Label lbFamePointsChangePlayer4;
+	@FXML Label lbEnergyPointsChangePlayer1;
+	@FXML Label lbEnergyPointsChangePlayer2;
+	@FXML Label lbEnergyPointsChangePlayer3;
+	@FXML Label lbEnergyPointsChangePlayer4;
+	@FXML Label lbNicknamePlayer1;
+	@FXML Label lbNicknamePlayer2;
+	@FXML Label lbNicknamePlayer3;
+	@FXML Label lbNicknamePlayer4;
+	@FXML TextField tfChat;
+	@FXML TextArea taChat;
+	@FXML ImageView ivCardDeck;
+	@FXML ImageView ivCard1;
+	@FXML ImageView ivCard2;
 	
-
 	GameModel gameModel = new GameModel();
-
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-//		btnCardDeck.setGraphic("../images/KingOfTokyo.jpg");
 	}
 
 	/**
@@ -175,10 +130,23 @@ public class GameController implements Initializable {
 	 * Methode zieht eine neue zufällige Karte
 	 * @author Marco
 	 */
-	    @FXML public void handle(ActionEvent event) {
-	    	Card card = new Card();
-			card = gameModel.pullCard();
-			ivCard1.setImage(card.getCardImage());
+	@FXML 
+	public void handleCardDeck(ActionEvent event) {
+	    //Card card = new Card();
+		try {
+		if (GameModel.cardList.isEmpty()){
+			Card firstcard = new Card();
+			firstcard = gameModel.pullCard();
+			ivCard1.setImage(firstcard.getCardImage());
+		} else {
+			Card secondcard = new Card();
+			secondcard = gameModel.pullCard();
+			ivCard2.setImage(secondcard.getCardImage());
+		}
+		}catch (NullPointerException exception){
+			
+		}
+		
 	    }
 
 }

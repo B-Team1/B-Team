@@ -3,6 +3,10 @@ display: block;
  -fx-background-color: white;
 }
 
+.testbutton {
+	-fx-background-color: black;
+}
+
 .button {
     -fx-background-color: 
         #090a0c,
@@ -16,7 +20,7 @@ display: block;
     -fx-font-family: "Arial";
     -fx-text-fill: linear-gradient(white, #d0d0d0);
     -fx-font-size: 12px;
-    -fx-padding: 10 20 10 20;
+
 }
 
 .boarderbox {
