@@ -42,7 +42,7 @@ public class Card {
 	 */
 	public Card pullCard() {
 		ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
-		if (GameModel.cardList.size() > 2) {
+		if (GameModel.cardList.size() < 2) {
 			Card newCard = evaluateCard();
 			return newCard;
 		} else {
@@ -60,7 +60,7 @@ public class Card {
 		if (newcard < 1) {
 			int cost = 3;
 			int effect = 2;
-			Image image = new Image(getClass().getResourceAsStream("../image/Card_Heilung.jpg"));
+			Image image = new Image(getClass().getResourceAsStream("../images/Card_Heilung.jpg"));
 			action = CardType.heal;
 			Card card = new Card(action, cost, image, effect);
 			GameModel.cardList.add(card);
@@ -69,7 +69,7 @@ public class Card {
 			if ((newcard >= 1) && (newcard < 2)){
 				int cost = 3;
 				int effect = 2;
-				Image image = new Image(getClass().getResourceAsStream("../image/Card_Feuerstrahl.jpg"));
+				Image image = new Image(getClass().getResourceAsStream("../images/Card_Feuerstrahl.jpg"));
 				action = CardType.attack;
 				Card card = new Card(action, cost, image, effect);
 				GameModel.cardList.add(card);
@@ -78,7 +78,7 @@ public class Card {
 			if ((newcard >= 2) && (newcard <3)) {
 				int cost = 3;
 				int effect = 1;
-				Image image = new Image(getClass().getResourceAsStream("../image/Card_Eckkneipe.jpg"));
+				Image image = new Image(getClass().getResourceAsStream("../images/Card_Eckkneipe.jpg"));
 				action = CardType.honor;
 				Card card = new Card(action, cost, image, effect);
 				GameModel.cardList.add(card);
@@ -87,7 +87,7 @@ public class Card {
 			if ((newcard >= 2) && (newcard <3)){
 				int cost = 3;
 				int effect = 2;
-				Image image = new Image(getClass().getResourceAsStream("../image/Card_Hochbahn.jpg"));
+				Image image = new Image(getClass().getResourceAsStream("../images/Card_Hochbahn.jpg"));
 				action = CardType.honor;
 				Card card = new Card(action, cost, image, effect);
 				GameModel.cardList.add(card);
@@ -95,7 +95,7 @@ public class Card {
 		} else {
 			int cost = 3;
 			int effect = 3;
-			Image image = new Image(getClass().getResourceAsStream("../image/Card_Wohnblock.jpg"));
+			Image image = new Image(getClass().getResourceAsStream("../images/Card_Wohnblock.jpg"));
 			action = CardType.honor;
 			Card card = new Card(action, cost, image, effect);
 			GameModel.cardList.add(card);

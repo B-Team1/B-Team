@@ -37,8 +37,8 @@
                   </VBox>
                   <VBox layoutX="344.0" layoutY="94.0" spacing="20.0" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="110.0">
                      <children>
-                        <Button fx:id="btnToGame" layoutX="112.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleToGame" prefWidth="130.0" stylesheets="@meincss.css" text="%create.btn.toGame" />
-                        <Button fx:id="btnAbortGame" layoutX="112.0" layoutY="105.0" mnemonicParsing="false" onAction="#handleAbortGame" prefWidth="130.0" stylesheets="@meincss.css" text="%create.btn.abortGame" />
+                        <Button fx:id="btnToGame" layoutX="112.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleToGame" prefHeight="35.0" prefWidth="130.0" stylesheets="@meincss.css" text="%create.btn.toGame" />
+                        <Button fx:id="btnAbortGame" layoutX="112.0" layoutY="105.0" mnemonicParsing="false" onAction="#handleAbortGame" prefHeight="35.0" prefWidth="130.0" stylesheets="@meincss.css" text="%create.btn.abortGame" />
                      </children>
                   </VBox>
                   <HBox layoutX="146.0" layoutY="21.0" opacity="0.7" styleClass="hbox" stylesheets="@meincss.css" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="25.0">
