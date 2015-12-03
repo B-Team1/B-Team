@@ -10,6 +10,7 @@ public class ServerThreadForClient extends Thread {
     private Socket clientSocket;
     DBModel dbconnect = new DBModel();
     ConnectionModel connectionModel;
+    MenuModel menuModel = new MenuModel();
 
     public ServerThreadForClient(Socket clientSocket) {
         this.clientSocket = clientSocket;
@@ -90,9 +91,8 @@ public class ServerThreadForClient extends Thread {
 				break;
 			case openNewGame:
 				//Tobias
-				msgOut = new Message(Message.MessageType.openNewGame);
-				
-				msgOut.setWriteCheck(true);
+				msgOut = new Message(Message.MessageType.openNewGame);				
+				msgOut.setWriteCheck(menuModel.newGame(msgIn.getNumPlayer(), msgIn.getFamePointsWin(), msgIn.getWinFamePoins()));
 		
 		default:
 			msgOut = new Message(Message.MessageType.Error);

@@ -53,7 +53,7 @@ public class Message {
 	private String vName;
 	
 	@Element(required = false)
-	private int winFamePoins;
+	private int winFamePoints;
 	
 	@Element(required = false)
 	private int wonGames;
@@ -198,7 +198,7 @@ public class Message {
 
 
 
-	public boolean isFamePointsWin() {
+	public boolean getFamePointsWin() {
 		return famePointsWin;
 	}
 
@@ -223,13 +223,13 @@ public class Message {
 
 
 	public int getWinFamePoins() {
-		return winFamePoins;
+		return winFamePoints;
 	}
 
 
 
 	public void setWinFamePoins(int winFamePoins) {
-		this.winFamePoins = winFamePoins;
+		this.winFamePoints = winFamePoins;
 	}
 	
 

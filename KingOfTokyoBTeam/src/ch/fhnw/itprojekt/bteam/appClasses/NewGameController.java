@@ -3,6 +3,8 @@ package ch.fhnw.itprojekt.bteam.appClasses;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import ch.fhnw.itprojekt.bteam.template.Properties;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -54,10 +56,13 @@ public class NewGameController implements Initializable {
 		boolean famePointsWin = chbWinFamePoints.isSelected();
 		
 		if(model.openNewGame(numPlayers, famePointsWin, winFamePoins)){
-			
+			model.startCreateGame(new Stage());
+		}else{
+			ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
+			JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("newGame.error"), JOptionPane.WARNING_MESSAGE));
 		}
 		
-		model.startCreateGame(new Stage());
+		
 	}
 	
 	/**
