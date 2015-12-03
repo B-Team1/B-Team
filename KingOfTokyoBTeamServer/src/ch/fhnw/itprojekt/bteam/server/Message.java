@@ -15,7 +15,7 @@ import org.simpleframework.xml.core.Persister;
 @Root
 public class Message {
 	public enum MessageType {
-		Error, Login, SecurityQuestion, Registration, SecurityAnswer, Password, Test, Broadcast, getStat, openNewGame
+		Error, Login, SecurityQuestion, Registration, SecurityAnswer, Password, Test, Broadcast, getStat, openNewGame, deleteGame
 	};
 
 	// Data included in a message
@@ -27,6 +27,9 @@ public class Message {
 	
 	@Element(required = false)
 	private boolean famePointsWin;
+	
+	@Element(required = false)
+	private int gameId;
 	
 	@Element(required = false)
 	private String nickname;
@@ -230,6 +233,18 @@ public class Message {
 
 	public void setWinFamePoins(int winFamePoins) {
 		this.winFamePoints = winFamePoins;
+	}
+
+
+
+	public int getGameId() {
+		return gameId;
+	}
+
+
+
+	public void setGameId(int gameId) {
+		this.gameId = gameId;
 	}
 	
 

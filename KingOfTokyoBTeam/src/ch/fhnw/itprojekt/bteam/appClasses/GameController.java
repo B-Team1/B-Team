@@ -108,12 +108,13 @@ public class GameController implements Initializable {
 	ImageView ivCard2;
 	
 
-	GameModel gameModel = new GameModel();
+	GameModel gameModel;
 
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 //		btnCardDeck.setGraphic("../images/KingOfTokyo.jpg");
+		gameModel = GameModel.getInstance();
 	}
 
 	/**Bei Klick auf Würfeln wird gameModel aufgerufen, welche das Würfelresultat zurückgibt. Zudem wird hier das Wüfelbild geladen.

@@ -4,13 +4,13 @@ public class GameModel {
 	private int numPlayer;
 	private int winFamePoints;
 	private boolean famePointsWin;
-	
-	
+	private static int gameId = 1;	
+
 	public GameModel(int numPlayer, int winFamePoints, boolean famePointsWin) {
-		super();
 		this.numPlayer = numPlayer;
 		this.winFamePoints = winFamePoints;
 		this.famePointsWin = famePointsWin;
+		gameId = gameId + 1;
 	}
 	
 	public int getNumPlayer() {
@@ -37,6 +37,9 @@ public class GameModel {
 		this.famePointsWin = famePointsWin;
 	}
 
+	public int getGameId() {
+		return gameId;
+	}
 	
 	
 }

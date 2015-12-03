@@ -30,7 +30,11 @@ public class MenuModel extends Application {
         connectionModel = ConnectionModel.getInstance();
     }
 	
-	
+	/**
+	 * Diese Methode prüft, ob bereits eine Instanz besteht und gibt dann eine zurück.
+	 * @return MenuModel
+	 * @author Tobias
+	 */
 	public static MenuModel getInstance() {
 	     if(singleton == null) {	        
 	         singleton = new MenuModel();
@@ -83,27 +87,7 @@ public class MenuModel extends Application {
     	}
 	}
 	
-	/**
-	 * Methode öffnet das Fenster CreateGame und lädt die Einstellungen
-	 * @author Marco
-	 */
-	public void startCreateGame(Stage createGameStage) {
-		try {
-    		Properties.getProperties().setLocale(new Locale(ServiceLocator.getServiceLocator().getLanguage()));
-            BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/createGame.fxml"),
-            		ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale()));
-    	
-            Scene scene = new Scene(root);
-            // scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-            createGameStage.setScene(scene);
-            createGameStage.setTitle("King of Tokyo");
-            createGameStage.setResizable(false);
-            createGameStage.show();
-            serviceLocator.getLogger().info("CreateGame geöffnet");
-    	} catch(Exception e) {
-    		e.printStackTrace();
-    	}
-	}
+	
 		
 	/**
 	 * Ruft im ConnectionModel die Statistik anhand des Nicknames ab. Nickname ist im Model gespeichert.
@@ -122,17 +106,47 @@ public class MenuModel extends Application {
 		this.currentNickname = nickname;
 	}
 	
+	/**
+	 * Gibt die Daten für ein neues Spiel dem Connection Model. Dieses gibt eine gameId grösser 0
+	 * zurück wenn das Game erfolgreich angelegt wurde. Nun wird ein neues Game auf dem Client mit diesr
+	 * gameId erzeugt.
+	 * @author Tobias
+	 * @param numPlayer
+	 * @param famePointsWin
+	 * @param winFamePoins
+	 * @return true wenn das Spiel erzeugt wurde
+	 */
 	public boolean openNewGame(String numPlayer, boolean famePointsWin, String winFamePoins){
-		 return connectionModel.sendNewGame(convertPlayerChoiceBox(numPlayer), famePointsWin, convertFamePointsChoiceBox(winFamePoins));
+		int gameId = connectionModel.sendNewGame(convertPlayerChoiceBox(numPlayer), famePointsWin, convertFamePointsChoiceBox(winFamePoins));
+		if(gameId > 0){
+			new GameModel(gameId);
+			return true;
+		}
+		return false;
 	}
 	
+	/**
+	 * Wandelt den Wert der Choicebox in einen int um
+	 * @author Tobias
+	 * @param numPlayer
+	 * @return
+	 */
 	private int convertPlayerChoiceBox(String numPlayer){
 		return Integer.parseInt(numPlayer.split(" ")[0]);		
 	}
 	
+	
+	/**
+	 * Wandelt den Wert der Choicebox in einen int um
+	 * @author Tobias
+	 * @param winFamePoins
+	 * @return
+	 */
 	private int convertFamePointsChoiceBox(String winFamePoins){
 		return Integer.parseInt(winFamePoins.split(" ")[0]);		
 	}
+	
+	
 	
 
 }

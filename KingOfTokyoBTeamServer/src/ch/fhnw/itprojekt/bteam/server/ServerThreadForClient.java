@@ -92,7 +92,15 @@ public class ServerThreadForClient extends Thread {
 			case openNewGame:
 				//Tobias
 				msgOut = new Message(Message.MessageType.openNewGame);				
-				msgOut.setWriteCheck(menuModel.newGame(msgIn.getNumPlayer(), msgIn.getFamePointsWin(), msgIn.getWinFamePoins()));
+				msgOut.setGameId(menuModel.newGame(msgIn.getNumPlayer(), msgIn.getFamePointsWin(), msgIn.getWinFamePoins()));
+				break;
+			case deleteGame:
+				//Tobias
+				menuModel.deleteGame(msgIn.getGameId());
+				//Wird nur zurück gegeben, damit es kein Fehler gibt
+				msgOut = new Message(Message.MessageType.deleteGame);
+				msgOut.setWriteCheck(true);
+				break;
 		
 		default:
 			msgOut = new Message(Message.MessageType.Error);
