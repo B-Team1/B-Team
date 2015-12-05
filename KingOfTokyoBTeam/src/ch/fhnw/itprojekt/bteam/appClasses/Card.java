@@ -10,25 +10,27 @@ import javafx.scene.image.Image;
 
 public class Card {
 
-	// coast, effect, name, picture
 	int cost, effect;
-	public int getCost() {
-		return cost;
-	}
-
-
 	Image cardImage;
 	
 	/**
 	 * Enum definiert die einzelnen Typen der Auswirkungen von der Karte
 	 * @author Marco
 	 */
-	public enum CardType {attack, energy, heal, honor}
+	public enum CardType {attack, heal, honor}
 	CardType action;
 	
+	/**
+	 * Leerer Konstruktor um ihn dann zu füllen
+	 * @author Marco
+	 */
 	public Card() {
 	}
 	
+	/**
+	 * Konstruktor um ein Objekt Karte zu erstellen mit den Eigenschaften
+	 * @author Marco
+	 */
 	public Card(CardType action, int cost, Image cardImage, int effect){
 		this.cost = cost;
 		this.cardImage = cardImage;
@@ -57,7 +59,7 @@ public class Card {
 	 */
 	public Card evaluateCard() {
 		double newcard = (Math.random() * 5);
-		if (newcard < 1) {
+		if (newcard < 0.1) {
 			int cost = 3;
 			int effect = 2;
 			Image image = new Image(getClass().getResourceAsStream("../images/Card_Heilung.jpg"));
@@ -66,7 +68,7 @@ public class Card {
 			GameModel.cardList.add(card);
 			return card;
 		} else {
-			if ((newcard >= 1) && (newcard < 2)){
+			if ((newcard >= 0.1) && (newcard < 4.7)){
 				int cost = 3;
 				int effect = 2;
 				Image image = new Image(getClass().getResourceAsStream("../images/Card_Feuerstrahl.jpg"));
@@ -75,7 +77,7 @@ public class Card {
 				GameModel.cardList.add(card);
 				return card;
 		} else {
-			if ((newcard >= 2) && (newcard <3)) {
+			if ((newcard >= 4.7) && (newcard <4.8)) {
 				int cost = 3;
 				int effect = 1;
 				Image image = new Image(getClass().getResourceAsStream("../images/Card_Eckkneipe.jpg"));
@@ -84,7 +86,7 @@ public class Card {
 				GameModel.cardList.add(card);
 				return card;
 		} else {
-			if ((newcard >= 2) && (newcard <3)){
+			if ((newcard >= 4.8) && (newcard <4.9)){
 				int cost = 3;
 				int effect = 2;
 				Image image = new Image(getClass().getResourceAsStream("../images/Card_Hochbahn.jpg"));
@@ -104,6 +106,10 @@ public class Card {
 		}
 		}
 		}
+	}
+	
+	public int getCost() {
+		return cost;
 	}
 	
 	public void setCost(int cost) {

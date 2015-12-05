@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -63,6 +65,7 @@ public class GameController implements Initializable {
 	@FXML ImageView ivCardDeck;
 	@FXML ImageView ivCard1;
 	@FXML ImageView ivCard2;
+	@FXML ImageView ivMonsterInTokyo;
 	
 
 
@@ -140,22 +143,60 @@ public class GameController implements Initializable {
 	 */
 	@FXML 
 	public void handleCardDeck(ActionEvent event) {
-	    //Card card = new Card();
 		try {
-		if (GameModel.cardList.isEmpty()){
-			Card firstcard = new Card();
-			firstcard = gameModel.pullCard();
-			ivCard1.setImage(firstcard.getCardImage());
+			Card newCard = new Card();
+		if (GameModel.cardList.size() == 0){
+			newCard = gameModel.pullCard();
+			ivCard1.setImage(newCard.getCardImage());
 		} else {
-			Card secondcard = new Card();
-			secondcard = gameModel.pullCard();
-			ivCard2.setImage(secondcard.getCardImage());
+			newCard = gameModel.pullCard();
+			ivCard2.setImage(newCard.getCardImage());
 		}
+			
+			// Die einzelnen Aktionen je nach Aktions-Typ der Karte
+			switch (newCard.getAction()){
+			case attack:
+				if (GameModel.getInstance().playerMe.inTokyo){
+					gameModel.attackFromTokyo(newCard.getEffect());
+					lbLifePointsChangePlayer2.setText("-" + GameModel.getInstance().playerTwo.getFutureLifePoints());
+					if (GameModel.getInstance().playerThree!=null) {
+					lbLifePointsChangePlayer3.setText("-" + GameModel.getInstance().playerThree.getFutureLifePoints());
+					}
+					if (GameModel.getInstance().playerFour!=null) {
+					lbLifePointsChangePlayer4.setText("-" + GameModel.getInstance().playerFour.getFutureLifePoints());
+					}
+				} else {
+					gameModel.attackTokyo(GameModel.getInstance().playerTwo, newCard.getEffect());
+					if (GameModel.getInstance().playerTwo.getFutureLifePoints() != 0){
+						lbLifePointsChangePlayer2.setText("-" + GameModel.getInstance().playerTwo.getFutureLifePoints());
+					}
+					if ((GameModel.getInstance().playerThree.getFutureLifePoints() != 0) && (GameModel.getInstance().playerThree!=null)) {
+						lbLifePointsChangePlayer3.setText("-" + GameModel.getInstance().playerThree.getFutureLifePoints());
+					}
+					if ((GameModel.getInstance().playerFour.getFutureLifePoints() != 0) && (GameModel.getInstance().playerFour!=null)) {
+						lbLifePointsChangePlayer4.setText("-" + GameModel.getInstance().playerFour.getFutureLifePoints());
+					}
+				}
+				break;
+			case heal:
+				int afterHealPoints = GameModel.getInstance().playerMe.getFutureLifePoints() + newCard.getEffect();
+				GameModel.getInstance().playerMe.setFutureLifePoints(afterHealPoints);
+				lbLifePointsChangePlayer1.setText("+" + GameModel.getInstance().playerMe.getFutureLifePoints());
+				
+				break;
+			case honor:
+				int futureHonorPoints = GameModel.getInstance().playerMe.getFutureHonorPoints() + newCard.getEffect();
+				GameModel.getInstance().playerMe.setFutureHonorPoints(futureHonorPoints);
+				lbFamePointsChangePlayer1.setText("+" + GameModel.getInstance().playerMe.getFutureHonorPoints());
+				break;
+		}
+				
 		}catch (NullPointerException exception){
 			
 		}
 		
 	    }
+	
 
 
 }

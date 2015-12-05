@@ -46,7 +46,27 @@ public class Player {
 		this.inTokyo = inTokyo;
 	}
 
-	
-	
-	
+	public int getFutureLifePoints() {
+		return futureLifePoints;
+	}
+
+	public void setFutureLifePoints(int futureLifePoints) {
+		this.futureLifePoints = futureLifePoints;
+	}
+
+	public int getFutureHonorPoints() {
+		return futureHonorPoints;
+	}
+
+	public void setFutureHonorPoints(int futureHonorPoints) {
+		this.futureHonorPoints = futureHonorPoints;
+	}
+
+	public int getFutureEnergyPoints() {
+		return futureEnergyPoints;
+	}
+
+	public void setFutureEnergyPoints(int futureEnergyPoints) {
+		this.futureEnergyPoints = futureEnergyPoints;
+	}
 }

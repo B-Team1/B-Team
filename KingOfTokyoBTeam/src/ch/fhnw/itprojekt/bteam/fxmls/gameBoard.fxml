@@ -36,12 +36,12 @@
                      <children>
                         <HBox layoutX="263.0" layoutY="35.0" spacing="10.0" VBox.vgrow="NEVER">
                            <children>
-                              <ToggleButton fx:id="btnDice1" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                              <ToggleButton fx:id="btnDice2" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                              <ToggleButton fx:id="btnDice3" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                              <ToggleButton fx:id="btnDice4" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                              <ToggleButton fx:id="btnDice5" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                              <ToggleButton fx:id="btnDice6" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
+                              <ToggleButton fx:id="btnDice1" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
+                              <ToggleButton fx:id="btnDice2" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
+                              <ToggleButton fx:id="btnDice3" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
+                              <ToggleButton fx:id="btnDice4" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
+                              <ToggleButton fx:id="btnDice5" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
+                              <ToggleButton fx:id="btnDice6" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
                            </children>
                         </HBox>
                      </children>
@@ -78,9 +78,9 @@
                                                 </VBox>
                                                 <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
                                                    <children>
-                                                      <Label fx:id="lbLifePointsChangePlayer1" layoutX="146.0" layoutY="341.0" text="Label" />
-                                                      <Label fx:id="lbFamePointsChangePlayer1" layoutX="146.0" layoutY="362.0" text="Label" />
-                                                      <Label fx:id="lbEnergyPointsChangePlayer1" layoutX="146.0" layoutY="383.0" text="Label" />
+                                                      <Label fx:id="lbLifePointsChangePlayer1" layoutX="146.0" layoutY="341.0" />
+                                                      <Label fx:id="lbFamePointsChangePlayer1" layoutX="146.0" layoutY="362.0" />
+                                                      <Label fx:id="lbEnergyPointsChangePlayer1" layoutX="146.0" layoutY="383.0" />
                                                    </children>
                                                 </VBox>
                                              </children>
@@ -112,14 +112,14 @@
                                                    <children>
                                                       <Label fx:id="lbLifePointsPlayer3" layoutX="92.0" layoutY="341.0" text="Label" />
                                                       <Label fx:id="lbFamePointsPlayer3" layoutX="92.0" layoutY="362.0" text="Label" />
-                                                      <Label fx:id="lbEnergyPointsPlayer3" layoutX="92.0" layoutY="383.0" text="Label" />
+                                                      <Label fx:id="lbEnergyPointsPlayer3" layoutX="92.0" layoutY="383.0" prefWidth="40.0" text="Label" />
                                                    </children>
                                                 </VBox>
                                                 <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
                                                    <children>
-                                                      <Label fx:id="lbLifePointsChangePlayer3" layoutX="146.0" layoutY="341.0" text="Label" />
-                                                      <Label fx:id="lbFamePointsChangePlayer3" layoutX="146.0" layoutY="362.0" text="Label" />
-                                                      <Label fx:id="lbEnergyPointsChangePlayer3" layoutX="146.0" layoutY="383.0" text="Label" />
+                                                      <Label fx:id="lbLifePointsChangePlayer3" layoutX="146.0" layoutY="341.0" />
+                                                      <Label fx:id="lbFamePointsChangePlayer3" layoutX="146.0" layoutY="362.0" />
+                                                      <Label fx:id="lbEnergyPointsChangePlayer3" layoutX="146.0" layoutY="383.0" prefWidth="30.0" />
                                                    </children>
                                                 </VBox>
                                              </children>
@@ -160,9 +160,9 @@
                                                 </VBox>
                                                 <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
                                                    <children>
-                                                      <Label fx:id="lbLifePointsChangePlayer2" layoutX="146.0" layoutY="341.0" text="Label" />
-                                                      <Label fx:id="lbFamePointsChangePlayer2" layoutX="146.0" layoutY="362.0" text="Label" />
-                                                      <Label fx:id="lbEnergyPointsChangePlayer2" layoutX="146.0" layoutY="383.0" text="Label" />
+                                                      <Label fx:id="lbLifePointsChangePlayer2" layoutX="146.0" layoutY="341.0" prefWidth="30.0" />
+                                                      <Label fx:id="lbFamePointsChangePlayer2" layoutX="146.0" layoutY="362.0" />
+                                                      <Label fx:id="lbEnergyPointsChangePlayer2" layoutX="146.0" layoutY="383.0" />
                                                    </children>
                                                 </VBox>
                                              </children>
@@ -199,9 +199,9 @@
                                                 </VBox>
                                                 <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
                                                    <children>
-                                                      <Label fx:id="lbLifePointsChangePlayer4" layoutX="146.0" layoutY="341.0" text="Label" />
-                                                      <Label fx:id="lbFamePointsChangePlayer4" layoutX="146.0" layoutY="362.0" text="Label" />
-                                                      <Label fx:id="lbEnergyPointsChangePlayer4" layoutX="146.0" layoutY="383.0" text="Label" />
+                                                      <Label fx:id="lbLifePointsChangePlayer4" layoutX="146.0" layoutY="341.0" />
+                                                      <Label fx:id="lbFamePointsChangePlayer4" layoutX="146.0" layoutY="362.0" />
+                                                      <Label fx:id="lbEnergyPointsChangePlayer4" layoutX="146.0" layoutY="383.0" />
                                                    </children>
                                                 </VBox>
                                              </children>
@@ -268,11 +268,20 @@
                   </VBox>
                   <HBox styleClass="hbox" stylesheets="@meincss.css" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="150.0">
                      <children>
-                        <ImageView fitHeight="472.0" fitWidth="507.0" layoutX="253.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/Spielplan.jpg" />
-                           </image>
-                        </ImageView>
+                        <StackPane>
+                           <children>
+                              <ImageView fitHeight="472.0" fitWidth="507.0" layoutX="253.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Spielplan.jpg" />
+                                 </image>
+                              </ImageView>
+                              <AnchorPane>
+                                 <children>
+                                    <ImageView fx:id="ivMonsterInTokyo" fitHeight="150.0" fitWidth="176.0" layoutX="14.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </StackPane>
                      </children>
                   </HBox>
                </children>

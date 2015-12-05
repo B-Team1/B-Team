@@ -15,12 +15,18 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class GameModel extends Application {
-	private int count;
+	private int count, lifePoints, energyPoints, honorPoints;
+	private boolean inTokyo = false;
 	static public ArrayList<Card> cardList = new ArrayList<Card>();
+	static public boolean tokyoTaken = false;
 	private static GameModel singleton;
 	private int gameId;
 	private ConnectionModel connectionModel;
 	
+	Player playerMe = new Player(lifePoints, energyPoints, honorPoints, inTokyo = true);
+	Player playerTwo = new Player(lifePoints, energyPoints, honorPoints, inTokyo);
+	Player playerThree = new Player(lifePoints, energyPoints, honorPoints, inTokyo);
+	Player playerFour = new Player(lifePoints, energyPoints, honorPoints, inTokyo);
 	
 	public int getGameId() {
 		return gameId;
@@ -99,10 +105,51 @@ public class GameModel extends Application {
 	 * @author Marco
 	 */
 	public Card pullCard(){
-		Card newcard = new Card();
-		newcard = newcard.pullCard();
+		Card newCard = new Card();
+		newCard = newCard.pullCard();
+		int cost = newCard.getCost();
+		int action = newCard.getEffect();
+		switch (newCard.getAction()){
+			case attack:
+				
+				break;
+			case heal:
+				
+				break;
+			case honor:
+				
+				break;
+		}
 		
-		return newcard;
+		return newCard;
+	}
+	
+	public void attackFromTokyo(int effect) {
+		int afterAttackPointsPlayer2 = playerTwo.getFutureLifePoints() + effect;
+		playerTwo.setFutureLifePoints(afterAttackPointsPlayer2);
+		if (playerThree!=null){
+		int afterAttackPointsPlayer3 = playerThree.getFutureLifePoints() + effect;
+		playerThree.setFutureLifePoints(afterAttackPointsPlayer3);
+		}
+		if (playerFour!=null){
+		int afterAttackPointsPlayer4 = playerFour.getFutureLifePoints() + effect;
+		playerFour.setFutureLifePoints(afterAttackPointsPlayer4);
+		}
+	}
+	
+	public void attackTokyo(Player player, int effect) {
+		if (playerTwo.inTokyo) {
+			int afterAttackPointsPlayer2 = playerTwo.getFutureLifePoints() + effect;
+			playerTwo.setFutureLifePoints(afterAttackPointsPlayer2);
+		}
+		if ((playerThree!=null) && (playerThree.inTokyo)) {
+			int afterAttackPointsPlayer3 = playerThree.getFutureLifePoints() + effect;
+			playerThree.setFutureLifePoints(afterAttackPointsPlayer3);
+		}
+		if ((playerFour!=null) && (playerFour.inTokyo)) {
+			int afterAttackPointsPlayer4 = playerFour.getFutureLifePoints() + effect;
+			playerFour.setFutureLifePoints(afterAttackPointsPlayer4);
+		}
 	}
 
 	/**
