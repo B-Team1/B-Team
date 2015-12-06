@@ -59,7 +59,7 @@ public class Card {
 	 */
 	public Card evaluateCard() {
 		double newcard = (Math.random() * 5);
-		if (newcard < 0.1) {
+		if (newcard < 1) {
 			int cost = 3;
 			int effect = 2;
 			Image image = new Image(getClass().getResourceAsStream("../images/Card_Heilung.jpg"));
@@ -68,7 +68,7 @@ public class Card {
 			GameModel.cardList.add(card);
 			return card;
 		} else {
-			if ((newcard >= 0.1) && (newcard < 4.7)){
+			if ((newcard >= 1) && (newcard < 2)){
 				int cost = 3;
 				int effect = 2;
 				Image image = new Image(getClass().getResourceAsStream("../images/Card_Feuerstrahl.jpg"));
@@ -77,7 +77,7 @@ public class Card {
 				GameModel.cardList.add(card);
 				return card;
 		} else {
-			if ((newcard >= 4.7) && (newcard <4.8)) {
+			if ((newcard >= 2) && (newcard <3)) {
 				int cost = 3;
 				int effect = 1;
 				Image image = new Image(getClass().getResourceAsStream("../images/Card_Eckkneipe.jpg"));
@@ -86,7 +86,7 @@ public class Card {
 				GameModel.cardList.add(card);
 				return card;
 		} else {
-			if ((newcard >= 4.8) && (newcard <4.9)){
+			if ((newcard >= 3) && (newcard <4)){
 				int cost = 3;
 				int effect = 2;
 				Image image = new Image(getClass().getResourceAsStream("../images/Card_Hochbahn.jpg"));

@@ -145,15 +145,21 @@ public class GameController implements Initializable {
 	public void handleCardDeck(ActionEvent event) {
 		try {
 			Card newCard = new Card();
-		if (GameModel.cardList.size() == 0){
-			newCard = gameModel.pullCard();
+			GameModel.getInstance().playerMe.setEnergyPoints(10);
+		if (GameModel.cardList.size() == 0 && (GameModel.getInstance().playerMe.getEnergyPoints() >= 3)){
+			newCard = newCard.pullCard();
 			ivCard1.setImage(newCard.getCardImage());
 		} else {
-			newCard = gameModel.pullCard();
+			if (GameModel.getInstance().playerMe.getEnergyPoints() >= 3) {
+			newCard = newCard.pullCard();
 			ivCard2.setImage(newCard.getCardImage());
+			}
 		}
 			
-			// Die einzelnen Aktionen je nach Aktions-Typ der Karte
+			
+			/**
+			 * Die einzelnen Aktionen je nach Aktions-Typ der Karte
+			 */
 			switch (newCard.getAction()){
 			case attack:
 				if (GameModel.getInstance().playerMe.inTokyo){
@@ -165,6 +171,7 @@ public class GameController implements Initializable {
 					if (GameModel.getInstance().playerFour!=null) {
 					lbLifePointsChangePlayer4.setText("-" + GameModel.getInstance().playerFour.getFutureLifePoints());
 					}
+					lbEnergyPointsChangePlayer1.setText("-" + GameModel.getInstance().playerMe.getFutureEnergyPoints());
 				} else {
 					gameModel.attackTokyo(GameModel.getInstance().playerTwo, newCard.getEffect());
 					if (GameModel.getInstance().playerTwo.getFutureLifePoints() != 0){
@@ -176,18 +183,22 @@ public class GameController implements Initializable {
 					if ((GameModel.getInstance().playerFour.getFutureLifePoints() != 0) && (GameModel.getInstance().playerFour!=null)) {
 						lbLifePointsChangePlayer4.setText("-" + GameModel.getInstance().playerFour.getFutureLifePoints());
 					}
+					lbEnergyPointsChangePlayer1.setText("-" + GameModel.getInstance().playerMe.getFutureEnergyPoints());
 				}
 				break;
 			case heal:
 				int afterHealPoints = GameModel.getInstance().playerMe.getFutureLifePoints() + newCard.getEffect();
 				GameModel.getInstance().playerMe.setFutureLifePoints(afterHealPoints);
 				lbLifePointsChangePlayer1.setText("+" + GameModel.getInstance().playerMe.getFutureLifePoints());
-				
+				GameModel.getInstance().payCard();
+				lbEnergyPointsChangePlayer1.setText("-" + GameModel.getInstance().playerMe.getFutureEnergyPoints());
 				break;
 			case honor:
 				int futureHonorPoints = GameModel.getInstance().playerMe.getFutureHonorPoints() + newCard.getEffect();
 				GameModel.getInstance().playerMe.setFutureHonorPoints(futureHonorPoints);
 				lbFamePointsChangePlayer1.setText("+" + GameModel.getInstance().playerMe.getFutureHonorPoints());
+				GameModel.getInstance().payCard();
+				lbEnergyPointsChangePlayer1.setText("-" + GameModel.getInstance().playerMe.getFutureEnergyPoints());
 				break;
 		}
 				

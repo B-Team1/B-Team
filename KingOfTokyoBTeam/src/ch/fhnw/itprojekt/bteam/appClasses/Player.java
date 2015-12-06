@@ -5,8 +5,10 @@ public class Player {
 	int honorPoints, lifePoints, energyPoints, futureLifePoints, futureHonorPoints, futureEnergyPoints;
 	boolean inTokyo = false;
 	
-	// futurepoints getter und setter aber nicht im konstruktor!!  Gesamte Klasse zählt als Objetk!!
-	
+	/**
+	 * Konstruktor um einen neuen Spieler zu erzeugen
+	 * @author Marco
+	 */
 	public Player(int lifePoints, int energyPoints, int honorPoints, boolean inTokyo) {
 		this.lifePoints = lifePoints;
 		this.energyPoints = energyPoints;
