@@ -195,6 +195,32 @@ public class ConnectionModel {
 		return respons;
 	}
 	
+	public int sendNewGame(int numPlayer, boolean famePointsWin, int winFamePoins){
+		Message msgOut = new Message(Message.MessageType.openNewGame);
+		msgOut.setNumPlayer(numPlayer);
+		msgOut.setFamePointsWin(famePointsWin);
+		msgOut.setWinFamePoins(winFamePoins);
+		int respons = 0;
+		try {
+			msgOut.send(socket);
+			Thread.sleep(1000);
+			respons = msgIn.getGameId();
+			} catch (Exception e) {
+				serviceLocator.getLogger().warning(e.toString());
+		}
+		return respons;
+	}
+	
+	public void deleteGame(int gameId){
+		Message msgOut = new Message(Message.MessageType.deleteGame);
+		msgOut.setGameId(gameId);
+		try {
+			msgOut.send(socket);			
+			} catch (Exception e) {
+				serviceLocator.getLogger().warning(e.toString());
+		}
+	}
+	
 }
 
 

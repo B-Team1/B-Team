@@ -10,25 +10,27 @@ import javafx.scene.image.Image;
 
 public class Card {
 
-	// coast, effect, name, picture
 	int cost, effect;
-	public int getCost() {
-		return cost;
-	}
-
-
 	Image cardImage;
 	
 	/**
 	 * Enum definiert die einzelnen Typen der Auswirkungen von der Karte
 	 * @author Marco
 	 */
-	public enum CardType {attack, energy, heal, honor}
+	public enum CardType {attack, heal, honor}
 	CardType action;
 	
+	/**
+	 * Leerer Konstruktor um ihn dann zu füllen
+	 * @author Marco
+	 */
 	public Card() {
 	}
 	
+	/**
+	 * Konstruktor um ein Objekt Karte zu erstellen mit den Eigenschaften
+	 * @author Marco
+	 */
 	public Card(CardType action, int cost, Image cardImage, int effect){
 		this.cost = cost;
 		this.cardImage = cardImage;
@@ -42,11 +44,11 @@ public class Card {
 	 */
 	public Card pullCard() {
 		ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
-		if (GameModel.cardList.size() > 2) {
+		if (GameModel.cardList.size() < 2) {
 			Card newCard = evaluateCard();
 			return newCard;
 		} else {
-			JOptionPane.showMessageDialog(null, FXCollections.observableArrayList((bundle.getString("card.twocards"))));
+			JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("card.twocards")));
 			return null;
 		}
 	}
@@ -60,7 +62,7 @@ public class Card {
 		if (newcard < 1) {
 			int cost = 3;
 			int effect = 2;
-			Image image = new Image(getClass().getResourceAsStream("../image/Card_Heilung.jpg"));
+			Image image = new Image(getClass().getResourceAsStream("../images/Card_Heilung.jpg"));
 			action = CardType.heal;
 			Card card = new Card(action, cost, image, effect);
 			GameModel.cardList.add(card);
@@ -69,7 +71,7 @@ public class Card {
 			if ((newcard >= 1) && (newcard < 2)){
 				int cost = 3;
 				int effect = 2;
-				Image image = new Image(getClass().getResourceAsStream("../image/Card_Feuerstrahl.jpg"));
+				Image image = new Image(getClass().getResourceAsStream("../images/Card_Feuerstrahl.jpg"));
 				action = CardType.attack;
 				Card card = new Card(action, cost, image, effect);
 				GameModel.cardList.add(card);
@@ -78,16 +80,16 @@ public class Card {
 			if ((newcard >= 2) && (newcard <3)) {
 				int cost = 3;
 				int effect = 1;
-				Image image = new Image(getClass().getResourceAsStream("../image/Card_Eckkneipe.jpg"));
+				Image image = new Image(getClass().getResourceAsStream("../images/Card_Eckkneipe.jpg"));
 				action = CardType.honor;
 				Card card = new Card(action, cost, image, effect);
 				GameModel.cardList.add(card);
 				return card;
 		} else {
-			if ((newcard >= 2) && (newcard <3)){
+			if ((newcard >= 3) && (newcard <4)){
 				int cost = 3;
 				int effect = 2;
-				Image image = new Image(getClass().getResourceAsStream("../image/Card_Hochbahn.jpg"));
+				Image image = new Image(getClass().getResourceAsStream("../images/Card_Hochbahn.jpg"));
 				action = CardType.honor;
 				Card card = new Card(action, cost, image, effect);
 				GameModel.cardList.add(card);
@@ -95,7 +97,7 @@ public class Card {
 		} else {
 			int cost = 3;
 			int effect = 3;
-			Image image = new Image(getClass().getResourceAsStream("../image/Card_Wohnblock.jpg"));
+			Image image = new Image(getClass().getResourceAsStream("../images/Card_Wohnblock.jpg"));
 			action = CardType.honor;
 			Card card = new Card(action, cost, image, effect);
 			GameModel.cardList.add(card);
@@ -104,6 +106,10 @@ public class Card {
 		}
 		}
 		}
+	}
+	
+	public int getCost() {
+		return cost;
 	}
 	
 	public void setCost(int cost) {

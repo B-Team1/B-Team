@@ -15,8 +15,47 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class GameModel extends Application {
-	private int count;
+	private int count, lifePoints, energyPoints, honorPoints;
+	static int cardCost = 3;
+	private boolean inTokyo = false;
 	static public ArrayList<Card> cardList = new ArrayList<Card>();
+	static public boolean tokyoTaken = false;
+	private static GameModel singleton;
+	private int gameId;
+	private ConnectionModel connectionModel;
+	
+	Player playerMe = new Player(lifePoints, energyPoints, honorPoints, inTokyo = true);
+	Player playerTwo = new Player(lifePoints, energyPoints, honorPoints, inTokyo);
+	Player playerThree = new Player(lifePoints, energyPoints, honorPoints, inTokyo);
+	Player playerFour = new Player(lifePoints, energyPoints, honorPoints, inTokyo);
+	
+	public int getGameId() {
+		return gameId;
+	}
+
+	public void setGameId(int gameId) {
+		this.gameId = gameId;
+	}
+
+	/**
+	 * Darf nur zum Erstellen eines neuen Spiels verwendet werden!!!
+	 * @author Tobias
+	 * @param gameId
+	 */
+	public GameModel(int gameId) {
+		this.singleton = this;
+		this.gameId = gameId;
+		connectionModel = ConnectionModel.getInstance();
+	}
+
+	/**
+	 * Diese Methode prüft, ob bereits eine Instanz besteht und gibt dann eine zurück.
+	 * @return 
+	 * @author Tobias
+	 */
+	public static GameModel getInstance() {
+		return singleton;
+	}
 	
 	/**
 	 * Methode öffnet das Spielfeld und lädt die Einstellungen
@@ -42,14 +81,67 @@ public class GameModel extends Application {
 	}
 	
 	/**
-	 * Methode zieht eine Karte in der Klasse Card
+	 * Methode öffnet das Fenster CreateGame und lädt die Einstellungen
 	 * @author Marco
 	 */
-	public Card pullCard(){
-		Card newcard = new Card();
-		newcard = newcard.pullCard();
-		
-		return newcard;
+	public void startCreateGame(Stage createGameStage) {
+		try {
+    		Properties.getProperties().setLocale(new Locale(ServiceLocator.getServiceLocator().getLanguage()));
+            BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/createGame.fxml"),
+            		ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale()));
+    	
+            Scene scene = new Scene(root);
+            // scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+            createGameStage.setScene(scene);
+            createGameStage.setTitle("King of Tokyo");
+            createGameStage.setResizable(false);
+            createGameStage.show();            
+    	} catch(Exception e) {
+    		e.printStackTrace();
+    	}
+	}
+	
+	/**
+	 * Methode berechnet die Auswirkungen bei einem Angriff mit einer Karte von Tokyo
+	 * @author Marco
+	 */
+	public void attackFromTokyo(int effect) {
+		int afterAttackPointsPlayer2 = playerTwo.getFutureLifePoints() + effect;
+		playerTwo.setFutureLifePoints(afterAttackPointsPlayer2);
+		if (playerThree!=null){
+		int afterAttackPointsPlayer3 = playerThree.getFutureLifePoints() + effect;
+		playerThree.setFutureLifePoints(afterAttackPointsPlayer3);
+		}
+		if (playerFour!=null){
+		int afterAttackPointsPlayer4 = playerFour.getFutureLifePoints() + effect;
+		playerFour.setFutureLifePoints(afterAttackPointsPlayer4);
+		}
+		payCard();
+	}
+	
+	/**
+	 * Methode berechnet die Auswirkungen bei einem Angriff mit einer Karte auf Tokyo
+	 * @author Marco
+	 */
+	public void attackTokyo(Player player, int effect) {
+		if (playerTwo.inTokyo) {
+			int afterAttackPointsPlayer2 = playerTwo.getFutureLifePoints() + effect;
+			playerTwo.setFutureLifePoints(afterAttackPointsPlayer2);
+		}
+		if ((playerThree!=null) && (playerThree.inTokyo)) {
+			int afterAttackPointsPlayer3 = playerThree.getFutureLifePoints() + effect;
+			playerThree.setFutureLifePoints(afterAttackPointsPlayer3);
+		}
+		if ((playerFour!=null) && (playerFour.inTokyo)) {
+			int afterAttackPointsPlayer4 = playerFour.getFutureLifePoints() + effect;
+			playerFour.setFutureLifePoints(afterAttackPointsPlayer4);
+		}
+		payCard();
+	}
+	
+	public void payCard() {
+		int afterAttackPointsPlayerMe = playerMe.getFutureEnergyPoints() + cardCost;
+		playerMe.setFutureEnergyPoints(afterAttackPointsPlayerMe);
 	}
 
 	/**
@@ -70,6 +162,14 @@ public class GameModel extends Application {
 			diceResult = null;
 			return diceResult;
 		}
+	}
+	
+	/**
+	 * Löscht das bestehende Spiel vom Server
+	 * @author Tobias
+	 */
+	public void deleteGame(){
+		connectionModel.deleteGame(gameId);
 	}
 
 }

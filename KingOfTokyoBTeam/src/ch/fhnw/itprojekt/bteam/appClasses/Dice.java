@@ -23,23 +23,23 @@ public Dice roll(){
 	this.value = randomZahl;
 	switch (value) {
     	case 1:  value = 1;
-    		 this.image = new Image(getClass().getResourceAsStream("../images/Würfel1.jpg"));
+    		 this.image = new Image(getClass().getResourceAsStream("../images/Würfel1.png"));
     		 
              break;
     	case 2:  value = 2;
-    		 this.image = (new Image(getClass().getResourceAsStream("../images/Würfel2.jpg")));
+    		 this.image = (new Image(getClass().getResourceAsStream("../images/Würfel2.png")));
     		 break;
     	case 3:  value = 3;
-             this.image = (new Image(getClass().getResourceAsStream("../images/Würfel3.jpg")));
+             this.image = (new Image(getClass().getResourceAsStream("../images/Würfel3.png")));
     		 break;
     	case 4:  value = 4;
-    		 this.image = (new Image(getClass().getResourceAsStream("../images/Würfel4.jpg")));
+    		 this.image = (new Image(getClass().getResourceAsStream("../images/Würfel4.png")));
 	         break;
     	case 5:  value = 5;
-    		 this.image = (new Image(getClass().getResourceAsStream("../images/Würfel5.jpg")));
+    		 this.image = (new Image(getClass().getResourceAsStream("../images/Würfel5.png")));
     		 break;
     	case 6:  value = 6;
-    		 this.image = (new Image(getClass().getResourceAsStream("../images/Würfel6.jpg")));
+    		 this.image = (new Image(getClass().getResourceAsStream("../images/Würfel6.png")));
     		 break;
 	 } 		
 	return this;

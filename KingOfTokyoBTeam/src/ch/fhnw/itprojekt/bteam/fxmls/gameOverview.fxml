@@ -46,8 +46,8 @@
                <children>
                   <VBox layoutX="306.0" layoutY="263.0" spacing="20.0">
                      <children>
-                        <Button fx:id="btnStartGame" disable="true" layoutX="538.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleStartGame" prefWidth="120.0" styleClass="test" stylesheets="@meincss.css" text="%overview.btn.start" />
-                        <Button fx:id="btnNewGame" layoutX="538.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleNewGame" prefWidth="120.0" styleClass="test" stylesheets="@meincss.css" text="%overview.btn.new" />
+                        <Button fx:id="btnStartGame" disable="true" layoutX="538.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleStartGame" prefHeight="35.0" prefWidth="120.0" styleClass="test" stylesheets="@meincss.css" text="%overview.btn.start" />
+                        <Button fx:id="btnNewGame" layoutX="538.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleNewGame" prefHeight="35.0" prefWidth="120.0" styleClass="test" stylesheets="@meincss.css" text="%overview.btn.new" />
                         <Button fx:id="btnCloseGame" layoutX="538.0" layoutY="407.0" mnemonicParsing="false" onAction="#handleCloseGame" prefHeight="35.0" prefWidth="120.0" styleClass="test" stylesheets="@meincss.css" text="%overview.btn.close" />
                      </children>
                   </VBox>

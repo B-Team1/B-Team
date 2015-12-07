@@ -15,7 +15,7 @@ import org.simpleframework.xml.core.Persister;
 @Root
 public class Message {
 	public enum MessageType {
-		Error, Login, SecurityQuestion, Registration, SecurityAnswer, Password, Test, Broadcast, getStat
+		Error, Login, SecurityQuestion, Registration, SecurityAnswer, Password, Test, Broadcast, getStat, openNewGame, deleteGame
 	};
 
 	// Data included in a message
@@ -26,10 +26,19 @@ public class Message {
 	private boolean checkLogin;
 	
 	@Element(required = false)
+	private boolean famePointsWin;
+	
+	@Element(required = false)
+	private int gameId;
+	
+	@Element(required = false)
 	private String nickname;
 	
 	@Element(required = false)
 	private String nName;
+	
+	@Element(required = false)
+	private int numPlayer;
 
 	@Element(required = false)
 	private String password;
@@ -45,6 +54,9 @@ public class Message {
 	
 	@Element(required = false)
 	private String vName;
+	
+	@Element(required = false)
+	private int winFamePoints;
 	
 	@Element(required = false)
 	private int wonGames;
@@ -185,6 +197,54 @@ public class Message {
 
 	public void setWonGames(int wonGames) {
 		this.wonGames = wonGames;
+	}
+
+
+
+	public boolean getFamePointsWin() {
+		return famePointsWin;
+	}
+
+
+
+	public void setFamePointsWin(boolean famePointsWin) {
+		this.famePointsWin = famePointsWin;
+	}
+
+
+
+	public int getNumPlayer() {
+		return numPlayer;
+	}
+
+
+
+	public void setNumPlayer(int numPlayer) {
+		this.numPlayer = numPlayer;
+	}
+
+
+
+	public int getWinFamePoins() {
+		return winFamePoints;
+	}
+
+
+
+	public void setWinFamePoins(int winFamePoins) {
+		this.winFamePoints = winFamePoins;
+	}
+
+
+
+	public int getGameId() {
+		return gameId;
+	}
+
+
+
+	public void setGameId(int gameId) {
+		this.gameId = gameId;
 	}
 	
 

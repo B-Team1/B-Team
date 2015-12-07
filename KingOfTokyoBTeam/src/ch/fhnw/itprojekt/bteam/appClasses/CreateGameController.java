@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 public class CreateGameController implements Initializable {
 
 	MenuModel menuModel = new MenuModel();
-	GameModel gameModel = new GameModel();
+	GameModel gameModel;
 	
 	@FXML Label lbPlayer1;
 	@FXML Label lbPlayer2;
@@ -26,6 +26,7 @@ public class CreateGameController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		gameModel = GameModel.getInstance();
 	}
 	
 	/**
@@ -46,6 +47,7 @@ public class CreateGameController implements Initializable {
 	 * @author Marco
 	 */
 	public void handleAbortGame(ActionEvent event) {
+		gameModel.deleteGame();
 		menuModel.start(new Stage());
 		Node node= (Node)event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();

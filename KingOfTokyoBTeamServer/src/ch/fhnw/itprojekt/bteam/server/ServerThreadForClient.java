@@ -10,6 +10,7 @@ public class ServerThreadForClient extends Thread {
     private Socket clientSocket;
     DBModel dbconnect = new DBModel();
     ConnectionModel connectionModel;
+    MenuModel menuModel = new MenuModel();
 
     public ServerThreadForClient(Socket clientSocket) {
         this.clientSocket = clientSocket;
@@ -87,7 +88,19 @@ public class ServerThreadForClient extends Thread {
 				msgOut.setNickname(stats.getNickName());
 				msgOut.setPlayedGames(stats.getSumGames());
 				msgOut.setWonGames(stats.getWonGames());
-				break;	
+				break;
+			case openNewGame:
+				//Tobias
+				msgOut = new Message(Message.MessageType.openNewGame);				
+				msgOut.setGameId(menuModel.newGame(msgIn.getNumPlayer(), msgIn.getFamePointsWin(), msgIn.getWinFamePoins()));
+				break;
+			case deleteGame:
+				//Tobias
+				menuModel.deleteGame(msgIn.getGameId());
+				//Wird nur zurück gegeben, damit es kein Fehler gibt
+				msgOut = new Message(Message.MessageType.deleteGame);
+				msgOut.setWriteCheck(true);
+				break;
 		
 		default:
 			msgOut = new Message(Message.MessageType.Error);

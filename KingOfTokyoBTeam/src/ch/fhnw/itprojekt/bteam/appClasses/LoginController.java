@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import ch.fhnw.itprojekt.bteam.template.Properties;
 import ch.fhnw.itprojekt.bteam.template.ServiceLocator;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -135,7 +136,8 @@ public class LoginController implements Initializable {
 			Stage stage = (Stage) node.getScene().getWindow();
 			stage.close();
 		}else{
-			JOptionPane.showMessageDialog(null, "Nickname oder Passwort sind falsch!", "Falsches Login", JOptionPane.WARNING_MESSAGE);
+			ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
+			JOptionPane.showMessageDialog(null,FXCollections.observableArrayList(bundle.getString("card.twocards")), "Login", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 	
