@@ -113,7 +113,7 @@ public class GameController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-//		btnCardDeck.setGraphic("../images/KingOfTokyo.jpg");
+		btnDice1.setVisible(false);
 	}
 
 	/**Bei Klick auf Würfeln wird gameModel aufgerufen, welche das Würfelresultat zurückgibt. Zudem wird hier das Wüfelbild geladen.
@@ -122,41 +122,43 @@ public class GameController implements Initializable {
 	 */
 	@FXML
 	public void handleRollDice(ActionEvent event) {
-	ArrayList<Dice> diceResult= new ArrayList<Dice>();
-	diceResult = gameModel.getDiceResult();
-	int i = 0 ;
-	for(i = 0; i<=5; i++){
-		Dice dice = new Dice();
-		if (diceResult != null){
-			dice = diceResult.get(i);
-				switch (i) {
-					case 0:  i = 0;
-						if (btnDice1.isSelected() != true){
-							btnDice1.setGraphic(new ImageView(dice.image));
-						}
-						break;
-					case 1:  i = 1;
-						if (btnDice2.isSelected() != true){
-							btnDice2.setGraphic(new ImageView(dice.image));
-						}
-						break;
-					case 2:  i = 2;
-						btnDice3.setGraphic(new ImageView(dice.image));
-						break;
-					case 3:  i = 3;
-						btnDice4.setGraphic(new ImageView(dice.image));
-						break;
-					case 4:  i = 4;
-						btnDice5.setGraphic(new ImageView(dice.image));
-						break;
-					case 5:  i = 5;
-						btnDice6.setGraphic(new ImageView(dice.image));
-						break;    	
-				} 	
-		}else{
-			//Message das drei mal gewürfelt wurde
+		if (!btnDice1.isVisible()){
+			btnDice1.setVisible(true);
 		}
-	}
+		ArrayList<Dice> diceResult= new ArrayList<Dice>();
+		diceResult = gameModel.getDiceResult();
+		for(int i = 0; i<=5; i++){
+			Dice dice = new Dice();
+				if (diceResult != null){
+					dice = diceResult.get(i);
+					switch (i) {
+						case 0:  i = 0;
+							if (btnDice1.isSelected() != true){
+								btnDice1.setGraphic(new ImageView(dice.image));
+							}
+							break;
+						case 1:  i = 1;
+							if (btnDice2.isSelected() != true){
+								btnDice2.setGraphic(new ImageView(dice.image));
+							}
+							break;
+						case 2:  i = 2;
+							btnDice3.setGraphic(new ImageView(dice.image));
+							break;
+						case 3:  i = 3;
+							btnDice4.setGraphic(new ImageView(dice.image));
+							break;
+						case 4:  i = 4;
+							btnDice5.setGraphic(new ImageView(dice.image));
+							break;
+						case 5:  i = 5;
+							btnDice6.setGraphic(new ImageView(dice.image));
+							break;    	
+					} 	
+				}else{
+			//Message das drei mal gewürfelt wurde
+				}
+		}
 	}
 	/**
 	 * Methode um den Spielzug zu beenden und die Ergebnisse ausführen
