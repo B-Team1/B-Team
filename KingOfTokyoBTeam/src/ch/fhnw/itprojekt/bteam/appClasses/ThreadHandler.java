@@ -26,22 +26,7 @@ public class ThreadHandler extends Thread{
 				synchronized (socket) {
 					Message msgIn = Message.receive(socket);
 					
-					inputHandler.manageInput(msgIn);
-								
-	        		
-	        		// luzi switch case mitm chat
-	        		switch (msgIn.getType()) {
-	    				case Chat:
-	    					String text =msgIn.getChat();
-		                 	JOptionPane.showMessageDialog(null, "Gratullation!"+ text +"" , "Gratullation", JOptionPane.WARNING_MESSAGE);
-		                 	gamecontroller.getInstance();
-		                 	gamecontroller.taChat.setEditable(true);
-		                 	System.out.println(msgIn.getChat());
-		                 	gamecontroller.taChat.setText(msgIn.getChat());
-	    					break;
-	        		}					
-		
-
+					inputHandler.manageInput(msgIn);	
 				}
 	    	}
 		} catch (Exception e) {

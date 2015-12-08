@@ -19,6 +19,7 @@ import ch.fhnw.itprojekt.bteam.template.ServiceLocator;
 public class LoginModel extends Application {
     ServiceLocator serviceLocator;
     ConnectionModel connectionModel;
+    private static LoginModel singleton;
     
     public LoginModel() {
         connectionModel = ConnectionModel.getInstance();
@@ -49,7 +50,12 @@ public class LoginModel extends Application {
     	}
     }
     
-   
+    public static LoginModel getInstance() {
+	     if(singleton == null) {	        
+	         singleton = new LoginModel();
+	      }	     
+	      return singleton;
+	}	
     
     /**
      * Sendet die Logininformationen ans Connection Model
@@ -68,16 +74,12 @@ public class LoginModel extends Application {
      * Sendet die Benutzereingaben von Passwort vergessen ans Connection Model
      * @author Luzian
      */
-    public String sendUserDataForPassword(User user){
+    public void sendUserDataForPassword(User user){
     	if(user.getNickname().equals("") | user.getnName().equals("") | user.getvName().equals("")){
-    		String error = "Nicht alle Felder ausgefüllt";
-    		return error; 
-    		
+    		//nichts tun	
+    	}else{
+    		connectionModel.getSecurityQuestion(user);
     	}
-    	String securityQuestion = connectionModel.getSecurityQuestion(user);
-    	if (securityQuestion != null)
-    		user.setSecurityQuestion(securityQuestion);
-    	return user.getSecurityQuestion();
     }
     
     /**
@@ -86,9 +88,8 @@ public class LoginModel extends Application {
      * @param user
      * @return
      */
-    public String getSecurityAnswer(User user){
-    	String securityAnswer = connectionModel.getSecurityAnswer(user);
-    	return securityAnswer;
+    public void getSecurityAnswer(User user){
+    	connectionModel.getSecurityAnswer(user);
     }
     
     /**
@@ -97,9 +98,9 @@ public class LoginModel extends Application {
      * @param user
      * @return
      */
-    public String getPassword(User user){
-    	String password = connectionModel.getPassword(user);
-    	return password;
+    public void getPassword(User user){
+    	connectionModel.getPassword(user);
+    	
     }
    
     /**

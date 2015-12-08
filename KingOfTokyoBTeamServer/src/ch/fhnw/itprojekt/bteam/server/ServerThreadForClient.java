@@ -29,10 +29,8 @@ public class ServerThreadForClient extends Thread {
 				// Read a message from the client
 				Message msgIn = Message.receive(clientSocket);							
 				Message msgOut = processMessage(msgIn);
-				if(msgIn.getType() != Message.MessageType.Broadcast){
-					if(msgIn.getType() != Message.MessageType.Chat){
-						msgOut.send(clientSocket);
-					}
+				if(msgIn.getType() != Message.MessageType.Chat){
+					msgOut.send(clientSocket);
 				}
             }
         } catch (Exception e) {

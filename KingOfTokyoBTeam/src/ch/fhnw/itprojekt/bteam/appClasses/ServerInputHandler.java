@@ -23,7 +23,7 @@ public class ServerInputHandler {
 	 * @param msgIn vom Server
 	 */
 	public void manageInput(Message msgIn){
-		switch (msgIn.getType()) {
+		/*switch (msgIn.getType()) {
 			case Login:
 				//Tobias
 				if(msgIn.getCheckLogin()){
@@ -51,8 +51,67 @@ public class ServerInputHandler {
 					JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("registry.userError")), "Registration", JOptionPane.WARNING_MESSAGE);
 				}
 				break;
+			case Chat:
+				Platform.runLater(new Runnable() {
+	                @Override
+	                public void run() {
+	                	// entsprechende UI Komponente updaten
+	                	GameController gamecontroller = GameController.getInstance();
+	                	gamecontroller.taChat.setText(msgIn.getChat());
+	                	JOptionPane.showMessageDialog(null, "Gratullation!"+ msgIn.getChat() +"" , "Gratullation", JOptionPane.WARNING_MESSAGE);
+	                }
+				});             	
+				break;
+			case SecurityQuestion:
+				String returnvalue = msgIn.getSecurityQuestion();
+				bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
+				ForgetPasswordController forgetpasswordcontroller = ForgetPasswordController.getInstance();
+				if(returnvalue != null){
+					if(returnvalue.equals("Nicht alle Felder ausgefüllt")){
+						forgetpasswordcontroller.missingUserDataForPassword();
+					}else{
+						Platform.runLater(new Runnable(){
+							@Override
+							public void run(){
+								forgetpasswordcontroller.setlbSecureQuestion(returnvalue);
+							}
+						});
+					}
+				}else{
+						JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("forget.wrongUserData")));
+				}
+				
+				break;
+			case SecurityAnswer:	
+				String returnvalueAnswer = msgIn.getSecurityAnswer();
+				ForgetPasswordController forgetpasswordcontrollerAnswer = ForgetPasswordController.getInstance();
+				LoginModel loginmodel = LoginModel.getInstance();
+				String useranswer = forgetpasswordcontrollerAnswer.tfAnswer.getText();
+				bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
+				if (returnvalueAnswer != null){
+					if (useranswer.equals(returnvalueAnswer)){
+						// Antwort stimmt
+						User user = forgetpasswordcontrollerAnswer.getUser();
+						loginmodel.getPassword(user);							
+					}else{
+						JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("forget.wrongAnswer")));
+					}	
+				}else{
+					JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("forget.noAnswerFound")));
+				}
+				break;
+			case Password:
+				String returnpassword = msgIn.getPassword();
+				bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
+				ForgetPasswordController forgetpasswordcontrollerpassword = ForgetPasswordController.getInstance();
+				if (returnpassword != null){
+					forgetpasswordcontrollerpassword.setlbYourPassword(returnpassword);
+				}else{
+					JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("forget.noAnswerFound")));
+				}	
+				break;
 		default:
 		
-		}
+		}*/
 	}
 }
