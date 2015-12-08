@@ -23,7 +23,7 @@ public class ServerInputHandler {
 	 * @param msgIn vom Server
 	 */
 	public void manageInput(Message msgIn){
-		/*switch (msgIn.getType()) {
+		switch (msgIn.getType()) {
 			case Login:
 				//Tobias
 				if(msgIn.getCheckLogin()){
@@ -105,13 +105,18 @@ public class ServerInputHandler {
 				bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
 				ForgetPasswordController forgetpasswordcontrollerpassword = ForgetPasswordController.getInstance();
 				if (returnpassword != null){
-					forgetpasswordcontrollerpassword.setlbYourPassword(returnpassword);
+					Platform.runLater(new Runnable(){
+						@Override
+						public void run(){
+							forgetpasswordcontrollerpassword.setlbYourPassword(returnpassword);
+						}
+					});
 				}else{
 					JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("forget.noAnswerFound")));
 				}	
 				break;
 		default:
 		
-		}*/
+		}
 	}
 }

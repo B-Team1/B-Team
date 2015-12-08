@@ -20,6 +20,7 @@ public class LoginModel extends Application {
     ServiceLocator serviceLocator;
     ConnectionModel connectionModel;
     private static LoginModel singleton;
+    ForgetPasswordController forgetpasswordcontroller;
     
     public LoginModel() {
         connectionModel = ConnectionModel.getInstance();
@@ -76,7 +77,8 @@ public class LoginModel extends Application {
      */
     public void sendUserDataForPassword(User user){
     	if(user.getNickname().equals("") | user.getnName().equals("") | user.getvName().equals("")){
-    		//nichts tun	
+    		forgetpasswordcontroller = ForgetPasswordController.getInstance();
+    		forgetpasswordcontroller.missingUserDataForPassword();
     	}else{
     		connectionModel.getSecurityQuestion(user);
     	}

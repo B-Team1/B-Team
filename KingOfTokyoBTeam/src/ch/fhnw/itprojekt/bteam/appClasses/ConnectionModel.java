@@ -142,21 +142,21 @@ public class ConnectionModel {
 		
 	}
 
-	
-	public String getPassword(User user){
+	/**
+	 * @author Luzian
+	 * @param user
+	 */
+	public void getPassword(User user){
 		Message msgOut = new Message(Message.MessageType.Password);
 		msgOut.setNickname(user.getNickname());
 		msgOut.setNname(user.getnName());
 		msgOut.setVname(user.getvName());
-		String password = null;
 		try {
 			msgOut.send(socket);
-			Thread.sleep(1000);
-			password = msgIn.getPassword();
 			} catch (Exception e) {
 				serviceLocator.getLogger().warning(e.toString());
 		}
-		return password;
+	
 	}
 	
 	/**
@@ -208,18 +208,14 @@ public class ConnectionModel {
 	/**
 	 * @author Luzian
 	 */
-	public String sendChat(String chat){
+	public void sendChat(String chat){
 		Message msgOut = new Message(Message.MessageType.Chat);
 		msgOut.setChat(chat);
-		String result= null;
 		try {
 			msgOut.send(socket);
-			Thread.sleep(1000);
-			result = msgIn.getChat();
 		} catch (Exception e) {
 			serviceLocator.getLogger().warning(e.toString());
 		}
-		return result;
 	}
 }
 

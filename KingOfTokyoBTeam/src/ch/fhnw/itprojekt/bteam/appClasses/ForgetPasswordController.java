@@ -66,8 +66,7 @@ public class ForgetPasswordController implements Initializable {
 	 */
 	@FXML
 	public void handleEnter(ActionEvent event) {
-		loginModel.sendUserDataForPassword(getUser());
-		
+		loginModel.sendUserDataForPassword(getUser());	
 	}
 	
 	/**
