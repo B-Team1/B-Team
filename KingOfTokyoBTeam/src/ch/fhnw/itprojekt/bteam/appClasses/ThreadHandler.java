@@ -8,11 +8,15 @@ import javafx.scene.image.ImageView;
 import javax.swing.JOptionPane;
 
 public class ThreadHandler extends Thread{
+
 	ConnectionModel connectionModel;
 	GameController gamecontroller;
+
+	private ServerInputHandler inputHandler = new ServerInputHandler();
+
 	private Socket socket;
 	public ThreadHandler(Socket socket){
-		connectionModel = ConnectionModel.getInstance();
+		
 		this.socket = socket;
 	}
 	
@@ -20,8 +24,11 @@ public class ThreadHandler extends Thread{
 		try {			
 			while(true){
 				synchronized (socket) {
-					Message msgIn = connectionModel.getMsgIn();				
-	        		msgIn = Message.receive(socket);
+					Message msgIn = Message.receive(socket);
+					
+					inputHandler.manageInput(msgIn);
+								
+	        		
 	        		// luzi switch case mitm chat
 	        		switch (msgIn.getType()) {
 	    				case Chat:
@@ -33,6 +40,8 @@ public class ThreadHandler extends Thread{
 		                 	gamecontroller.taChat.setText(msgIn.getChat());
 	    					break;
 	        		}					
+		
+
 				}
 	    	}
 		} catch (Exception e) {

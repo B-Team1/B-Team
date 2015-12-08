@@ -70,19 +70,15 @@ public class ConnectionModel {
 	 * Diese Methode sendet die Login Informatinen an den Server und erhält die Antwort von ihm.
 	 * @author Tobias
 	 */
-	public boolean sendLogin(User user){
+	public void sendLogin(User user){
 		Message msgOut = new Message(Message.MessageType.Login);
 		msgOut.setNickname(user.getNickname());
 		msgOut.setPassword(user.getPassword());
-		boolean result = false;
 		try {
 			msgOut.send(socket);
-			Thread.sleep(1000);
-			result = msgIn.getCheckLogin();
 		} catch (Exception e) {
 			serviceLocator.getLogger().warning(e.toString());
 		}
-		return result;
 	}
 
 	/**
@@ -113,7 +109,7 @@ public class ConnectionModel {
 	 * @param user
 	 * @return true wenn der User erfolgreich in die DB geschrieben wurde.
 	 */
-	public boolean sendRegistration(User user){
+	public void sendRegistration(User user){
 		Message msgOut = new Message(Message.MessageType.Registration);
 		msgOut.setNickname(user.getNickname());
 		msgOut.setPassword(user.getPassword());
@@ -121,15 +117,11 @@ public class ConnectionModel {
 		msgOut.setNname(user.getnName());
 		msgOut.setSecurityAnswer(user.getSecurityAnswer());
 		msgOut.setSecurityQuestion(user.getSecurityQuestion());
-		boolean result = false;
 		try {
 			msgOut.send(socket);
-			Thread.sleep(1000);
-			result = msgIn.getWriteCheck();
 		} catch (Exception e) {
 			serviceLocator.getLogger().warning(e.toString());
 		}
-		return result;
 	}
 
 

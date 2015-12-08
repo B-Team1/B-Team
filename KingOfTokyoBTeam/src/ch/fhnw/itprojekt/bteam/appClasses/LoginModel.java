@@ -49,6 +49,8 @@ public class LoginModel extends Application {
     	}
     }
     
+   
+    
     /**
      * Sendet die Logininformationen ans Connection Model
      * Weiter wird überprüft, ob die Felder leer sind
@@ -57,13 +59,9 @@ public class LoginModel extends Application {
     public boolean sendLogin(User user){
     	if(user.getNickname().equals("") | user.getPassword().equals("")){
     		return false;
-    	}
-    	
-    	if(connectionModel.sendLogin(user)){
-    		serviceLocator.getLogger().info("Passwort ok!");
-    		return true;
-    	}
-    	return false;
+    	}    	
+    	connectionModel.sendLogin(user);
+    	return true;    	
     }
     
     /**
@@ -158,8 +156,8 @@ public class LoginModel extends Application {
     	}
     }
     
-    public boolean addNewUser(User user){
-    	return connectionModel.sendRegistration(user);
+    public void addNewUser(User user){
+    	connectionModel.sendRegistration(user);
     }
     
     public boolean isEmptyRegistration(User user, String passwordRepeat){
