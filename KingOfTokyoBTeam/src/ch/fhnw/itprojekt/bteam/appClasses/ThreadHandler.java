@@ -6,10 +6,10 @@ import java.net.Socket;
 import javax.swing.JOptionPane;
 
 public class ThreadHandler extends Thread{
-	ConnectionModel connectionModel;
+	private ServerInputHandler inputHandler = new ServerInputHandler();
 	private Socket socket;
 	public ThreadHandler(Socket socket){
-		connectionModel = ConnectionModel.getInstance();
+		
 		this.socket = socket;
 	}
 	
@@ -17,12 +17,11 @@ public class ThreadHandler extends Thread{
 		try {			
 			while(true){
 				synchronized (socket) {
-					Message msgIn = connectionModel.getMsgIn();				
-	        		msgIn = Message.receive(socket);
+					Message msgIn = Message.receive(socket);
 					if(msgIn.getType() == Message.MessageType.Broadcast){
 	                 	JOptionPane.showMessageDialog(null, "Gratullation!", "Gratullation", JOptionPane.WARNING_MESSAGE);
 	                }
-					connectionModel.setMsgIn(msgIn);		
+					inputHandler.manageInput(msgIn);		
 				}
 	    	}
 		} catch (Exception e) {

@@ -48,6 +48,7 @@ public class ServerThreadForClient extends Thread {
 				//Tobias
 				msgOut = new Message(Message.MessageType.Login);
 				msgOut.setCheckLogin(dbconnect.UserValidation(new User(msgIn.getNickname(), msgIn.getPassword())));
+				msgOut.setNickname(msgIn.getNickname());
 				break;			
 			case SecurityQuestion:
 				//Luzian
@@ -92,7 +93,7 @@ public class ServerThreadForClient extends Thread {
 			case openNewGame:
 				//Tobias
 				msgOut = new Message(Message.MessageType.openNewGame);				
-				msgOut.setGameId(menuModel.newGame(msgIn.getNumPlayer(), msgIn.getFamePointsWin(), msgIn.getWinFamePoins()));
+				msgOut.setGameId(menuModel.newGame(msgIn.getNumPlayer(), msgIn.getFamePointsWin(), msgIn.getWinFamePoints()));
 				break;
 			case deleteGame:
 				//Tobias

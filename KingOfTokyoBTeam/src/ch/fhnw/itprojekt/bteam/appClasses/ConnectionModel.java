@@ -72,19 +72,15 @@ public class ConnectionModel {
 	 * Diese Methode sendet die Login Informatinen an den Server und erhält die Antwort von ihm.
 	 * @author Tobias
 	 */
-	public boolean sendLogin(User user){
+	public void sendLogin(User user){
 		Message msgOut = new Message(Message.MessageType.Login);
 		msgOut.setNickname(user.getNickname());
 		msgOut.setPassword(user.getPassword());
-		boolean result = false;
 		try {
 			msgOut.send(socket);
-			Thread.sleep(1000);
-			result = msgIn.getCheckLogin();
 		} catch (Exception e) {
 			serviceLocator.getLogger().warning(e.toString());
 		}
-		return result;
 	}
 
 	/**

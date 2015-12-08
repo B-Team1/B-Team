@@ -29,6 +29,7 @@ import javafx.stage.Stage;
 public class LoginController implements Initializable {
 		
 	LoginModel loginModel = new LoginModel();
+	static Event event;
 		
 	@FXML TextField tfNickname;
 	@FXML PasswordField pfPassword;
@@ -128,17 +129,17 @@ public class LoginController implements Initializable {
 	 * @author Tobias
 	 */
 	private void doLogin(Event event){
-		if(loginModel.sendLogin(new User(tfNickname.getText(), pfPassword.getText()))){
-			MenuModel menuModel = MenuModel.getInstance();
-			menuModel.setNickname(tfNickname.getText());
-			menuModel.start(new Stage());
-			Node node= (Node)event.getSource();
-			Stage stage = (Stage) node.getScene().getWindow();
-			stage.close();
-		}else{
+		this.event = event;
+		if(!loginModel.sendLogin(new User(tfNickname.getText(), pfPassword.getText()))){
 			ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
 			JOptionPane.showMessageDialog(null,FXCollections.observableArrayList(bundle.getString("card.twocards")), "Login", JOptionPane.WARNING_MESSAGE);
 		}
+	}
+	
+	public static void closeStage(){
+		Node node = (Node)event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		stage.close();
 	}
 	
 	/**

@@ -225,7 +225,7 @@ public class Message {
 
 
 
-	public int getWinFamePoins() {
+	public int getWinFamePoints() {
 		return winFamePoints;
 	}
 
