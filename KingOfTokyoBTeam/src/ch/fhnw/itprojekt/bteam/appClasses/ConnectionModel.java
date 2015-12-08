@@ -64,9 +64,7 @@ public class ConnectionModel {
 		}
 		return success;
 	}
-	   	
-	
-	    
+	   	   
     
 	/**
 	 * Diese Methode sendet die Login Informatinen an den Server und erhält die Antwort von ihm.
@@ -221,6 +219,22 @@ public class ConnectionModel {
 		}
 	}
 	
+	/**
+	 * @author Luzian
+	 */
+	public String sendChat(String chat){
+		Message msgOut = new Message(Message.MessageType.Chat);
+		msgOut.setChat(chat);
+		String result= null;
+		try {
+			msgOut.send(socket);
+			Thread.sleep(1000);
+			result = msgIn.getChat();
+		} catch (Exception e) {
+			serviceLocator.getLogger().warning(e.toString());
+		}
+		return result;
+	}
 }
 
 

@@ -30,7 +30,9 @@ public class ServerThreadForClient extends Thread {
 				Message msgIn = Message.receive(clientSocket);							
 				Message msgOut = processMessage(msgIn);
 				if(msgIn.getType() != Message.MessageType.Broadcast){
-					msgOut.send(clientSocket);
+					if(msgIn.getType() != Message.MessageType.Chat){
+						msgOut.send(clientSocket);
+					}
 				}
             }
         } catch (Exception e) {
@@ -101,7 +103,10 @@ public class ServerThreadForClient extends Thread {
 				msgOut = new Message(Message.MessageType.deleteGame);
 				msgOut.setWriteCheck(true);
 				break;
-		
+			case Chat:
+				//Luzian
+				connectionModel.sendChat(msgIn.getChat());
+				break;
 		default:
 			msgOut = new Message(Message.MessageType.Error);
 		}

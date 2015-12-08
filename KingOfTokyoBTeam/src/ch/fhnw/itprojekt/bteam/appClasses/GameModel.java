@@ -172,4 +172,10 @@ public class GameModel extends Application {
 		connectionModel.deleteGame(gameId);
 	}
 
+	/**
+	 *@author Luzian
+	 */
+	public void sendChat(String text){
+	connectionModel.sendChat(text);	
+	}
 }

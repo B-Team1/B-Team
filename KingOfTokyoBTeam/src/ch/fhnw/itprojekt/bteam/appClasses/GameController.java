@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
 
+//import ch.fhnw.itprojekt.bteam.server.ConnectionModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -70,15 +71,20 @@ public class GameController implements Initializable {
 
 
 	GameModel gameModel;
-
+	private static GameController singleton;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-<<<<<<< HEAD
+
 		btnDice1.setVisible(false);
-=======
+		btnDice2.setVisible(false);
+		btnDice3.setVisible(false);
+		btnDice4.setVisible(false);
+		btnDice5.setVisible(false);
+		btnDice6.setVisible(false);
+		
 		gameModel = GameModel.getInstance();
->>>>>>> refs/heads/merge
+
 	}
 
 	/**Bei Klick auf Würfeln wird gameModel aufgerufen, welche das Würfelresultat zurückgibt. Zudem wird hier das Wüfelbild geladen.
@@ -87,8 +93,14 @@ public class GameController implements Initializable {
 	 */
 	@FXML
 	public void handleRollDice(ActionEvent event) {
-		if (!btnDice1.isVisible()){
+		if (!btnDice1.isVisible()&& !btnDice2.isVisible()&& !btnDice3.isVisible()&& !btnDice4.isVisible()
+														&& !btnDice5.isVisible()&& !btnDice6.isVisible()){
 			btnDice1.setVisible(true);
+			btnDice2.setVisible(true);
+			btnDice3.setVisible(true);
+			btnDice4.setVisible(true);
+			btnDice5.setVisible(true);
+			btnDice6.setVisible(true);
 		}
 		ArrayList<Dice> diceResult= new ArrayList<Dice>();
 		diceResult = gameModel.getDiceResult();
@@ -108,18 +120,26 @@ public class GameController implements Initializable {
 							}
 							break;
 						case 2:  i = 2;
-							btnDice3.setGraphic(new ImageView(dice.image));
+							if (btnDice3.isSelected() != true){
+								btnDice3.setGraphic(new ImageView(dice.image));
+							}
 							break;
 						case 3:  i = 3;
-							btnDice4.setGraphic(new ImageView(dice.image));
+							if (btnDice4.isSelected() != true){
+								btnDice4.setGraphic(new ImageView(dice.image));
+							}
 							break;
 						case 4:  i = 4;
-							btnDice5.setGraphic(new ImageView(dice.image));
+							if (btnDice5.isSelected() != true){
+								btnDice5.setGraphic(new ImageView(dice.image));
+							}
 							break;
 						case 5:  i = 5;
-							btnDice6.setGraphic(new ImageView(dice.image));
+							if (btnDice6.isSelected() != true){
+								btnDice6.setGraphic(new ImageView(dice.image));
+							}
 							break;    	
-					} 	
+						} 	
 				}else{
 			//Message das drei mal gewürfelt wurde
 				}
@@ -136,11 +156,11 @@ public class GameController implements Initializable {
 	
 	/**
 	 * Methode sendet den eingegebenen Text an alle Mitspieler
-	 * @author
+	 * @author Luzian
 	 */
 	@FXML
 	public void handleSend(ActionEvent event) {
-		
+		gameModel.sendChat(tfChat.getText());
 	}
 	
 	/**
@@ -214,6 +234,12 @@ public class GameController implements Initializable {
 		
 	    }
 	
-
+	
+	public static GameController getInstance() {
+	     if(singleton == null) {	        
+	         singleton = new GameController();
+	      }	     
+	      return singleton;
+	}
 
 }

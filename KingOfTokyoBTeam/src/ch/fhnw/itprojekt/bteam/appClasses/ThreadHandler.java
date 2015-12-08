@@ -3,10 +3,13 @@ package ch.fhnw.itprojekt.bteam.appClasses;
 import java.io.IOException;
 import java.net.Socket;
 
+import javafx.scene.image.ImageView;
+
 import javax.swing.JOptionPane;
 
 public class ThreadHandler extends Thread{
 	ConnectionModel connectionModel;
+	GameController gamecontroller;
 	private Socket socket;
 	public ThreadHandler(Socket socket){
 		connectionModel = ConnectionModel.getInstance();
@@ -19,10 +22,17 @@ public class ThreadHandler extends Thread{
 				synchronized (socket) {
 					Message msgIn = connectionModel.getMsgIn();				
 	        		msgIn = Message.receive(socket);
-					if(msgIn.getType() == Message.MessageType.Broadcast){
-	                 	JOptionPane.showMessageDialog(null, "Gratullation!", "Gratullation", JOptionPane.WARNING_MESSAGE);
-	                }
-					connectionModel.setMsgIn(msgIn);		
+	        		// luzi switch case mitm chat
+	        		switch (msgIn.getType()) {
+	    				case Chat:
+	    					String text =msgIn.getChat();
+		                 	JOptionPane.showMessageDialog(null, "Gratullation!"+ text +"" , "Gratullation", JOptionPane.WARNING_MESSAGE);
+		                 	gamecontroller.getInstance();
+		                 	gamecontroller.taChat.setEditable(true);
+		                 	System.out.println(msgIn.getChat());
+		                 	gamecontroller.taChat.setText(msgIn.getChat());
+	    					break;
+	        		}					
 				}
 	    	}
 		} catch (Exception e) {
