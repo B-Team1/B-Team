@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,106 +16,64 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class GameController implements Initializable {
 
-	@FXML
-	ToggleButton btnDice1;
-	@FXML
-	ToggleButton btnDice2;
-	@FXML
-	Button btnDice3;
-	@FXML
-	Button btnDice4;
-	@FXML
-	Button btnDice5;
-	@FXML
-	Button btnDice6;
-	@FXML
-	Button btnDice7;
-	@FXML
-	Button btnDice8;
-	@FXML
-	Button btnRollDice;
+	@FXML Button btnRollDice;
+	@FXML ToggleButton btnDice1;
+	@FXML ToggleButton btnDice2;
+	@FXML ToggleButton btnDice3;
+	@FXML ToggleButton btnDice4;
+	@FXML ToggleButton btnDice5;
+	@FXML ToggleButton btnDice6;
+	@FXML ToggleButton btnDice7;
+	@FXML ToggleButton btnDice8;
 	@FXML Button btnCardDeck;
-	@FXML
-	Label lbLifePointsPlayer1;
-	@FXML
-	Label lbLifePointsPlayer2;
-	@FXML
-	Label lbLifePointsPlayer3;
-	@FXML
-	Label lbLifePointsPlayer4;
-	@FXML
-	Label lbFamePointsPlayer1;
-	@FXML
-	Label lbFamePointsPlayer2;
-	@FXML
-	Label lbFamePointsPlayer3;
-	@FXML
-	Label lbFamePointsPlayer4;
-	@FXML
-	Label lbEnergyPointsPlayer1;
-	@FXML
-	Label lbEnergyPointsPlayer2;
-	@FXML
-	Label lbEnergyPointsPlayer3;
-	@FXML
-	Label lbEnergyPointsPlayer4;
-	@FXML
-	Label lbLifePointsChangePlayer1;
-	@FXML
-	Label lbLifePointsChangePlayer2;
-	@FXML
-	Label lbLifePointsChangePlayer3;
-	@FXML
-	Label lbLifePointsChangePlayer4;
-	@FXML
-	Label lbFamePointsChangePlayer1;
-	@FXML
-	Label lbFamePointsChangePlayer2;
-	@FXML
-	Label lbFamePointsChangePlayer3;
-	@FXML
-	Label lbFamePointsChangePlayer4;
-	@FXML
-	Label lbEnergyPointsChangePlayer1;
-	@FXML
-	Label lbEnergyPointsChangePlayer2;
-	@FXML
-	Label lbEnergyPointsChangePlayer3;
-	@FXML
-	Label lbEnergyPointsChangePlayer4;
-	@FXML
-	Label lbNicknamePlayer1;
-	@FXML
-	Label lbNicknamePlayer2;
-	@FXML
-	Label lbNicknamePlayer3;
-	@FXML
-	Label lbNicknamePlayer4;
-	@FXML
-	TextField tfChat;
-	@FXML
-	TextArea taChat;
-	@FXML
-	ImageView ivCardDeck;
-	@FXML
-	ImageView ivCard1;
-	@FXML
-	ImageView ivCard2;
+	@FXML Label lbLifePointsPlayer1;
+	@FXML Label lbLifePointsPlayer2;
+	@FXML Label lbLifePointsPlayer3;
+	@FXML Label lbLifePointsPlayer4;
+	@FXML Label lbFamePointsPlayer1;
+	@FXML Label lbFamePointsPlayer2;
+	@FXML Label lbFamePointsPlayer3;
+	@FXML Label lbFamePointsPlayer4;
+	@FXML Label lbEnergyPointsPlayer1;
+	@FXML Label lbEnergyPointsPlayer2;
+	@FXML Label lbEnergyPointsPlayer3;
+	@FXML Label lbEnergyPointsPlayer4;
+	@FXML Label lbLifePointsChangePlayer1;
+	@FXML Label lbLifePointsChangePlayer2;
+	@FXML Label lbLifePointsChangePlayer3;
+	@FXML Label lbLifePointsChangePlayer4;
+	@FXML Label lbFamePointsChangePlayer1;
+	@FXML Label lbFamePointsChangePlayer2;
+	@FXML Label lbFamePointsChangePlayer3;
+	@FXML Label lbFamePointsChangePlayer4;
+	@FXML Label lbEnergyPointsChangePlayer1;
+	@FXML Label lbEnergyPointsChangePlayer2;
+	@FXML Label lbEnergyPointsChangePlayer3;
+	@FXML Label lbEnergyPointsChangePlayer4;
+	@FXML Label lbNicknamePlayer1;
+	@FXML Label lbNicknamePlayer2;
+	@FXML Label lbNicknamePlayer3;
+	@FXML Label lbNicknamePlayer4;
+	@FXML TextField tfChat;
+	@FXML TextArea taChat;
+	@FXML ImageView ivCardDeck;
+	@FXML ImageView ivCard1;
+	@FXML ImageView ivCard2;
+	@FXML ImageView ivMonsterInTokyo;
 	
+
 
 	GameModel gameModel;
 
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-//		btnCardDeck.setGraphic("../images/KingOfTokyo.jpg");
 		gameModel = GameModel.getInstance();
 	}
 
@@ -181,11 +141,73 @@ public class GameController implements Initializable {
 	 * Methode zieht eine neue zufällige Karte
 	 * @author Marco
 	 */
-	    @FXML public void handle(ActionEvent event) {
-	    	Card card = new Card();
-			card = gameModel.pullCard();
-			ivCard1.setImage(card.getCardImage());
+	@FXML 
+	public void handleCardDeck(ActionEvent event) {
+		try {
+			Card newCard = new Card();
+			GameModel.getInstance().playerMe.setEnergyPoints(10);
+		if (GameModel.cardList.size() == 0 && (GameModel.getInstance().playerMe.getEnergyPoints() >= 3)){
+			newCard = newCard.pullCard();
+			ivCard1.setImage(newCard.getCardImage());
+		} else {
+			if (GameModel.getInstance().playerMe.getEnergyPoints() >= 3) {
+			newCard = newCard.pullCard();
+			ivCard2.setImage(newCard.getCardImage());
+			}
+		}
+			
+			
+			/**
+			 * Die einzelnen Aktionen je nach Aktions-Typ der Karte
+			 */
+			switch (newCard.getAction()){
+			case attack:
+				if (GameModel.getInstance().playerMe.inTokyo){
+					gameModel.attackFromTokyo(newCard.getEffect());
+					lbLifePointsChangePlayer2.setText("-" + GameModel.getInstance().playerTwo.getFutureLifePoints());
+					if (GameModel.getInstance().playerThree!=null) {
+					lbLifePointsChangePlayer3.setText("-" + GameModel.getInstance().playerThree.getFutureLifePoints());
+					}
+					if (GameModel.getInstance().playerFour!=null) {
+					lbLifePointsChangePlayer4.setText("-" + GameModel.getInstance().playerFour.getFutureLifePoints());
+					}
+					lbEnergyPointsChangePlayer1.setText("-" + GameModel.getInstance().playerMe.getFutureEnergyPoints());
+				} else {
+					gameModel.attackTokyo(GameModel.getInstance().playerTwo, newCard.getEffect());
+					if (GameModel.getInstance().playerTwo.getFutureLifePoints() != 0){
+						lbLifePointsChangePlayer2.setText("-" + GameModel.getInstance().playerTwo.getFutureLifePoints());
+					}
+					if ((GameModel.getInstance().playerThree.getFutureLifePoints() != 0) && (GameModel.getInstance().playerThree!=null)) {
+						lbLifePointsChangePlayer3.setText("-" + GameModel.getInstance().playerThree.getFutureLifePoints());
+					}
+					if ((GameModel.getInstance().playerFour.getFutureLifePoints() != 0) && (GameModel.getInstance().playerFour!=null)) {
+						lbLifePointsChangePlayer4.setText("-" + GameModel.getInstance().playerFour.getFutureLifePoints());
+					}
+					lbEnergyPointsChangePlayer1.setText("-" + GameModel.getInstance().playerMe.getFutureEnergyPoints());
+				}
+				break;
+			case heal:
+				int afterHealPoints = GameModel.getInstance().playerMe.getFutureLifePoints() + newCard.getEffect();
+				GameModel.getInstance().playerMe.setFutureLifePoints(afterHealPoints);
+				lbLifePointsChangePlayer1.setText("+" + GameModel.getInstance().playerMe.getFutureLifePoints());
+				GameModel.getInstance().payCard();
+				lbEnergyPointsChangePlayer1.setText("-" + GameModel.getInstance().playerMe.getFutureEnergyPoints());
+				break;
+			case honor:
+				int futureHonorPoints = GameModel.getInstance().playerMe.getFutureHonorPoints() + newCard.getEffect();
+				GameModel.getInstance().playerMe.setFutureHonorPoints(futureHonorPoints);
+				lbFamePointsChangePlayer1.setText("+" + GameModel.getInstance().playerMe.getFutureHonorPoints());
+				GameModel.getInstance().payCard();
+				lbEnergyPointsChangePlayer1.setText("-" + GameModel.getInstance().playerMe.getFutureEnergyPoints());
+				break;
+		}
+				
+		}catch (NullPointerException exception){
+			
+		}
+		
 	    }
+	
 
 
 }

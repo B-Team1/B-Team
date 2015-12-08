@@ -60,7 +60,7 @@
                                     <PasswordField fx:id="pfRePassword" layoutX="30.0" layoutY="422.0" />
                                  </children>
                               </VBox>
-                              <Button fx:id="btnRegistration" alignment="CENTER" contentDisplay="CENTER" layoutX="84.0" layoutY="462.0" mnemonicParsing="false" onAction="#handleRegistration" styleClass="test" stylesheets="@meincss.css" text="%registry.btn.registry">
+                              <Button fx:id="btnRegistration" alignment="CENTER" contentDisplay="CENTER" layoutX="84.0" layoutY="462.0" mnemonicParsing="false" onAction="#handleRegistration" prefHeight="35.0" prefWidth="100.0" styleClass="test" stylesheets="@meincss.css" text="%registry.btn.registry">
                                  <VBox.margin>
                                     <Insets left="40.0" />
                                  </VBox.margin>

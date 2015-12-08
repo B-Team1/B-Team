@@ -7,15 +7,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.fhnw.itprojekt.bteam.appClasses.GameController">
+<BorderPane prefHeight="900.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.fhnw.itprojekt.bteam.appClasses.GameController">
    <center>
       <StackPane>
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <HBox>
+                  <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ImageView fitHeight="800.0" fitWidth="1000.0" pickOnBounds="true">
+                        <ImageView fitHeight="920.0" fitWidth="1320.0" pickOnBounds="true">
                            <image>
                               <Image url="@../images/Background.jpg" />
                            </image>
@@ -26,38 +26,27 @@
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox layoutX="37.0" layoutY="26.0" spacing="10.0">
+                  <VBox layoutX="37.0" layoutY="26.0" spacing="10.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="50.0">
                      <children>
-                        <Button fx:id="btnRollDice" layoutX="229.0" layoutY="110.0" mnemonicParsing="false" onAction="#handleRollDice" prefWidth="150.0" styleClass="test" stylesheets="@meincss.css" text="%board.btn.roll" />
-                        <Button fx:id="btnEndMove" layoutX="229.0" layoutY="171.0" mnemonicParsing="false" onAction="#handleEndMove" prefWidth="150.0" styleClass="test" stylesheets="@meincss.css" text="%board.btn.endMove" />
+                        <Button fx:id="btnRollDice" layoutX="229.0" layoutY="110.0" mnemonicParsing="false" onAction="#handleRollDice" prefHeight="35.0" prefWidth="150.0" styleClass="test" stylesheets="@meincss.css" text="%board.btn.roll" />
+                        <Button fx:id="btnEndMove" layoutX="229.0" layoutY="171.0" mnemonicParsing="false" onAction="#handleEndMove" prefHeight="35.0" prefWidth="150.0" styleClass="test" stylesheets="@meincss.css" text="%board.btn.endMove" />
                      </children>
                   </VBox>
-                  <VBox layoutX="253.0" layoutY="35.0" spacing="30.0">
+                  <VBox layoutX="253.0" layoutY="35.0" spacing="60.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="50.0">
                      <children>
-                        <HBox layoutX="263.0" layoutY="35.0" spacing="10.0">
+                        <HBox layoutX="263.0" layoutY="35.0" spacing="10.0" VBox.vgrow="NEVER">
                            <children>
-                              <ToggleButton fx:id="btnDice1" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                              <ToggleButton fx:id="btnDice2" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                              <Button fx:id="btnDice5" layoutX="263.0" layoutY="35.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                              <Button fx:id="btnDice6" layoutX="273.0" layoutY="45.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                              <Button fx:id="btnDice3" layoutX="283.0" layoutY="55.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                              <Button fx:id="btnDice4" layoutX="293.0" layoutY="65.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                              <Button fx:id="btnDice7" layoutX="303.0" layoutY="75.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                              <Button fx:id="btnDice8" layoutX="313.0" layoutY="85.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                           </children>
-                        </HBox>
-                        <HBox layoutX="253.0" layoutY="106.0" styleClass="hbox" stylesheets="@meincss.css">
-                           <children>
-                              <ImageView fitHeight="472.0" fitWidth="507.0" layoutX="253.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/Spielplan.jpg" />
-                                 </image>
-                              </ImageView>
+                              <ToggleButton fx:id="btnDice1" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
+                              <ToggleButton fx:id="btnDice2" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
+                              <ToggleButton fx:id="btnDice3" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
+                              <ToggleButton fx:id="btnDice4" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
+                              <ToggleButton fx:id="btnDice5" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
+                              <ToggleButton fx:id="btnDice6" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
                            </children>
                         </HBox>
                      </children>
                   </VBox>
-                  <HBox layoutX="37.0" layoutY="140.0" spacing="530.0" AnchorPane.topAnchor="200.0">
+                  <HBox layoutX="37.0" layoutY="140.0" spacing="650.0" AnchorPane.topAnchor="250.0">
                      <children>
                         <VBox layoutX="37.0" layoutY="140.0" spacing="20.0">
                            <children>
@@ -89,9 +78,9 @@
                                                 </VBox>
                                                 <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
                                                    <children>
-                                                      <Label fx:id="lbLifePointsChangePlayer1" layoutX="146.0" layoutY="341.0" text="Label" />
-                                                      <Label fx:id="lbFamePointsChangePlayer1" layoutX="146.0" layoutY="362.0" text="Label" />
-                                                      <Label fx:id="lbEnergyPointsChangePlayer1" layoutX="146.0" layoutY="383.0" text="Label" />
+                                                      <Label fx:id="lbLifePointsChangePlayer1" layoutX="146.0" layoutY="341.0" />
+                                                      <Label fx:id="lbFamePointsChangePlayer1" layoutX="146.0" layoutY="362.0" />
+                                                      <Label fx:id="lbEnergyPointsChangePlayer1" layoutX="146.0" layoutY="383.0" />
                                                    </children>
                                                 </VBox>
                                              </children>
@@ -123,14 +112,14 @@
                                                    <children>
                                                       <Label fx:id="lbLifePointsPlayer3" layoutX="92.0" layoutY="341.0" text="Label" />
                                                       <Label fx:id="lbFamePointsPlayer3" layoutX="92.0" layoutY="362.0" text="Label" />
-                                                      <Label fx:id="lbEnergyPointsPlayer3" layoutX="92.0" layoutY="383.0" text="Label" />
+                                                      <Label fx:id="lbEnergyPointsPlayer3" layoutX="92.0" layoutY="383.0" prefWidth="40.0" text="Label" />
                                                    </children>
                                                 </VBox>
                                                 <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
                                                    <children>
-                                                      <Label fx:id="lbLifePointsChangePlayer3" layoutX="146.0" layoutY="341.0" text="Label" />
-                                                      <Label fx:id="lbFamePointsChangePlayer3" layoutX="146.0" layoutY="362.0" text="Label" />
-                                                      <Label fx:id="lbEnergyPointsChangePlayer3" layoutX="146.0" layoutY="383.0" text="Label" />
+                                                      <Label fx:id="lbLifePointsChangePlayer3" layoutX="146.0" layoutY="341.0" />
+                                                      <Label fx:id="lbFamePointsChangePlayer3" layoutX="146.0" layoutY="362.0" />
+                                                      <Label fx:id="lbEnergyPointsChangePlayer3" layoutX="146.0" layoutY="383.0" prefWidth="30.0" />
                                                    </children>
                                                 </VBox>
                                              </children>
@@ -171,9 +160,9 @@
                                                 </VBox>
                                                 <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
                                                    <children>
-                                                      <Label fx:id="lbLifePointsChangePlayer2" layoutX="146.0" layoutY="341.0" text="Label" />
-                                                      <Label fx:id="lbFamePointsChangePlayer2" layoutX="146.0" layoutY="362.0" text="Label" />
-                                                      <Label fx:id="lbEnergyPointsChangePlayer2" layoutX="146.0" layoutY="383.0" text="Label" />
+                                                      <Label fx:id="lbLifePointsChangePlayer2" layoutX="146.0" layoutY="341.0" prefWidth="30.0" />
+                                                      <Label fx:id="lbFamePointsChangePlayer2" layoutX="146.0" layoutY="362.0" />
+                                                      <Label fx:id="lbEnergyPointsChangePlayer2" layoutX="146.0" layoutY="383.0" />
                                                    </children>
                                                 </VBox>
                                              </children>
@@ -210,9 +199,9 @@
                                                 </VBox>
                                                 <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
                                                    <children>
-                                                      <Label fx:id="lbLifePointsChangePlayer4" layoutX="146.0" layoutY="341.0" text="Label" />
-                                                      <Label fx:id="lbFamePointsChangePlayer4" layoutX="146.0" layoutY="362.0" text="Label" />
-                                                      <Label fx:id="lbEnergyPointsChangePlayer4" layoutX="146.0" layoutY="383.0" text="Label" />
+                                                      <Label fx:id="lbLifePointsChangePlayer4" layoutX="146.0" layoutY="341.0" />
+                                                      <Label fx:id="lbFamePointsChangePlayer4" layoutX="146.0" layoutY="362.0" />
+                                                      <Label fx:id="lbEnergyPointsChangePlayer4" layoutX="146.0" layoutY="383.0" />
                                                    </children>
                                                 </VBox>
                                              </children>
@@ -225,7 +214,7 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <VBox layoutX="348.0" layoutY="617.0" prefHeight="164.0" prefWidth="308.0">
+                  <VBox layoutX="348.0" layoutY="617.0" prefHeight="164.0" prefWidth="308.0" AnchorPane.leftAnchor="390.0" AnchorPane.topAnchor="680.0">
                      <children>
                         <TextArea fx:id="taChat" prefHeight="133.0" prefWidth="335.0" />
                         <HBox layoutX="317.0" layoutY="719.0">
@@ -236,25 +225,25 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox layoutX="750.0" layoutY="16.0">
+                  <VBox layoutX="794.0" layoutY="30.0" prefHeight="209.0" prefWidth="144.0" AnchorPane.leftAnchor="794.0">
                      <children>
-                        <VBox layoutX="746.0" spacing="10.0">
+                        <VBox layoutX="746.0" prefHeight="190.0" prefWidth="116.0" spacing="10.0">
                            <children>
-                              <StackPane layoutX="698.0" layoutY="-9.0" styleClass="stack" stylesheets="@meincss.css">
+                              <StackPane layoutX="698.0" layoutY="-9.0" prefHeight="180.0" prefWidth="116.0" styleClass="stack" stylesheets="@meincss.css">
                                  <children>
-                                    <ImageView fx:id="ivCardDeck" fitHeight="120.0" fitWidth="82.0" pickOnBounds="true">
-                                       <image>
-                                          <Image url="@../images/KingOfTokyo.jpg" />
-                                       </image>
-                                       <effect>
-                                          <ColorAdjust hue="-1.0" saturation="-1.0" />
-                                       </effect>
-                                    </ImageView>
-                                 </children>
-                              </StackPane>
+                                    <Button fx:id="btnCardDeck" mnemonicParsing="false" onAction="#handleCardDeck" prefHeight="161.0" prefWidth="108.0">
+                                       <graphic>
+                                          <ImageView fitHeight="168.0" fitWidth="117.0" pickOnBounds="true">
+                                             <image>
+                                                <Image url="@../images/KingOfTokyo.jpg" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children></StackPane>
                            </children>
                         </VBox>
-                        <HBox layoutX="697.0" layoutY="146.0" opacity="0.75" styleClass="boarderbox" stylesheets="@meincss.css">
+                        <HBox alignment="CENTER" layoutX="697.0" layoutY="146.0" opacity="0.75" styleClass="boarderbox" stylesheets="@meincss.css">
                            <children>
                               <Label alignment="CENTER" layoutX="752.0" layoutY="119.0" opacity="0.75" text="%board.lb.stack" />
                            </children>
@@ -262,12 +251,12 @@
                      </children>
                   </VBox>
                   <HBox layoutX="900.0" layoutY="119.0" />
-                  <VBox layoutX="847.0" layoutY="16.0">
+                  <VBox layoutX="847.0" layoutY="16.0" AnchorPane.leftAnchor="950.0">
                      <children>
-                        <HBox layoutX="847.0" layoutY="16.0">
+                        <HBox layoutX="847.0" layoutY="16.0" spacing="10.0">
                            <children>
-                              <ImageView fx:id="ivCard1" fitHeight="127.0" fitWidth="78.0" layoutX="847.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
-                              <ImageView fx:id="ivCard2" fitHeight="128.0" fitWidth="78.0" layoutX="908.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="ivCard1" fitHeight="200.0" fitWidth="160.0" layoutX="847.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="ivCard2" fitHeight="200.0" fitWidth="160.0" layoutX="908.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" layoutX="882.0" layoutY="147.0" opacity="0.75" styleClass="boarderbox" stylesheets="@meincss.css">
@@ -277,6 +266,24 @@
                         </HBox>
                      </children>
                   </VBox>
+                  <HBox styleClass="hbox" stylesheets="@meincss.css" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="150.0">
+                     <children>
+                        <StackPane>
+                           <children>
+                              <ImageView fitHeight="472.0" fitWidth="507.0" layoutX="253.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Spielplan.jpg" />
+                                 </image>
+                              </ImageView>
+                              <AnchorPane>
+                                 <children>
+                                    <ImageView fx:id="ivMonsterInTokyo" fitHeight="150.0" fitWidth="176.0" layoutX="14.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </HBox>
                </children>
             </AnchorPane>
          </children>
