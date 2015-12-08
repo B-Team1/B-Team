@@ -59,16 +59,12 @@ public class RegistrationController implements Initializable {
 							tfSecureQuestion.getText());
 							
 		if(model.isEmptyRegistration(user, pfRePassword.getText())){
-			JOptionPane.showMessageDialog(null, "Bitte Eingaben überprüfen!", "Eingaben überprüfen", JOptionPane.WARNING_MESSAGE);			
+			JOptionPane.showMessageDialog(null, "Bitte Eingaben überprüfen!", "Registration", JOptionPane.WARNING_MESSAGE);			
 		}else{
 			if(!model.checkRegistrationPassword(user, pfRePassword.getText())){
 				JOptionPane.showMessageDialog(null, "Das eingegebene Passwort stimmt nicht mit der Passwortwiederholeung überein!", "Passwortproblem", JOptionPane.WARNING_MESSAGE);
 			}else{
-				if(model.addNewUser(user)){
-					JOptionPane.showMessageDialog(null, "Der User wurde erfolgreich angelegt!", "Registration erfolgreich", JOptionPane.PLAIN_MESSAGE);
-				}else{
-					JOptionPane.showMessageDialog(null, "Es ist ein Fehler bei der Registration aufgetretten! Möglicherweise besteht der Benutzer bereits.", "Registrationsproblem", JOptionPane.WARNING_MESSAGE);
-				}
+				model.addNewUser(user);
 			}
 		}		
 	}

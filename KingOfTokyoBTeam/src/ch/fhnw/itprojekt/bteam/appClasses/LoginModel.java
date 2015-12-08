@@ -156,8 +156,8 @@ public class LoginModel extends Application {
     	}
     }
     
-    public boolean addNewUser(User user){
-    	return connectionModel.sendRegistration(user);
+    public void addNewUser(User user){
+    	connectionModel.sendRegistration(user);
     }
     
     public boolean isEmptyRegistration(User user, String passwordRepeat){
