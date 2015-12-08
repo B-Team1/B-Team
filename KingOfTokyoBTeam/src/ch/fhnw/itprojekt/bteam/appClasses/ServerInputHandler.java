@@ -50,7 +50,12 @@ public class ServerInputHandler {
 				if(gameId > 0){
 					new GameModel(gameId);
 					GameModel gameModel = GameModel.getInstance();
-					gameModel.startCreateGame(new Stage());
+					Platform.runLater(new Runnable() {
+		                @Override
+		                public void run() {
+		                	gameModel.startCreateGame(new Stage());
+		                }
+		            });
 				}else{					
 					JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("newGame.error"), JOptionPane.WARNING_MESSAGE));
 				}
