@@ -114,15 +114,9 @@ public class MenuModel extends Application {
 	 * @param numPlayer
 	 * @param famePointsWin
 	 * @param winFamePoins
-	 * @return true wenn das Spiel erzeugt wurde
 	 */
-	public boolean openNewGame(String numPlayer, boolean famePointsWin, String winFamePoins){
-		int gameId = connectionModel.sendNewGame(convertPlayerChoiceBox(numPlayer), famePointsWin, convertFamePointsChoiceBox(winFamePoins));
-		if(gameId > 0){
-			new GameModel(gameId);
-			return true;
-		}
-		return false;
+	public void openNewGame(String numPlayer, boolean famePointsWin, String winFamePoins){
+		connectionModel.sendNewGame(convertPlayerChoiceBox(numPlayer), famePointsWin, convertFamePointsChoiceBox(winFamePoins));		
 	}
 	
 	/**

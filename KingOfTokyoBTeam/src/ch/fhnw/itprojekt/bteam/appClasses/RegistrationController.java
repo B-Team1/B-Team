@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
+import ch.fhnw.itprojekt.bteam.template.Properties;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -51,6 +53,7 @@ public class RegistrationController implements Initializable {
 	 */
 	@FXML
 	public void handleRegistration(ActionEvent event) {
+		ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
 		User user = new User(tfNickname.getText(),
 							tfFirstName.getText(),
 							tfName.getText(),
@@ -59,10 +62,10 @@ public class RegistrationController implements Initializable {
 							tfSecureQuestion.getText());
 							
 		if(model.isEmptyRegistration(user, pfRePassword.getText())){
-			JOptionPane.showMessageDialog(null, "Bitte Eingaben überprüfen!", "Registration", JOptionPane.WARNING_MESSAGE);			
+			JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("registry.checkInput")), "Registration", JOptionPane.WARNING_MESSAGE);			
 		}else{
 			if(!model.checkRegistrationPassword(user, pfRePassword.getText())){
-				JOptionPane.showMessageDialog(null, "Das eingegebene Passwort stimmt nicht mit der Passwortwiederholeung überein!", "Passwortproblem", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("registry.checkPassword")), "Registration", JOptionPane.WARNING_MESSAGE);
 			}else{
 				model.addNewUser(user);
 			}

@@ -23,6 +23,7 @@ public class ServerInputHandler {
 	 * @param msgIn vom Server
 	 */
 	public void manageInput(Message msgIn){
+		ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
 		switch (msgIn.getType()) {
 			case Login:
 				//Tobias
@@ -37,14 +38,25 @@ public class ServerInputHandler {
 		    				LoginController.closeStage();
 		                }
 		            });			
-				}else{
-					ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
+				}else{					
 					JOptionPane.showMessageDialog(null,FXCollections.observableArrayList(bundle.getString("login.wrongInput")), "Login", JOptionPane.WARNING_MESSAGE);
+				}
+				break;
+			case openNewGame:
+				//Tobias
+				int gameId = msgIn.getGameId();
+				
+				//Gibt eine Fehlermeldung, wenn das Spiel nicht richtig erstellt wurde
+				if(gameId > 0){
+					new GameModel(gameId);
+					GameModel gameModel = GameModel.getInstance();
+					gameModel.startCreateGame(new Stage());
+				}else{					
+					JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("newGame.error"), JOptionPane.WARNING_MESSAGE));
 				}
 				break;
 			case Registration:
 				//Tobias
-				ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
 				if(msgIn.getWriteCheck()){
 					JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("registry.success")), "Registration", JOptionPane.PLAIN_MESSAGE);
 				}else{

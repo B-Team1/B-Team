@@ -55,16 +55,7 @@ public class NewGameController implements Initializable {
 		String winFamePoins = (String) cbWinFamePoints.getSelectionModel().getSelectedItem().toString(); 
 		boolean famePointsWin = chbWinFamePoints.isSelected();
 		
-		//Gibt eine Fehlermeldung, wenn das Spiel nicht richtig erstellt wurde
-		if(model.openNewGame(numPlayers, famePointsWin, winFamePoins)){
-			GameModel gameModel = GameModel.getInstance();
-			gameModel.startCreateGame(new Stage());
-		}else{
-			ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
-			JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("newGame.error"), JOptionPane.WARNING_MESSAGE));
-		}
-		
-		
+		model.openNewGame(numPlayers, famePointsWin, winFamePoins);
 	}
 	
 	/**
