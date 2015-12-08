@@ -179,22 +179,29 @@ public class ConnectionModel {
 		return respons;
 	}
 	
-	public int sendNewGame(int numPlayer, boolean famePointsWin, int winFamePoins){
+	/**
+	 * Sendet die Informationen für ein neues Spiel dem Server
+	 * @author Tobias
+	 * @param numPlayer
+	 * @param famePointsWin
+	 * @param winFamePoins
+	 */
+	public void sendNewGame(int numPlayer, boolean famePointsWin, int winFamePoins){
 		Message msgOut = new Message(Message.MessageType.openNewGame);
 		msgOut.setNumPlayer(numPlayer);
 		msgOut.setFamePointsWin(famePointsWin);
 		msgOut.setWinFamePoins(winFamePoins);
-		int respons = 0;
 		try {
 			msgOut.send(socket);
-			Thread.sleep(1000);
-			respons = msgIn.getGameId();
 			} catch (Exception e) {
 				serviceLocator.getLogger().warning(e.toString());
-		}
-		return respons;
+		}		
 	}
 	
+	/**
+	 * Schickt dem Server den Auftrag, das entsprechende Spiel zu löschen.
+	 * @param gameId
+	 */
 	public void deleteGame(int gameId){
 		Message msgOut = new Message(Message.MessageType.deleteGame);
 		msgOut.setGameId(gameId);

@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 
 import ch.fhnw.itprojekt.bteam.template.Properties;
 import ch.fhnw.itprojekt.bteam.template.ServiceLocator;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,9 +38,9 @@ public class GameOverviewController implements Initializable {
 	@FXML Label lbHello;
 	@FXML Label lbOpenGames;
 	@FXML Label lbStats;
-	@FXML TableColumn<String, String> tcOpenGames;
-	@FXML TableColumn<String, String> tcOpenPlaces;
-	@FXML TableView<String> tvAvailableGames;
+	@FXML TableColumn tcOpenGames;
+	@FXML TableColumn tcOpenPlaces;
+	@FXML TableView tvOpenGames;
 	@FXML Menu menuLanguage;
 	@FXML Menu menuHelp;
 	@FXML MenuItem miGerman;
@@ -57,11 +59,27 @@ public class GameOverviewController implements Initializable {
 		Stats stats = model.getStats();
 		lbPlayGames.setText(stats.getSumGames() + "");
 		lbWonGames.setText(stats.getWonGames() + "");
+		
+		 ObservableList<Person> data =
+			        FXCollections.observableArrayList(
+			            new Person("Jacob", "Smith", "jacob.smith@example.com"),
+			            new Person("Isabella", "Johnson", "isabella.johnson@example.com"),
+			            new Person("Ethan", "Williams", "ethan.williams@example.com"),
+			            new Person("Emma", "Jones", "emma.jones@example.com"),
+			            new Person("Michael", "Brown", "michael.brown@example.com")
+			        );
+		 
+		
+		tvOpenGames.setEditable(true);
+		tvOpenGames.getItems().setAll(data);
+
 	}
+	
+	
 	
 	@FXML
 	public void handleStartGame(ActionEvent event) {
-	
+		
 	}
 	
 	/**
