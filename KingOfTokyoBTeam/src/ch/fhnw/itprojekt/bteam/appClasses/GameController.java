@@ -67,14 +67,20 @@ public class GameController implements Initializable {
 	@FXML ImageView ivCard2;
 	@FXML ImageView ivMonsterInTokyo;
 	
-
-
+	ArrayList<ToggleButton> buttonList = new ArrayList<ToggleButton>();
+	private int count = 0;
 	GameModel gameModel;
 
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		gameModel = GameModel.getInstance();
+		buttonList.add(btnDice1);
+		buttonList.add(btnDice2);
+		buttonList.add(btnDice3);
+		buttonList.add(btnDice4);
+		buttonList.add(btnDice5);
+		buttonList.add(btnDice6);
 	}
 
 	/**Bei Klick auf Würfeln wird gameModel aufgerufen, welche das Würfelresultat zurückgibt. Zudem wird hier das Wüfelbild geladen.
@@ -83,13 +89,12 @@ public class GameController implements Initializable {
 	 */
 	@FXML
 	public void handleRollDice(ActionEvent event) {
-	ArrayList<Dice> diceResult= new ArrayList<Dice>();
-	diceResult = gameModel.getDiceResult();
-	int i = 0 ;
-	for(i = 0; i<=5; i++){
-		Dice dice = new Dice();
+	if (count <= 2){
+	checkSelectedButton();	
+	ArrayList<Dice> diceResult = gameModel.getDiceResult();
+	for(int i = 0; i <= 5; i++){
 		if (diceResult != null){
-			dice = diceResult.get(i);
+			Dice dice = diceResult.get(i);
 				switch (i) {
 					case 0:  i = 0;
 						if (btnDice1.isSelected() != true){
@@ -102,22 +107,46 @@ public class GameController implements Initializable {
 						}
 						break;
 					case 2:  i = 2;
-						btnDice3.setGraphic(new ImageView(dice.image));
+						if (btnDice1.isSelected() != true){
+							btnDice3.setGraphic(new ImageView(dice.image));
+						}
 						break;
 					case 3:  i = 3;
-						btnDice4.setGraphic(new ImageView(dice.image));
+						if (btnDice1.isSelected() != true){
+							btnDice4.setGraphic(new ImageView(dice.image));
+						}
 						break;
 					case 4:  i = 4;
-						btnDice5.setGraphic(new ImageView(dice.image));
+						if (btnDice1.isSelected() != true){
+							btnDice5.setGraphic(new ImageView(dice.image));
+						}
 						break;
 					case 5:  i = 5;
-						btnDice6.setGraphic(new ImageView(dice.image));
-						break;    	
-				} 	
+						if (btnDice1.isSelected() != true){
+							btnDice6.setGraphic(new ImageView(dice.image));
+						}
+						break;
+				} 
 		}else{
 			//Message das drei mal gewürfelt wurde
 		}
 	}
+	gameModel.setDicePreview();
+	gameModel.setPreview();
+	lbLifePointsChangePlayer1.setText("" + gameModel.playerMe.getFutureLifePoints());
+	lbEnergyPointsChangePlayer1.setText("" + gameModel.playerMe.getFutureEnergyPoints());
+	lbFamePointsChangePlayer1.setText("" + gameModel.playerMe.getFutureHonorPoints());
+	lbLifePointsChangePlayer2.setText("" + gameModel.playerTwo.getFutureLifePoints());
+	if (gameModel.playerThree!=null){
+		lbLifePointsChangePlayer3.setText("" + gameModel.playerThree.getFutureLifePoints());
+	}
+	if (gameModel.playerFour!=null){
+		lbLifePointsChangePlayer4.setText("" + gameModel.playerFour.getFutureLifePoints());
+	}
+	}else{
+		
+	}
+	count++;
 	}
 	/**
 	 * Methode um den Spielzug zu beenden und die Ergebnisse ausführen
@@ -135,6 +164,7 @@ public class GameController implements Initializable {
 	@FXML
 	public void handleSend(ActionEvent event) {
 		
+		
 	}
 	
 	/**
@@ -145,12 +175,12 @@ public class GameController implements Initializable {
 	public void handleCardDeck(ActionEvent event) {
 		try {
 			Card newCard = new Card();
-			GameModel.getInstance().playerMe.setEnergyPoints(10);
-		if (GameModel.cardList.size() == 0 && (GameModel.getInstance().playerMe.getEnergyPoints() >= 3)){
+			gameModel.playerMe.setEnergyPoints(10);
+		if (GameModel.cardList.size() == 0 && (gameModel.playerMe.getEnergyPoints() >= 3)){
 			newCard = newCard.pullCard();
 			ivCard1.setImage(newCard.getCardImage());
 		} else {
-			if (GameModel.getInstance().playerMe.getEnergyPoints() >= 3) {
+			if (gameModel.playerMe.getEnergyPoints() >= 3) {
 			newCard = newCard.pullCard();
 			ivCard2.setImage(newCard.getCardImage());
 			}
@@ -159,46 +189,51 @@ public class GameController implements Initializable {
 			
 			/**
 			 * Die einzelnen Aktionen je nach Aktions-Typ der Karte
+			 * @author Marco
 			 */
 			switch (newCard.getAction()){
 			case attack:
-				if (GameModel.getInstance().playerMe.inTokyo){
+				if (gameModel.playerMe.inTokyo){
 					gameModel.attackFromTokyo(newCard.getEffect());
-					lbLifePointsChangePlayer2.setText("-" + GameModel.getInstance().playerTwo.getFutureLifePoints());
-					if (GameModel.getInstance().playerThree!=null) {
-					lbLifePointsChangePlayer3.setText("-" + GameModel.getInstance().playerThree.getFutureLifePoints());
+					lbLifePointsChangePlayer2.setText("" + gameModel.playerTwo.getFutureLifePoints());
+					if (gameModel.playerThree!=null) {
+					lbLifePointsChangePlayer3.setText("" + gameModel.playerThree.getFutureLifePoints());
 					}
-					if (GameModel.getInstance().playerFour!=null) {
-					lbLifePointsChangePlayer4.setText("-" + GameModel.getInstance().playerFour.getFutureLifePoints());
+					if (gameModel.playerFour!=null) {
+					lbLifePointsChangePlayer4.setText("" + gameModel.playerFour.getFutureLifePoints());
 					}
-					lbEnergyPointsChangePlayer1.setText("-" + GameModel.getInstance().playerMe.getFutureEnergyPoints());
+					lbEnergyPointsChangePlayer1.setText("" + gameModel.playerMe.getFutureEnergyPoints());
 				} else {
-					gameModel.attackTokyo(GameModel.getInstance().playerTwo, newCard.getEffect());
-					if (GameModel.getInstance().playerTwo.getFutureLifePoints() != 0){
-						lbLifePointsChangePlayer2.setText("-" + GameModel.getInstance().playerTwo.getFutureLifePoints());
+					gameModel.attackTokyo(gameModel.playerTwo, newCard.getEffect());
+					if (gameModel.playerTwo.getFutureLifePoints() != 0){
+						lbLifePointsChangePlayer2.setText("" + gameModel.playerTwo.getFutureLifePoints());
 					}
-					if ((GameModel.getInstance().playerThree.getFutureLifePoints() != 0) && (GameModel.getInstance().playerThree!=null)) {
-						lbLifePointsChangePlayer3.setText("-" + GameModel.getInstance().playerThree.getFutureLifePoints());
+					if ((gameModel.playerThree.getFutureLifePoints() != 0) && (gameModel.playerThree!=null)) {
+						lbLifePointsChangePlayer3.setText("" + gameModel.playerThree.getFutureLifePoints());
 					}
-					if ((GameModel.getInstance().playerFour.getFutureLifePoints() != 0) && (GameModel.getInstance().playerFour!=null)) {
-						lbLifePointsChangePlayer4.setText("-" + GameModel.getInstance().playerFour.getFutureLifePoints());
+					if ((gameModel.playerFour.getFutureLifePoints() != 0) && (gameModel.playerFour!=null)) {
+						lbLifePointsChangePlayer4.setText("" + gameModel.playerFour.getFutureLifePoints());
 					}
-					lbEnergyPointsChangePlayer1.setText("-" + GameModel.getInstance().playerMe.getFutureEnergyPoints());
+					lbEnergyPointsChangePlayer1.setText("" + gameModel.playerMe.getFutureEnergyPoints());
 				}
 				break;
 			case heal:
-				int afterHealPoints = GameModel.getInstance().playerMe.getFutureLifePoints() + newCard.getEffect();
-				GameModel.getInstance().playerMe.setFutureLifePoints(afterHealPoints);
-				lbLifePointsChangePlayer1.setText("+" + GameModel.getInstance().playerMe.getFutureLifePoints());
-				GameModel.getInstance().payCard();
-				lbEnergyPointsChangePlayer1.setText("-" + GameModel.getInstance().playerMe.getFutureEnergyPoints());
+				gameModel.cardHeal(newCard.getEffect());
+				gameModel.playerMe.setFutureLifePoints(gameModel.playerMe.getActualCardLifePoints() + 
+						gameModel.playerMe.getActualDiceLifePoints());
+				gameModel.playerMe.setFutureEnergyPoints(gameModel.playerMe.getActualCardEnergyPoints() + 
+						gameModel.playerMe.getActualDiceEnergyPoints());
+				lbLifePointsChangePlayer1.setText("" + gameModel.playerMe.getFutureLifePoints());
+				lbEnergyPointsChangePlayer1.setText("" + gameModel.playerMe.getFutureEnergyPoints());
 				break;
 			case honor:
-				int futureHonorPoints = GameModel.getInstance().playerMe.getFutureHonorPoints() + newCard.getEffect();
-				GameModel.getInstance().playerMe.setFutureHonorPoints(futureHonorPoints);
-				lbFamePointsChangePlayer1.setText("+" + GameModel.getInstance().playerMe.getFutureHonorPoints());
-				GameModel.getInstance().payCard();
-				lbEnergyPointsChangePlayer1.setText("-" + GameModel.getInstance().playerMe.getFutureEnergyPoints());
+				gameModel.cardHonor(newCard.getEffect());
+				gameModel.playerMe.setFutureHonorPoints(gameModel.playerMe.getActualCardHonorPoints() + 
+						gameModel.playerMe.getActualDiceHonorPoints());
+				gameModel.playerMe.setFutureEnergyPoints(gameModel.playerMe.getActualCardEnergyPoints() + 
+						gameModel.playerMe.getActualDiceEnergyPoints());
+				lbFamePointsChangePlayer1.setText("" + gameModel.playerMe.getFutureHonorPoints());
+				lbEnergyPointsChangePlayer1.setText("" + gameModel.playerMe.getFutureEnergyPoints());
 				break;
 		}
 				
@@ -208,6 +243,16 @@ public class GameController implements Initializable {
 		
 	    }
 	
-
+	public static void getTest() {
+		
+	}
+	
+	private void checkSelectedButton() {
+		for (int i = 0; i < 6; i++) {
+			if (buttonList.get(i).isSelected()) {
+				gameModel.setDiceSelected(i);
+			}
+		}
+	}
 
 }

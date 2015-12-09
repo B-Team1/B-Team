@@ -23,6 +23,7 @@ public class GameModel extends Application {
 	private static GameModel singleton;
 	private int gameId;
 	private ConnectionModel connectionModel;
+	ArrayList<Dice> diceResult= new ArrayList<Dice>();
 	
 	Player playerMe = new Player(lifePoints, energyPoints, honorPoints, inTokyo = true);
 	Player playerTwo = new Player(lifePoints, energyPoints, honorPoints, inTokyo);
@@ -106,17 +107,15 @@ public class GameModel extends Application {
 	 * @author Marco
 	 */
 	public void attackFromTokyo(int effect) {
-		int afterAttackPointsPlayer2 = playerTwo.getFutureLifePoints() + effect;
-		playerTwo.setFutureLifePoints(afterAttackPointsPlayer2);
+		playerTwo.setActualCardLifePoints(playerTwo.getActualCardLifePoints() - effect);
 		if (playerThree!=null){
-		int afterAttackPointsPlayer3 = playerThree.getFutureLifePoints() + effect;
-		playerThree.setFutureLifePoints(afterAttackPointsPlayer3);
+		playerThree.setActualCardLifePoints(playerThree.getActualCardLifePoints() - effect);
 		}
 		if (playerFour!=null){
-		int afterAttackPointsPlayer4 = playerFour.getFutureLifePoints() + effect;
-		playerFour.setFutureLifePoints(afterAttackPointsPlayer4);
+		playerFour.setActualCardLifePoints(playerFour.getActualCardLifePoints() - effect);
 		}
 		payCard();
+		setPreview();
 	}
 	
 	/**
@@ -125,23 +124,30 @@ public class GameModel extends Application {
 	 */
 	public void attackTokyo(Player player, int effect) {
 		if (playerTwo.inTokyo) {
-			int afterAttackPointsPlayer2 = playerTwo.getFutureLifePoints() + effect;
-			playerTwo.setFutureLifePoints(afterAttackPointsPlayer2);
+			playerTwo.setActualCardLifePoints(playerTwo.getActualCardLifePoints() - effect);
 		}
 		if ((playerThree!=null) && (playerThree.inTokyo)) {
-			int afterAttackPointsPlayer3 = playerThree.getFutureLifePoints() + effect;
-			playerThree.setFutureLifePoints(afterAttackPointsPlayer3);
+			playerThree.setActualCardLifePoints(playerThree.getActualCardLifePoints() - effect);
 		}
 		if ((playerFour!=null) && (playerFour.inTokyo)) {
-			int afterAttackPointsPlayer4 = playerFour.getFutureLifePoints() + effect;
-			playerFour.setFutureLifePoints(afterAttackPointsPlayer4);
+			playerFour.setActualCardLifePoints(playerFour.getActualCardLifePoints() - effect);
 		}
+		payCard();
+		setPreview();
+	}
+	
+	public void cardHeal(int effect) {
+		playerMe.setActualCardLifePoints(playerMe.getActualCardLifePoints() + effect);
+		payCard();
+	}
+	
+	public void cardHonor(int effect) {
+		playerMe.setActualCardHonorPoints(playerMe.getActualCardHonorPoints() + effect);
 		payCard();
 	}
 	
 	public void payCard() {
-		int afterAttackPointsPlayerMe = playerMe.getFutureEnergyPoints() + cardCost;
-		playerMe.setFutureEnergyPoints(afterAttackPointsPlayerMe);
+		playerMe.setActualCardEnergyPoints(playerMe.getActualCardEnergyPoints() - cardCost);
 	}
 
 	/**
@@ -149,12 +155,14 @@ public class GameModel extends Application {
 	 * @author Luzian
 	 * @return
 	 */
-	public ArrayList getDiceResult(){
-		ArrayList<Dice> diceResult= new ArrayList<Dice>();
-		if (count <=2){
-			for(int i = 0; i <= 6; i++){	
-				Dice dice = new Dice();
-				diceResult.add(dice.roll());	
+	public ArrayList<Dice> getDiceResult() {
+		if (count <=2 ) {
+			for(int i = 0; i < 6; i++){
+				
+				diceResult.add(new Dice());
+				if(!diceResult.get(i).isSelected) {
+					diceResult.get(i).roll();
+				}				
 			}
 			count++;
 			return diceResult;
@@ -163,6 +171,128 @@ public class GameModel extends Application {
 			return diceResult;
 		}
 	}
+	
+	public int countDice(int value) {
+		return 5;
+	}
+	
+	public void setDicePreview() {
+		/**
+		 * Setzt die Änderungen der Würfelwerte auf 0
+		 */
+		playerMe.setActualDiceEnergyPoints(0);
+		playerMe.setActualDiceLifePoints(0);
+		playerMe.setActualDiceHonorPoints(0);
+		playerTwo.setActualDiceLifePoints(0);
+		if (playerThree!=null) {
+			playerThree.setActualDiceLifePoints(0);
+		}
+		if (playerFour!=null) {
+			playerFour.setActualDiceLifePoints(0);
+		}
+		
+		/**
+		 * Zählt in der Würfelliste die Anzahl der verschiedenen Würfel
+		 */
+		int heart = 0, attack = 0, flash = 0, num1 = 0, num3 = 0, num2 = 0;
+		for(int i = 0; i <= 5; i++) {
+			Dice dice = new Dice();
+			if (diceResult != null){
+			dice = diceResult.get(i);
+				switch (dice.value) {
+					case 1:  
+						heart++;
+						break;
+					case 2: 
+						attack++;
+						break;
+					case 3: 
+						flash++;
+						break;
+					case 4: 
+						num1++;
+						break;
+					case 5: 
+						num3++;
+						break;
+					case 6: 
+						num2++;
+						break;
+				}
+			}
+		}
+		
+		/**
+		 * Berechnet die Auswirkungen der Herz-Würfel
+		 * @author Marco
+		 */
+		if (heart >= 1 && !playerMe.inTokyo) {
+			playerMe.setActualDiceLifePoints(playerMe.getActualDiceLifePoints() + heart);
+		}
+		/**
+		 * Berechnet die Auswirkungen bei einem Angriffs-Würfel
+		 * @author Marco
+		 */
+		if (attack >= 1) {
+			if (playerMe.inTokyo) {
+				playerTwo.setActualDiceLifePoints(playerTwo.getActualDiceLifePoints() - attack);
+				if (playerThree!=null) {
+					playerThree.setActualDiceLifePoints(playerThree.getActualDiceLifePoints() - attack);
+				}
+				if (playerFour!=null) {
+					playerFour.setActualDiceLifePoints(playerFour.getActualDiceLifePoints() - attack);
+				}
+			} else {
+				if (playerTwo.inTokyo) {
+					playerTwo.setActualDiceLifePoints(playerTwo.getActualDiceLifePoints() - attack);
+				} else {
+					if (playerThree.inTokyo && playerThree!=null) {
+						playerThree.setActualDiceLifePoints(playerThree.getActualDiceLifePoints() - attack);
+					} else {
+						if (playerFour.inTokyo && playerFour!=null) {
+							playerFour.setActualDiceLifePoints(playerFour.getActualDiceLifePoints() - attack);
+						} else {
+							playerMe.setInTokyo(true);
+						}
+					}
+				}
+			}
+		}
+		if (flash >= 1) {
+			playerMe.setActualDiceEnergyPoints(playerMe.getActualDiceEnergyPoints() + flash);
+		}
+		if (num1 >= 3) {
+			playerMe.setActualDiceHonorPoints(playerMe.getActualDiceHonorPoints() + (num1 - 2));
+		}
+		if (num3 >= 3) {
+			playerMe.setActualDiceHonorPoints(playerMe.getActualDiceHonorPoints() + num3);
+					}
+		if (num2 >= 3) {
+			playerMe.setActualDiceHonorPoints(playerMe.getActualDiceHonorPoints() + (num2 - 1));
+		}
+	}
+	
+	/**
+	 * Setzt die Änderungen von den Karten und den Würfeln
+	 * @author Marco
+	 */
+	public void setPreview() {
+		playerMe.setFutureLifePoints(playerMe.getActualDiceLifePoints() + playerMe.getActualCardLifePoints());
+		playerMe.setFutureHonorPoints(playerMe.getActualDiceHonorPoints() + playerMe.getActualCardHonorPoints());
+		playerMe.setFutureEnergyPoints(playerMe.getActualDiceEnergyPoints() + playerMe.getActualCardEnergyPoints());
+		playerTwo.setFutureLifePoints(playerTwo.getActualDiceLifePoints() + playerTwo.getActualCardLifePoints());
+		if (playerThree!=null) {
+			playerThree.setFutureLifePoints(playerThree.getActualDiceLifePoints() + playerThree.getActualCardLifePoints());
+		}
+		if (playerFour!=null) {
+			playerFour.setFutureLifePoints(playerFour.getActualDiceLifePoints() + playerFour.getActualCardLifePoints());
+		}
+	}
+	
+	public void setDiceSelected(int i) {
+		diceResult.get(i).setSelected(true);
+	}
+	
 	
 	/**
 	 * Löscht das bestehende Spiel vom Server
