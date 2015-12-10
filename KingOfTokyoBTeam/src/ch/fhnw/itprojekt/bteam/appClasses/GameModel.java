@@ -340,8 +340,6 @@ public class GameModel extends Application {
 	}
 	
 	public void setPlayers(ArrayList<String> players){
-		for (int i = 0; i< players.size(); i++){
-			playerList.add(players.get(i));
-		}
+		playerList.addAll(players);
 	}
 }

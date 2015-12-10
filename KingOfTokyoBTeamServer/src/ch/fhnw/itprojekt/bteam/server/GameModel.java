@@ -19,7 +19,6 @@ public class GameModel {
 		players.add(nickName);
 	}
 	
-
 	public int getNumPlayer() {
 		return numPlayer;
 	}

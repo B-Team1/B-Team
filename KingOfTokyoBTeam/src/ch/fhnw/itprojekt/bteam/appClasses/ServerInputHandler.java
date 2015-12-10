@@ -157,11 +157,7 @@ public class ServerInputHandler {
 				break;
 			case Players:
 				GameModel gameModel = GameModel.getInstance();
-				ArrayList<String> playerList = new ArrayList<String>();
-				
-				for (int i = 0; i < msgIn.getPlayers().length; i++ ){
-					playerList.add(msgIn.getPlayers().clone().toString());
-				}
+				ArrayList<String> playerList = new ArrayList<String>(Arrays.asList(msgIn.getPlayers()));
 				gameModel.setPlayers(playerList);
 				
 		default:
