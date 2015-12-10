@@ -21,10 +21,10 @@ public class GameModel {
 		players.add(nickName);
 	}
 	
+
 	public void addPlayer(String player){
 		players.add(player);
 	}
-	
 
 	public int getNumPlayer() {
 		return numPlayer;
@@ -64,6 +64,7 @@ public class GameModel {
 
 
 	public ArrayList<String> getPlayers() {
+		players.add("Luzian");
 		return players;
 	}
 

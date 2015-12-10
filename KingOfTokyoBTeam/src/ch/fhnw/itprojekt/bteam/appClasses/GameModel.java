@@ -344,7 +344,7 @@ public class GameModel extends Application {
 	 *@author Luzian
 	 */
 	public void sendChat(String text){
-		connectionModel.sendChat(text);	
+		connectionModel.sendChat(text, getNickname());	
 	}
 
 	public void getPlayers(){
@@ -352,9 +352,7 @@ public class GameModel extends Application {
 	}
 	
 	public void setPlayers(ArrayList<String> players){
-		for (int i = 0; i< players.size(); i++){
-			playerList.add(players.get(i));
-		}
+		playerList.addAll(players);
 	}
 
 

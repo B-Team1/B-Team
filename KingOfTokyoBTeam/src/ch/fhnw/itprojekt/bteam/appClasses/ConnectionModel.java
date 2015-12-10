@@ -229,9 +229,10 @@ public class ConnectionModel {
 	/**			
 	 * @author Luzian
 	 */
-	public void sendChat(String chat){
+	public void sendChat(String chat, String nickName){
 		Message msgOut = new Message(Message.MessageType.Chat);
 		msgOut.setChat(chat);
+		msgOut.setNickname(nickName);
 		try {
 			msgOut.send(socket);
 		} catch (Exception e) {
