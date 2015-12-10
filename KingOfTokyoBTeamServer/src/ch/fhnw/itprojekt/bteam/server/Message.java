@@ -15,9 +15,8 @@ import org.simpleframework.xml.core.Persister;
 @Root
 public class Message {
 	public enum MessageType {
-		Error, Login, SecurityQuestion, Registration, OpenGameRequest, SecurityAnswer, Password, Test, Broadcast, getStat, openNewGame, deleteGame
+		Error, Login, SecurityQuestion, Registration, OpenGameRequest, SecurityAnswer, Password, Test, Broadcast, getStat, openNewGame, deleteGame, Chat, Players
 	};
-
 	// Data included in a message
 	@Element
 	private MessageType type;
@@ -72,6 +71,14 @@ public class Message {
 	
 	@Element(required = false)
 	private boolean writeCheck;
+	
+	@Element(required = false)
+	private String chat;
+	
+	@Element(required = false)
+	private String [] players;
+	
+	
 	
 	
 	
@@ -256,7 +263,33 @@ public class Message {
 	public void setGameId(int gameId) {
 		this.gameId = gameId;
 	}
-	
+
+
+
+	public String getChat() {
+		return chat;
+	}
+
+
+
+	public void setChat(String chat) {
+		this.chat = chat;
+	}
+
+
+
+	public String[] getPlayers() {
+		return players;
+	}
+
+
+
+	public void setPlayers(String[] players) {
+		this.players = players;
+	}
+
+
+
 
 	public int[] getfreePlaces() {
 		return freePlaces;

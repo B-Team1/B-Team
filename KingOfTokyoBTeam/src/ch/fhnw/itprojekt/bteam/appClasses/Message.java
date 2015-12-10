@@ -17,7 +17,8 @@ import org.simpleframework.xml.core.Persister;
 @Root
 public class Message {
 	public enum MessageType {
-		Error, Login, SecurityQuestion, Registration, OpenGameRequest, SecurityAnswer, Password, Test, Broadcast, getStat, openNewGame, deleteGame
+
+		Error, Login, SecurityQuestion, Registration, OpenGameRequest, SecurityAnswer, Password, Test, Broadcast, getStat, openNewGame, deleteGame, Chat, Players
 	};
 
 	// Data included in a message
@@ -74,6 +75,24 @@ public class Message {
 	
 	@Element(required = false)
 	private boolean writeCheck;
+	
+	@Element(required = false)
+	private String chat;
+	
+	@Element(required = false)
+	private String player1;
+	
+	@Element(required = false)
+	private String player2;
+	
+	@Element(required = false)
+	private String player3;
+	
+	@Element(required = false)
+	private String player4;
+	
+	@Element(required = false)
+	private String [] players;
 	
 	
 
@@ -259,6 +278,78 @@ public class Message {
 
 	public void setGameId(int gameId) {
 		this.gameId = gameId;
+	}
+
+
+
+	public String getChat() {
+		return chat;
+	}
+
+
+
+	public void setChat(String chat) {
+		this.chat = chat;
+	}
+
+
+
+	public String getPlayer1() {
+		return player1;
+	}
+
+
+
+	public void setPlayer1(String player1) {
+		this.player1 = player1;
+	}
+
+
+
+	public String getPlayer2() {
+		return player2;
+	}
+
+
+
+	public void setPlayer2(String player2) {
+		this.player2 = player2;
+	}
+
+
+
+	public String getPlayer3() {
+		return player3;
+	}
+
+
+
+	public void setPlayer3(String player3) {
+		this.player3 = player3;
+	}
+
+
+
+	public String getPlayer4() {
+		return player4;
+	}
+
+
+
+	public void setPlayer4(String player4) {
+		this.player4 = player4;
+	}
+
+
+
+	public String[] getPlayers() {
+		return players;
+	}
+
+
+
+	public void setPlayers(String[] players) {
+		this.players = players;
 	}
 	
 	

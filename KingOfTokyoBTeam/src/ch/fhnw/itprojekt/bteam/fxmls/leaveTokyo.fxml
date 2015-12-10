@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane prefHeight="200.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="ch.fhnw.itprojekt.bteam.appClasses.LeaveTokyoController">
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" layoutX="55.0" layoutY="34.0" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label layoutX="150.0" layoutY="34.0" text="%leave.lb.leaveTokyo">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" layoutX="60.0" layoutY="96.0" spacing="30.0">
+                     <children>
+                        <Button layoutX="65.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleYes" prefHeight="35.0" prefWidth="80.0" stylesheets="@meincss.css" text="%leave.btn.yes" />
+                        <Button layoutX="186.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleNo" prefHeight="35.0" prefWidth="80.0" stylesheets="@meincss.css" text="%leave.btn.no" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

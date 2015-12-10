@@ -116,7 +116,7 @@ public class MenuModel extends Application {
 	 * @param winFamePoins
 	 */
 	public void openNewGame(String numPlayer, boolean famePointsWin, String winFamePoins){
-		connectionModel.sendNewGame(convertPlayerChoiceBox(numPlayer), famePointsWin, convertFamePointsChoiceBox(winFamePoins));		
+		connectionModel.sendNewGame(convertPlayerChoiceBox(numPlayer), famePointsWin, convertFamePointsChoiceBox(winFamePoins), this.currentNickname);		
 	}
 	
 	/**

@@ -3,10 +3,17 @@ package ch.fhnw.itprojekt.bteam.appClasses;
 import java.io.IOException;
 import java.net.Socket;
 
+import javafx.scene.image.ImageView;
+
 import javax.swing.JOptionPane;
 
 public class ThreadHandler extends Thread{
+
+	ConnectionModel connectionModel;
+	GameController gamecontroller;
+
 	private ServerInputHandler inputHandler = new ServerInputHandler();
+
 	private Socket socket;
 	public ThreadHandler(Socket socket){
 		
@@ -18,10 +25,8 @@ public class ThreadHandler extends Thread{
 			while(true){
 				synchronized (socket) {
 					Message msgIn = Message.receive(socket);
-					if(msgIn.getType() == Message.MessageType.Broadcast){
-	                 	JOptionPane.showMessageDialog(null, "Gratullation!", "Gratullation", JOptionPane.WARNING_MESSAGE);
-	                }
-					inputHandler.manageInput(msgIn);		
+					
+					inputHandler.manageInput(msgIn);	
 				}
 	    	}
 		} catch (Exception e) {

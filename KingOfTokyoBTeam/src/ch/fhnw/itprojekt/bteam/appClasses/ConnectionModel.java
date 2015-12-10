@@ -64,9 +64,7 @@ public class ConnectionModel {
 		}
 		return success;
 	}
-	   	
-	
-	    
+	   	   
     
 	/**
 	 * Diese Methode sendet die Login Informatinen an den Server und erhält die Antwort von ihm.
@@ -89,20 +87,17 @@ public class ConnectionModel {
 	 * @param user
 	 * @return
 	 */
-	public String getSecurityQuestion(User user){
+	public void getSecurityQuestion(User user){
 		Message msgOut = new Message(Message.MessageType.SecurityQuestion);
 		msgOut.setNickname(user.getNickname());
 		msgOut.setNname(user.getnName());
 		msgOut.setVname(user.getvName());
-		String securityQuestion = null;
 		try {
 			msgOut.send(socket);
-			Thread.sleep(1000);
-			securityQuestion = msgIn.getSecurityQuestion();
 		} catch (Exception e) {
 			serviceLocator.getLogger().warning(e.toString());
 		}
-		return securityQuestion;
+		
 	}
 	
 	/**
@@ -134,37 +129,34 @@ public class ConnectionModel {
 	 * @param user
 	 * @return
 	 */
-	public String getSecurityAnswer(User user){
+	public void getSecurityAnswer(User user){
 		Message msgOut = new Message(Message.MessageType.SecurityAnswer);
 		msgOut.setNickname(user.getNickname());
 		msgOut.setNname(user.getnName());
 		msgOut.setVname(user.getvName());
-		String securityAnswer = null;
 		try {
 			msgOut.send(socket);
-			Thread.sleep(1000);
-			securityAnswer = msgIn.getSecurityAnswer();
-			} catch (Exception e) {
-				serviceLocator.getLogger().warning(e.toString());
+		} catch (Exception e) {
+			serviceLocator.getLogger().warning(e.toString());
 		}
-		return securityAnswer;
+		
 	}
 
-	
-	public String getPassword(User user){
+	/**
+	 * @author Luzian
+	 * @param user
+	 */
+	public void getPassword(User user){
 		Message msgOut = new Message(Message.MessageType.Password);
 		msgOut.setNickname(user.getNickname());
 		msgOut.setNname(user.getnName());
 		msgOut.setVname(user.getvName());
-		String password = null;
 		try {
 			msgOut.send(socket);
-			Thread.sleep(1000);
-			password = msgIn.getPassword();
 			} catch (Exception e) {
 				serviceLocator.getLogger().warning(e.toString());
 		}
-		return password;
+	
 	}
 	
 	/**
@@ -194,11 +186,12 @@ public class ConnectionModel {
 	 * @param famePointsWin
 	 * @param winFamePoins
 	 */
-	public void sendNewGame(int numPlayer, boolean famePointsWin, int winFamePoins){
+	public void sendNewGame(int numPlayer, boolean famePointsWin, int winFamePoins, String nickName){
 		Message msgOut = new Message(Message.MessageType.openNewGame);
 		msgOut.setNumPlayer(numPlayer);
 		msgOut.setFamePointsWin(famePointsWin);
 		msgOut.setWinFamePoins(winFamePoins);
+		msgOut.setNickname(nickName);
 		try {
 			msgOut.send(socket);
 			} catch (Exception e) {
@@ -230,6 +223,29 @@ public class ConnectionModel {
 			msgOut.send(socket);			
 			} catch (Exception e) {
 				serviceLocator.getLogger().warning(e.toString());
+			}
+	}
+	
+	/**			
+	 * @author Luzian
+	 */
+	public void sendChat(String chat){
+		Message msgOut = new Message(Message.MessageType.Chat);
+		msgOut.setChat(chat);
+		try {
+			msgOut.send(socket);
+		} catch (Exception e) {
+			serviceLocator.getLogger().warning(e.toString());
+		}
+	}
+
+	public void getPlayers(int gameId){
+		Message msgOut = new Message(Message.MessageType.Players);
+		msgOut.setGameId(gameId);
+		try {
+			msgOut.send(socket);
+		} catch (Exception e) {
+			serviceLocator.getLogger().warning(e.toString());
 		}
 	}
 	

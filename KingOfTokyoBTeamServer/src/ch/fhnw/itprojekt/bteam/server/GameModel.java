@@ -1,18 +1,25 @@
 package ch.fhnw.itprojekt.bteam.server;
 
+import java.util.ArrayList;
+
 public class GameModel {
 	private int numPlayer;
 	private int winFamePoints;
 	private boolean famePointsWin;
-	private static int gameId = 1;	
+	private String nickName;
+	private static int gameId = 1;
+	private ArrayList<String> players = new ArrayList<String>();
 
-	public GameModel(int numPlayer, int winFamePoints, boolean famePointsWin) {
+	public GameModel(int numPlayer, int winFamePoints, boolean famePointsWin, String nickName) {
 		this.numPlayer = numPlayer;
 		this.winFamePoints = winFamePoints;
 		this.famePointsWin = famePointsWin;
+		this.nickName = nickName;
 		gameId = gameId + 1;
+		players.add(nickName);
 	}
 	
+
 	public int getNumPlayer() {
 		return numPlayer;
 	}
@@ -39,6 +46,24 @@ public class GameModel {
 
 	public int getGameId() {
 		return gameId;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+
+	public ArrayList<String> getPlayers() {
+		return players;
+	}
+
+
+	public void setPlayers(ArrayList<String> players) {
+		this.players = players;
 	}
 	
 	

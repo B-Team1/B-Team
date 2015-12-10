@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
+
 import ch.fhnw.itprojekt.bteam.template.Properties;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -25,8 +26,8 @@ public class ForgetPasswordController implements Initializable {
 	@FXML Label lbSecureQuestion;
 	@FXML Label lbYourPassword;
 	@FXML Button btnEnter;
-	
-	LoginModel loginModel = new LoginModel();
+	private static ForgetPasswordController singleton;
+	LoginModel loginModel;
 	
 	//public ForgetPasswordController(LoginModel loginModel){
 	//	this.loginModel = loginModel;
@@ -34,6 +35,15 @@ public class ForgetPasswordController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		loginModel = LoginModel.getInstance();
+		singleton = this;
+	}
+	
+	public static ForgetPasswordController getInstance() {
+	     if(singleton == null) {	        
+	         singleton = new ForgetPasswordController();
+	      }	     
+	      return singleton;
 	}
 	
 	/**
@@ -56,19 +66,7 @@ public class ForgetPasswordController implements Initializable {
 	 */
 	@FXML
 	public void handleEnter(ActionEvent event) {
-		String returnvalue;
-		ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
-		returnvalue = loginModel.sendUserDataForPassword(getUser());
-		if(returnvalue != null){
-			if(returnvalue.equals("Nicht alle Felder ausgefüllt")){
-				missingUserDataForPassword();
-			}else{
-				setlbSecureQuestion(returnvalue);
-			}
-		}else{
-				JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("forget.wrongUserData")));
-		}
-		
+		loginModel.sendUserDataForPassword(getUser());	
 	}
 	
 	/**
@@ -105,25 +103,7 @@ public class ForgetPasswordController implements Initializable {
 	 */
 	@FXML
 	public void handleConfirm(ActionEvent event) {
-		String returnvalue = loginModel.getSecurityAnswer(getUser());
-		String useranswer = tfAnswer.getText();
-		ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
-		if (returnvalue != null){
-			if (useranswer.equals(returnvalue)){
-				// Antwort stimmt
-				String password = loginModel.getPassword(getUser());
-					if (password != null){
-						setlbYourPassword(password);
-					}else{
-						JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("forget.noAnswerFound")));
-					}		
-			}else{
-				JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("forget.wrongAnswer")));
-			}	
-		}else{
-			JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("forget.noAnswerFound")));
-		}
-		
+		loginModel.getSecurityAnswer(getUser());
 		
 	}
 	

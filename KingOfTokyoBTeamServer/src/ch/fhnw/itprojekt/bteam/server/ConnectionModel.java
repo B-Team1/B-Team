@@ -65,6 +65,22 @@ public class ConnectionModel {
     }
     
     /**
+     * @author Luzian
+     * @param text
+     */
+    public void sendChat(String text){
+    	for (Socket s : socketList) {
+    		Message msgOut = new Message(Message.MessageType.Chat);
+    		msgOut.setChat(text);
+    		try {
+    			msgOut.send(s);    			
+    		} catch (Exception e) {
+    			System.err.println(e);
+    			
+    		}
+		}
+    }
+    /**
      * Test Methode
      */
     public void sendBroadcast(){
