@@ -31,4 +31,14 @@ public class MenuModel {
 			}
 		}
 	}
+
+	public int[] getGameIdList(){
+		int[] l = new int[openGameList.size()];
+		for(int i = 0; i < openGameList.size(); i++){
+			l[i] = openGameList.get(i).getGameId();
+		}
+		return l;
+	}
+	
+	
 }

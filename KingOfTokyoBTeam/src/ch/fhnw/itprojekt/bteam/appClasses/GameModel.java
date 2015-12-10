@@ -23,19 +23,15 @@ public class GameModel extends Application {
 	private static GameModel singleton;
 	private int gameId;
 	private ConnectionModel connectionModel;
+	private String nickname;
+	private int freePlayers;
 	
 	Player playerMe = new Player(lifePoints, energyPoints, honorPoints, inTokyo = true);
 	Player playerTwo = new Player(lifePoints, energyPoints, honorPoints, inTokyo);
 	Player playerThree = new Player(lifePoints, energyPoints, honorPoints, inTokyo);
 	Player playerFour = new Player(lifePoints, energyPoints, honorPoints, inTokyo);
 	
-	public int getGameId() {
-		return gameId;
-	}
-
-	public void setGameId(int gameId) {
-		this.gameId = gameId;
-	}
+	
 
 	/**
 	 * Darf nur zum Erstellen eines neuen Spiels verwendet werden!!!
@@ -47,6 +43,8 @@ public class GameModel extends Application {
 		this.gameId = gameId;
 		connectionModel = ConnectionModel.getInstance();
 	}
+	
+
 
 	/**
 	 * Diese Methode prüft, ob bereits eine Instanz besteht und gibt dann eine zurück.
@@ -171,5 +169,31 @@ public class GameModel extends Application {
 	public void deleteGame(){
 		connectionModel.deleteGame(gameId);
 	}
+	
+	public int getGameId() {
+		return gameId;
+	}
+
+	public void setGameId(int gameId) {
+		this.gameId = gameId;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public int getFreePlayers() {
+		return freePlayers;
+	}
+
+	public void setFreePlayers(int freePlayers) {
+		this.freePlayers = freePlayers;
+	}
+	
+	
 
 }

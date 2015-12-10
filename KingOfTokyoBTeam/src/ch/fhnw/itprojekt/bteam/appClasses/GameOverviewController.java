@@ -1,6 +1,7 @@
 package ch.fhnw.itprojekt.bteam.appClasses;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -18,6 +19,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class GameOverviewController implements Initializable {
@@ -40,7 +42,7 @@ public class GameOverviewController implements Initializable {
 	@FXML Label lbStats;
 	@FXML TableColumn tcOpenGames;
 	@FXML TableColumn tcOpenPlaces;
-	@FXML TableView tvOpenGames;
+	@FXML TableView<GameModel> tvOpenGames;
 	@FXML Menu menuLanguage;
 	@FXML Menu menuHelp;
 	@FXML MenuItem miGerman;
@@ -59,20 +61,20 @@ public class GameOverviewController implements Initializable {
 		Stats stats = model.getStats();
 		lbPlayGames.setText(stats.getSumGames() + "");
 		lbWonGames.setText(stats.getWonGames() + "");
+		model.openGameRequest();
+	}
+	
+	public void fillTable(ArrayList<GameModel> openGameList){
+		ObservableList<GameModel> data = FXCollections.observableArrayList();
 		
-		 ObservableList<Person> data =
-			        FXCollections.observableArrayList(
-			            new Person("Jacob", "Smith", "jacob.smith@example.com"),
-			            new Person("Isabella", "Johnson", "isabella.johnson@example.com"),
-			            new Person("Ethan", "Williams", "ethan.williams@example.com"),
-			            new Person("Emma", "Jones", "emma.jones@example.com"),
-			            new Person("Michael", "Brown", "michael.brown@example.com")
-			        );
-		 
+		for(GameModel ogl : openGameList){
+			data.add(ogl);
+		}		
 		
-		tvOpenGames.setEditable(true);
-		tvOpenGames.getItems().setAll(data);
-
+		tvOpenGames.setEditable(true); 
+		tcOpenGames.setCellValueFactory(new PropertyValueFactory<GameModel, String>("nickname"));
+		tcOpenPlaces.setCellValueFactory(new PropertyValueFactory<GameModel, Integer>("freePlayers"));
+		tvOpenGames.setItems(data);
 	}
 	
 	

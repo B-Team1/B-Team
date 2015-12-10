@@ -49,7 +49,12 @@ public class ServerThreadForClient extends Thread {
 				msgOut = new Message(Message.MessageType.Login);
 				msgOut.setCheckLogin(dbconnect.UserValidation(new User(msgIn.getNickname(), msgIn.getPassword())));
 				msgOut.setNickname(msgIn.getNickname());
-				break;			
+				break;
+			case OpenGameRequest:
+				//Tobias
+				msgOut = new Message(Message.MessageType.OpenGameRequest);
+				msgOut.setfreePlaces(menuModel.getGameIdList());
+				break;
 			case SecurityQuestion:
 				//Luzian
 				msgOut = new Message(Message.MessageType.SecurityQuestion);

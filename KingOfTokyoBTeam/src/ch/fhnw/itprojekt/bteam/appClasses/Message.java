@@ -12,10 +12,12 @@ import org.simpleframework.xml.core.Persister;
 
 
 
+
+
 @Root
 public class Message {
 	public enum MessageType {
-		Error, Login, SecurityQuestion, Registration, SecurityAnswer, Password, Test, Broadcast, getStat, openNewGame, deleteGame
+		Error, Login, SecurityQuestion, Registration, OpenGameRequest, SecurityAnswer, Password, Test, Broadcast, getStat, openNewGame, deleteGame
 	};
 
 	// Data included in a message
@@ -29,7 +31,13 @@ public class Message {
 	private boolean famePointsWin;
 	
 	@Element(required = false)
+	private int[] freePlaces;
+	
+	@Element(required = false)
 	private int gameId;
+	
+	@Element(required = false)
+	private int[] gameIdList;
 	
 	@Element(required = false)
 	private String nickname;
@@ -53,6 +61,9 @@ public class Message {
 	private String securityAnswer;
 	
 	@Element(required = false)
+	private String[][] userList;
+	
+	@Element(required = false)
 	private String vName;
 	
 	@Element(required = false)
@@ -64,7 +75,10 @@ public class Message {
 	@Element(required = false)
 	private boolean writeCheck;
 	
-		
+	
+
+
+
 	public Message(@Element(name = "type") MessageType type) {
 		this.type = type;
 	}
@@ -225,7 +239,7 @@ public class Message {
 
 
 
-	public int getWinFamePoins() {
+	public int getWinFamePoints() {
 		return winFamePoints;
 	}
 
@@ -245,6 +259,41 @@ public class Message {
 
 	public void setGameId(int gameId) {
 		this.gameId = gameId;
+	}
+	
+	
+	public int[] getfreePlaces() {
+		return freePlaces;
+	}
+
+
+
+	public void setfreePlaces(int[] freePlaces) {
+		this.freePlaces = freePlaces;
+	}
+
+
+
+	public int[] getGameIdList() {
+		return gameIdList;
+	}
+
+
+
+	public void setGameIdList(int[] gameIdList) {
+		this.gameIdList = gameIdList;
+	}
+
+
+
+	public String[][] getUserList() {
+		return userList;
+	}
+
+
+
+	public void setUserList(String[][] userList) {
+		this.userList = userList;
 	}
 	
 

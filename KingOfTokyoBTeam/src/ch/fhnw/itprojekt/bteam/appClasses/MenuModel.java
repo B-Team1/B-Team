@@ -140,7 +140,13 @@ public class MenuModel extends Application {
 		return Integer.parseInt(winFamePoins.split(" ")[0]);		
 	}
 	
-	
+	/**
+	 * Anfrage für alle offenen Spiele
+	 * @author Tobias
+	 */
+	public void openGameRequest(){
+		connectionModel.sendOpenGameRequest();
+	}
 	
 
 }

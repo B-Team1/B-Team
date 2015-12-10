@@ -220,6 +220,19 @@ public class ConnectionModel {
 		}
 	}
 	
+	/**
+	 * Schickt dem Server die Anfrage, für die Liste aller offenen Spiele
+	 * @author Tobias
+	 */
+	public void sendOpenGameRequest(){
+		Message msgOut = new Message(Message.MessageType.OpenGameRequest);		
+		try {
+			msgOut.send(socket);			
+			} catch (Exception e) {
+				serviceLocator.getLogger().warning(e.toString());
+		}
+	}
+	
 }
 
 

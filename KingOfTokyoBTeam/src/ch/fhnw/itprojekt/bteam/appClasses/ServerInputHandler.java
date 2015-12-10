@@ -1,5 +1,7 @@
 package ch.fhnw.itprojekt.bteam.appClasses;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
@@ -7,6 +9,9 @@ import javafx.collections.FXCollections;
 import javafx.stage.Stage;
 
 import javax.swing.JOptionPane;
+
+
+
 
 import ch.fhnw.itprojekt.bteam.template.Properties;
 
@@ -40,6 +45,23 @@ public class ServerInputHandler {
 		            });			
 				}else{					
 					JOptionPane.showMessageDialog(null,FXCollections.observableArrayList(bundle.getString("login.wrongInput")), "Login", JOptionPane.WARNING_MESSAGE);
+				}
+				break;
+			case OpenGameRequest:
+				//Tobias
+				int[] freePlaces = msgIn.getfreePlaces();
+				String[][] nicknames = new String[][]{};
+				int[] gameIdList = new int[]{};
+				ArrayList<GameModel> gameModelList = new ArrayList<GameModel>();
+				for(int i = 0; i < gameIdList.length; i ++){
+					for(int c = 0; i < nicknames.length; c ++){
+						if(nicknames[c][0].equals(i+"") ){
+							ArrayList<String> userList = new ArrayList<String>(Arrays.asList(nicknames[c]));
+							userList.remove(0);
+							
+							
+						}
+					}
 				}
 				break;
 			case openNewGame:
