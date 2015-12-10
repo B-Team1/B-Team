@@ -57,6 +57,7 @@ public class GameModel {
 
 
 	public ArrayList<String> getPlayers() {
+		players.add("Luzian");
 		return players;
 	}
 

@@ -332,7 +332,7 @@ public class GameModel extends Application {
 	 *@author Luzian
 	 */
 	public void sendChat(String text){
-		connectionModel.sendChat(text);	
+		connectionModel.sendChat(text, getNickname());	
 	}
 
 	public void getPlayers(){

@@ -112,7 +112,7 @@ public class ServerThreadForClient extends Thread {
 				break;
 			case Chat:
 				//Luzian
-				connectionModel.sendChat(msgIn.getChat());
+				connectionModel.sendChat(msgIn.getNickname()+" : "+msgIn.getChat());
 				break;
 			case Players:
 				//Luzian
