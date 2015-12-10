@@ -48,21 +48,43 @@ public class ServerInputHandler {
 				}
 				break;
 			case OpenGameRequest:
-				//Tobias
-				int[] freePlaces = msgIn.getfreePlaces();
-				String[][] nicknames = new String[][]{};
-				int[] gameIdList = new int[]{};
-				ArrayList<GameModel> gameModelList = new ArrayList<GameModel>();
-				for(int i = 0; i < gameIdList.length; i ++){
-					for(int c = 0; i < nicknames.length; c ++){
-						if(nicknames[c][0].equals(i+"") ){
-							ArrayList<String> userList = new ArrayList<String>(Arrays.asList(nicknames[c]));
-							userList.remove(0);
+				synchronized (msgIn) {
+					//Tobias
+					ArrayList<String> nicknames = new ArrayList<String>(Arrays.asList(msgIn.getUserList()));
+					int[] gameIdList = msgIn.getGameIdList();
+					ArrayList<GameModel> gameModelList = new ArrayList<GameModel>();
+					for(int i = 0; i < gameIdList.length; i ++){
+						ArrayList<String> userList = new ArrayList<String>();
+						for(int c = 0; c < nicknames.size(); c ++){
+							
+							if(nicknames.get(c).equals(gameIdList[i]+"") ){
+								userList = new ArrayList<String>();
+							}
+							if(nicknames.get(c).equals("<EndArray>")){
+								break;
+							}
+							
+							userList.add(nicknames.get(c));
 							
 							
 						}
+						try{
+							nicknames.removeAll(userList);
+							nicknames.remove(0);
+							userList.remove(0);
+							gameModelList.add(new GameModel(gameIdList[i], userList));
+						}catch(Exception e){}
 					}
+					MenuModel.getInstance().setGameModelList(gameModelList);
+					
+					Platform.runLater(new Runnable() {
+		                @Override
+		                public void run() {
+		                	GameOverviewController.getInstance().fillTable(gameModelList);
+		                }
+		            });
 				}
+				
 				break;
 			case openNewGame:
 				//Tobias

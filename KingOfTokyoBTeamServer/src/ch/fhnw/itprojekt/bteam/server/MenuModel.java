@@ -1,6 +1,7 @@
 package ch.fhnw.itprojekt.bteam.server;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 
@@ -19,6 +20,14 @@ public class MenuModel {
 		GameModel game = new GameModel(numPlayer, winFamePoints, famePointsWin, nickName);
 		openGameList.add(game);
 		return game.getGameId();
+	}
+	
+	public void test(){
+		GameModel t = new GameModel(3, 20, true, "Penis");
+		t.addPlayer("Tobias");
+		openGameList.add(t);
+		openGameList.add(new GameModel(3, 20, true, "Penis1"));
+		openGameList.add(new GameModel(3, 20, true, "Penis2"));
 	}
 	
 	/**
@@ -40,6 +49,21 @@ public class MenuModel {
 			l[i] = openGameList.get(i).getGameId();
 		}
 		return l;
+	}
+	
+	public String[] getGameList(){
+		int[] idList = this.getGameIdList();
+		ArrayList<String> gameList = new ArrayList<String>();
+		for(int i = 0; i < idList.length; i ++){
+			String[] playerList = this.getGame(idList[i]);
+			gameList.add(idList[i]+ "");
+			for(int c = 0; c < playerList.length; c ++){
+				gameList.add(playerList[c]);
+			}
+			gameList.add("<EndArray>");
+		}
+		
+		return gameList.toArray(new String[gameList.size()]);		
 	}
 	
 

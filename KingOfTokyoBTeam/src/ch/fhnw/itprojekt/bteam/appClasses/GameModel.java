@@ -47,6 +47,18 @@ public class GameModel extends Application {
 		connectionModel = ConnectionModel.getInstance();
 	}
 	
+	
+
+	public GameModel(int gameId, ArrayList<String> playerList) {
+		this.playerList = playerList;
+		this.singleton = this;
+		this.gameId = gameId;
+		connectionModel = ConnectionModel.getInstance();
+		this.nickname = playerList.get(0);
+	}
+	
+	
+
 
 
 	/**
@@ -344,4 +356,18 @@ public class GameModel extends Application {
 			playerList.add(players.get(i));
 		}
 	}
+
+
+
+	public ArrayList<String> getPlayerList() {
+		return playerList;
+	}
+
+
+
+	public void setPlayerList(ArrayList<String> playerList) {
+		this.playerList = playerList;
+	}
+	
+	
 }

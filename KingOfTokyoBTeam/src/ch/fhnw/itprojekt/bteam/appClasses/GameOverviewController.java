@@ -26,6 +26,7 @@ public class GameOverviewController implements Initializable {
 
 
 	MenuModel model;
+	private static GameOverviewController singleton;
 	
 	
 	
@@ -60,8 +61,15 @@ public class GameOverviewController implements Initializable {
 		lbNickname.setText(model.getNickname());
 		Stats stats = model.getStats();
 		lbPlayGames.setText(stats.getSumGames() + "");
-		lbWonGames.setText(stats.getWonGames() + "");
-		model.openGameRequest();
+		lbWonGames.setText(stats.getWonGames() + "");		
+		GameOverviewController.singleton = this;
+	}
+	
+	public static GameOverviewController getInstance() {
+	     if(singleton == null) {	        
+	         singleton = new GameOverviewController();
+	      }	     
+	      return singleton;
 	}
 	
 	public void fillTable(ArrayList<GameModel> openGameList){

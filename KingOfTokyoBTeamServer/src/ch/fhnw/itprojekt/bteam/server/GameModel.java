@@ -7,7 +7,8 @@ public class GameModel {
 	private int winFamePoints;
 	private boolean famePointsWin;
 	private String nickName;
-	private static int gameId = 1;
+	private int gameId = 0;
+	private static int gameIdCounter = 1;
 	private ArrayList<String> players = new ArrayList<String>();
 
 	public GameModel(int numPlayer, int winFamePoints, boolean famePointsWin, String nickName) {
@@ -15,8 +16,13 @@ public class GameModel {
 		this.winFamePoints = winFamePoints;
 		this.famePointsWin = famePointsWin;
 		this.nickName = nickName;
-		gameId = gameId + 1;
+		gameId = GameModel.gameIdCounter;
+		GameModel.gameIdCounter++;
 		players.add(nickName);
+	}
+	
+	public void addPlayer(String player){
+		players.add(player);
 	}
 	
 

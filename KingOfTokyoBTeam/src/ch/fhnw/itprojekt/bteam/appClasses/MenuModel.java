@@ -1,5 +1,6 @@
 package ch.fhnw.itprojekt.bteam.appClasses;
 
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -16,18 +17,21 @@ public class MenuModel extends Application {
 	ConnectionModel connectionModel;
 	private String currentNickname;
 	private static MenuModel singleton;
+	private ArrayList<GameModel> gameModelList = new ArrayList<GameModel>();
 	
 	public MenuModel(String currentNickname) {
 		this.currentNickname = currentNickname;
 		serviceLocator = ServiceLocator.getServiceLocator();        
         serviceLocator.getLogger().info("MenuModel initialized");
         connectionModel = ConnectionModel.getInstance();
+        this.openGameRequest();
 	}
 
 	public MenuModel() {
         serviceLocator = ServiceLocator.getServiceLocator();        
         serviceLocator.getLogger().info("MenuModel initialized");
         connectionModel = ConnectionModel.getInstance();
+        this.openGameRequest();
     }
 	
 	/**
@@ -146,6 +150,14 @@ public class MenuModel extends Application {
 	 */
 	public void openGameRequest(){
 		connectionModel.sendOpenGameRequest();
+	}
+
+	public ArrayList<GameModel> getGameModelList() {
+		return gameModelList;
+	}
+
+	public void setGameModelList(ArrayList<GameModel> gameModelList) {
+		this.gameModelList = gameModelList;
 	}
 	
 

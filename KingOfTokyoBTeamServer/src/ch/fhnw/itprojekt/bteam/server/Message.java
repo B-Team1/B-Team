@@ -58,7 +58,7 @@ public class Message {
 	private String securityAnswer;
 	
 	@Element(required = false)
-	private String[][] userList;
+	private String[] userList;
 	
 	@Element(required = false)
 	private String vName;
@@ -315,13 +315,13 @@ public class Message {
 
 
 
-	public String[][] getUserList() {
+	public String[] getUserList() {
 		return userList;
 	}
 
 
 
-	public void setUserList(String[][] userList) {
+	public void setUserList(String[] userList) {
 		this.userList = userList;
 	}
 	

@@ -56,7 +56,9 @@ public class ServerThreadForClient extends Thread {
 			case OpenGameRequest:
 				//Tobias
 				msgOut = new Message(Message.MessageType.OpenGameRequest);
-				msgOut.setfreePlaces(menuModel.getGameIdList());
+				menuModel.test();
+				msgOut.setGameIdList(menuModel.getGameIdList());
+				msgOut.setUserList(menuModel.getGameList());
 				break;
 			case SecurityQuestion:
 				//Luzian
