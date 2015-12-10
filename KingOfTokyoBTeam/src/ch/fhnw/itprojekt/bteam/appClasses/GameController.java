@@ -267,7 +267,7 @@ public class GameController implements Initializable {
 	public void setText(String text){
 		String chatverlauf = taChat.getText();
 		taChat.setText(chatverlauf +System.lineSeparator() + text);
-	
+	}
 
 	public static void getTest() {
 		
