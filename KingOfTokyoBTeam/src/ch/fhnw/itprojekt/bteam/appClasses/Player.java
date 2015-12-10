@@ -2,7 +2,13 @@ package ch.fhnw.itprojekt.bteam.appClasses;
 
 public class Player {
 	
-	int honorPoints, lifePoints, energyPoints, futureLifePoints, futureHonorPoints, futureEnergyPoints;
+	int honorPoints, lifePoints, energyPoints, futureLifePoints, futureHonorPoints, futureEnergyPoints,
+	actualDiceLifePoints, actualDiceEnergyPoints, actualDiceHonorPoints,
+	actualCardLifePoints, actualCardEnergyPoints, actualCardHonorPoints;
+	
+
+	
+
 	boolean inTokyo = false;
 	
 	/**
@@ -70,5 +76,53 @@ public class Player {
 
 	public void setFutureEnergyPoints(int futureEnergyPoints) {
 		this.futureEnergyPoints = futureEnergyPoints;
+	}
+	
+	public int getActualDiceLifePoints() {
+		return actualDiceLifePoints;
+	}
+
+	public void setActualDiceLifePoints(int actualDiceLifePoints) {
+		this.actualDiceLifePoints = actualDiceLifePoints;
+	}
+
+	public int getActualDiceEnergyPoints() {
+		return actualDiceEnergyPoints;
+	}
+
+	public void setActualDiceEnergyPoints(int actualDiceEnergyPoints) {
+		this.actualDiceEnergyPoints = actualDiceEnergyPoints;
+	}
+
+	public int getActualDiceHonorPoints() {
+		return actualDiceHonorPoints;
+	}
+
+	public void setActualDiceHonorPoints(int actualDiceHonorPoints) {
+		this.actualDiceHonorPoints = actualDiceHonorPoints;
+	}
+	
+	public int getActualCardLifePoints() {
+		return actualCardLifePoints;
+	}
+
+	public void setActualCardLifePoints(int actualCardLifePoints) {
+		this.actualCardLifePoints = actualCardLifePoints;
+	}
+
+	public int getActualCardEnergyPoints() {
+		return actualCardEnergyPoints;
+	}
+
+	public void setActualCardEnergyPoints(int actualCardEnergyPoints) {
+		this.actualCardEnergyPoints = actualCardEnergyPoints;
+	}
+
+	public int getActualCardHonorPoints() {
+		return actualCardHonorPoints;
+	}
+
+	public void setActualCardHonorPoints(int actualCardHonorPoints) {
+		this.actualCardHonorPoints = actualCardHonorPoints;
 	}
 }
