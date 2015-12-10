@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
 
+
 //import ch.fhnw.itprojekt.bteam.server.ConnectionModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -82,9 +83,10 @@ public class GameController implements Initializable {
 		btnDice4.setVisible(false);
 		btnDice5.setVisible(false);
 		btnDice6.setVisible(false);
-		
+		singleton = this;
 		gameModel = GameModel.getInstance();
-
+		gameModel.getPlayers();
+		taChat.setEditable(false);
 	}
 
 	/**Bei Klick auf Würfeln wird gameModel aufgerufen, welche das Würfelresultat zurückgibt. Zudem wird hier das Wüfelbild geladen.
@@ -161,6 +163,7 @@ public class GameController implements Initializable {
 	@FXML
 	public void handleSend(ActionEvent event) {
 		gameModel.sendChat(tfChat.getText());
+		tfChat.setText("");
 	}
 	
 	/**
@@ -240,6 +243,25 @@ public class GameController implements Initializable {
 	         singleton = new GameController();
 	      }	     
 	      return singleton;
+	}
+	
+	/**
+	 * @author Luzian
+	 * @return
+	 */
+	public String getText(){
+		String text = taChat.getText();
+		return text;
+	}
+	
+/**
+ * @author Luzian
+ * @param text
+ */
+	public void setText(String text){
+		String chatverlauf = taChat.getText();
+		taChat.setText(chatverlauf +System.lineSeparator() + text);
+	
 	}
 
 }

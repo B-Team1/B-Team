@@ -1,5 +1,7 @@
 package ch.fhnw.itprojekt.bteam.appClasses;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
@@ -74,8 +76,9 @@ public class ServerInputHandler {
 	                public void run() {
 	                	// entsprechende UI Komponente updaten
 	                	GameController gamecontroller = GameController.getInstance();
-	                	gamecontroller.taChat.setText(msgIn.getChat());
-	                	JOptionPane.showMessageDialog(null, "Gratullation!"+ msgIn.getChat() +"" , "Gratullation", JOptionPane.WARNING_MESSAGE);
+	                	//String text = msgIn.getNickname() + " :"+ msgIn.getChat();
+	                	gamecontroller.setText(msgIn.getChat());
+	                	
 	                }
 				});             	
 				break;
@@ -132,6 +135,15 @@ public class ServerInputHandler {
 					JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("forget.noAnswerFound")));
 				}	
 				break;
+			case Players:
+				GameModel gameModel = GameModel.getInstance();
+				ArrayList<String> playerList = new ArrayList<String>();
+				
+				for (int i = 0; i < msgIn.getPlayers().length; i++ ){
+					playerList.add(msgIn.getPlayers().clone().toString());
+				}
+				gameModel.setPlayers(playerList);
+				
 		default:
 		
 		}

@@ -2,7 +2,10 @@ package ch.fhnw.itprojekt.bteam.server;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.logging.Logger;
+
+
 
 
 public class ServerThreadForClient extends Thread {
@@ -93,7 +96,7 @@ public class ServerThreadForClient extends Thread {
 			case openNewGame:
 				//Tobias
 				msgOut = new Message(Message.MessageType.openNewGame);				
-				msgOut.setGameId(menuModel.newGame(msgIn.getNumPlayer(), msgIn.getFamePointsWin(), msgIn.getWinFamePoints()));
+				msgOut.setGameId(menuModel.newGame(msgIn.getNumPlayer(), msgIn.getFamePointsWin(), msgIn.getWinFamePoints(), msgIn.getNickname()));
 				break;
 			case deleteGame:
 				//Tobias
@@ -105,6 +108,11 @@ public class ServerThreadForClient extends Thread {
 			case Chat:
 				//Luzian
 				connectionModel.sendChat(msgIn.getChat());
+				break;
+			case Players:
+				//Luzian
+				msgOut = new Message(Message.MessageType.Players);
+				msgOut.setPlayers(menuModel.getGame(msgIn.getGameId()));				
 				break;
 		default:
 			msgOut = new Message(Message.MessageType.Error);

@@ -2,6 +2,8 @@ package ch.fhnw.itprojekt.bteam.server;
 
 import java.util.ArrayList;
 
+
+
 public class MenuModel {
 	private ArrayList<GameModel> openGameList= new ArrayList<GameModel>();
 	
@@ -13,8 +15,8 @@ public class MenuModel {
 	 * @return gameId des neu erstellten Spiels
 	 * @author Tobias
 	 */
-	public int newGame(int numPlayer, boolean famePointsWin, int winFamePoints){
-		GameModel game = new GameModel(numPlayer, winFamePoints, famePointsWin);
+	public int newGame(int numPlayer, boolean famePointsWin, int winFamePoints, String nickName){
+		GameModel game = new GameModel(numPlayer, winFamePoints, famePointsWin, nickName);
 		openGameList.add(game);
 		return game.getGameId();
 	}
@@ -30,5 +32,14 @@ public class MenuModel {
 				openGameList.remove(i);
 			}
 		}
+	}
+	public String[] getGame(int gameId){
+		for(int i = 0; i < openGameList.size() ; i++){
+			if(openGameList.get(i).getGameId() == gameId){
+				String[] s = new String[openGameList.get(i).getPlayers().size()];
+ 				return openGameList.get(i).getPlayers().toArray(s);
+			}
+		}
+		return null;
 	}
 }

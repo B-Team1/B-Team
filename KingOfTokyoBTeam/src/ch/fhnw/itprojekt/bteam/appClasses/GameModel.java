@@ -23,6 +23,7 @@ public class GameModel extends Application {
 	private static GameModel singleton;
 	private int gameId;
 	private ConnectionModel connectionModel;
+	private ArrayList<String> playerList = new ArrayList<String>();
 	
 	Player playerMe = new Player(lifePoints, energyPoints, honorPoints, inTokyo = true);
 	Player playerTwo = new Player(lifePoints, energyPoints, honorPoints, inTokyo);
@@ -176,6 +177,16 @@ public class GameModel extends Application {
 	 *@author Luzian
 	 */
 	public void sendChat(String text){
-	connectionModel.sendChat(text);	
+		connectionModel.sendChat(text);	
+	}
+
+	public void getPlayers(){
+		connectionModel.getPlayers(gameId);
+	}
+	
+	public void setPlayers(ArrayList<String> players){
+		for (int i = 0; i< players.size(); i++){
+			playerList.add(players.get(i));
+		}
 	}
 }

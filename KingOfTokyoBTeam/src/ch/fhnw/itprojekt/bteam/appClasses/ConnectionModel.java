@@ -186,11 +186,12 @@ public class ConnectionModel {
 	 * @param famePointsWin
 	 * @param winFamePoins
 	 */
-	public void sendNewGame(int numPlayer, boolean famePointsWin, int winFamePoins){
+	public void sendNewGame(int numPlayer, boolean famePointsWin, int winFamePoins, String nickName){
 		Message msgOut = new Message(Message.MessageType.openNewGame);
 		msgOut.setNumPlayer(numPlayer);
 		msgOut.setFamePointsWin(famePointsWin);
 		msgOut.setWinFamePoins(winFamePoins);
+		msgOut.setNickname(nickName);
 		try {
 			msgOut.send(socket);
 			} catch (Exception e) {
@@ -224,6 +225,17 @@ public class ConnectionModel {
 			serviceLocator.getLogger().warning(e.toString());
 		}
 	}
+
+	public void getPlayers(int gameId){
+		Message msgOut = new Message(Message.MessageType.Players);
+		msgOut.setGameId(gameId);
+		try {
+			msgOut.send(socket);
+		} catch (Exception e) {
+			serviceLocator.getLogger().warning(e.toString());
+		}
+	}
+	
 }
 
 
