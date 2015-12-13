@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="450.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.fhnw.itprojekt.bteam.appClasses.GameOverviewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" styleClass="root" stylesheets="@meincss.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.fhnw.itprojekt.bteam.appClasses.GameOverviewController">
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar stylesheets="@meincss.css" BorderPane.alignment="CENTER">
         <menus>
           <Menu fx:id="menuLanguage" mnemonicParsing="false" text="%overview.menu.language">
             <items>
@@ -27,13 +27,13 @@
       </MenuBar>
    </top>
    <center>
-      <StackPane>
+      <AnchorPane maxHeight="300.0" maxWidth="400.0">
          <children>
-            <AnchorPane prefHeight="500.0" prefWidth="650.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="500.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <HBox prefHeight="450.0" prefWidth="450.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ImageView fitHeight="446.0" fitWidth="493.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ImageView fitHeight="446.0" fitWidth="493.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <image>
                               <Image url="@../images/GamesOverview.jpg" />
                            </image>
@@ -42,76 +42,80 @@
                   </HBox>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="464.0" prefWidth="489.0">
+            <StackPane AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                <children>
-                  <VBox layoutX="306.0" layoutY="263.0" spacing="20.0">
+                  <AnchorPane prefHeight="464.0" prefWidth="489.0">
                      <children>
-                        <Button fx:id="btnStartGame" disable="true" layoutX="538.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleStartGame" prefHeight="35.0" prefWidth="120.0" styleClass="test" stylesheets="@meincss.css" text="%overview.btn.start" />
-                        <Button fx:id="btnNewGame" layoutX="538.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleNewGame" prefHeight="35.0" prefWidth="120.0" styleClass="test" stylesheets="@meincss.css" text="%overview.btn.new" />
-                        <Button fx:id="btnCloseGame" layoutX="538.0" layoutY="407.0" mnemonicParsing="false" onAction="#handleCloseGame" prefHeight="35.0" prefWidth="120.0" styleClass="test" stylesheets="@meincss.css" text="%overview.btn.close" />
-                     </children>
-                  </VBox>
-                  <VBox opacity="0.8" prefHeight="150.0" styleClass="hbox" stylesheets="@meincss.css" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="120.0">
-                     <children>
-                        <Label fx:id="lbOpenGames" text="%overview.lb.opengames" underline="true">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <VBox prefHeight="112.0" prefWidth="205.0">
+                        <VBox layoutX="306.0" layoutY="263.0" spacing="20.0">
                            <children>
-                              <TableView fx:id="tvOpenGames" prefWidth="205.0">
-                                <columns>
-                                  <TableColumn fx:id="tcOpenGames" prefWidth="105.0" text="%overview.tc.opengames" />
-                                  <TableColumn fx:id="tcOpenPlaces" prefWidth="100.0" text="%overview.tc.openplaces" />
-                                </columns>
-                              </TableView>
+                              <Button fx:id="btnStartGame" disable="true" layoutX="538.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleStartGame" prefHeight="35.0" prefWidth="120.0" styleClass="test" stylesheets="@meincss.css" text="%overview.btn.start" />
+                              <Button fx:id="btnNewGame" layoutX="538.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleNewGame" prefHeight="35.0" prefWidth="120.0" styleClass="test" stylesheets="@meincss.css" text="%overview.btn.new" />
+                              <Button fx:id="btnCloseGame" layoutX="538.0" layoutY="407.0" mnemonicParsing="false" onAction="#handleCloseGame" prefHeight="35.0" prefWidth="120.0" styleClass="test" stylesheets="@meincss.css" text="%overview.btn.close" />
+                           </children>
+                        </VBox>
+                        <VBox opacity="0.8" prefHeight="150.0" styleClass="hbox" stylesheets="@meincss.css" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="120.0">
+                           <children>
+                              <Label fx:id="lbOpenGames" text="%overview.lb.opengames" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <VBox prefHeight="112.0" prefWidth="205.0">
+                                 <children>
+                                    <TableView fx:id="tvOpenGames" prefWidth="205.0">
+                                      <columns>
+                                        <TableColumn fx:id="tcOpenGames" prefWidth="105.0" text="%overview.tc.opengames" />
+                                        <TableColumn fx:id="tcOpenPlaces" prefWidth="100.0" text="%overview.tc.openplaces" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <HBox opacity="0.75" spacing="10.0" styleClass="hbox" stylesheets="@meincss.css" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="30.0">
+                           <children>
+                              <Label fx:id="lbHello" layoutX="73.0" layoutY="62.0" text="%overview.lb.hello">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lbNickname" layoutX="179.0" layoutY="62.0" text="Label">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <VBox opacity="0.75" spacing="10.0" styleClass="hbox" stylesheets="@meincss.css" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="320.0">
+                           <children>
+                              <Label fx:id="lbStats" layoutX="73.0" layoutY="344.0" text="%overview.lb.stats">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <HBox layoutX="14.0" layoutY="375.0" spacing="20.0">
+                                 <children>
+                                    <VBox layoutX="14.0" layoutY="375.0">
+                                       <children>
+                                          <Label fx:id="lbPlayed" layoutX="14.0" layoutY="375.0" text="%overview.lb.games" />
+                                          <Label fx:id="lbwon" layoutX="14.0" layoutY="404.0" text="%overview.lb.won" />
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="91.0" layoutY="375.0">
+                                       <children>
+                                          <Label fx:id="lbPlayGames" layoutX="91.0" layoutY="375.0" text="Label" />
+                                          <Label fx:id="lbWonGames" layoutX="91.0" layoutY="404.0" text="Label" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                      </children>
-                  </VBox>
-                  <HBox opacity="0.75" spacing="10.0" styleClass="hbox" stylesheets="@meincss.css" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="30.0">
-                     <children>
-                        <Label fx:id="lbHello" layoutX="73.0" layoutY="62.0" text="%overview.lb.hello">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="lbNickname" layoutX="179.0" layoutY="62.0" text="Label">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <VBox opacity="0.75" spacing="10.0" styleClass="hbox" stylesheets="@meincss.css" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="320.0">
-                     <children>
-                        <Label fx:id="lbStats" layoutX="73.0" layoutY="344.0" text="%overview.lb.stats">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <HBox layoutX="14.0" layoutY="375.0" spacing="20.0">
-                           <children>
-                              <VBox layoutX="14.0" layoutY="375.0">
-                                 <children>
-                                    <Label fx:id="lbPlayed" layoutX="14.0" layoutY="375.0" text="%overview.lb.games" />
-                                    <Label fx:id="lbwon" layoutX="14.0" layoutY="404.0" text="%overview.lb.won" />
-                                 </children>
-                              </VBox>
-                              <VBox layoutX="91.0" layoutY="375.0">
-                                 <children>
-                                    <Label fx:id="lbPlayGames" layoutX="91.0" layoutY="375.0" text="Label" />
-                                    <Label fx:id="lbWonGames" layoutX="91.0" layoutY="404.0" text="Label" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
+                  </AnchorPane>
                </children>
-            </AnchorPane>
+            </StackPane>
          </children>
-      </StackPane>
+      </AnchorPane>
    </center>
 </BorderPane>

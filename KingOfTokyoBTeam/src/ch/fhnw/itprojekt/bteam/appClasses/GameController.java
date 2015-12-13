@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javax.crypto.spec.IvParameterSpec;
 import javax.swing.text.html.HTMLDocument.Iterator;
 
 import javafx.beans.value.ChangeListener;
@@ -12,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -19,6 +21,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class GameController implements Initializable {
 
@@ -65,13 +70,20 @@ public class GameController implements Initializable {
 	@FXML ImageView ivCardDeck;
 	@FXML ImageView ivCard1;
 	@FXML ImageView ivCard2;
-	@FXML ImageView ivMonsterInTokyo;
+	@FXML ImageView ivMonsterInTokyoPlayerMe;
+	@FXML ImageView ivMonsterInTokyoPlayerTwo;
+	@FXML ImageView ivMonsterInTokyoPlayerThree;
+	@FXML ImageView ivMonsterInTokyoPlayerFour;
+	@FXML HBox hbTokyoMe;
+	@FXML VBox vbPlayer3;
+	@FXML VBox vbPlayer4;
 	
 	ArrayList<ToggleButton> buttonList = new ArrayList<ToggleButton>();
-	private int count = 0;
 	GameModel gameModel;
 
-	
+	/**
+	 * Initialisiert die Komponenten und füllt die Labels
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		gameModel = GameModel.getInstance();
@@ -81,6 +93,28 @@ public class GameController implements Initializable {
 		buttonList.add(btnDice4);
 		buttonList.add(btnDice5);
 		buttonList.add(btnDice6);
+		if (gameModel.playerThree == null) {
+			vbPlayer3.setVisible(false);
+		}
+		if (gameModel.playerFour == null) {
+			vbPlayer4.setVisible(false);
+		}
+		lbLifePointsPlayer1.setText("" + gameModel.playerMe.getLifePoints());
+		lbFamePointsPlayer1.setText("" + gameModel.playerMe.getHonorPoints());
+		lbEnergyPointsPlayer1.setText("" + gameModel.playerMe.getEnergyPoints());
+		lbLifePointsPlayer2.setText("" + gameModel.playerTwo.getLifePoints());
+		lbFamePointsPlayer2.setText("" + gameModel.playerTwo.getHonorPoints());
+		lbEnergyPointsPlayer2.setText("" + gameModel.playerTwo.getEnergyPoints());
+		if (gameModel.playerThree!=null) {
+			lbLifePointsPlayer3.setText("" + gameModel.playerThree.getLifePoints());
+			lbFamePointsPlayer3.setText("" + gameModel.playerThree.getHonorPoints());
+			lbEnergyPointsPlayer3.setText("" + gameModel.playerThree.getEnergyPoints());
+		}
+		if (gameModel.playerFour!=null) {
+			lbLifePointsPlayer4.setText("" + gameModel.playerFour.getLifePoints());
+			lbFamePointsPlayer4.setText("" + gameModel.playerFour.getHonorPoints());
+			lbEnergyPointsPlayer4.setText("" + gameModel.playerFour.getEnergyPoints());
+		}
 	}
 
 	/**Bei Klick auf Würfeln wird gameModel aufgerufen, welche das Würfelresultat zurückgibt. Zudem wird hier das Wüfelbild geladen.
@@ -89,7 +123,7 @@ public class GameController implements Initializable {
 	 */
 	@FXML
 	public void handleRollDice(ActionEvent event) {
-	if (count <= 2){
+	if (gameModel.count <= 2){
 	checkSelectedButton();	
 	ArrayList<Dice> diceResult = gameModel.getDiceResult();
 	for(int i = 0; i <= 5; i++){
@@ -97,34 +131,22 @@ public class GameController implements Initializable {
 			Dice dice = diceResult.get(i);
 				switch (i) {
 					case 0:  i = 0;
-						if (btnDice1.isSelected() != true){
 							btnDice1.setGraphic(new ImageView(dice.image));
-						}
 						break;
 					case 1:  i = 1;
-						if (btnDice2.isSelected() != true){
 							btnDice2.setGraphic(new ImageView(dice.image));
-						}
 						break;
 					case 2:  i = 2;
-						if (btnDice1.isSelected() != true){
 							btnDice3.setGraphic(new ImageView(dice.image));
-						}
 						break;
 					case 3:  i = 3;
-						if (btnDice1.isSelected() != true){
 							btnDice4.setGraphic(new ImageView(dice.image));
-						}
 						break;
 					case 4:  i = 4;
-						if (btnDice1.isSelected() != true){
 							btnDice5.setGraphic(new ImageView(dice.image));
-						}
 						break;
 					case 5:  i = 5;
-						if (btnDice1.isSelected() != true){
 							btnDice6.setGraphic(new ImageView(dice.image));
-						}
 						break;
 				} 
 		}else{
@@ -146,7 +168,6 @@ public class GameController implements Initializable {
 	}else{
 		
 	}
-	count++;
 	}
 	/**
 	 * Methode um den Spielzug zu beenden und die Ergebnisse ausführen
@@ -154,7 +175,33 @@ public class GameController implements Initializable {
 	 */
 	@FXML
 	public void handleEndMove(ActionEvent event) {
-		
+		gameModel.endMove();
+		lbLifePointsPlayer1.setText("" + gameModel.playerMe.getLifePoints());
+		lbLifePointsChangePlayer1.setText("");
+		lbFamePointsPlayer1.setText("" + gameModel.playerMe.getHonorPoints());
+		lbFamePointsChangePlayer1.setText("");
+		lbEnergyPointsPlayer1.setText("" + gameModel.playerMe.getEnergyPoints());
+		lbEnergyPointsChangePlayer1.setText("");
+		lbLifePointsPlayer2.setText("" + gameModel.playerTwo.getLifePoints());
+		lbLifePointsChangePlayer2.setText("");
+		if (gameModel.playerThree!=null) {
+		lbLifePointsPlayer3.setText("" + gameModel.playerThree.getLifePoints());
+		lbLifePointsChangePlayer3.setText("");
+		}
+		if (gameModel.playerFour!=null) {
+		lbLifePointsPlayer4.setText("" + gameModel.playerFour.getLifePoints());
+		lbLifePointsChangePlayer4.setText("");
+		}
+		if (gameModel.isGoToTokyo()) {
+			ivMonsterInTokyoPlayerMe.setVisible(true);
+		}
+		// Resultate Server senden und nächster Spieler
+		/*if (gameModel.win == true) {
+			Node node= (Node)event.getSource();
+			Stage stage = (Stage) node.getScene().getWindow();
+			stage.close();
+			gameModel.startWinner(new Stage());
+		}*/
 	}
 	
 	/**
@@ -243,16 +290,19 @@ public class GameController implements Initializable {
 		
 	    }
 	
-	public static void getTest() {
-		
+	public static void handleCloseRequest(ActionEvent event) {
+		Node node= (Node)event.getSource();
+		Stage stage = (Stage) node.getScene().getWindow();
+		stage.close();
+	}
+	
+	public static void gameClose() throws Exception{
 	}
 	
 	private void checkSelectedButton() {
 		for (int i = 0; i < 6; i++) {
-			if (buttonList.get(i).isSelected()) {
-				gameModel.setDiceSelected(i);
-			}
+			gameModel.setDiceSelected(i, buttonList.get(i).isSelected());
 		}
 	}
-
+	
 }

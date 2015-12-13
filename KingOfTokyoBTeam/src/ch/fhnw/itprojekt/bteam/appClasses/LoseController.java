@@ -26,9 +26,12 @@ public class LoseController implements Initializable {
 	 */
 	public void handleQuitGame(ActionEvent event) {
 		menuModel.start(new Stage());
+		GameController.handleCloseRequest(new ActionEvent());
 		Node node= (Node)event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		stage.close();
-	}
+		
+		}
+	
 	
 }

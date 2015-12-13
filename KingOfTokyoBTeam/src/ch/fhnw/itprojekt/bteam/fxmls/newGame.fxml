@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefWidth="430.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.fhnw.itprojekt.bteam.appClasses.NewGameController">
+<BorderPane styleClass="root" stylesheets="@meincss.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.fhnw.itprojekt.bteam.appClasses.NewGameController">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox layoutX="15.0" layoutY="30.0" spacing="40.0">
+            <VBox layoutX="15.0" layoutY="30.0" minHeight="170.0" minWidth="400.0" spacing="40.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0">
                <children>
                   <HBox layoutX="15.0" layoutY="30.0" spacing="40.0">
                      <children>
@@ -22,8 +22,8 @@
                         </VBox>
                         <VBox layoutX="138.0" layoutY="30.0" spacing="20.0">
                            <children>
-                              <ChoiceBox fx:id="cbNumPlayers" prefWidth="150.0" />
-                              <ChoiceBox fx:id="cbWinFamePoints" prefWidth="150.0" />
+                              <ChoiceBox fx:id="cbNumPlayers" prefWidth="150.0" styleClass="choicebox-base" stylesheets="@meincss.css" />
+                              <ChoiceBox fx:id="cbWinFamePoints" prefWidth="150.0" styleClass="choicebox-base" stylesheets="@meincss.css" />
                            </children>
                         </VBox>
                      </children>
