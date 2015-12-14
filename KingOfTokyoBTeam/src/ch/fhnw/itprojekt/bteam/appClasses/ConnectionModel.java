@@ -250,6 +250,18 @@ public class ConnectionModel {
 		}
 	}
 	
+	public void sendGameStats(int[] PlayerMe, int[] others, boolean[] tokyo) {
+		Message msgOut = new Message(Message.MessageType.GameStats);
+		msgOut.setMyPoints(PlayerMe);
+		msgOut.setOtherPoints(others);
+		msgOut.setTokyo(tokyo);
+		try {
+			msgOut.send(socket);
+		} catch (Exception e) {
+			serviceLocator.getLogger().warning(e.toString());
+		}
+	}
+	
 }
 
 

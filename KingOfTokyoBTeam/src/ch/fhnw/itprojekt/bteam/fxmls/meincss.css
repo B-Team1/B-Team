@@ -30,9 +30,6 @@
 }
 
 .button:pressed {
-
-	-fx-background-color: 4E4E4E;
-
 	-fx-text-fill: white;
 
 }

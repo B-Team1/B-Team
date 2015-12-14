@@ -4,19 +4,24 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javax.crypto.spec.IvParameterSpec;
+
 import ch.fhnw.itprojekt.bteam.appClasses.Card.CardType;
 import ch.fhnw.itprojekt.bteam.template.Properties;
 import ch.fhnw.itprojekt.bteam.template.ServiceLocator;
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class GameModel extends Application {
-	private int lifePoints, energyPoints, honorPoints, honorPointsWin;
+	private int lifePoints, energyPoints, honorPoints, honorPointsWin = 25;
 	static int cardCost = 3;
 	private boolean inTokyo = false;
 	static public ArrayList<Card> cardList = new ArrayList<Card>();
@@ -27,18 +32,17 @@ public class GameModel extends Application {
 	private ConnectionModel connectionModel;
 	private String nickname;
 	private int freePlayers;
-	private ArrayList<String> playerList = new ArrayList<String>();
+	public ArrayList<Player> players = new ArrayList<Player>();
+	public ArrayList<String> playerList = new ArrayList<String>();
 	private ArrayList<Dice> diceResult= new ArrayList<Dice>();
 	boolean famePointsWin;
 	public int count;
 	
-	Player playerMe = new Player(lifePoints = 0, energyPoints = 0, honorPoints = 0, inTokyo);
+	Player playerMe = new Player(lifePoints = 10, energyPoints = 0, honorPoints = 0, inTokyo);
 	Player playerTwo = new Player(lifePoints = 10, energyPoints = 0, honorPoints = 0, inTokyo);
 	Player playerThree = new Player(lifePoints = 10, energyPoints = 0, honorPoints = 0, inTokyo);
 	Player playerFour = new Player(lifePoints = 10, energyPoints = 0, honorPoints = 0, inTokyo);
-	
-	
-
+		
 	/**
 	 * Darf nur zum Erstellen eines neuen Spiels verwendet werden!!!
 	 * @author Tobias
@@ -56,6 +60,7 @@ public class GameModel extends Application {
 		this.gameId = gameId;
 		connectionModel = ConnectionModel.getInstance();
 		this.nickname = playerList.get(0);
+		
 	}
 	
 	/**
@@ -79,7 +84,6 @@ public class GameModel extends Application {
             		ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale()));
     	
             Scene scene = new Scene(root);
-            // scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             gameStage.setScene(scene);
             gameStage.setTitle("King of Tokyo");
             gameStage.setResizable(false);
@@ -101,7 +105,6 @@ public class GameModel extends Application {
             		ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale()));
     	
             Scene scene = new Scene(root);
-            // scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             createGameStage.setScene(scene);
             createGameStage.setTitle("King of Tokyo");
             createGameStage.setResizable(false);
@@ -122,7 +125,6 @@ public class GameModel extends Application {
             		ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale()));
     	
             Scene scene = new Scene(root);
-            // scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             winnerStage.setScene(scene);
             winnerStage.setTitle("King of Tokyo");
             winnerStage.setResizable(false);
@@ -143,7 +145,6 @@ public class GameModel extends Application {
             		ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale()));
     	
             Scene scene = new Scene(root);
-            // scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             loserStage.setScene(scene);
             loserStage.setTitle("King of Tokyo");
             loserStage.setResizable(false);
@@ -158,12 +159,8 @@ public class GameModel extends Application {
 	 * @author Marco
 	 */
 	public void attackFromTokyo(int effect) {
-		playerTwo.setActualCardLifePoints(playerTwo.getActualCardLifePoints() - effect);
-		if (playerThree!=null){
-		playerThree.setActualCardLifePoints(playerThree.getActualCardLifePoints() - effect);
-		}
-		if (playerFour!=null){
-		playerFour.setActualCardLifePoints(playerFour.getActualCardLifePoints() - effect);
+		for (int i = 1; i < players.size(); i++) {
+		players.get(i).setActualCardLifePoints(players.get(i).getActualCardLifePoints() - effect);
 		}
 		payCard();
 		setPreview();
@@ -174,31 +171,27 @@ public class GameModel extends Application {
 	 * @author Marco
 	 */
 	public void attackTokyo(Player player, int effect) {
-		if (playerTwo.inTokyo) {
-			playerTwo.setActualCardLifePoints(playerTwo.getActualCardLifePoints() - effect);
-		}
-		if ((playerThree!=null) && (playerThree.inTokyo)) {
-			playerThree.setActualCardLifePoints(playerThree.getActualCardLifePoints() - effect);
-		}
-		if ((playerFour!=null) && (playerFour.inTokyo)) {
-			playerFour.setActualCardLifePoints(playerFour.getActualCardLifePoints() - effect);
+		for (int i = 1; i < players.size(); i++) {
+			if (players.get(i).inTokyo) {
+				players.get(i).setActualCardLifePoints(players.get(i).getActualCardLifePoints() - effect);
+			}
 		}
 		payCard();
 		setPreview();
 	}
 	
 	public void cardHeal(int effect) {
-		playerMe.setActualCardLifePoints(playerMe.getActualCardLifePoints() + effect);
+		players.get(0).setActualCardLifePoints(players.get(0).getActualCardLifePoints() + effect);
 		payCard();
 	}
 	
 	public void cardHonor(int effect) {
-		playerMe.setActualCardHonorPoints(playerMe.getActualCardHonorPoints() + effect);
+		players.get(0).setActualCardHonorPoints(players.get(0).getActualCardHonorPoints() + effect);
 		payCard();
 	}
 	
 	public void payCard() {
-		playerMe.setActualCardEnergyPoints(playerMe.getActualCardEnergyPoints() - cardCost);
+		players.get(0).setActualCardEnergyPoints(players.get(0).getActualCardEnergyPoints() - cardCost);
 	}
 
 	/**
@@ -230,15 +223,10 @@ public class GameModel extends Application {
 		/**
 		 * Setzt die Änderungen der Würfelwerte auf 0
 		 */
-		playerMe.setActualDiceEnergyPoints(0);
-		playerMe.setActualDiceLifePoints(0);
-		playerMe.setActualDiceHonorPoints(0);
-		playerTwo.setActualDiceLifePoints(0);
-		if (playerThree!=null) {
-			playerThree.setActualDiceLifePoints(0);
-		}
-		if (playerFour!=null) {
-			playerFour.setActualDiceLifePoints(0);
+		players.get(0).setActualDiceEnergyPoints(0);
+		players.get(0).setActualDiceHonorPoints(0);
+		for (int i = 0; i > players.size(); i++){
+			players.get(i).setActualDiceLifePoints(0);
 		}
 		
 		/**
@@ -277,58 +265,45 @@ public class GameModel extends Application {
 		 * Berechnet die Auswirkungen der Herz-Würfel
 		 * @author Marco
 		 */
-		if (heart >= 1 && !playerMe.inTokyo) {
-			playerMe.setActualDiceLifePoints(playerMe.getActualDiceLifePoints() + heart);
+		if (heart >= 1 && !players.get(0).inTokyo) {
+			players.get(0).setActualDiceLifePoints(players.get(0).getActualDiceLifePoints() + heart);
 		}
 		/**
 		 * Berechnet die Auswirkungen bei einem Angriffs-Würfel
 		 * @author Marco
 		 */
 		if (attack >= 1) {
-			if (playerMe.inTokyo) {
-				playerTwo.setActualDiceLifePoints(playerTwo.getActualDiceLifePoints() - attack);
-				if (playerThree!=null) {
-					playerThree.setActualDiceLifePoints(playerThree.getActualDiceLifePoints() - attack);
-				}
-				if (playerFour!=null) {
-					playerFour.setActualDiceLifePoints(playerFour.getActualDiceLifePoints() - attack);
+			if (players.get(0).inTokyo) {
+				for (int i = 1; i < players.size(); i++) {
+					players.get(i).setActualDiceLifePoints(players.get(i).getActualDiceLifePoints() - attack);
 				}
 				setGoToTokyo(false);
 			} else {
-				if (playerTwo.inTokyo) {
-					playerTwo.setActualDiceLifePoints(playerTwo.getActualDiceLifePoints() - attack);
+				for (int i = 1; i < players.size(); i++) {
+				if (players.get(i).inTokyo) {
+					players.get(i).setActualDiceLifePoints(players.get(i).getActualDiceLifePoints() - attack);
 					setGoToTokyo(false);
 				} else {
-					if (playerThree.inTokyo && playerThree!=null) {
-						playerThree.setActualDiceLifePoints(playerThree.getActualDiceLifePoints() - attack);
-						setGoToTokyo(false);
-					} else {
-						if (playerFour.inTokyo && playerFour!=null) {
-							playerFour.setActualDiceLifePoints(playerFour.getActualDiceLifePoints() - attack);
-							setGoToTokyo(false);
-						} else {
-							setGoToTokyo(true);
-						}
-					}
+					setGoToTokyo(true);
+				}
 				}
 			}
-		} else {
-			setGoToTokyo(false);
 		}
+		
 		/**
 		 * Berechnet die Auswirkungen durch die Flash- und Nummer-Würfel
 		 */
 		if (flash >= 1) {
-			playerMe.setActualDiceEnergyPoints(playerMe.getActualDiceEnergyPoints() + flash);
+			players.get(0).setActualDiceEnergyPoints(players.get(0).getActualDiceEnergyPoints() + flash);
 		}
 		if (num1 >= 3) {
-			playerMe.setActualDiceHonorPoints(playerMe.getActualDiceHonorPoints() + (num1 - 2));
+			players.get(0).setActualDiceHonorPoints(players.get(0).getActualDiceHonorPoints() + (num1 - 2));
 		}
 		if (num3 >= 3) {
-			playerMe.setActualDiceHonorPoints(playerMe.getActualDiceHonorPoints() + num3);
+			players.get(0).setActualDiceHonorPoints(players.get(0).getActualDiceHonorPoints() + num3);
 					}
 		if (num2 >= 3) {
-			playerMe.setActualDiceHonorPoints(playerMe.getActualDiceHonorPoints() + (num2 - 1));
+			players.get(0).setActualDiceHonorPoints(players.get(0).getActualDiceHonorPoints() + (num2 - 1));
 		}
 	}
 	
@@ -337,15 +312,11 @@ public class GameModel extends Application {
 	 * @author Marco
 	 */
 	public void setPreview() {
-		playerMe.setFutureLifePoints(playerMe.getActualDiceLifePoints() + playerMe.getActualCardLifePoints());
-		playerMe.setFutureHonorPoints(playerMe.getActualDiceHonorPoints() + playerMe.getActualCardHonorPoints());
-		playerMe.setFutureEnergyPoints(playerMe.getActualDiceEnergyPoints() + playerMe.getActualCardEnergyPoints());
-		playerTwo.setFutureLifePoints(playerTwo.getActualDiceLifePoints() + playerTwo.getActualCardLifePoints());
-		if (playerThree!=null) {
-			playerThree.setFutureLifePoints(playerThree.getActualDiceLifePoints() + playerThree.getActualCardLifePoints());
-		}
-		if (playerFour!=null) {
-			playerFour.setFutureLifePoints(playerFour.getActualDiceLifePoints() + playerFour.getActualCardLifePoints());
+		players.get(0).setFutureLifePoints(players.get(0).getActualDiceLifePoints() + players.get(0).getActualCardLifePoints());
+		players.get(0).setFutureHonorPoints(players.get(0).getActualDiceHonorPoints() + players.get(0).getActualCardHonorPoints());
+		players.get(0).setFutureEnergyPoints(players.get(0).getActualDiceEnergyPoints() + players.get(0).getActualCardEnergyPoints());
+		for (int i = 1; i < players.size(); i++) {
+			players.get(i).setFutureLifePoints(players.get(i).getActualDiceLifePoints() + players.get(i).getActualCardLifePoints());
 		}
 	}
 	
@@ -364,43 +335,31 @@ public class GameModel extends Application {
 	 * @author Marco
 	 */
 	public void endMove() {
-		playerMe.setEnergyPoints(playerMe.getEnergyPoints() + playerMe.getFutureEnergyPoints());
-		playerMe.setLifePoints(playerMe.getLifePoints() + playerMe.getFutureLifePoints());
-		playerMe.setHonorPoints(playerMe.getHonorPoints() + playerMe.getFutureHonorPoints());
-		playerTwo.setLifePoints(playerTwo.getLifePoints() + playerTwo.getFutureLifePoints());
-		if (playerThree!=null) {
-			playerThree.setLifePoints(playerThree.getLifePoints() + playerThree.getFutureLifePoints());
-		}
-		if (playerFour!=null) {
-			playerFour.setLifePoints(playerFour.getLifePoints() + playerFour.getFutureLifePoints());
+		players.get(0).setEnergyPoints(players.get(0).getEnergyPoints() + players.get(0).getFutureEnergyPoints());
+		players.get(0).setHonorPoints(players.get(0).getHonorPoints() + players.get(0).getFutureHonorPoints());
+		for (int i = 0; i < players.size(); i++) {
+			players.get(i).setLifePoints(players.get(i).getLifePoints() + players.get(i).getFutureLifePoints());
 		}
 		if (isGoToTokyo()) {
-			playerMe.setInTokyo(true);
+			players.get(0).setInTokyo(true);
 		}
 		/**
 		 * Überprüft ob es Verlierer oder Gewinner gibt
 		 */
-		checkLoser();
-		checkWinner();
 		setChangesZero();
 	}
 	
 	 /**
 	  * Überprüft ob ein Mitspieler keine Lebenspunkte mehr hat
-	  * @author 
+	  * @author Marco
 	  */
-	private void checkLoser() {
-		if (playerMe.getLifePoints() <= 0) {
-			startLoser(new Stage());
+	public void checkLoser() {
+		if (players.get(0).getLifePoints() <= 0) {
+			//GameController.getInstance().loser();
 		}
-		if (playerTwo.getLifePoints() <= 0) {
-			// Du häsch verlore
-		}
-		if (playerThree!=null && (playerThree.getLifePoints() <= 0)) {
-			// Du häsch verlore
-		}
-		if (playerFour!=null && (playerFour.getLifePoints() <= 0)) {
-			// Du häsch verlore
+		for (int i = 1; i < players.size(); i++) {
+			if (players.get(i).getLifePoints() <= 0) {
+			}
 		}
 	}
 	
@@ -408,11 +367,20 @@ public class GameModel extends Application {
 	 * Überprüft ob PlayerMe dank den Ruhmespunkten gewonnen hat
 	 * @author Marco
 	 */
-	private void checkWinner() {
+	public boolean checkWinner() {
 		if (famePointsWin = true) {
-			if (playerMe.getHonorPoints() >= honorPointsWin) {
+			if (players.get(0).getHonorPoints() >= honorPointsWin) {
 				win = true;
-			}
+				return true;
+			} else {
+				return false;
+			} 
+		}else {
+			if ((players.get(1).getLifePoints() <= 0) && ((players.size() < 3) || (players.get(2).getLifePoints() <= 0)) && ((players.size() < 4) || (players.get(3).getLifePoints() <= 0))) {
+					return true;
+				} else {
+					return false;
+				}
 		}
 	}
 	
@@ -421,27 +389,14 @@ public class GameModel extends Application {
 	 * @author Marco
 	 */
 	private void setChangesZero() {
-		playerMe.setFutureEnergyPoints(0);
-		playerMe.setFutureHonorPoints(0);
-		playerMe.setFutureLifePoints(0);
-		playerMe.setActualCardEnergyPoints(0);
-		playerMe.setActualCardHonorPoints(0);
-		playerMe.setActualCardLifePoints(0);
-		playerTwo.setFutureLifePoints(0);
-		playerTwo.setActualCardEnergyPoints(0);
-		playerTwo.setActualCardHonorPoints(0);
-		playerTwo.setActualCardLifePoints(0);
-		if (playerThree!=null) {
-		playerThree.setFutureLifePoints(0);
-		playerThree.setActualCardEnergyPoints(0);
-		playerThree.setActualCardHonorPoints(0);
-		playerThree.setActualCardLifePoints(0);
-		}
-		if (playerFour != null) {
-		playerFour.setFutureLifePoints(0);
-		playerFour.setActualCardEnergyPoints(0);
-		playerFour.setActualCardHonorPoints(0);
-		playerFour.setActualCardLifePoints(0);
+		count = 0;
+		for (int i = 0; i < players.size(); i++) {
+			players.get(i).setFutureEnergyPoints(0);
+			players.get(i).setFutureHonorPoints(0);
+			players.get(i).setFutureLifePoints(0);
+			players.get(i).setActualCardEnergyPoints(0);
+			players.get(i).setActualCardLifePoints(0);
+			players.get(i).setActualCardHonorPoints(0);
 		}
 	}
 	
@@ -501,6 +456,72 @@ public class GameModel extends Application {
 
 	public void setPlayerList(ArrayList<String> playerList) {
 		this.playerList = playerList;
+	}
+	
+	/**
+	 * Sendet die aktuelle Spielstände an den Server
+	 * @author Marco
+	 */
+	public void sendGameStats() {
+		int[] pointsMe = new int[3];
+		int[] others = new int[players.size() - 1];
+		boolean[] tokyo = new boolean[players.size()];
+		pointsMe[0] = players.get(0).getLifePoints();
+		pointsMe[1] = players.get(0).getEnergyPoints();
+		pointsMe[2] = players.get(0).getHonorPoints();
+		for (int i = 1; i < players.size(); i++) {
+			others[i-1] = players.get(i).getLifePoints();
+		}
+		for (int i = 0; i < players.size(); i++) {
+			tokyo[i] = players.get(i).inTokyo;
+		}
+ 		connectionModel.sendGameStats(pointsMe, others, tokyo);
+	}
+	
+	/**
+	 * Speichert die Änderungen der Lebenspunkte aus dem InputHandler
+	 * @author Marco
+	 */
+	public void setLifePoints(int[] lifePoints) {
+		for (int i = 0; i < lifePoints.length; i++) {
+			players.get(i).setLifePoints(lifePoints[i]);
+		}
+	}
+	
+	/**
+	 * Speichert die Änderungen des aktuellen Spielers aus dem InputHandler
+	 * @author Marco
+	 */
+	public void setPlayerPoints(int[] playerPoints) {
+		players.get(1).setLifePoints(playerPoints[0]);
+		players.get(1).setEnergyPoints(playerPoints[1]);
+		players.get(1).setHonorPoints(playerPoints[2]);
+	}
+	
+	/**
+	 * Speichert die Änderung wer in Tokyo ist aus dem InputHandler
+	 * @author Marco
+	 */
+	public void setActualTokyo(boolean[] tokyo) {
+		for (int i = 0; i < tokyo.length; i++) {
+			players.get(i).setInTokyo(tokyo[i]);
+			if (players.get(i).inTokyo) {
+				switch (i) {
+				case 0:
+					GameController.getInstance().ivMonsterInTokyoPlayerMe.setImage(new Image(getClass().getResourceAsStream("../images/Monster1.png")));
+					break;
+				case 1:
+					GameController.getInstance().ivMonsterInTokyoPlayerMe.setImage(new Image(getClass().getResourceAsStream("../images/Monster2.png")));
+					break;
+				case 2:
+					GameController.getInstance().ivMonsterInTokyoPlayerMe.setImage(new Image(getClass().getResourceAsStream("../images/Monster3.png")));
+					break;
+				case 3:
+					GameController.getInstance().ivMonsterInTokyoPlayerMe.setImage(new Image(getClass().getResourceAsStream("../images/Monster4.png")));
+					break;
+				}
+			}
+		}
 	}
 	
 	public void setGoToTokyo(boolean goToTokyo) {

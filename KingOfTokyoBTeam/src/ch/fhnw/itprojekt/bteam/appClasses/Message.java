@@ -18,7 +18,7 @@ import org.simpleframework.xml.core.Persister;
 public class Message {
 	public enum MessageType {
 
-		Error, Login, SecurityQuestion, Registration, OpenGameRequest, SecurityAnswer, Password, Test, Broadcast, getStat, openNewGame, deleteGame, Chat, Players
+		Error, Login, SecurityQuestion, Registration, OpenGameRequest, SecurityAnswer, Password, Test, Broadcast, getStat, openNewGame, deleteGame, Chat, Players, GameStats
 	};
 
 	// Data included in a message
@@ -94,9 +94,14 @@ public class Message {
 	@Element(required = false)
 	private String [] players;
 	
+	@Element(required = false)
+	private int[] myPoints;
+
+	@Element(required = false)
+	private int[] otherPoints;
 	
-
-
+	@Element(required = false)
+	private boolean[] tokyo;
 
 	public Message(@Element(name = "type") MessageType type) {
 		this.type = type;
@@ -208,184 +213,148 @@ public class Message {
 		this.writeCheck = writeCheck;
 	}
 
-
-
 	public int getPlayedGames() {
 		return playedGames;
 	}
-
-
 
 	public void setPlayedGames(int playedGames) {
 		this.playedGames = playedGames;
 	}
 
-
-
 	public int getWonGames() {
 		return wonGames;
 	}
-
-
 
 	public void setWonGames(int wonGames) {
 		this.wonGames = wonGames;
 	}
 
-
-
 	public boolean getFamePointsWin() {
 		return famePointsWin;
 	}
-
-
 
 	public void setFamePointsWin(boolean famePointsWin) {
 		this.famePointsWin = famePointsWin;
 	}
 
-
-
 	public int getNumPlayer() {
 		return numPlayer;
 	}
-
-
 
 	public void setNumPlayer(int numPlayer) {
 		this.numPlayer = numPlayer;
 	}
 
-
-
 	public int getWinFamePoints() {
 		return winFamePoints;
 	}
-
-
 
 	public void setWinFamePoins(int winFamePoins) {
 		this.winFamePoints = winFamePoins;
 	}
 
-
-
 	public int getGameId() {
 		return gameId;
 	}
-
-
 
 	public void setGameId(int gameId) {
 		this.gameId = gameId;
 	}
 
-
-
 	public String getChat() {
 		return chat;
 	}
-
-
 
 	public void setChat(String chat) {
 		this.chat = chat;
 	}
 
-
-
 	public String getPlayer1() {
 		return player1;
 	}
-
-
 
 	public void setPlayer1(String player1) {
 		this.player1 = player1;
 	}
 
-
-
 	public String getPlayer2() {
 		return player2;
 	}
-
-
 
 	public void setPlayer2(String player2) {
 		this.player2 = player2;
 	}
 
-
-
 	public String getPlayer3() {
 		return player3;
 	}
-
-
 
 	public void setPlayer3(String player3) {
 		this.player3 = player3;
 	}
 
-
-
 	public String getPlayer4() {
 		return player4;
 	}
-
-
 
 	public void setPlayer4(String player4) {
 		this.player4 = player4;
 	}
 
-
-
 	public String[] getPlayers() {
 		return players;
 	}
-
-
 
 	public void setPlayers(String[] players) {
 		this.players = players;
 	}
 	
-	
 	public int[] getfreePlaces() {
 		return freePlaces;
 	}
-
-
 
 	public void setfreePlaces(int[] freePlaces) {
 		this.freePlaces = freePlaces;
 	}
 
-
-
 	public int[] getGameIdList() {
 		return gameIdList;
 	}
-
-
 
 	public void setGameIdList(int[] gameIdList) {
 		this.gameIdList = gameIdList;
 	}
 
-
-
 	public String[] getUserList() {
 		return userList;
 	}
-
-
 
 	public void setUserList(String[] userList) {
 		this.userList = userList;
 	}
 	
+	public int[] getMyPoints() {
+		return myPoints;
+	}
+	
+	public void setMyPoints(int[] myPoints) {
+		this.myPoints = myPoints;
+	}
+	
+	public int[] getOtherPoints() {
+		return otherPoints;
+	}
+	
+	public void setOtherPoints(int[] otherPoints) {
+		this.otherPoints = otherPoints;
+	}
+	
+	public boolean[] getTokyo() {
+		return tokyo;
+	}
+	
+	public void setTokyo(boolean[] tokyo) {
+		this.tokyo = tokyo;
+	}
 
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!--
+ * @author Marco
+-->
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
@@ -99,7 +101,7 @@
                                     <VBox layoutX="14.0" layoutY="375.0">
                                        <children>
                                           <Label fx:id="lbPlayed" layoutX="14.0" layoutY="375.0" text="%overview.lb.games" />
-                                          <Label fx:id="lbwon" layoutX="14.0" layoutY="404.0" text="%overview.lb.won" />
+                                          <Label fx:id="lbWon" layoutX="14.0" layoutY="404.0" text="%overview.lb.won" />
                                        </children>
                                     </VBox>
                                     <VBox layoutX="91.0" layoutY="375.0">

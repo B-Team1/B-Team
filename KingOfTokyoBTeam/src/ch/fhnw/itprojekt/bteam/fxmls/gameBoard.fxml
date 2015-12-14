@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+ * @author Marco
+-->
+
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
@@ -7,321 +11,295 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="900.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.fhnw.itprojekt.bteam.appClasses.GameController">
+<BorderPane prefHeight="900.0" prefWidth="1300.0" styleClass="root" stylesheets="@meincss.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.fhnw.itprojekt.bteam.appClasses.GameController">
    <center>
-      <StackPane>
+      <AnchorPane>
          <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <StackPane AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
                <children>
-                  <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <ImageView fitHeight="920.0" fitWidth="1320.0" pickOnBounds="true">
-                           <image>
-                              <Image url="@../images/Background.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </HBox>
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <VBox layoutX="37.0" layoutY="26.0" spacing="10.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="50.0">
-                     <children>
-                        <Button fx:id="btnRollDice" layoutX="229.0" layoutY="110.0" mnemonicParsing="false" onAction="#handleRollDice" prefHeight="35.0" prefWidth="150.0" styleClass="test" stylesheets="@meincss.css" text="%board.btn.roll" />
-                        <Button fx:id="btnEndMove" layoutX="229.0" layoutY="171.0" mnemonicParsing="false" onAction="#handleEndMove" prefHeight="35.0" prefWidth="150.0" styleClass="test" stylesheets="@meincss.css" text="%board.btn.endMove" />
-                     </children>
-                  </VBox>
-                  <VBox layoutX="253.0" layoutY="35.0" spacing="60.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="50.0">
-                     <children>
-                        <HBox layoutX="263.0" layoutY="35.0" spacing="10.0" VBox.vgrow="NEVER">
+                        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <ToggleButton fx:id="btnDice1" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
-                              <ToggleButton fx:id="btnDice2" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
-                              <ToggleButton fx:id="btnDice3" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
-                              <ToggleButton fx:id="btnDice4" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
-                              <ToggleButton fx:id="btnDice5" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
-                              <ToggleButton fx:id="btnDice6" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <HBox layoutX="37.0" layoutY="140.0" spacing="650.0" AnchorPane.topAnchor="250.0">
-                     <children>
-                        <VBox layoutX="37.0" layoutY="140.0" spacing="20.0">
-                           <children>
-                              <VBox layoutX="37.0" layoutY="140.0" spacing="10.0">
-                                 <children>
-                                    <ImageView fitHeight="150.0" fitWidth="177.0" layoutX="37.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/Monster1.png" />
-                                       </image>
-                                    </ImageView>
-                                    <VBox layoutX="37.0" layoutY="290.0" opacity="0.75" spacing="20.0" styleClass="boarderbox" stylesheets="@meincss.css">
-                                       <children>
-                                          <Label fx:id="lbNicknamePlayer1" layoutX="37.0" layoutY="290.0" text="Label" />
-                                          <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
-                                             <children>
-                                                <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
-                                                   <children>
-                                                      <Label layoutX="37.0" layoutY="341.0" text="%board.lb.lifePoints" />
-                                                      <Label layoutX="37.0" layoutY="362.0" text="%board.lb.honorPoints" />
-                                                      <Label layoutX="37.0" layoutY="383.0" text="%board.lb.energyPoints" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
-                                                   <children>
-                                                      <Label fx:id="lbLifePointsPlayer1" layoutX="92.0" layoutY="341.0" prefWidth="40.0" />
-                                                      <Label fx:id="lbFamePointsPlayer1" layoutX="92.0" layoutY="362.0" prefWidth="40.0" />
-                                                      <Label fx:id="lbEnergyPointsPlayer1" layoutX="92.0" layoutY="383.0" prefWidth="40.0" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
-                                                   <children>
-                                                      <Label fx:id="lbLifePointsChangePlayer1" layoutX="146.0" layoutY="341.0" prefWidth="30.0" />
-                                                      <Label fx:id="lbFamePointsChangePlayer1" layoutX="146.0" layoutY="362.0" prefWidth="30.0" />
-                                                      <Label fx:id="lbEnergyPointsChangePlayer1" layoutX="146.0" layoutY="383.0" prefWidth="30.0" />
-                                                   </children>
-                                                </VBox>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </VBox>
-                              <VBox fx:id="vbPlayer3" layoutX="37.0" layoutY="428.0" spacing="10.0">
-                                 <children>
-                                    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="19.0" layoutY="404.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/Monster2.png" />
-                                       </image>
-                                    </ImageView>
-                                    <VBox layoutX="26.0" layoutY="521.0" opacity="0.75" spacing="20.0" styleClass="boarderbox" stylesheets="@meincss.css">
-                                       <children>
-                                          <Label fx:id="lbNicknamePlayer3" layoutX="37.0" layoutY="290.0" text="Label" />
-                                          <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
-                                             <children>
-                                                <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
-                                                   <children>
-                                                      <Label layoutX="37.0" layoutY="341.0" text="%board.lb.lifePoints" />
-                                                      <Label layoutX="37.0" layoutY="362.0" text="%board.lb.honorPoints" />
-                                                      <Label layoutX="37.0" layoutY="383.0" text="%board.lb.energyPoints" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
-                                                   <children>
-                                                      <Label fx:id="lbLifePointsPlayer3" layoutX="92.0" layoutY="341.0" prefWidth="40.0" />
-                                                      <Label fx:id="lbFamePointsPlayer3" layoutX="92.0" layoutY="362.0" prefWidth="40.0" />
-                                                      <Label fx:id="lbEnergyPointsPlayer3" layoutX="92.0" layoutY="383.0" prefWidth="40.0" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
-                                                   <children>
-                                                      <Label fx:id="lbLifePointsChangePlayer3" layoutX="146.0" layoutY="341.0" prefWidth="30.0" />
-                                                      <Label fx:id="lbFamePointsChangePlayer3" layoutX="146.0" layoutY="362.0" prefWidth="30.0" />
-                                                      <Label fx:id="lbEnergyPointsChangePlayer3" layoutX="146.0" layoutY="383.0" prefWidth="30.0" />
-                                                   </children>
-                                                </VBox>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </VBox>
-                        <VBox layoutX="762.0" layoutY="140.0" spacing="20.0">
-                           <children>
-                              <VBox layoutX="762.0" layoutY="140.0" spacing="10.0">
-                                 <children>
-                                    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="604.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/Monster3.png" />
-                                       </image>
-                                    </ImageView>
-                                    <VBox layoutX="631.0" layoutY="271.0" opacity="0.75" spacing="20.0" styleClass="boarderbox" stylesheets="@meincss.css">
-                                       <children>
-                                          <Label fx:id="lbNicknamePlayer2" layoutX="37.0" layoutY="290.0" text="Label" />
-                                          <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
-                                             <children>
-                                                <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
-                                                   <children>
-                                                      <Label layoutX="37.0" layoutY="341.0" text="%board.lb.lifePoints" />
-                                                      <Label layoutX="37.0" layoutY="362.0" text="%board.lb.honorPoints" />
-                                                      <Label layoutX="37.0" layoutY="383.0" text="%board.lb.energyPoints" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
-                                                   <children>
-                                                      <Label fx:id="lbLifePointsPlayer2" layoutX="92.0" layoutY="341.0" prefWidth="40.0" />
-                                                      <Label fx:id="lbFamePointsPlayer2" layoutX="92.0" layoutY="362.0" prefWidth="40.0" />
-                                                      <Label fx:id="lbEnergyPointsPlayer2" layoutX="92.0" layoutY="383.0" prefWidth="40.0" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
-                                                   <children>
-                                                      <Label fx:id="lbLifePointsChangePlayer2" layoutX="146.0" layoutY="341.0" prefWidth="30.0" />
-                                                      <Label fx:id="lbFamePointsChangePlayer2" layoutX="146.0" layoutY="362.0" prefWidth="30.0" />
-                                                      <Label fx:id="lbEnergyPointsChangePlayer2" layoutX="146.0" layoutY="383.0" prefWidth="30.0" />
-                                                   </children>
-                                                </VBox>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </VBox>
-                              <VBox fx:id="vbPlayer4" layoutX="762.0" layoutY="428.0" spacing="10.0">
-                                 <children>
-                                    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="595.0" layoutY="358.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../images/Monster4.png" />
-                                       </image>
-                                    </ImageView>
-                                    <VBox layoutX="631.0" layoutY="451.0" opacity="0.75" spacing="20.0" styleClass="boarderbox" stylesheets="@meincss.css">
-                                       <children>
-                                          <Label fx:id="lbNicknamePlayer4" layoutX="37.0" layoutY="290.0" text="Label" />
-                                          <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
-                                             <children>
-                                                <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
-                                                   <children>
-                                                      <Label layoutX="37.0" layoutY="341.0" text="%board.lb.lifePoints" />
-                                                      <Label layoutX="37.0" layoutY="362.0" text="%board.lb.honorPoints" />
-                                                      <Label layoutX="37.0" layoutY="383.0" text="%board.lb.energyPoints" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
-                                                   <children>
-                                                      <Label fx:id="lbLifePointsPlayer4" layoutX="92.0" layoutY="341.0" prefWidth="40.0" />
-                                                      <Label fx:id="lbFamePointsPlayer4" layoutX="92.0" layoutY="362.0" prefWidth="40.0" />
-                                                      <Label fx:id="lbEnergyPointsPlayer4" layoutX="92.0" layoutY="383.0" prefWidth="40.0" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
-                                                   <children>
-                                                      <Label fx:id="lbLifePointsChangePlayer4" layoutX="146.0" layoutY="341.0" prefWidth="30.0" />
-                                                      <Label fx:id="lbFamePointsChangePlayer4" layoutX="146.0" layoutY="362.0" prefWidth="30.0" />
-                                                      <Label fx:id="lbEnergyPointsChangePlayer4" layoutX="146.0" layoutY="383.0" prefWidth="30.0" />
-                                                   </children>
-                                                </VBox>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <VBox layoutX="348.0" layoutY="617.0" prefHeight="164.0" prefWidth="308.0" AnchorPane.leftAnchor="390.0" AnchorPane.topAnchor="680.0">
-                     <children>
-                        <TextArea fx:id="taChat" prefHeight="133.0" prefWidth="335.0" />
-                        <HBox layoutX="317.0" layoutY="719.0">
-                           <children>
-                              <TextField fx:id="tfChat" layoutX="317.0" layoutY="719.0" prefHeight="31.0" prefWidth="242.0" />
-                              <Button layoutX="504.0" layoutY="719.0" mnemonicParsing="false" onAction="#handleSend" prefHeight="35.0" prefWidth="112.0" stylesheets="@meincss.css" text="%board.btn.send" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <VBox layoutX="794.0" layoutY="30.0" prefHeight="209.0" prefWidth="144.0" AnchorPane.leftAnchor="794.0">
-                     <children>
-                        <VBox layoutX="746.0" prefHeight="190.0" prefWidth="116.0" spacing="10.0">
-                           <children>
-                              <StackPane layoutX="698.0" layoutY="-9.0" prefHeight="180.0" prefWidth="116.0" styleClass="stack" stylesheets="@meincss.css">
-                                 <children>
-                                    <Button fx:id="btnCardDeck" mnemonicParsing="false" onAction="#handleCardDeck" prefHeight="161.0" prefWidth="108.0">
-                                       <graphic>
-                                          <ImageView fitHeight="168.0" fitWidth="117.0" pickOnBounds="true">
-                                             <image>
-                                                <Image url="@../images/KingOfTokyo.jpg" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </Button>
-                                 </children></StackPane>
-                           </children>
-                        </VBox>
-                        <HBox alignment="CENTER" layoutX="697.0" layoutY="146.0" opacity="0.75" styleClass="boarderbox" stylesheets="@meincss.css">
-                           <children>
-                              <Label alignment="CENTER" layoutX="752.0" layoutY="119.0" opacity="0.75" text="%board.lb.stack" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <HBox layoutX="900.0" layoutY="119.0" />
-                  <VBox layoutX="847.0" layoutY="16.0" AnchorPane.leftAnchor="950.0">
-                     <children>
-                        <HBox layoutX="847.0" layoutY="16.0" spacing="10.0">
-                           <children>
-                              <ImageView fx:id="ivCard1" fitHeight="200.0" fitWidth="160.0" layoutX="847.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
-                              <ImageView fx:id="ivCard2" fitHeight="200.0" fitWidth="160.0" layoutX="908.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" layoutX="882.0" layoutY="147.0" opacity="0.75" styleClass="boarderbox" stylesheets="@meincss.css">
-                           <children>
-                              <Label contentDisplay="CENTER" layoutX="882.0" layoutY="147.0" text="%board.lb.yourCards" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <HBox styleClass="hbox" stylesheets="@meincss.css" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="150.0">
-                     <children>
-                        <StackPane>
-                           <children>
-                              <ImageView fitHeight="472.0" fitWidth="507.0" layoutX="253.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="920.0" fitWidth="1320.0" pickOnBounds="true">
                                  <image>
-                                    <Image url="@../images/Spielplan.jpg" />
+                                    <Image url="@../images/Background.jpg" />
                                  </image>
                               </ImageView>
-                              <AnchorPane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <VBox layoutX="37.0" layoutY="26.0" spacing="10.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="50.0">
+                           <children>
+                              <Button fx:id="btnRollDice" layoutX="229.0" layoutY="110.0" mnemonicParsing="false" onAction="#handleRollDice" prefHeight="35.0" prefWidth="150.0" styleClass="test" stylesheets="@meincss.css" text="%board.btn.roll" />
+                              <Button fx:id="btnEndMove" layoutX="229.0" layoutY="171.0" mnemonicParsing="false" onAction="#handleEndMove" prefHeight="35.0" prefWidth="150.0" styleClass="test" stylesheets="@meincss.css" text="%board.btn.endMove" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="253.0" layoutY="35.0" spacing="60.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="50.0">
+                           <children>
+                              <HBox layoutX="263.0" layoutY="35.0" spacing="10.0" VBox.vgrow="NEVER">
                                  <children>
-                                    <HBox fx:id="hbTokyoMe" layoutX="50.0" layoutY="90.0">
+                                    <ToggleButton fx:id="btnDice1" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
+                                    <ToggleButton fx:id="btnDice2" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
+                                    <ToggleButton fx:id="btnDice3" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
+                                    <ToggleButton fx:id="btnDice4" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
+                                    <ToggleButton fx:id="btnDice5" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
+                                    <ToggleButton fx:id="btnDice6" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <HBox layoutX="37.0" layoutY="140.0" spacing="650.0" AnchorPane.topAnchor="250.0">
+                           <children>
+                              <VBox layoutX="37.0" layoutY="140.0" spacing="20.0">
+                                 <children>
+                                    <VBox layoutX="37.0" layoutY="140.0" spacing="10.0">
                                        <children>
-                                          <ImageView fx:id="ivMonsterInTokyoPlayerMe" fitHeight="150.0" fitWidth="176.0" layoutX="14.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="90.0">
+                                          <ImageView fitHeight="150.0" fitWidth="177.0" layoutX="37.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Monster1.png" />
                                              </image>
                                           </ImageView>
+                                          <VBox layoutX="37.0" layoutY="290.0" opacity="0.75" spacing="20.0" styleClass="boarderbox" stylesheets="@meincss.css">
+                                             <children>
+                                                <Label fx:id="lbNicknamePlayer1" layoutX="37.0" layoutY="290.0" text="Label" />
+                                                <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
+                                                   <children>
+                                                      <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
+                                                         <children>
+                                                            <Label layoutX="37.0" layoutY="341.0" text="%board.lb.lifePoints" />
+                                                            <Label layoutX="37.0" layoutY="362.0" text="%board.lb.honorPoints" />
+                                                            <Label layoutX="37.0" layoutY="383.0" text="%board.lb.energyPoints" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
+                                                         <children>
+                                                            <Label fx:id="lbLifePointsPlayer1" layoutX="92.0" layoutY="341.0" prefWidth="40.0" />
+                                                            <Label fx:id="lbFamePointsPlayer1" layoutX="92.0" layoutY="362.0" prefWidth="40.0" />
+                                                            <Label fx:id="lbEnergyPointsPlayer1" layoutX="92.0" layoutY="383.0" prefWidth="40.0" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
+                                                         <children>
+                                                            <Label fx:id="lbLifePointsChangePlayer1" layoutX="146.0" layoutY="341.0" prefWidth="30.0" />
+                                                            <Label fx:id="lbFamePointsChangePlayer1" layoutX="146.0" layoutY="362.0" prefWidth="30.0" />
+                                                            <Label fx:id="lbEnergyPointsChangePlayer1" layoutX="146.0" layoutY="383.0" prefWidth="30.0" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
                                        </children>
-                                    </HBox>
-                                    <HBox layoutX="30.0" layoutY="90.0">
+                                    </VBox>
+                                    <VBox fx:id="vbPlayer3" layoutX="37.0" layoutY="428.0" spacing="10.0">
                                        <children>
-                                          <ImageView fx:id="ivMonsterInTokyoPlayerTwo" fitHeight="150.0" fitWidth="176.0" layoutX="34.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="90.0">
-                                             <image>
-                                                <Image url="@../images/Monster3.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </HBox>
-                                    <HBox layoutX="30.0" layoutY="90.0">
-                                       <children>
-                                          <ImageView fx:id="ivMonsterInTokyoPlayerThree" fitHeight="150.0" fitWidth="176.0" layoutX="24.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="90.0">
+                                          <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="19.0" layoutY="404.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Monster2.png" />
                                              </image>
                                           </ImageView>
+                                          <VBox layoutX="26.0" layoutY="521.0" opacity="0.75" spacing="20.0" styleClass="boarderbox" stylesheets="@meincss.css">
+                                             <children>
+                                                <Label fx:id="lbNicknamePlayer3" layoutX="37.0" layoutY="290.0" text="Label" />
+                                                <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
+                                                   <children>
+                                                      <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
+                                                         <children>
+                                                            <Label layoutX="37.0" layoutY="341.0" text="%board.lb.lifePoints" />
+                                                            <Label layoutX="37.0" layoutY="362.0" text="%board.lb.honorPoints" />
+                                                            <Label layoutX="37.0" layoutY="383.0" text="%board.lb.energyPoints" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
+                                                         <children>
+                                                            <Label fx:id="lbLifePointsPlayer3" layoutX="92.0" layoutY="341.0" prefWidth="40.0" />
+                                                            <Label fx:id="lbFamePointsPlayer3" layoutX="92.0" layoutY="362.0" prefWidth="40.0" />
+                                                            <Label fx:id="lbEnergyPointsPlayer3" layoutX="92.0" layoutY="383.0" prefWidth="40.0" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
+                                                         <children>
+                                                            <Label fx:id="lbLifePointsChangePlayer3" layoutX="146.0" layoutY="341.0" prefWidth="30.0" />
+                                                            <Label fx:id="lbFamePointsChangePlayer3" layoutX="146.0" layoutY="362.0" prefWidth="30.0" />
+                                                            <Label fx:id="lbEnergyPointsChangePlayer3" layoutX="146.0" layoutY="383.0" prefWidth="30.0" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
                                        </children>
-                                    </HBox>
-                                    <HBox layoutX="30.0" layoutY="90.0">
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="762.0" layoutY="140.0" spacing="20.0">
+                                 <children>
+                                    <VBox layoutX="762.0" layoutY="140.0" spacing="10.0">
                                        <children>
-                                          <ImageView fx:id="ivMonsterInTokyoPlayerFour" fitHeight="150.0" fitWidth="176.0" layoutX="44.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="90.0">
+                                          <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="604.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/Monster3.png" />
+                                             </image>
+                                          </ImageView>
+                                          <VBox layoutX="631.0" layoutY="271.0" opacity="0.75" spacing="20.0" styleClass="boarderbox" stylesheets="@meincss.css">
+                                             <children>
+                                                <Label fx:id="lbNicknamePlayer2" layoutX="37.0" layoutY="290.0" text="Label" />
+                                                <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
+                                                   <children>
+                                                      <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
+                                                         <children>
+                                                            <Label layoutX="37.0" layoutY="341.0" text="%board.lb.lifePoints" />
+                                                            <Label layoutX="37.0" layoutY="362.0" text="%board.lb.honorPoints" />
+                                                            <Label layoutX="37.0" layoutY="383.0" text="%board.lb.energyPoints" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
+                                                         <children>
+                                                            <Label fx:id="lbLifePointsPlayer2" layoutX="92.0" layoutY="341.0" prefWidth="40.0" />
+                                                            <Label fx:id="lbFamePointsPlayer2" layoutX="92.0" layoutY="362.0" prefWidth="40.0" />
+                                                            <Label fx:id="lbEnergyPointsPlayer2" layoutX="92.0" layoutY="383.0" prefWidth="40.0" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
+                                                         <children>
+                                                            <Label fx:id="lbLifePointsChangePlayer2" layoutX="146.0" layoutY="341.0" prefWidth="30.0" />
+                                                            <Label fx:id="lbFamePointsChangePlayer2" layoutX="146.0" layoutY="362.0" prefWidth="30.0" />
+                                                            <Label fx:id="lbEnergyPointsChangePlayer2" layoutX="146.0" layoutY="383.0" prefWidth="30.0" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox fx:id="vbPlayer4" layoutX="762.0" layoutY="428.0" spacing="10.0">
+                                       <children>
+                                          <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="595.0" layoutY="358.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Monster4.png" />
                                              </image>
                                           </ImageView>
+                                          <VBox layoutX="631.0" layoutY="451.0" opacity="0.75" spacing="20.0" styleClass="boarderbox" stylesheets="@meincss.css">
+                                             <children>
+                                                <Label fx:id="lbNicknamePlayer4" layoutX="37.0" layoutY="290.0" text="Label" />
+                                                <HBox layoutX="37.0" layoutY="341.0" spacing="15.0">
+                                                   <children>
+                                                      <VBox layoutX="37.0" layoutY="341.0" spacing="5.0">
+                                                         <children>
+                                                            <Label layoutX="37.0" layoutY="341.0" text="%board.lb.lifePoints" />
+                                                            <Label layoutX="37.0" layoutY="362.0" text="%board.lb.honorPoints" />
+                                                            <Label layoutX="37.0" layoutY="383.0" text="%board.lb.energyPoints" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox layoutX="92.0" layoutY="341.0" spacing="5.0">
+                                                         <children>
+                                                            <Label fx:id="lbLifePointsPlayer4" layoutX="92.0" layoutY="341.0" prefWidth="40.0" />
+                                                            <Label fx:id="lbFamePointsPlayer4" layoutX="92.0" layoutY="362.0" prefWidth="40.0" />
+                                                            <Label fx:id="lbEnergyPointsPlayer4" layoutX="92.0" layoutY="383.0" prefWidth="40.0" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox layoutX="146.0" layoutY="341.0" spacing="5.0">
+                                                         <children>
+                                                            <Label fx:id="lbLifePointsChangePlayer4" layoutX="146.0" layoutY="341.0" prefWidth="30.0" />
+                                                            <Label fx:id="lbFamePointsChangePlayer4" layoutX="146.0" layoutY="362.0" prefWidth="30.0" />
+                                                            <Label fx:id="lbEnergyPointsChangePlayer4" layoutX="146.0" layoutY="383.0" prefWidth="30.0" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
                                        </children>
-                                    </HBox>
+                                    </VBox>
                                  </children>
-                              </AnchorPane>
+                              </VBox>
                            </children>
-                        </StackPane>
+                        </HBox>
+                        <VBox layoutX="348.0" layoutY="617.0" prefHeight="164.0" prefWidth="308.0" AnchorPane.leftAnchor="390.0" AnchorPane.topAnchor="680.0">
+                           <children>
+                              <TextArea fx:id="taChat" prefHeight="133.0" prefWidth="335.0" />
+                              <HBox layoutX="317.0" layoutY="719.0">
+                                 <children>
+                                    <TextField fx:id="tfChat" layoutX="317.0" layoutY="719.0" prefHeight="31.0" prefWidth="242.0" />
+                                    <Button layoutX="504.0" layoutY="719.0" mnemonicParsing="false" onAction="#handleSend" prefHeight="35.0" prefWidth="112.0" stylesheets="@meincss.css" text="%board.btn.send" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="794.0" layoutY="30.0" prefHeight="209.0" prefWidth="144.0" AnchorPane.leftAnchor="794.0">
+                           <children>
+                              <VBox layoutX="746.0" prefHeight="190.0" prefWidth="116.0" spacing="10.0">
+                                 <children>
+                                    <StackPane layoutX="698.0" layoutY="-9.0" prefHeight="180.0" prefWidth="116.0" styleClass="stack" stylesheets="@meincss.css">
+                                       <children>
+                                          <Button fx:id="btnCardDeck" mnemonicParsing="false" onAction="#handleCardDeck" prefHeight="161.0" prefWidth="108.0">
+                                             <graphic>
+                                                <ImageView fitHeight="168.0" fitWidth="117.0" pickOnBounds="true">
+                                                   <image>
+                                                      <Image url="@../images/KingOfTokyo.jpg" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                              </VBox>
+                              <HBox alignment="CENTER" layoutX="697.0" layoutY="146.0" opacity="0.75" styleClass="boarderbox" stylesheets="@meincss.css">
+                                 <children>
+                                    <Label alignment="CENTER" layoutX="752.0" layoutY="119.0" opacity="0.75" text="%board.lb.stack" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <HBox layoutX="900.0" layoutY="119.0" />
+                        <VBox layoutX="847.0" layoutY="16.0" AnchorPane.leftAnchor="950.0">
+                           <children>
+                              <HBox layoutX="847.0" layoutY="16.0" spacing="10.0">
+                                 <children>
+                                    <ImageView fx:id="ivCard1" fitHeight="200.0" fitWidth="160.0" layoutX="847.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fx:id="ivCard2" fitHeight="200.0" fitWidth="160.0" layoutX="908.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" layoutX="882.0" layoutY="147.0" opacity="0.75" styleClass="boarderbox" stylesheets="@meincss.css">
+                                 <children>
+                                    <Label contentDisplay="CENTER" layoutX="882.0" layoutY="147.0" text="%board.lb.yourCards" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <HBox styleClass="hbox" stylesheets="@meincss.css" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="150.0">
+                           <children>
+                              <StackPane>
+                                 <children>
+                                    <ImageView fitHeight="472.0" fitWidth="507.0" layoutX="253.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/Spielplan.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <AnchorPane>
+                                       <children>
+                                          <HBox fx:id="hbTokyoMe" layoutX="50.0" layoutY="90.0">
+                                             <children>
+                                                <ImageView fx:id="ivMonsterInTokyo" fitHeight="150.0" fitWidth="176.0" layoutX="14.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="90.0" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </StackPane>
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
+                  </AnchorPane>
                </children>
-            </AnchorPane>
+            </StackPane>
          </children>
-      </StackPane>
+      </AnchorPane>
    </center>
 </BorderPane>

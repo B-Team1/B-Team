@@ -181,9 +181,20 @@ public class ServerInputHandler {
 				GameModel gameModel = GameModel.getInstance();
 				ArrayList<String> playerList = new ArrayList<String>(Arrays.asList(msgIn.getPlayers()));
 				gameModel.setPlayers(playerList);
-				
+				break;
+			case GameStats:
+				int[] playerpoints = msgIn.getMyPoints();
+				int[] otherpoints = msgIn.getOtherPoints();
+				boolean[] tokyo = msgIn.getTokyo();
+				gameModel = GameModel.getInstance();
+				gameModel.setLifePoints(otherpoints);
+				gameModel.setPlayerPoints(playerpoints);
+				gameModel.setActualTokyo(tokyo);
+				GameController.getInstance().updateLabels();
+				gameModel.checkLoser();
+				gameModel.checkWinner();
+				break;
 		default:
-		
 		}
 	}
 }
