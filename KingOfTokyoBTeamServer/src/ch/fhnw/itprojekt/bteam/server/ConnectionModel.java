@@ -80,6 +80,20 @@ public class ConnectionModel {
     		}
 		}
     }
+    
+    public void sendNewPlayerInGame(ArrayList<User> players, User user){
+    	for (User player : players) {
+    		Message msgOut = new Message(Message.MessageType.AddNewPlayerToGame);
+    		msgOut.setNickname(user.getNickname());
+    		try {
+    			msgOut.send(player.getSocket());    			
+    		} catch (Exception e) {
+    			System.err.println(e);
+    			
+    		}
+		}
+    }
+    
     /**
      * Test Methode
      */

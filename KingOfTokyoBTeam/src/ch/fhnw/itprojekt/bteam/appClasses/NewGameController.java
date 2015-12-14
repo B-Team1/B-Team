@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 
 public class NewGameController implements Initializable {
 
-	MenuModel model = new MenuModel();
+	MenuModel model;
 	
 	@FXML
 	ChoiceBox<String> cbNumPlayers;
@@ -36,13 +36,14 @@ public class NewGameController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
-	cbNumPlayers.setItems(FXCollections.observableArrayList((bundle.getString("newgame.2players")),
-			(bundle.getString("newgame.3players")), (bundle.getString("newgame.4players"))));
-	cbNumPlayers.setValue(bundle.getString("newgame.2players"));
-	cbWinFamePoints.setItems(FXCollections.observableArrayList((bundle.getString("newgame.15points")),
-			(bundle.getString("newgame.20points")), (bundle.getString("newgame.25points")), (bundle.getString("newgame.30points"))));
-	cbWinFamePoints.setValue((bundle.getString("newgame.20points")));
-	cbWinFamePoints.setDisable(true);
+		cbNumPlayers.setItems(FXCollections.observableArrayList((bundle.getString("newgame.2players")),
+				(bundle.getString("newgame.3players")), (bundle.getString("newgame.4players"))));
+		cbNumPlayers.setValue(bundle.getString("newgame.2players"));
+		cbWinFamePoints.setItems(FXCollections.observableArrayList((bundle.getString("newgame.15points")),
+				(bundle.getString("newgame.20points")), (bundle.getString("newgame.25points")), (bundle.getString("newgame.30points"))));
+		cbWinFamePoints.setValue((bundle.getString("newgame.20points")));
+		cbWinFamePoints.setDisable(true);
+		this.model = MenuModel.getInstance();
 	}
 	
 	/**

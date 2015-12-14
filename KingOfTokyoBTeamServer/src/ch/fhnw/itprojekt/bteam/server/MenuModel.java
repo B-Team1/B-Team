@@ -1,12 +1,22 @@
 package ch.fhnw.itprojekt.bteam.server;
 
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
 
+
 public class MenuModel {
 	private ArrayList<GameModel> openGameList= new ArrayList<GameModel>();
+	private static MenuModel singleton;
+	
+	public static MenuModel getInstance() {
+	     if(singleton == null) {	        
+	         singleton = new MenuModel();
+	      }	     
+	      return singleton;
+	}	
 	
 	/**
 	 * Erstellt ein neues Spiel und fügt es der openGameList hinzu
@@ -16,18 +26,14 @@ public class MenuModel {
 	 * @return gameId des neu erstellten Spiels
 	 * @author Tobias
 	 */
-	public int newGame(int numPlayer, boolean famePointsWin, int winFamePoints, String nickName){
-		GameModel game = new GameModel(numPlayer, winFamePoints, famePointsWin, nickName);
+	public int newGame(int numPlayer, boolean famePointsWin, int winFamePoints, String nickName, Socket socket){
+		GameModel game = new GameModel(numPlayer, winFamePoints, famePointsWin, new User(nickName, socket));
 		openGameList.add(game);
 		return game.getGameId();
 	}
 	
-	public void test(){
-		GameModel t = new GameModel(3, 20, true, "Penis");
-		t.addPlayer("Tobias");
-		openGameList.add(t);
-		openGameList.add(new GameModel(3, 20, true, "Penis1"));
-		openGameList.add(new GameModel(3, 20, true, "Penis2"));
+	public void test(Socket socket){
+		//newGame(2, true, 11, "Tobias", socket);
 	}
 	
 	/**
@@ -71,10 +77,21 @@ public class MenuModel {
 		for(int i = 0; i < openGameList.size() ; i++){
 			if(openGameList.get(i).getGameId() == gameId){
 				String[] s = new String[openGameList.get(i).getPlayers().size()];
- 				return openGameList.get(i).getPlayers().toArray(s);
+				for(int c = 0; c < openGameList.get(i).getPlayers().size() ; c++){
+					s[c] = openGameList.get(i).getNickName();
+				}
+				return s;
 			}
 		}
 		return null;
+	}
+	
+	public void addPlayerToGame(int gameId, String nickName, Socket socket){
+		for(int i = 0; i < openGameList.size() ; i++){
+			if(openGameList.get(i).getGameId() == gameId){
+				openGameList.get(i).addPlayer(new User(nickName, socket));
+			}
+		}
 	}
 	
 

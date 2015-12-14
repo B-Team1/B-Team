@@ -8,8 +8,6 @@ public class ConnectionModel {
 	Socket socket;
 	ServiceLocator serviceLocator;
 	private static ConnectionModel singleton;
-	Message msgIn = null;
-	
 	
 	/**
 	 * Konstruktor darf nicht von aussen aufgerufen werden!
@@ -17,8 +15,6 @@ public class ConnectionModel {
 	 */
 	protected ConnectionModel(){
 		serviceLocator = ServiceLocator.getServiceLocator();
-		msgIn = new Message(Message.MessageType.Error);
-		
 	}
 	
 	/**
@@ -35,14 +31,6 @@ public class ConnectionModel {
 	      return singleton;
 	}	
 
-	//Getter und Setter für den Thread
-	public Message getMsgIn() {
-		return msgIn;
-	}
-
-	public void setMsgIn(Message mi) {
-		this.msgIn = mi;
-	}
 	
 	
 	/**
@@ -165,18 +153,14 @@ public class ConnectionModel {
 	 * @param nickname
 	 * @return Statistik Objekt mit Nickname, gewonnene Spiele und gespielte Spiele
 	 */
-	public Stats getStat(String nickname){
+	public void getStat(String nickname){
 		Message msgOut = new Message(Message.MessageType.getStat);
 		msgOut.setNickname(nickname);
-		Stats respons = null;
 		try {
 			msgOut.send(socket);
-			Thread.sleep(1000);
-			respons = new Stats(nickname, msgIn.getPlayedGames(), msgIn.getWonGames(), 0);
 			} catch (Exception e) {
 				serviceLocator.getLogger().warning(e.toString());
 		}
-		return respons;
 	}
 	
 	/**
@@ -243,6 +227,17 @@ public class ConnectionModel {
 	public void getPlayers(int gameId){
 		Message msgOut = new Message(Message.MessageType.Players);
 		msgOut.setGameId(gameId);
+		try {
+			msgOut.send(socket);
+		} catch (Exception e) {
+			serviceLocator.getLogger().warning(e.toString());
+		}
+	}
+	
+	public void sendAccession(int gameId, String nickname){
+		Message msgOut = new Message(Message.MessageType.AddPlayerToGame);
+		msgOut.setGameId(gameId);
+		msgOut.setNickname(nickname);
 		try {
 			msgOut.send(socket);
 		} catch (Exception e) {

@@ -13,11 +13,12 @@ public class ServerThreadForClient extends Thread {
     private Socket clientSocket;
     DBModel dbconnect = new DBModel();
     ConnectionModel connectionModel;
-    MenuModel menuModel = new MenuModel();
+    MenuModel menuModel;
 
     public ServerThreadForClient(Socket clientSocket) {
         this.clientSocket = clientSocket;
         connectionModel = ConnectionModel.getInstance();
+        menuModel = MenuModel.getInstance();
     }
 
     /**
@@ -55,8 +56,8 @@ public class ServerThreadForClient extends Thread {
 				break;
 			case OpenGameRequest:
 				//Tobias
+				menuModel.test(clientSocket);
 				msgOut = new Message(Message.MessageType.OpenGameRequest);
-				menuModel.test();
 				msgOut.setGameIdList(menuModel.getGameIdList());
 				msgOut.setUserList(menuModel.getGameList());
 				break;
@@ -103,7 +104,8 @@ public class ServerThreadForClient extends Thread {
 			case openNewGame:
 				//Tobias
 				msgOut = new Message(Message.MessageType.openNewGame);				
-				msgOut.setGameId(menuModel.newGame(msgIn.getNumPlayer(), msgIn.getFamePointsWin(), msgIn.getWinFamePoints(), msgIn.getNickname()));
+				msgOut.setGameId(menuModel.newGame(msgIn.getNumPlayer(), msgIn.getFamePointsWin(), msgIn.getWinFamePoints(), msgIn.getNickname(), clientSocket));
+				msgOut.setNickname(msgIn.getNickname());
 				break;
 			case deleteGame:
 				//Tobias
@@ -114,12 +116,18 @@ public class ServerThreadForClient extends Thread {
 				break;
 			case Chat:
 				//Luzian
+				msgOut = new Message(Message.MessageType.Chat);
 				connectionModel.sendChat(msgIn.getNickname()+" : "+msgIn.getChat());
 				break;
 			case Players:
 				//Luzian
 				msgOut = new Message(Message.MessageType.Players);
 				msgOut.setPlayers(menuModel.getGame(msgIn.getGameId()));				
+				break;
+			case AddPlayerToGame:
+				msgOut = new Message(Message.MessageType.AddPlayerToGame);
+				msgOut.setPlayers(menuModel.getGame(msgIn.getGameId()));
+				menuModel.addPlayerToGame(msgIn.getGameId(), msgIn.getNickname(), clientSocket);
 				break;
 		default:
 			msgOut = new Message(Message.MessageType.Error);

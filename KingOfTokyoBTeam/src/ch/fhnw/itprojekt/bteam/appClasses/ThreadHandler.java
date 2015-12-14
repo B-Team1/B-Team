@@ -25,12 +25,14 @@ public class ThreadHandler extends Thread{
 			while(true){
 				synchronized (socket) {
 					Message msgIn = Message.receive(socket);
-					
-					inputHandler.manageInput(msgIn);	
+					try{
+						inputHandler.manageInput(msgIn);
+					}catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 	    	}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
             try {

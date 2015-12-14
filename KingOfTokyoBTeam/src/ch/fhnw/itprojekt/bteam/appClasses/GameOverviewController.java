@@ -7,6 +7,9 @@ import java.util.ResourceBundle;
 
 import ch.fhnw.itprojekt.bteam.template.Properties;
 import ch.fhnw.itprojekt.bteam.template.ServiceLocator;
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -59,10 +62,8 @@ public class GameOverviewController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		model = MenuModel.getInstance();
 		lbNickname.setText(model.getNickname());
-		Stats stats = model.getStats();
-		lbPlayGames.setText(stats.getSumGames() + "");
-		lbWonGames.setText(stats.getWonGames() + "");		
 		GameOverviewController.singleton = this;
+		model.getStats();
 	}
 	
 	public static GameOverviewController getInstance() {
@@ -70,6 +71,11 @@ public class GameOverviewController implements Initializable {
 	         singleton = new GameOverviewController();
 	      }	     
 	      return singleton;
+	}
+	
+	public void setStats(Stats stats){
+		lbPlayGames.setText(stats.getSumGames() + "");
+		lbWonGames.setText(stats.getWonGames() + "");
 	}
 	
 	public void fillTable(ArrayList<GameModel> openGameList){
@@ -83,13 +89,25 @@ public class GameOverviewController implements Initializable {
 		tcOpenGames.setCellValueFactory(new PropertyValueFactory<GameModel, String>("nickname"));
 		tcOpenPlaces.setCellValueFactory(new PropertyValueFactory<GameModel, Integer>("freePlayers"));
 		tvOpenGames.setItems(data);
+		/*new Thread(){
+	        public void run(){
+	            Platform.runLater(() -> {
+	            	if(openGameList.size() == 0){
+	        			btnStartGame.setDisable(false);
+	        		}else{
+	        			tvOpenGames.getSelectionModel().selectFirst();
+	        			btnStartGame.setDisable(true);
+	        		}
+	            });
+	        }
+	    }.start();*/
 	}
 	
 	
 	
 	@FXML
 	public void handleStartGame(ActionEvent event) {
-		
+		model.startSelectedGame(tvOpenGames.getSelectionModel().getSelectedItem());
 	}
 	
 	/**

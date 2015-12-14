@@ -47,44 +47,72 @@ public class ServerInputHandler {
 					JOptionPane.showMessageDialog(null,FXCollections.observableArrayList(bundle.getString("login.wrongInput")), "Login", JOptionPane.WARNING_MESSAGE);
 				}
 				break;
+			case getStat:
+				//Tobias
+				Stats t = new Stats(msgIn.getNickname(), msgIn.getPlayedGames(), msgIn.getWonGames(), 0);
+				Platform.runLater(new Runnable() {
+	                @Override
+	                public void run() {
+	                    GameOverviewController.getInstance().setStats(new Stats(msgIn.getNickname(), msgIn.getPlayedGames(), msgIn.getWonGames(), 0));
+	                }
+	            });		
+				break;
+			case AddNewPlayerToGame:
+				//Tobias
+				Platform.runLater(new Runnable() {
+	                @Override
+	                public void run() {
+	                	CreateGameController.getInstance().addPlayers(msgIn.getNickname());
+	                }
+	            });
+				break;
+			case AddPlayerToGame:
+				//Tobias
+				Platform.runLater(new Runnable() {
+	                @Override
+	                public void run() {
+	                	for (String s : msgIn.getPlayers()) {
+	                		CreateGameController.getInstance().addPlayers(s);
+						}
+	                }
+	            });
+				break;
 			case OpenGameRequest:
 				synchronized (msgIn) {
 					//Tobias
-					ArrayList<String> nicknames = new ArrayList<String>(Arrays.asList(msgIn.getUserList()));
-					int[] gameIdList = msgIn.getGameIdList();
-					ArrayList<GameModel> gameModelList = new ArrayList<GameModel>();
-					for(int i = 0; i < gameIdList.length; i ++){
-						ArrayList<String> userList = new ArrayList<String>();
-						for(int c = 0; c < nicknames.size(); c ++){
-							
-							if(nicknames.get(c).equals(gameIdList[i]+"") ){
-								userList = new ArrayList<String>();
+					if(msgIn.getUserList() != null){
+						ArrayList<String> nicknames = new ArrayList<String>(Arrays.asList(msgIn.getUserList()));
+						int[] gameIdList = msgIn.getGameIdList();
+						ArrayList<GameModel> gameModelList = new ArrayList<GameModel>();
+						for(int i = 0; i < gameIdList.length; i ++){
+							ArrayList<String> userList = new ArrayList<String>();
+							for(int c = 0; c < nicknames.size(); c ++){
+								
+								if(nicknames.get(c).equals(gameIdList[i]+"") ){
+									userList = new ArrayList<String>();
+								}
+								if(nicknames.get(c).equals("<EndArray>")){
+									nicknames.subList(0, c+1).clear();
+									break;
+								}
+								userList.add(nicknames.get(c));
+								
 							}
-							if(nicknames.get(c).equals("<EndArray>")){
-								break;
-							}
-							
-							userList.add(nicknames.get(c));
-							
-							
+							try{
+								userList.remove(0);
+								gameModelList.add(new GameModel(gameIdList[i], userList));
+							}catch(Exception e){}
 						}
-						try{
-							nicknames.removeAll(userList);
-							nicknames.remove(0);
-							userList.remove(0);
-							gameModelList.add(new GameModel(gameIdList[i], userList));
-						}catch(Exception e){}
+						MenuModel.getInstance().setGameModelList(gameModelList);
+						
+						Platform.runLater(new Runnable() {
+			                @Override
+			                public void run() {
+			                	GameOverviewController.getInstance().fillTable(gameModelList);
+			                }
+			            });
 					}
-					MenuModel.getInstance().setGameModelList(gameModelList);
-					
-					Platform.runLater(new Runnable() {
-		                @Override
-		                public void run() {
-		                	GameOverviewController.getInstance().fillTable(gameModelList);
-		                }
-		            });
 				}
-				
 				break;
 			case openNewGame:
 				//Tobias
@@ -98,6 +126,7 @@ public class ServerInputHandler {
 		                @Override
 		                public void run() {
 		                	gameModel.startCreateGame(new Stage());
+		                	CreateGameController.getInstance().addPlayers(msgIn.getNickname());
 		                }
 		            });
 				}else{					

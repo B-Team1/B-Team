@@ -98,8 +98,8 @@ public class MenuModel extends Application {
 	 * @author Tobias
 	 * @return
 	 */
-	public Stats getStats(){
-		return connectionModel.getStat(currentNickname);
+	public void getStats(){
+		connectionModel.getStat(currentNickname);
 	}
 	
 	public String getNickname(){
@@ -158,6 +158,11 @@ public class MenuModel extends Application {
 
 	public void setGameModelList(ArrayList<GameModel> gameModelList) {
 		this.gameModelList = gameModelList;
+	}
+	
+	public void startSelectedGame(GameModel game){
+		connectionModel.sendAccession(game.getGameId(), currentNickname);
+		game.startCreateGame(new Stage());
 	}
 	
 

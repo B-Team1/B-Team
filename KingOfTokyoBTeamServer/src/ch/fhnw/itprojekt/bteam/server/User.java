@@ -1,5 +1,7 @@
 package ch.fhnw.itprojekt.bteam.server;
 
+import java.net.Socket;
+
 
 /**
  * Die Klasse User speichert alle Benutzerinformationen,
@@ -14,6 +16,7 @@ public class User {
 	private String password;
 	private String securityAnswer;
 	private String securityQuestion;
+	private Socket socket;
 	
 	public User(String nickname, String vName, String nName, String password, String securityAnswer,
 			String securityQuestion) {
@@ -30,6 +33,14 @@ public class User {
 		this.password = password;
 	}
 	
+	
+	
+	public User(String nickname, Socket socket) {
+		super();
+		this.nickname = nickname;
+		this.socket = socket;
+	}
+
 	public User(String nickname, String nName, String vName){
 		this.nickname = nickname;
 		this.nName = nName;
@@ -83,4 +94,14 @@ public class User {
 	public void setSecurityQuestion(String securityQuestion) {
 		this.securityQuestion = securityQuestion;
 	}
+
+	public Socket getSocket() {
+		return socket;
+	}
+
+	public void setSocket(Socket socket) {
+		this.socket = socket;
+	}
+	
+	
 }

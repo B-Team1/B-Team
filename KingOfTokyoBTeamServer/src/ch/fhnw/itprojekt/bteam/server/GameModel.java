@@ -9,21 +9,24 @@ public class GameModel {
 	private String nickName;
 	private int gameId = 0;
 	private static int gameIdCounter = 1;
-	private ArrayList<String> players = new ArrayList<String>();
+	private ArrayList<User> players = new ArrayList<User>();
+	private ConnectionModel connectionModel;
 
-	public GameModel(int numPlayer, int winFamePoints, boolean famePointsWin, String nickName) {
+	public GameModel(int numPlayer, int winFamePoints, boolean famePointsWin, User user) {
 		this.numPlayer = numPlayer;
 		this.winFamePoints = winFamePoints;
 		this.famePointsWin = famePointsWin;
-		this.nickName = nickName;
+		this.nickName = user.getNickname();
+		this.connectionModel = ConnectionModel.getInstance();
 		gameId = GameModel.gameIdCounter;
 		GameModel.gameIdCounter++;
-		players.add(nickName);
+		players.add(user);
 	}
 	
 
-	public void addPlayer(String player){
+	public void addPlayer(User player){
 		players.add(player);
+		connectionModel.sendNewPlayerInGame(players, player);
 	}
 
 	public int getNumPlayer() {
@@ -63,13 +66,12 @@ public class GameModel {
 	}
 
 
-	public ArrayList<String> getPlayers() {
-		players.add("Luzian");
+	public ArrayList<User> getPlayers() {
 		return players;
 	}
 
 
-	public void setPlayers(ArrayList<String> players) {
+	public void setPlayers(ArrayList<User> players) {
 		this.players = players;
 	}
 	

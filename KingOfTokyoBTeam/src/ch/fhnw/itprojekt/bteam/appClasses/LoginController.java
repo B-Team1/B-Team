@@ -132,7 +132,7 @@ public class LoginController implements Initializable {
 		this.event = event;
 		if(!loginModel.sendLogin(new User(tfNickname.getText(), pfPassword.getText()))){
 			ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
-			JOptionPane.showMessageDialog(null,FXCollections.observableArrayList(bundle.getString("card.twocards")), "Login", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null,FXCollections.observableArrayList(bundle.getString("login.wrongInput")), "Login", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 	
