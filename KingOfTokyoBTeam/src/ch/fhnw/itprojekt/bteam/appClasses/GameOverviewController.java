@@ -27,11 +27,8 @@ import javafx.stage.Stage;
 
 public class GameOverviewController implements Initializable {
 
-
 	MenuModel model;
 	private static GameOverviewController singleton;
-	
-	
 	
 	@FXML Button btnStartGame;
 	@FXML Button btnNewGame;

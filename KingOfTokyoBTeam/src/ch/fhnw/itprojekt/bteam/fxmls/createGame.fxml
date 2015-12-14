@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+ * @author Marco
+-->
+
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -7,52 +11,60 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="200.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.fhnw.itprojekt.bteam.appClasses.CreateGameController">
+<BorderPane maxHeight="280.0" maxWidth="620.0" styleClass="root" stylesheets="@meincss.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.fhnw.itprojekt.bteam.appClasses.CreateGameController">
    <center>
-      <StackPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane>
          <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <StackPane layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                <children>
-                  <ImageView fitHeight="252.0" fitWidth="600.0" pickOnBounds="true" smooth="false">
-                     <image>
-                        <Image url="@../images/NewGame.jpg" />
-                     </image>
-                  </ImageView>
+                  <AnchorPane layoutX="10.0" layoutY="10.0">
+                     <children>
+                        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <ImageView fitHeight="280.0" fitWidth="620.0" pickOnBounds="true" smooth="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <image>
+                                    <Image url="@../images/NewGame.jpg" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="10.0" layoutY="10.0">
+                     <children>
+                        <VBox layoutX="72.0" layoutY="73.0" opacity="0.8" prefWidth="160.0" styleClass="hbox" stylesheets="@meincss.css" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="90.0">
+                           <children>
+                              <Label text="%create.lb.players">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lbPlayer1" layoutY="78.0" text="Label" />
+                              <Label fx:id="lbPlayer2" layoutY="26.0" text="Label" />
+                              <Label fx:id="lbPlayer3" layoutY="52.0" text="Label" />
+                              <Label fx:id="lbPlayer4" text="Label" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="344.0" layoutY="94.0" spacing="20.0" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="110.0">
+                           <children>
+                              <Button fx:id="btnToGame" layoutX="112.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleToGame" prefHeight="35.0" prefWidth="130.0" stylesheets="@meincss.css" text="%create.btn.toGame" />
+                              <Button fx:id="btnAbortGame" layoutX="112.0" layoutY="105.0" mnemonicParsing="false" onAction="#handleAbortGame" prefHeight="35.0" prefWidth="130.0" stylesheets="@meincss.css" text="%create.btn.abortGame" />
+                           </children>
+                        </VBox>
+                        <HBox layoutX="146.0" layoutY="21.0" opacity="0.7" styleClass="hbox" stylesheets="@meincss.css" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="25.0">
+                           <children>
+                              <Label text="%create.lb.pleaseWait">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
                </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <VBox layoutX="72.0" layoutY="73.0" opacity="0.8" prefWidth="160.0" styleClass="hbox" stylesheets="@meincss.css" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="90.0">
-                     <children>
-                        <Label text="%create.lb.players">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="lbPlayer1" layoutY="78.0" text="Label" />
-                        <Label fx:id="lbPlayer2" layoutY="26.0" text="Label" />
-                        <Label fx:id="lbPlayer3" layoutY="52.0" text="Label" />
-                        <Label fx:id="lbPlayer4" text="Label" />
-                     </children>
-                  </VBox>
-                  <VBox layoutX="344.0" layoutY="94.0" spacing="20.0" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="110.0">
-                     <children>
-                        <Button fx:id="btnToGame" layoutX="112.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleToGame" prefHeight="35.0" prefWidth="130.0" stylesheets="@meincss.css" text="%create.btn.toGame" />
-                        <Button fx:id="btnAbortGame" layoutX="112.0" layoutY="105.0" mnemonicParsing="false" onAction="#handleAbortGame" prefHeight="35.0" prefWidth="130.0" stylesheets="@meincss.css" text="%create.btn.abortGame" />
-                     </children>
-                  </VBox>
-                  <HBox layoutX="146.0" layoutY="21.0" opacity="0.7" styleClass="hbox" stylesheets="@meincss.css" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="25.0">
-                     <children>
-                        <Label text="%create.lb.pleaseWait">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-               </children>
-            </AnchorPane>
+            </StackPane>
          </children>
-      </StackPane>
+      </AnchorPane>
    </center>
 </BorderPane>

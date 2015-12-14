@@ -234,10 +234,23 @@ public class ConnectionModel {
 		}
 	}
 	
+
 	public void sendAccession(int gameId, String nickname){
 		Message msgOut = new Message(Message.MessageType.AddPlayerToGame);
 		msgOut.setGameId(gameId);
 		msgOut.setNickname(nickname);
+		try {
+			msgOut.send(socket);
+		} catch (Exception e) {
+			serviceLocator.getLogger().warning(e.toString());
+		}
+	}
+
+	public void sendGameStats(int[] PlayerMe, int[] others, boolean[] tokyo) {
+		Message msgOut = new Message(Message.MessageType.GameStats);
+		msgOut.setMyPoints(PlayerMe);
+		msgOut.setOtherPoints(others);
+		msgOut.setTokyo(tokyo);
 		try {
 			msgOut.send(socket);
 		} catch (Exception e) {

@@ -1,6 +1,6 @@
 .root {
-display: block;
- -fx-background-color: white;
+-fx-background-color: darkgrey;
+
 }
 
 .testbutton {
@@ -20,6 +20,17 @@ display: block;
     -fx-font-family: "Arial";
     -fx-text-fill: linear-gradient(white, #d0d0d0);
     -fx-font-size: 12px;
+}
+
+
+.button:hover {
+
+    -fx-background-color: #3a3a3a;
+
+}
+
+.button:pressed {
+	-fx-text-fill: white;
 
 }
 
@@ -54,6 +65,48 @@ display: block;
 	-fx-background-color: red;
 }
 
+.menu-bar {
+    -fx-background-color: derive(#1d1d1d,20%);
+}
+
+.menu .label {
+  
+-fx-font-size: 12px;
+  
+-fx-text-fill: black;
+  
+-fx-border-width: 3px;
+
+}
+
+.context-menu {
+    -fx-background-color: derive(#1d1d1d,50%);
+}
+
+.menu-bar .label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+.menu .left-container {
+    -fx-background-color: black;
+}
+
+
+.choicebox-base {
+
+	-fx-background-color: white, white, white, white;
+
+	-fx-background-radius: 5, 5, 4, 3;
+
+	-fx-background-insets: 0 0 -1 0, 0, 1, 2;
+
+}
+
+
+
 .check-box>.box>.mark {
   -fx-background-image: url("ch\fhnw\itprojekt\bteam\images\dice3.png");
   -fx-background-position: center;
@@ -64,4 +117,42 @@ display: block;
 .check-box:selected>.box>.mark{
   -fx-background-color: transparent;
   -fx-background-image: url("marked.png");
+}
+
+
+.table-view {
+    -fx-base: #1d1d1d;
+    -fx-control-inner-background: #1d1d1d;
+    -fx-background-color: #1d1d1d;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 12;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-border-color: 
+        transparent
+        transparent
+        derive(-fx-base, 80%) 
+        transparent;
+    -fx-border-insets: 0 10 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-alignment: center-left;
+    -fx-opacity: 1;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-focus-color;
 }
