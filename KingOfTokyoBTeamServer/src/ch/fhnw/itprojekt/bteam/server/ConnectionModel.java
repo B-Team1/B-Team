@@ -65,6 +65,7 @@ public class ConnectionModel {
     }
     
     /**
+     * Schickt die erhaltene Chat Nachricht vom Client an alle Clients
      * @author Luzian
      * @param text
      */

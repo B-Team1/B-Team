@@ -67,7 +67,12 @@ public class RegistrationController implements Initializable {
 			if(!model.checkRegistrationPassword(user, pfRePassword.getText())){
 				JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("registry.checkPassword")), "Registration", JOptionPane.WARNING_MESSAGE);
 			}else{
-				model.addNewUser(user);
+				if(tfNickname.getText().length() < 4){
+					JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("registry.checkNickName")), "Registration", JOptionPane.WARNING_MESSAGE);
+				}else{
+					model.addNewUser(user);
+				}
+				
 			}
 		}		
 	}
