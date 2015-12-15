@@ -247,12 +247,13 @@ public class ConnectionModel {
 		}
 	}
 
-	public void sendGameStats(String gamerName, int[] PlayerMe, int[] others, boolean[] tokyo) {
+	public void sendGameStats(String gamerName, int[] pointsMe, int[] lifepoints, boolean[] tokyo, int gameId) {
 		Message msgOut = new Message(Message.MessageType.GameStats);
-//		msgOut.setGamerName(gamerName);
-		msgOut.setMyPoints(PlayerMe);
-		msgOut.setOtherPoints(others);
+		msgOut.setGamerName(gamerName);
+		msgOut.setMyPoints(pointsMe);
+		msgOut.setLifepoints(lifepoints);
 		msgOut.setTokyo(tokyo);
+		msgOut.setGameId(gameId);
 		try {
 			msgOut.send(socket);
 		} catch (Exception e) {

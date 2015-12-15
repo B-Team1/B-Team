@@ -102,11 +102,19 @@ public class MenuModel {
 		}
 	}
 	
-	//test
+	
 	public void getSpiel(String chat, int gameId){
 		for(int i = 0; i < openGameList.size() ; i++){
 			if(openGameList.get(i).getGameId() == gameId){
 				openGameList.get(i).sendChat(chat, openGameList.get(i).getPlayers());
+			}
+		}
+	}
+	
+	public void sendGameStats(Message msg, int gameId){
+		for(int i = 0; i < openGameList.size() ; i++){
+			if(openGameList.get(i).getGameId() == gameId){
+				openGameList.get(i).sendGameStats(msg);
 			}
 		}
 	}

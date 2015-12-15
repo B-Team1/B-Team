@@ -131,6 +131,7 @@ public class ServerInputHandler {
 					new GameModel(gameId);
 					GameModel gameModel = GameModel.getInstance();
 					gameModel.setMyPosition(0);
+					gameModel.addPlayerToModel(msgIn.getNickname());
 					Platform.runLater(new Runnable() {
 		                @Override
 		                public void run() {
@@ -222,13 +223,14 @@ public class ServerInputHandler {
 				break;
 			case GameStats:
 				int[] playerpoints = msgIn.getMyPoints();
-				int[] otherpoints = msgIn.getOtherPoints();
+				int[] lifepoints = msgIn.getLifepoints();
 				boolean[] tokyo = msgIn.getTokyo();
+				String gamerName = msgIn.getGamerName();
 				gameModel = GameModel.getInstance();
-				gameModel.setLifePoints(otherpoints);
-				gameModel.setPlayerPoints(playerpoints);
+				gameModel.setLifepoints(lifepoints);
+				gameModel.setPlayerpoints(gamerName, playerpoints);
 				gameModel.setActualTokyo(tokyo);
-				gameModel.stayInTokyo(otherpoints);
+				gameModel.stayInTokyo(lifepoints);
 				GameController.getInstance().updateLabels();
 				gameModel.checkLoser();
 				gameModel.checkWinner();

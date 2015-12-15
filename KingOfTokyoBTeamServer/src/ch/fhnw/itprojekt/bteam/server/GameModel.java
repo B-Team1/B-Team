@@ -81,4 +81,8 @@ public class GameModel {
 	public void sendChat(String text, ArrayList<User> player){
 		connectionModel.sendChat(text, player);
 	}
+	
+	public void sendGameStats(Message msg){
+		connectionModel.sendGameStats(msg, players);
+	}
 }
