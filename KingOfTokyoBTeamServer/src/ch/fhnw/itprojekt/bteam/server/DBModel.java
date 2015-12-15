@@ -1,4 +1,7 @@
 package ch.fhnw.itprojekt.bteam.server;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
 
 
@@ -11,25 +14,54 @@ public class DBModel {
 	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	   static final String DB_URL = "jdbc:mysql://localhost:3306/bteam";
 
-	   //  Database credentials
-	   static final String USER = "root";
-	   static final String PASS = "1234";
 	   
+/**
+ * liest aus der ServerConfig.txt den angegebenen UserNamen aus
+ * @author Luzian	   
+ * @return
+ * @throws IOException
+ */
+public String getSeverConfigUser() throws IOException{
+	FileReader fr = new FileReader("ServerConfig.txt");
+	BufferedReader br = new BufferedReader(fr);
+	String username = br.readLine();
+	String[] splitUsername = username.split("=",2);
+	br.close();
+	return splitUsername[1];
+}
+
+/**
+ * liest aus der SErverConfig.txt das angegebene Passwort aus
+ * @author Luzian
+ * @return
+ * @throws IOException
+ */
+public String getSeverConfigPass() throws IOException{
+	FileReader fr = new FileReader("ServerConfig.txt");
+	BufferedReader br = new BufferedReader(fr);
+	String username = br.readLine();
+	String password = br.readLine();
+	String[] splitPassword = password.split("=",2);
+	br.close();
+	return splitPassword[1];
+}
 	   
 /**
  * Stellt eine Datenbankverbindung her
  * @author Luzian	   
  * @return
  */
-public Connection DBConnect() { 
+public Connection DBConnect() throws IOException { 
 	   Connection conn = null;
+	   String pass = getSeverConfigPass();
+	   String user = getSeverConfigUser();
 	   try{
 	      //Registriert JDBC driver
 	      Class.forName("com.mysql.jdbc.Driver");
 
 	      //Öffnet eine connection
 	      System.out.println("Connecting to database...");
-	      conn = DriverManager.getConnection(DB_URL,USER,PASS);
+	      conn = DriverManager.getConnection(DB_URL,user,pass);
 	         
 	   }catch(SQLException se){
 	      //Handle errors for JDBC
