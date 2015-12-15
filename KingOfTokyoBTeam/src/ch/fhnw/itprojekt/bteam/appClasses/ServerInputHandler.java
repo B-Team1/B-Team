@@ -73,6 +73,8 @@ public class ServerInputHandler {
 	                public void run() {
 	                	for (String s : msgIn.getPlayers()) {
 	                		CreateGameController.getInstance().addPlayers(s);
+	                		GameModel.getInstance().
+	                		
 						}
 	                }
 	            });

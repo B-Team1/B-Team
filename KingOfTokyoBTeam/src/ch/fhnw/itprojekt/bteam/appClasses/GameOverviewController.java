@@ -61,6 +61,7 @@ public class GameOverviewController implements Initializable {
 		lbNickname.setText(model.getNickname());
 		GameOverviewController.singleton = this;
 		model.getStats();
+		btnStartGame.setDisable(true);
 	}
 	
 	public static GameOverviewController getInstance() {
@@ -86,18 +87,13 @@ public class GameOverviewController implements Initializable {
 		tcOpenGames.setCellValueFactory(new PropertyValueFactory<GameModel, String>("nickname"));
 		tcOpenPlaces.setCellValueFactory(new PropertyValueFactory<GameModel, Integer>("freePlayers"));
 		tvOpenGames.setItems(data);
-		/*new Thread(){
-	        public void run(){
-	            Platform.runLater(() -> {
-	            	if(openGameList.size() == 0){
-	        			btnStartGame.setDisable(false);
-	        		}else{
-	        			tvOpenGames.getSelectionModel().selectFirst();
-	        			btnStartGame.setDisable(true);
-	        		}
-	            });
-	        }
-	    }.start();*/
+	            
+    	if(openGameList.size() == 0){
+			btnStartGame.setDisable(true);
+		}else{
+			tvOpenGames.getSelectionModel().selectFirst();
+			btnStartGame.setDisable(false);
+		}
 	}
 	
 	
