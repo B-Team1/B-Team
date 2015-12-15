@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
  * @author Marco
 -->
+
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
@@ -48,26 +50,10 @@
                <children>
                   <AnchorPane prefHeight="464.0" prefWidth="489.0">
                      <children>
-<<<<<<< HEAD
-                        <Button fx:id="btnStartGame" layoutX="538.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleStartGame" prefHeight="35.0" prefWidth="120.0" styleClass="test" stylesheets="@meincss.css" text="%overview.btn.start" />
-                        <Button fx:id="btnNewGame" layoutX="538.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleNewGame" prefHeight="35.0" prefWidth="120.0" styleClass="test" stylesheets="@meincss.css" text="%overview.btn.new" />
-                        <Button fx:id="btnCloseGame" layoutX="538.0" layoutY="407.0" mnemonicParsing="false" onAction="#handleCloseGame" prefHeight="35.0" prefWidth="120.0" styleClass="test" stylesheets="@meincss.css" text="%overview.btn.close" />
-                     </children>
-                  </VBox>
-                  <VBox opacity="0.8" prefHeight="150.0" styleClass="hbox" stylesheets="@meincss.css" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="120.0">
-                     <children>
-                        <Label fx:id="lbOpenGames" text="%overview.lb.opengames" underline="true">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <VBox prefHeight="112.0" prefWidth="205.0">
-=======
                         <VBox layoutX="306.0" layoutY="263.0" spacing="20.0">
->>>>>>> refs/heads/merge
                            <children>
 
-                              <Button fx:id="btnStartGame" disable="true" layoutX="538.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleStartGame" prefHeight="35.0" prefWidth="120.0" styleClass="test" stylesheets="@meincss.css" text="%overview.btn.start" />
+                              <Button fx:id="btnStartGame" layoutX="538.0" layoutY="300.0" mnemonicParsing="false" onAction="#handleStartGame" prefHeight="35.0" prefWidth="120.0" styleClass="test" stylesheets="@meincss.css" text="%overview.btn.start" />
                               <Button fx:id="btnNewGame" layoutX="538.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleNewGame" prefHeight="35.0" prefWidth="120.0" styleClass="test" stylesheets="@meincss.css" text="%overview.btn.new" />
                               <Button fx:id="btnCloseGame" layoutX="538.0" layoutY="407.0" mnemonicParsing="false" onAction="#handleCloseGame" prefHeight="35.0" prefWidth="120.0" styleClass="test" stylesheets="@meincss.css" text="%overview.btn.close" />
                            </children>
