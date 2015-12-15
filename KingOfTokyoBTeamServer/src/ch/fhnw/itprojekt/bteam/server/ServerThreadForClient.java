@@ -132,6 +132,10 @@ public class ServerThreadForClient extends Thread {
 				msgOut.setPlayers(menuModel.getGame(msgIn.getGameId()));
 				menuModel.addPlayerToGame(msgIn.getGameId(), msgIn.getNickname(), clientSocket);
 				break;
+			case GameStats:
+				msgOut = msgIn;
+				
+				break;
 		default:
 			msgOut = new Message(Message.MessageType.Error);
 		}
