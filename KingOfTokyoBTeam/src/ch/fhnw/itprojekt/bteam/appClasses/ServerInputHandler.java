@@ -69,9 +69,12 @@ public class ServerInputHandler {
 				break;
 			case AddPlayerToGame:
 				//Tobias
+				int postion = 0;
 				for (String s : msgIn.getPlayers()) {
 					GameModel.getInstance().addPlayerToModel(s);
+					postion++;
 				}
+				GameModel.getInstance().setMyPosition(postion);
 				Platform.runLater(new Runnable() {
 	                @Override
 	                public void run() {
@@ -127,6 +130,7 @@ public class ServerInputHandler {
 				if(gameId > 0){
 					new GameModel(gameId);
 					GameModel gameModel = GameModel.getInstance();
+					gameModel.setMyPosition(0);
 					Platform.runLater(new Runnable() {
 		                @Override
 		                public void run() {
