@@ -33,7 +33,7 @@ public class ServerThreadForClient extends Thread {
 				// Read a message from the client
 				Message msgIn = Message.receive(clientSocket);							
 				Message msgOut = processMessage(msgIn);
-				if(msgIn.getType() != Message.MessageType.Chat){
+				if(msgIn.getType() != Message.MessageType.Chat || msgIn.getType() != Message.MessageType.GameStats){
 					msgOut.send(clientSocket);
 				}
 				if(msgIn.getType() == Message.MessageType.AddPlayerToGame){
@@ -136,7 +136,7 @@ public class ServerThreadForClient extends Thread {
 				break;
 			case GameStats:
 				msgOut = msgIn;
-				
+				menuModel.sendGameStats(msgOut, msgIn.getGameId());
 				break;
 		default:
 			msgOut = new Message(Message.MessageType.Error);

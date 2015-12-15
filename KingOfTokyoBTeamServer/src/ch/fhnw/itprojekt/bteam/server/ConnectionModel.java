@@ -95,18 +95,15 @@ public class ConnectionModel {
 		}
     }
     
-    /**
-     * Test Methode
-     */
-    public void sendBroadcast(){
-    	for (Socket s : socketList) {
-    		Message msgOut = new Message(Message.MessageType.Broadcast);
+    public void sendGameStats(Message msgOut, ArrayList<User> players){
+    	for (User player: players) {
     		try {
-    			msgOut.send(s);    			
+    			msgOut.send(player.getSocket());    			
     		} catch (Exception e) {
     			System.err.println(e);
     			
     		}
 		}
     }
+    
 }
