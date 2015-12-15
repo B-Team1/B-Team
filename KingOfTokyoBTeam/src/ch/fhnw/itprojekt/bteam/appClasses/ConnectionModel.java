@@ -246,8 +246,9 @@ public class ConnectionModel {
 		}
 	}
 
-	public void sendGameStats(int[] PlayerMe, int[] others, boolean[] tokyo) {
+	public void sendGameStats(String gamerName, int[] PlayerMe, int[] others, boolean[] tokyo) {
 		Message msgOut = new Message(Message.MessageType.GameStats);
+//		msgOut.setGamerName(gamerName);
 		msgOut.setMyPoints(PlayerMe);
 		msgOut.setOtherPoints(others);
 		msgOut.setTokyo(tokyo);

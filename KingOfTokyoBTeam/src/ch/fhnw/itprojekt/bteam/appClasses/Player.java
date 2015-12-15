@@ -2,20 +2,18 @@ package ch.fhnw.itprojekt.bteam.appClasses;
 
 public class Player {
 	
+	String nickName;
 	int honorPoints, lifePoints, energyPoints, futureLifePoints, futureHonorPoints, futureEnergyPoints,
 	actualDiceLifePoints, actualDiceEnergyPoints, actualDiceHonorPoints,
 	actualCardLifePoints, actualCardEnergyPoints, actualCardHonorPoints;
-	
-
-	
-
 	boolean inTokyo = false;
 	
 	/**
 	 * Konstruktor um einen neuen Spieler zu erzeugen
 	 * @author Marco
 	 */
-	public Player(int lifePoints, int energyPoints, int honorPoints, boolean inTokyo) {
+	public Player(String nickName, int lifePoints, int energyPoints, int honorPoints, boolean inTokyo) {
+		this.nickName = nickName;
 		this.lifePoints = lifePoints;
 		this.energyPoints = energyPoints;
 		this.honorPoints = honorPoints;
