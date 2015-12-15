@@ -36,7 +36,7 @@ public class GameModel extends Application {
 	public ArrayList<String> playerList = new ArrayList<String>();
 	private ArrayList<Dice> diceResult= new ArrayList<Dice>();
 	boolean famePointsWin;
-	public int count, myPosition;
+	public int count, myPosition = 0;
 	
 	Player playerMe = new Player(nickname, lifePoints = 10, energyPoints = 0, honorPoints = 0, inTokyo);
 	Player playerTwo = new Player(nickname, lifePoints = 10, energyPoints = 0, honorPoints = 0, inTokyo);
@@ -175,7 +175,7 @@ public class GameModel extends Application {
 	 * Methode berechnet die Auswirkungen bei einem Angriff mit einer Karte von Tokyo
 	 * @author Marco
 	 */
-	public void attackFromTokyo(int effect) {
+	public void cardAttack(int effect) {
 		for (int i = 0; i < players.size(); i++) {
 			if (i != myPosition) {
 				players.get(i).setActualCardLifePoints(players.get(i).getActualCardLifePoints() - effect);
@@ -189,7 +189,7 @@ public class GameModel extends Application {
 	 * Methode berechnet die Auswirkungen bei einem Angriff mit einer Karte auf Tokyo
 	 * @author Marco
 	 */
-	public void attackTokyo(Player player, int effect) {
+	public void attackTokyo(int effect) {
 		for (int i = 1; i < players.size(); i++) {
 			if (players.get(i).inTokyo) {
 				players.get(i).setActualCardLifePoints(players.get(i).getActualCardLifePoints() - effect);
@@ -396,7 +396,7 @@ public class GameModel extends Application {
 		if (famePointsWin = true) {
 			for (int i = 0; i < players.size(); i++) {
 				if (players.get(i).getHonorPoints() >= honorPointsWin) {
-					if (players.get(i).equals(playerMe)) {
+					if (players.get(i).equals(players.get(myPosition))) {
 						GameController.getInstance().winner();
 					} else {
 						GameController.getInstance().loser();
@@ -404,9 +404,18 @@ public class GameModel extends Application {
 				}
 			}
 		}else {
-			// Nachprüfen mit int i not myPosition!!!
-			if ((players.get(1).getLifePoints() <= 0) && ((players.size() < 3) || (players.get(2).getLifePoints() <= 0)) && ((players.size() < 4) || (players.get(3).getLifePoints() <= 0))) {
-					GameController.getInstance().winner();
+			boolean win = true;
+			for (int i = 0; (i < players.size()) && win; i++) {
+				if (i != myPosition) {
+					if (players.get(i).getLifePoints() <= 0) {
+						win = true;
+					} else {
+						win = false;
+					}
+				}
+			}
+			if (win) {
+				GameController.getInstance().winner();
 			}
 		}
 	}
