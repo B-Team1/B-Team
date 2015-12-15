@@ -123,14 +123,6 @@ public class GameController implements Initializable {
 		lbHonorPointsChanges.add(lbFamePointsChangePlayer2);
 		lbHonorPointsChanges.add(lbFamePointsChangePlayer3);
 		lbHonorPointsChanges.add(lbFamePointsChangePlayer4);
-		gameModel.players.add(gameModel.playerMe);
-		gameModel.players.add(gameModel.playerTwo);
-//		if (gameModel.playerList.size() > 2) {
-		gameModel.players.add(gameModel.playerThree);
-//		}
-//		if (gameModel.playerList.size() > 3) {
-			gameModel.players.add(gameModel.playerFour);
-//		}
 
 		if (gameModel.players.size() < 3) {
 			vbPlayer3.setVisible(false);
