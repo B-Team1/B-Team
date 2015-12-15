@@ -499,7 +499,7 @@ public class GameModel extends Application {
 	 * @author Marco
 	 */
 	public void sendGameStats() {
-		String nickName = "haha";
+		String nickName = players.get(myPosition).getNickName();
 		int[] pointsMe = new int[2];
 		int[] lifePoints = new int[players.size()];
 		boolean[] tokyo = new boolean[players.size()];
@@ -511,14 +511,14 @@ public class GameModel extends Application {
 		for (int i = 0; i < players.size(); i++) {
 			tokyo[i] = players.get(i).inTokyo;
 		}
- 		connectionModel.sendGameStats(nickName ,pointsMe, lifePoints, tokyo);
+ 		connectionModel.sendGameStats(nickName ,pointsMe, lifePoints, tokyo, this.gameId);
 	}
 	
 	/**
 	 * Speichert die Änderungen der Lebenspunkte aus dem InputHandler
 	 * @author Marco
 	 */
-	public void setLifePoints(int[] lifePoints) {
+	public void setLifepoints(int[] lifePoints) {
 		for (int i = 0; i < lifePoints.length; i++) {
 			players.get(i).setLifePoints(lifePoints[i]);
 		}
@@ -528,10 +528,13 @@ public class GameModel extends Application {
 	 * Speichert die Änderungen des aktuellen Spielers aus dem InputHandler
 	 * @author Marco
 	 */
-	public void setPlayerPoints(int[] playerPoints) {
-		players.get(1).setLifePoints(playerPoints[0]);
-		players.get(1).setEnergyPoints(playerPoints[1]);
-		players.get(1).setHonorPoints(playerPoints[2]);
+	public void setPlayerpoints(String gamerName, int[] playerPoints) {
+		for (int i = 0; i < players.size(); i++) {
+			if (players.get(i).getNickName().equals(gamerName)){
+				players.get(i).setEnergyPoints(playerPoints[0]);
+				players.get(i).setHonorPoints(playerPoints[1]);
+			}
+		}
 	}
 	
 	/**
