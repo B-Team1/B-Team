@@ -1,0 +1,2 @@
+DBUserName=root
+DBPassword=1234
