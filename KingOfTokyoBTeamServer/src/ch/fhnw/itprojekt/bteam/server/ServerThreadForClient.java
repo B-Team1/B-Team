@@ -36,6 +36,9 @@ public class ServerThreadForClient extends Thread {
 				if(msgIn.getType() != Message.MessageType.Chat){
 					msgOut.send(clientSocket);
 				}
+				if(msgIn.getType() == Message.MessageType.AddPlayerToGame){
+					menuModel.sendNewPlayer(msgIn.getGameId(), msgIn.getNickname(), clientSocket);
+				}
             }
         } catch (Exception e) {
             logger.severe(e.toString());

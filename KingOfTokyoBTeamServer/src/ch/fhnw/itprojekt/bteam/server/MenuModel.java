@@ -94,5 +94,13 @@ public class MenuModel {
 		}
 	}
 	
+	public void sendNewPlayer(int gameId, String nickName, Socket socket){
+		for(int i = 0; i < openGameList.size() ; i++){
+			if(openGameList.get(i).getGameId() == gameId){
+				openGameList.get(i).sendNewPlayer(new User(nickName, socket));
+			}
+		}
+	}
+	
 
 }

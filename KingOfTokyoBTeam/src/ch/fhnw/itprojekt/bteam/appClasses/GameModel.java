@@ -469,7 +469,7 @@ public class GameModel extends Application {
 		connectionModel.sendChat(text, getNickname());	
 	}
 
-	public void getPlayers(){
+	public void askPlayer(){
 		connectionModel.getPlayers(gameId);
 	}
 	
@@ -562,4 +562,15 @@ public class GameModel extends Application {
 	public void setGoToTokyo(boolean goToTokyo) {
 		this.goToTokyo = goToTokyo;
 	}
+
+	public ArrayList<Player> getPlayers() {
+		return players;
+	}
+
+	public void addPlayerToModel(String nickname){
+		players.add(new Player(nickname, lifePoints = 10, energyPoints = 0, honorPoints = 0, inTokyo));
+	}
+	
+	
+	
 }

@@ -59,6 +59,7 @@ public class ServerInputHandler {
 				break;
 			case AddNewPlayerToGame:
 				//Tobias
+				GameModel.getInstance().addPlayerToModel(msgIn.getNickname());
 				Platform.runLater(new Runnable() {
 	                @Override
 	                public void run() {
@@ -68,16 +69,18 @@ public class ServerInputHandler {
 				break;
 			case AddPlayerToGame:
 				//Tobias
+				for (String s : msgIn.getPlayers()) {
+					GameModel.getInstance().addPlayerToModel(s);
+				}
 				Platform.runLater(new Runnable() {
 	                @Override
 	                public void run() {
 	                	for (String s : msgIn.getPlayers()) {
 	                		CreateGameController.getInstance().addPlayers(s);
-	                		GameModel.getInstance().
-	                		
 						}
 	                }
 	            });
+				
 				break;
 			case OpenGameRequest:
 				synchronized (msgIn) {

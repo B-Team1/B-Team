@@ -123,4 +123,14 @@ public class Player {
 	public void setActualCardHonorPoints(int actualCardHonorPoints) {
 		this.actualCardHonorPoints = actualCardHonorPoints;
 	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	
+	
 }

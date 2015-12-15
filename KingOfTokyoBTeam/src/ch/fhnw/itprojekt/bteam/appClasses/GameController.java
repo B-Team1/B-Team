@@ -103,7 +103,7 @@ public class GameController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		singleton = this;
 		gameModel = GameModel.getInstance();
-		gameModel.getPlayers();
+		gameModel.askPlayer();
 		taChat.setEditable(false);
 		buttonList.add(btnDice1);
 		buttonList.add(btnDice2);

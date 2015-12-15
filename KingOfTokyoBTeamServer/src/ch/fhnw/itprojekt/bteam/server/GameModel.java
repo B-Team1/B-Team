@@ -23,10 +23,13 @@ public class GameModel {
 		players.add(user);
 	}
 	
+	public void sendNewPlayer(User player){
+		connectionModel.sendNewPlayerInGame(players, player);
+	}
 
 	public void addPlayer(User player){
 		players.add(player);
-		connectionModel.sendNewPlayerInGame(players, player);
+		
 	}
 
 	public int getNumPlayer() {
