@@ -126,9 +126,9 @@ public class GameController implements Initializable {
 		if (gameModel.players.size() < 4) {
 			vbPlayer4.setVisible(false);
 		}
-		lbLifePointsPlayer1.setText("" + gameModel.players.get(0).getLifePoints());
-		lbFamePointsPlayer1.setText("" + gameModel.players.get(0).getHonorPoints());
-		lbEnergyPointsPlayer1.setText("" + gameModel.players.get(0).getEnergyPoints());
+		lbLifePointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getLifePoints());
+		lbFamePointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getHonorPoints());
+		lbEnergyPointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getEnergyPoints());
 		lbLifePointsPlayer2.setText("" + gameModel.players.get(1).getLifePoints());
 		lbFamePointsPlayer2.setText("" + gameModel.players.get(1).getHonorPoints());
 		lbEnergyPointsPlayer2.setText("" + gameModel.players.get(1).getEnergyPoints());
@@ -181,9 +181,9 @@ public class GameController implements Initializable {
 	}
 	gameModel.setDicePreview();
 	gameModel.setPreview();
-	lbLifePointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureLifePoints());
-	lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureEnergyPoints());
-	lbFamePointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureHonorPoints());
+	lbLifePointsChangePlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getFutureLifePoints());
+	lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getFutureEnergyPoints());
+	lbFamePointsChangePlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getFutureHonorPoints());
 	lbLifePointsChangePlayer2.setText("" + gameModel.players.get(1).getFutureLifePoints());
 	if (gameModel.players.size() > 2){
 		lbLifePointsChangePlayer3.setText("" + gameModel.players.get(2).getFutureLifePoints());
@@ -204,11 +204,11 @@ public class GameController implements Initializable {
 	public void handleEndMove(ActionEvent event) {
 		gameModel.endMove();
 		//gameModel.sendGameStats();
-//		lbLifePointsPlayer1.setText("" + gameModel.players.get(0).getLifePoints());
+//		lbLifePointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getLifePoints());
 //		lbLifePointsChangePlayer1.setText("");
-//		lbFamePointsPlayer1.setText("" + gameModel.players.get(0).getHonorPoints());
+//		lbFamePointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getHonorPoints());
 //		lbFamePointsChangePlayer1.setText("");
-//		lbEnergyPointsPlayer1.setText("" + gameModel.players.get(0).getEnergyPoints());
+//		lbEnergyPointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getEnergyPoints());
 //		lbEnergyPointsChangePlayer1.setText("");
 //		lbLifePointsPlayer2.setText("" + gameModel.players.get(1).getLifePoints());
 //		lbLifePointsChangePlayer2.setText("");
@@ -246,9 +246,9 @@ public class GameController implements Initializable {
 	public void handleCardDeck(ActionEvent event) {
 		try {
 			Card newCard = new Card();
-			gameModel.players.get(0).setEnergyPoints(10);
+			gameModel.players.get(gameModel.myPosition).setEnergyPoints(10);
 		if (GameModel.cardList.size() == 0) {
-			if (gameModel.players.get(0).getEnergyPoints() >= GameModel.cardCost) {
+			if (gameModel.players.get(gameModel.myPosition).getEnergyPoints() >= GameModel.cardCost) {
 				newCard = newCard.pullCard();
 				ivCard1.setImage(newCard.getCardImage());
 				cardAction(newCard);
@@ -256,7 +256,7 @@ public class GameController implements Initializable {
 				JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("card.lessEnergy")));
 			}
 		} else {
-			if (gameModel.players.get(0).getEnergyPoints() >= GameModel.cardCost) {
+			if (gameModel.players.get(gameModel.myPosition).getEnergyPoints() >= GameModel.cardCost) {
 			newCard = newCard.pullCard();
 			ivCard2.setImage(newCard.getCardImage());
 			cardAction(newCard);
@@ -275,7 +275,7 @@ public class GameController implements Initializable {
 	private void cardAction(Card newCard) {
 		switch (newCard.getAction()){
 			case attack:
-				if (gameModel.players.get(0).inTokyo){
+				if (gameModel.players.get(gameModel.myPosition).inTokyo){
 					gameModel.attackFromTokyo(newCard.getEffect());
 					lbLifePointsChangePlayer2.setText("" + gameModel.players.get(1).getFutureLifePoints());
 					if (gameModel.players.size() > 2) {
@@ -284,7 +284,7 @@ public class GameController implements Initializable {
 					if (gameModel.players.size() > 3) {
 						lbLifePointsChangePlayer4.setText("" + gameModel.players.get(3).getFutureLifePoints());
 					}
-					lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureEnergyPoints());
+					lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getFutureEnergyPoints());
 				} else {
 					gameModel.attackTokyo(gameModel.players.get(1), newCard.getEffect());
 					if (gameModel.players.get(1).getFutureLifePoints() != 0){
@@ -296,18 +296,18 @@ public class GameController implements Initializable {
 					if ((gameModel.players.get(3).getFutureLifePoints() != 0) && (gameModel.players.size() > 3)) {
 						lbLifePointsChangePlayer4.setText("" + gameModel.players.get(3).getFutureLifePoints());
 					}
-					lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureEnergyPoints());
+					lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getFutureEnergyPoints());
 				}
 				break;
 			case heal:
 				gameModel.cardHeal(newCard.getEffect());
-				lbLifePointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureLifePoints());
-				lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureEnergyPoints());
+				lbLifePointsChangePlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getFutureLifePoints());
+				lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getFutureEnergyPoints());
 				break;
 			case honor:
 				gameModel.cardHonor(newCard.getEffect());
-				lbFamePointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureHonorPoints());
-				lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureEnergyPoints());
+				lbFamePointsChangePlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getFutureHonorPoints());
+				lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getFutureEnergyPoints());
 				break;
 		}
 	}
@@ -343,11 +343,11 @@ public class GameController implements Initializable {
 	}
 
 	public void updateLabels() {
-		lbLifePointsPlayer1.setText("" + gameModel.players.get(0).getLifePoints());
+		lbLifePointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getLifePoints());
 		lbLifePointsChangePlayer1.setText("");
-		lbFamePointsPlayer1.setText("" + gameModel.players.get(0).getHonorPoints());
+		lbFamePointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getHonorPoints());
 		lbFamePointsChangePlayer1.setText("");
-		lbEnergyPointsPlayer1.setText("" + gameModel.players.get(0).getEnergyPoints());
+		lbEnergyPointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getEnergyPoints());
 		lbEnergyPointsChangePlayer1.setText("");
 		lbLifePointsPlayer2.setText("" + gameModel.players.get(1).getLifePoints());
 		lbLifePointsChangePlayer2.setText("");
