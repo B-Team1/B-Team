@@ -77,7 +77,7 @@ public class Card {
 				GameModel.cardList.add(card);
 				return card;
 		} else {
-			if ((newcard >= 2) && (newcard <3)) {
+			if ((newcard >= 2) && (newcard <3.5)) {
 				int cost = 3;
 				int effect = 1;
 				Image image = new Image(getClass().getResourceAsStream("../images/Card_Eckkneipe.jpg"));
@@ -86,7 +86,7 @@ public class Card {
 				GameModel.cardList.add(card);
 				return card;
 		} else {
-			if ((newcard >= 3) && (newcard <4)){
+			if ((newcard >= 3.5) && (newcard <4.5)){
 				int cost = 3;
 				int effect = 2;
 				Image image = new Image(getClass().getResourceAsStream("../images/Card_Hochbahn.jpg"));
