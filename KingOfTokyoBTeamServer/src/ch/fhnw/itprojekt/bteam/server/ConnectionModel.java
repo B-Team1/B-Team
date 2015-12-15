@@ -87,7 +87,6 @@ public class ConnectionModel {
     		Message msgOut = new Message(Message.MessageType.AddNewPlayerToGame);
     		msgOut.setNickname(user.getNickname());
     		try {
-    			Thread.sleep(500);
     			msgOut.send(player.getSocket());    			
     		} catch (Exception e) {
     			System.err.println(e);

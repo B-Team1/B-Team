@@ -570,6 +570,14 @@ public class GameModel extends Application {
 	public void addPlayerToModel(String nickname){
 		players.add(new Player(nickname, lifePoints = 10, energyPoints = 0, honorPoints = 0, inTokyo));
 	}
+
+	public int getMyPosition() {
+		return myPosition;
+	}
+
+	public void setMyPosition(int myPosition) {
+		this.myPosition = myPosition;
+	}
 	
 	
 	
