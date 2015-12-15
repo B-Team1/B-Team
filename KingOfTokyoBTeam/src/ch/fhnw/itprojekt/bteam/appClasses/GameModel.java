@@ -466,7 +466,7 @@ public class GameModel extends Application {
 	 *@author Luzian
 	 */
 	public void sendChat(String text){
-		connectionModel.sendChat(text, getNickname());	
+		connectionModel.sendChat(text, players.get(myPosition).getNickName() , getGameId() );	
 	}
 
 	public void askPlayer(){

@@ -69,12 +69,12 @@ public class ConnectionModel {
      * @author Luzian
      * @param text
      */
-    public void sendChat(String text){
-    	for (Socket s : socketList) {
+    public void sendChat(String text, ArrayList<User> players){
+    	for (User player: players) {
     		Message msgOut = new Message(Message.MessageType.Chat);
     		msgOut.setChat(text);
     		try {
-    			msgOut.send(s);    			
+    			msgOut.send(player.getSocket());    			
     		} catch (Exception e) {
     			System.err.println(e);
     			

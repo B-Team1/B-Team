@@ -213,10 +213,11 @@ public class ConnectionModel {
 	/**			
 	 * @author Luzian
 	 */
-	public void sendChat(String chat, String nickName){
+	public void sendChat(String chat, String nickName, int gameId){
 		Message msgOut = new Message(Message.MessageType.Chat);
 		msgOut.setChat(chat);
 		msgOut.setNickname(nickName);
+		msgOut.setGameId(gameId);
 		try {
 			msgOut.send(socket);
 		} catch (Exception e) {

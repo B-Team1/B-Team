@@ -78,5 +78,7 @@ public class GameModel {
 		this.players = players;
 	}
 	
-	
+	public void sendChat(String text, ArrayList<User> player){
+		connectionModel.sendChat(text, player);
+	}
 }

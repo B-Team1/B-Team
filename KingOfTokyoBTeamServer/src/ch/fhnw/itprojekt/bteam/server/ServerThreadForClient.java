@@ -120,7 +120,9 @@ public class ServerThreadForClient extends Thread {
 			case Chat:
 				//Luzian
 				msgOut = new Message(Message.MessageType.Chat);
-				connectionModel.sendChat(msgIn.getNickname()+" : "+msgIn.getChat());
+				String text = msgIn.getNickname()+" : "+msgIn.getChat();
+				menuModel.getSpiel(text, msgIn.getGameId());
+				//connectionModel.sendChat(msgIn.getNickname()+" : "+msgIn.getChat(), menuModel. );
 				break;
 			case Players:
 				//Luzian
