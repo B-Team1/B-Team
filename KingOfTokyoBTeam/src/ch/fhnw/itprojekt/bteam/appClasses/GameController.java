@@ -226,6 +226,7 @@ public class GameController implements Initializable {
 
 		gameModel.sendChat(tfChat.getText());
 		tfChat.setText("");
+		
 
 
 	}
@@ -313,8 +314,7 @@ public class GameController implements Initializable {
  * @param text
  */
 	public void setText(String text){
-		String chatverlauf = taChat.getText();
-		taChat.setText(chatverlauf +System.lineSeparator() + text);
+		taChat.appendText( System.lineSeparator() + text);
 	}
 	
 	public void setTokyoImage(Player player) {
