@@ -143,12 +143,30 @@ public class GameModel extends Application {
     		Properties.getProperties().setLocale(new Locale(ServiceLocator.getServiceLocator().getLanguage()));
             BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/loser.fxml"),
             		ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale()));
-    	
             Scene scene = new Scene(root);
             loserStage.setScene(scene);
             loserStage.setTitle("King of Tokyo");
             loserStage.setResizable(false);
             loserStage.show();            
+    	} catch(Exception e) {
+    		e.printStackTrace();
+    	}
+	}
+	
+	/**
+	 * Öffnet das Fenster für das Wechseln aus Tokyo
+	 * @author Marco
+	 */
+	public void startChangeTokyo(Stage changeStage) {
+		try {
+    		Properties.getProperties().setLocale(new Locale(ServiceLocator.getServiceLocator().getLanguage()));
+            BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/leaveTokyo.fxml"),
+            		ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale()));
+            Scene scene = new Scene(root);
+            changeStage.setScene(scene);
+            changeStage.setTitle("King of Tokyo");
+            changeStage.setResizable(false);
+            changeStage.show();            
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
@@ -182,11 +200,15 @@ public class GameModel extends Application {
 	
 	public void cardHeal(int effect) {
 		players.get(0).setActualCardLifePoints(players.get(0).getActualCardLifePoints() + effect);
+		players.get(0).setFutureLifePoints(players.get(0).getActualCardLifePoints() + players.get(0).getActualDiceLifePoints());
+		players.get(0).setFutureEnergyPoints(players.get(0).getActualCardEnergyPoints() + players.get(0).getActualDiceEnergyPoints());
 		payCard();
 	}
 	
 	public void cardHonor(int effect) {
 		players.get(0).setActualCardHonorPoints(players.get(0).getActualCardHonorPoints() + effect);
+		players.get(0).setFutureHonorPoints(players.get(0).getActualCardHonorPoints() + players.get(0).getActualDiceHonorPoints());
+		players.get(0).setFutureEnergyPoints(players.get(0).getActualCardEnergyPoints() + players.get(0).getActualDiceEnergyPoints());
 		payCard();
 	}
 	
@@ -355,11 +377,7 @@ public class GameModel extends Application {
 	  */
 	public void checkLoser() {
 		if (players.get(0).getLifePoints() <= 0) {
-			//GameController.getInstance().loser();
-		}
-		for (int i = 1; i < players.size(); i++) {
-			if (players.get(i).getLifePoints() <= 0) {
-			}
+			GameController.getInstance().loser();
 		}
 	}
 	
@@ -367,20 +385,21 @@ public class GameModel extends Application {
 	 * Überprüft ob PlayerMe dank den Ruhmespunkten gewonnen hat
 	 * @author Marco
 	 */
-	public boolean checkWinner() {
+	public void checkWinner() {
 		if (famePointsWin = true) {
-			if (players.get(0).getHonorPoints() >= honorPointsWin) {
-				win = true;
-				return true;
-			} else {
-				return false;
-			} 
+			for (int i = 0; i < players.size(); i++) {
+				if (players.get(i).getHonorPoints() >= honorPointsWin) {
+					if (players.get(i).equals(playerMe)) {
+						GameController.getInstance().winner();
+					} else {
+						GameController.getInstance().loser();
+					} 
+				}
+			}
 		}else {
 			if ((players.get(1).getLifePoints() <= 0) && ((players.size() < 3) || (players.get(2).getLifePoints() <= 0)) && ((players.size() < 4) || (players.get(3).getLifePoints() <= 0))) {
-					return true;
-				} else {
-					return false;
-				}
+					GameController.getInstance().winner();
+			}
 		}
 	}
 	
@@ -520,6 +539,14 @@ public class GameModel extends Application {
 					GameController.getInstance().ivMonsterInTokyoPlayerMe.setImage(new Image(getClass().getResourceAsStream("../images/Monster4.png")));
 					break;
 				}
+			}
+		}
+	}
+	
+	public void stayInTokyo(int[] lifepoints) {
+		if (players.get(0).inTokyo) {
+			if (lifepoints[0] < players.get(0).lifePoints) {
+				startChangeTokyo(new Stage());
 			}
 		}
 	}

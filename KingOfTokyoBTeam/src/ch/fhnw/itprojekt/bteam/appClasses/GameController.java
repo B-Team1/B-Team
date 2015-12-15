@@ -1,18 +1,25 @@
 package ch.fhnw.itprojekt.bteam.appClasses;
 
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.crypto.spec.IvParameterSpec;
+import javax.swing.JOptionPane;
 import javax.swing.text.html.HTMLDocument.Iterator;
 
 
 
 
+
+
+
+import ch.fhnw.itprojekt.bteam.template.Properties;
 //import ch.fhnw.itprojekt.bteam.server.ConnectionModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -85,6 +92,7 @@ public class GameController implements Initializable {
 	
 	ArrayList<ToggleButton> buttonList = new ArrayList<ToggleButton>();
 	GameModel gameModel;
+	ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
 
 	private static GameController singleton;
 
@@ -169,10 +177,8 @@ public class GameController implements Initializable {
 							btnDice6.setGraphic(new ImageView(dice.image));
 						break;
 				} 
-		}else{
-			//Message das drei mal gewürfelt wurde
-				}
 		}
+	}
 	gameModel.setDicePreview();
 	gameModel.setPreview();
 	lbLifePointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureLifePoints());
@@ -186,7 +192,7 @@ public class GameController implements Initializable {
 		lbLifePointsChangePlayer4.setText("" + gameModel.players.get(3).getFutureLifePoints());
 	}
 	}else{
-		
+		JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("dice.threetimes")));
 	}
 
 	}
@@ -217,11 +223,6 @@ public class GameController implements Initializable {
 		if (gameModel.isGoToTokyo()) {
 			ivMonsterInTokyoPlayerMe.setVisible(true);
 		}
-		if (gameModel.checkWinner()) {
-			Node node= (Node)event.getSource();
-			Stage stage = (Stage) node.getScene().getWindow();
-			stage.close();
-		}
 	}
 	
 	/**
@@ -246,19 +247,25 @@ public class GameController implements Initializable {
 		try {
 			Card newCard = new Card();
 			gameModel.players.get(0).setEnergyPoints(10);
-		if (GameModel.cardList.size() == 0 && (gameModel.players.get(0).getEnergyPoints() >= GameModel.cardCost)){
-			newCard = newCard.pullCard();
-			ivCard1.setImage(newCard.getCardImage());
-			cardAction(newCard);
+		if (GameModel.cardList.size() == 0) {
+			if (gameModel.players.get(0).getEnergyPoints() >= GameModel.cardCost) {
+				newCard = newCard.pullCard();
+				ivCard1.setImage(newCard.getCardImage());
+				cardAction(newCard);
+			} else {
+				JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("card.lessEnergy")));
+			}
 		} else {
 			if (gameModel.players.get(0).getEnergyPoints() >= GameModel.cardCost) {
 			newCard = newCard.pullCard();
 			ivCard2.setImage(newCard.getCardImage());
 			cardAction(newCard);
+			} else {
+				JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("card.lessEnergy")));
 			}
 		}
-	} catch (NullPointerException exception){
-	}
+		} catch (NullPointerException exception){
+		}
 	}
 			
 			/**
@@ -294,19 +301,11 @@ public class GameController implements Initializable {
 				break;
 			case heal:
 				gameModel.cardHeal(newCard.getEffect());
-				gameModel.players.get(0).setFutureLifePoints(gameModel.players.get(0).getActualCardLifePoints() + 
-						gameModel.players.get(0).getActualDiceLifePoints());
-				gameModel.players.get(0).setFutureEnergyPoints(gameModel.players.get(0).getActualCardEnergyPoints() + 
-						gameModel.players.get(0).getActualDiceEnergyPoints());
 				lbLifePointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureLifePoints());
 				lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureEnergyPoints());
 				break;
 			case honor:
 				gameModel.cardHonor(newCard.getEffect());
-				gameModel.players.get(0).setFutureHonorPoints(gameModel.players.get(0).getActualCardHonorPoints() + 
-						gameModel.players.get(0).getActualDiceHonorPoints());
-				gameModel.players.get(0).setFutureEnergyPoints(gameModel.players.get(0).getActualCardEnergyPoints() + 
-						gameModel.players.get(0).getActualDiceEnergyPoints());
 				lbFamePointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureHonorPoints());
 				lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureEnergyPoints());
 				break;
@@ -378,7 +377,20 @@ public class GameController implements Initializable {
 		for (int i = 0; i < 6; i++) {
 			gameModel.setDiceSelected(i, buttonList.get(i).isSelected());
 		}
-
+	}
+	
+	public void winner() {
+//		Node node= (Node)event.getSource();
+//		Stage stage = (Stage) node.getScene().getWindow();
+//		stage.close();
+		gameModel.startWinner(new Stage());
+	}
+	
+	public void loser() {
+//		Node node= (Node)event.getSource();
+//		Stage stage = (Stage) node.getScene().getWindow();
+//		stage.close();
+		gameModel.startLoser(new Stage());
 	}
 	
 }
