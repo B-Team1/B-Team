@@ -1,18 +1,25 @@
 package ch.fhnw.itprojekt.bteam.appClasses;
 
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.crypto.spec.IvParameterSpec;
+import javax.swing.JOptionPane;
 import javax.swing.text.html.HTMLDocument.Iterator;
 
 
 
 
+
+
+
+import ch.fhnw.itprojekt.bteam.template.Properties;
 //import ch.fhnw.itprojekt.bteam.server.ConnectionModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -85,6 +92,7 @@ public class GameController implements Initializable {
 	
 	ArrayList<ToggleButton> buttonList = new ArrayList<ToggleButton>();
 	GameModel gameModel;
+	ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
 
 	private static GameController singleton;
 
@@ -118,9 +126,9 @@ public class GameController implements Initializable {
 		if (gameModel.players.size() < 4) {
 			vbPlayer4.setVisible(false);
 		}
-		lbLifePointsPlayer1.setText("" + gameModel.players.get(0).getLifePoints());
-		lbFamePointsPlayer1.setText("" + gameModel.players.get(0).getHonorPoints());
-		lbEnergyPointsPlayer1.setText("" + gameModel.players.get(0).getEnergyPoints());
+		lbLifePointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getLifePoints());
+		lbFamePointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getHonorPoints());
+		lbEnergyPointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getEnergyPoints());
 		lbLifePointsPlayer2.setText("" + gameModel.players.get(1).getLifePoints());
 		lbFamePointsPlayer2.setText("" + gameModel.players.get(1).getHonorPoints());
 		lbEnergyPointsPlayer2.setText("" + gameModel.players.get(1).getEnergyPoints());
@@ -169,15 +177,13 @@ public class GameController implements Initializable {
 							btnDice6.setGraphic(new ImageView(dice.image));
 						break;
 				} 
-		}else{
-			//Message das drei mal gewürfelt wurde
-				}
 		}
+	}
 	gameModel.setDicePreview();
 	gameModel.setPreview();
-	lbLifePointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureLifePoints());
-	lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureEnergyPoints());
-	lbFamePointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureHonorPoints());
+	lbLifePointsChangePlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getFutureLifePoints());
+	lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getFutureEnergyPoints());
+	lbFamePointsChangePlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getFutureHonorPoints());
 	lbLifePointsChangePlayer2.setText("" + gameModel.players.get(1).getFutureLifePoints());
 	if (gameModel.players.size() > 2){
 		lbLifePointsChangePlayer3.setText("" + gameModel.players.get(2).getFutureLifePoints());
@@ -186,7 +192,7 @@ public class GameController implements Initializable {
 		lbLifePointsChangePlayer4.setText("" + gameModel.players.get(3).getFutureLifePoints());
 	}
 	}else{
-		
+		JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("dice.threetimes")));
 	}
 
 	}
@@ -198,11 +204,11 @@ public class GameController implements Initializable {
 	public void handleEndMove(ActionEvent event) {
 		gameModel.endMove();
 		//gameModel.sendGameStats();
-//		lbLifePointsPlayer1.setText("" + gameModel.players.get(0).getLifePoints());
+//		lbLifePointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getLifePoints());
 //		lbLifePointsChangePlayer1.setText("");
-//		lbFamePointsPlayer1.setText("" + gameModel.players.get(0).getHonorPoints());
+//		lbFamePointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getHonorPoints());
 //		lbFamePointsChangePlayer1.setText("");
-//		lbEnergyPointsPlayer1.setText("" + gameModel.players.get(0).getEnergyPoints());
+//		lbEnergyPointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getEnergyPoints());
 //		lbEnergyPointsChangePlayer1.setText("");
 //		lbLifePointsPlayer2.setText("" + gameModel.players.get(1).getLifePoints());
 //		lbLifePointsChangePlayer2.setText("");
@@ -216,11 +222,6 @@ public class GameController implements Initializable {
 //		}
 		if (gameModel.isGoToTokyo()) {
 			ivMonsterInTokyoPlayerMe.setVisible(true);
-		}
-		if (gameModel.checkWinner()) {
-			Node node= (Node)event.getSource();
-			Stage stage = (Stage) node.getScene().getWindow();
-			stage.close();
 		}
 	}
 	
@@ -245,20 +246,26 @@ public class GameController implements Initializable {
 	public void handleCardDeck(ActionEvent event) {
 		try {
 			Card newCard = new Card();
-			gameModel.players.get(0).setEnergyPoints(10);
-		if (GameModel.cardList.size() == 0 && (gameModel.players.get(0).getEnergyPoints() >= GameModel.cardCost)){
-			newCard = newCard.pullCard();
-			ivCard1.setImage(newCard.getCardImage());
-			cardAction(newCard);
+			gameModel.players.get(gameModel.myPosition).setEnergyPoints(10);
+		if (GameModel.cardList.size() == 0) {
+			if (gameModel.players.get(gameModel.myPosition).getEnergyPoints() >= GameModel.cardCost) {
+				newCard = newCard.pullCard();
+				ivCard1.setImage(newCard.getCardImage());
+				cardAction(newCard);
+			} else {
+				JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("card.lessEnergy")));
+			}
 		} else {
-			if (gameModel.players.get(0).getEnergyPoints() >= GameModel.cardCost) {
+			if (gameModel.players.get(gameModel.myPosition).getEnergyPoints() >= GameModel.cardCost) {
 			newCard = newCard.pullCard();
 			ivCard2.setImage(newCard.getCardImage());
 			cardAction(newCard);
+			} else {
+				JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("card.lessEnergy")));
 			}
 		}
-	} catch (NullPointerException exception){
-	}
+		} catch (NullPointerException exception){
+		}
 	}
 			
 			/**
@@ -268,7 +275,7 @@ public class GameController implements Initializable {
 	private void cardAction(Card newCard) {
 		switch (newCard.getAction()){
 			case attack:
-				if (gameModel.players.get(0).inTokyo){
+				if (gameModel.players.get(gameModel.myPosition).inTokyo){
 					gameModel.attackFromTokyo(newCard.getEffect());
 					lbLifePointsChangePlayer2.setText("" + gameModel.players.get(1).getFutureLifePoints());
 					if (gameModel.players.size() > 2) {
@@ -277,7 +284,7 @@ public class GameController implements Initializable {
 					if (gameModel.players.size() > 3) {
 						lbLifePointsChangePlayer4.setText("" + gameModel.players.get(3).getFutureLifePoints());
 					}
-					lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureEnergyPoints());
+					lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getFutureEnergyPoints());
 				} else {
 					gameModel.attackTokyo(gameModel.players.get(1), newCard.getEffect());
 					if (gameModel.players.get(1).getFutureLifePoints() != 0){
@@ -289,26 +296,18 @@ public class GameController implements Initializable {
 					if ((gameModel.players.get(3).getFutureLifePoints() != 0) && (gameModel.players.size() > 3)) {
 						lbLifePointsChangePlayer4.setText("" + gameModel.players.get(3).getFutureLifePoints());
 					}
-					lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureEnergyPoints());
+					lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getFutureEnergyPoints());
 				}
 				break;
 			case heal:
 				gameModel.cardHeal(newCard.getEffect());
-				gameModel.players.get(0).setFutureLifePoints(gameModel.players.get(0).getActualCardLifePoints() + 
-						gameModel.players.get(0).getActualDiceLifePoints());
-				gameModel.players.get(0).setFutureEnergyPoints(gameModel.players.get(0).getActualCardEnergyPoints() + 
-						gameModel.players.get(0).getActualDiceEnergyPoints());
-				lbLifePointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureLifePoints());
-				lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureEnergyPoints());
+				lbLifePointsChangePlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getFutureLifePoints());
+				lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getFutureEnergyPoints());
 				break;
 			case honor:
 				gameModel.cardHonor(newCard.getEffect());
-				gameModel.players.get(0).setFutureHonorPoints(gameModel.players.get(0).getActualCardHonorPoints() + 
-						gameModel.players.get(0).getActualDiceHonorPoints());
-				gameModel.players.get(0).setFutureEnergyPoints(gameModel.players.get(0).getActualCardEnergyPoints() + 
-						gameModel.players.get(0).getActualDiceEnergyPoints());
-				lbFamePointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureHonorPoints());
-				lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(0).getFutureEnergyPoints());
+				lbFamePointsChangePlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getFutureHonorPoints());
+				lbEnergyPointsChangePlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getFutureEnergyPoints());
 				break;
 		}
 	}
@@ -344,11 +343,11 @@ public class GameController implements Initializable {
 	}
 
 	public void updateLabels() {
-		lbLifePointsPlayer1.setText("" + gameModel.players.get(0).getLifePoints());
+		lbLifePointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getLifePoints());
 		lbLifePointsChangePlayer1.setText("");
-		lbFamePointsPlayer1.setText("" + gameModel.players.get(0).getHonorPoints());
+		lbFamePointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getHonorPoints());
 		lbFamePointsChangePlayer1.setText("");
-		lbEnergyPointsPlayer1.setText("" + gameModel.players.get(0).getEnergyPoints());
+		lbEnergyPointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getEnergyPoints());
 		lbEnergyPointsChangePlayer1.setText("");
 		lbLifePointsPlayer2.setText("" + gameModel.players.get(1).getLifePoints());
 		lbLifePointsChangePlayer2.setText("");
@@ -378,7 +377,20 @@ public class GameController implements Initializable {
 		for (int i = 0; i < 6; i++) {
 			gameModel.setDiceSelected(i, buttonList.get(i).isSelected());
 		}
-
+	}
+	
+	public void winner() {
+//		Node node= (Node)event.getSource();
+//		Stage stage = (Stage) node.getScene().getWindow();
+//		stage.close();
+		gameModel.startWinner(new Stage());
+	}
+	
+	public void loser() {
+//		Node node= (Node)event.getSource();
+//		Stage stage = (Stage) node.getScene().getWindow();
+//		stage.close();
+		gameModel.startLoser(new Stage());
 	}
 	
 }

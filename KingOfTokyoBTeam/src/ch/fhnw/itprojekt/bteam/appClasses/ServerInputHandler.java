@@ -219,6 +219,7 @@ public class ServerInputHandler {
 				gameModel.setLifePoints(otherpoints);
 				gameModel.setPlayerPoints(playerpoints);
 				gameModel.setActualTokyo(tokyo);
+				gameModel.stayInTokyo(otherpoints);
 				GameController.getInstance().updateLabels();
 				gameModel.checkLoser();
 				gameModel.checkWinner();
