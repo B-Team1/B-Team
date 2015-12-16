@@ -15,17 +15,24 @@ public class LeaveTokyoController implements Initializable{
 		
 	}
 	
+	/**
+	 * Ändert den Besetzter von Tokyo
+	 * @author Marco
+	 */
 	public void handleYes(ActionEvent event) {
-		// change
+		GameModel.getInstance().sendTokyoChange();
 		Node node= (Node)event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		stage.close();
 	}
 	
+	/**
+	 * Der Spieler bleibt in Tokyo
+	 * @author Marco
+	 */
 	public void handleNo(ActionEvent event) {
 		Node node= (Node)event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		stage.close();
 	}
-
 }

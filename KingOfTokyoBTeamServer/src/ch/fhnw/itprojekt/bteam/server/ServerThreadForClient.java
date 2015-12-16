@@ -37,7 +37,8 @@ public class ServerThreadForClient extends Thread {
 				if(msgIn.getType() != Message.MessageType.Chat 
 						&& msgIn.getType() != Message.MessageType.GameStats
 						&& msgIn.getType() != Message.MessageType.StartGame
-						&& msgIn.getType() != Message.MessageType.ChangeGameMove){
+						&& msgIn.getType() != Message.MessageType.ChangeGameMove
+						&& msgIn.getType() != Message.MessageType.ChangeTokyo){
 					msgOut.send(clientSocket);
 				}
 				if(msgIn.getType() == Message.MessageType.AddPlayerToGame && msgOut.getWriteCheck()){
@@ -150,6 +151,11 @@ public class ServerThreadForClient extends Thread {
 			case ChangeGameMove:
 				msgOut= msgIn;
 				menuModel.changeGameMove(msgIn.getGameId());
+
+			case ChangeTokyo:
+				msgOut = msgIn;
+				menuModel.sendGameStats(msgOut, msgIn.getGameId());
+
 				break;
 				
 		default:
