@@ -32,6 +32,7 @@ public class GameController implements Initializable {
 	@FXML ToggleButton btnDice8;
 	@FXML Button btnCardDeck;
 	@FXML Button btnEndMove;
+	@FXML Button btnTest;
 	@FXML Label lbLifePointsPlayer1;
 	@FXML Label lbLifePointsPlayer2;
 	@FXML Label lbLifePointsPlayer3;
@@ -402,4 +403,10 @@ public class GameController implements Initializable {
 		btnEndMove.setDisable(false);
 		btnRollDice.setDisable(false);
 	}
+	
+	@FXML 
+	public void handleTest(ActionEvent event) {
+		
+	}
+	
 }
