@@ -29,6 +29,12 @@ public class GameModel {
 		if(gameMove >= players.size()){
 			gameMove = 0;
 		}
+//		for (players.get(gameMove).isDead) {
+//			gameMove++;
+//			if(gameMove >= players.size()){
+//				gameMove = 0;
+//			}
+//		}
 		connectionModel.changeGameMove(players, gameMove);
 	}
 	

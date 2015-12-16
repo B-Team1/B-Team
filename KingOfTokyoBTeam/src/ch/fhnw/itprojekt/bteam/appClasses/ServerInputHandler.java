@@ -240,24 +240,22 @@ public class ServerInputHandler {
 				int[] playerpoints = msgIn.getMyPoints();
 				int[] lifepoints = msgIn.getLifepoints();
 				boolean[] tokyo = msgIn.getTokyo();
-				
 				String gamerName = msgIn.getGamerName();
 				GameModel model = GameModel.getInstance();
-				model.setLifepoints(lifepoints);
-				model.setPlayerpoints(gamerName, playerpoints);
-				model.setActualTokyo(tokyo);
-				boolean change = false;
-				if (model.underAttack(lifepoints)) {
-					change = true;
-				}
-				if (change) {
-					model.setMoveId(msgIn.getGameMove());
-					model.startChangeTokyo(new Stage());
-//					model.sendTokyoChange();
-				}
 				Platform.runLater(new Runnable(){
 					@Override
 					public void run(){
+						model.setLifepoints(lifepoints);
+						model.setPlayerpoints(gamerName, playerpoints);
+						model.setActualTokyo(tokyo);
+						boolean change = false;
+						if (model.underAttack(lifepoints)) {
+							change = true;
+						}
+						if (change) {
+							model.setMoveId(msgIn.getGameMove());
+							model.startChangeTokyo(new Stage());
+						}
 						GameController.getInstance().updateLabels();
 						model.checkLoser();
 						model.checkWinner();
@@ -269,7 +267,7 @@ public class ServerInputHandler {
 					@Override
 					public void run(){
 						GameModel gameModel = GameModel.getInstance();
-						gameModel.start(new Stage());
+						gameModel.start(GameController.gameStage);
 						CreateGameController.stage.close();
 					}
 				});
