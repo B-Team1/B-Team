@@ -521,6 +521,9 @@ public class GameModel extends Application {
 	 */
 	public void setLifepoints(int[] lifePoints) {
 		for (int i = 0; i < lifePoints.length; i++) {
+			if (lifePoints[i] >= 10) {
+				players.get(i).setLifePoints(10);
+			}
 			players.get(i).setLifePoints(lifePoints[i]);
 		}
 	}
