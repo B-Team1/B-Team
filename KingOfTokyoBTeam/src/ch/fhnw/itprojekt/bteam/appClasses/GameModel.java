@@ -15,7 +15,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -248,7 +247,8 @@ public class GameModel extends Application {
 		 */
 		players.get(myPosition).setActualDiceEnergyPoints(0);
 		players.get(myPosition).setActualDiceHonorPoints(0);
-		for (int i = 0; i > players.size(); i++){
+		players.get(myPosition).setActualDiceLifePoints(0);
+		for (int i = 0; i > players.size(); i++) {
 			players.get(i).setActualDiceLifePoints(0);
 		}
 		
@@ -547,18 +547,28 @@ public class GameModel extends Application {
 			if (players.get(i).inTokyo) {
 				switch (i) {
 				case 0:
-					GameController.getInstance().ivMonsterInTokyoPlayerMe.setImage(new Image(getClass().getResourceAsStream("../images/Monster1.png")));
+					GameController.getInstance().monsters.get(i).setVisible(true);
 					break;
 				case 1:
-					GameController.getInstance().ivMonsterInTokyoPlayerMe.setImage(new Image(getClass().getResourceAsStream("../images/Monster2.png")));
+					GameController.getInstance().monsters.get(i).setVisible(true);
 					break;
 				case 2:
-					GameController.getInstance().ivMonsterInTokyoPlayerMe.setImage(new Image(getClass().getResourceAsStream("../images/Monster3.png")));
+					GameController.getInstance().monsters.get(i).setVisible(true);
 					break;
 				case 3:
-					GameController.getInstance().ivMonsterInTokyoPlayerMe.setImage(new Image(getClass().getResourceAsStream("../images/Monster4.png")));
+					GameController.getInstance().monsters.get(i).setVisible(true);
 					break;
 				}
+			} else {
+				GameController.getInstance().monsters.get(i).setVisible(false);
+			}
+		}
+	}
+	
+	private void otherMonsters(int i) {
+		for (int j = 0; j < players.size(); j++) {
+			if (i != j) {
+				GameController.getInstance().monsters.get(i).setVisible(false);
 			}
 		}
 	}

@@ -64,10 +64,10 @@ public class GameController implements Initializable {
 	@FXML ImageView ivCardDeck;
 	@FXML ImageView ivCard1;
 	@FXML ImageView ivCard2;
-	@FXML ImageView ivMonsterInTokyoPlayerMe;
-	@FXML ImageView ivMonsterInTokyoPlayerTwo;
-	@FXML ImageView ivMonsterInTokyoPlayerThree;
-	@FXML ImageView ivMonsterInTokyoPlayerFour;
+	@FXML ImageView ivMonster1;
+	@FXML ImageView ivMonster2;
+	@FXML ImageView ivMonster3;
+	@FXML ImageView ivMonster4;
 	@FXML HBox hbTokyoMe;
 	@FXML VBox vbPlayer3;
 	@FXML VBox vbPlayer4;
@@ -79,6 +79,7 @@ public class GameController implements Initializable {
 	ArrayList<Label> lbLifePointsChanges = new ArrayList<Label>();
 	ArrayList<Label> lbEnergyPointsChanges = new ArrayList<Label>();
 	ArrayList<Label> lbHonorPointsChanges = new ArrayList<Label>();
+	ArrayList<ImageView> monsters = new ArrayList<ImageView>();
 	GameModel gameModel;
 	ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
 
@@ -123,6 +124,10 @@ public class GameController implements Initializable {
 		lbHonorPointsChanges.add(lbFamePointsChangePlayer2);
 		lbHonorPointsChanges.add(lbFamePointsChangePlayer3);
 		lbHonorPointsChanges.add(lbFamePointsChangePlayer4);
+		monsters.add(ivMonster1);
+		monsters.add(ivMonster2);
+		monsters.add(ivMonster3);
+		monsters.add(ivMonster4);
 
 		if (gameModel.players.size() < 3) {
 			vbPlayer3.setVisible(false);
