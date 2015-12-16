@@ -162,7 +162,6 @@ public class MenuModel extends Application {
 	
 	public void startSelectedGame(GameModel game){
 		connectionModel.sendAccession(game.getGameId(), currentNickname);
-		game.startCreateGame(new Stage());
 	}
 	
 

@@ -25,7 +25,7 @@ public class WinController implements Initializable {
 	 * @author Marco
 	 */
 	public void handleQuitGame(ActionEvent event) {
-		menuModel.start(new Stage());
+		menuModel.start(GameOverviewController.stage);
 		Node node= (Node)event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		stage.close();

@@ -41,8 +41,13 @@ public class GameModel {
 		connectionModel.sendNewPlayerInGame(players, player);
 	}
 
-	public void addPlayer(User player){
-		players.add(player);
+	public boolean addPlayer(User player){
+		if (players.size() <= numPlayer) {
+			players.add(player);
+			return true;
+		}else{
+			return false;
+		}
 		
 	}
 

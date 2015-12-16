@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 
 
+
 public class ServerThreadForClient extends Thread {
     private final Logger logger = Logger.getLogger("");
     private Socket clientSocket;
@@ -134,7 +135,9 @@ public class ServerThreadForClient extends Thread {
 			case AddPlayerToGame:
 				msgOut = new Message(Message.MessageType.AddPlayerToGame);
 				msgOut.setPlayers(menuModel.getPlayerFromOpenGame(msgIn.getGameId()));
-				menuModel.addPlayerToGame(msgIn.getGameId(), msgIn.getNickname(), clientSocket);
+				msgOut.setFamePointsWin(menuModel.searchOpenGame(msgIn.getGameId()).isFamePointsWin());
+				msgOut.setWinFamePoins(menuModel.searchOpenGame(msgIn.getGameId()).getWinFamePoints());
+				msgOut.setWriteCheck(menuModel.addPlayerToGame(msgIn.getGameId(), msgIn.getNickname(), clientSocket));
 				break;
 			case GameStats:
 				msgOut = msgIn;

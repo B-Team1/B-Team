@@ -50,6 +50,8 @@ public class GameOverviewController implements Initializable {
 	@FXML MenuItem miEnglish;
 	@FXML MenuItem miInfo;
 	
+	public static Stage stage = new Stage();
+	
 	/**
 	 * Holt die Instanz des Menumodels, da der Nickname dort abgelegt ist
 	 * Holt vom Server die Statistikwerte anhand des Nicknames des Spielers

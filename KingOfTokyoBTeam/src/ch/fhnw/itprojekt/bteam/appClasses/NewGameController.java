@@ -79,7 +79,7 @@ public class NewGameController implements Initializable {
 	 * @author Marco
 	 */
 	public void handleAbort(ActionEvent event) {
-		model.start(new Stage());
+		model.start(GameOverviewController.stage);
 		Node node = (Node)event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		stage.close();

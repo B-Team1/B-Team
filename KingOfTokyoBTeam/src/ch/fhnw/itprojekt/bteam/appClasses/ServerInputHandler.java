@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
 
 
 
+
+
 import ch.fhnw.itprojekt.bteam.template.Properties;
 
 /**
@@ -41,7 +43,7 @@ public class ServerInputHandler {
 		                    // entsprechende UI Komponente updaten
 		                	MenuModel menuModel = MenuModel.getInstance();
 		    				menuModel.setNickname(msgIn.getNickname());
-		    				menuModel.start(new Stage());
+		    				menuModel.start(GameOverviewController.stage);
 		    				LoginController.closeStage();
 		                }
 		            });			
@@ -71,22 +73,28 @@ public class ServerInputHandler {
 				break;
 			case AddPlayerToGame:
 				//Tobias
+				
+			if (msgIn.getWriteCheck()) {
 				int postion = 0;
 				for (String s : msgIn.getPlayers()) {
 					GameModel.getInstance().addPlayerToModel(s);
 					postion++;
 				}
 				GameModel.getInstance().setMyPosition(postion);
+				GameModel.getInstance().setFamePointsWin(msgIn.getFamePointsWin());
+				GameModel.getInstance().setHonorPointsWin(msgIn.getWinFamePoints());
 				Platform.runLater(new Runnable() {
-	                @Override
-	                public void run() {
-	                	for (String s : msgIn.getPlayers()) {
-	                		CreateGameController.getInstance().addPlayers(s);
+					@Override
+					public void run() {	
+						GameModel.getInstance().startCreateGame(CreateGameController.stage);
+						GameOverviewController.stage.close();
+						for (String s : msgIn.getPlayers()) {
+							CreateGameController.getInstance().addPlayers(s);
 						}
-	                }
-	            });
-				
-				break;
+					}
+				});
+			}
+			break;
 			case OpenGameRequest:
 				synchronized (msgIn) {
 					//Tobias
@@ -252,6 +260,15 @@ public class ServerInputHandler {
 						GameModel gameModel = GameModel.getInstance();
 						gameModel.start(new Stage());
 						CreateGameController.stage.close();
+					}
+				});
+				break;
+			case ChangeGameMove:
+				Platform.runLater(new Runnable(){
+					@Override
+					public void run(){
+						GameModel gameModel = GameModel.getInstance();
+						gameModel.setGameMove(msgIn.getGameMove());
 					}
 				});
 				break;

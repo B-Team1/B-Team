@@ -31,6 +31,7 @@ public class GameController implements Initializable {
 	@FXML ToggleButton btnDice7;
 	@FXML ToggleButton btnDice8;
 	@FXML Button btnCardDeck;
+	@FXML Button btnEndMove;
 	@FXML Label lbLifePointsPlayer1;
 	@FXML Label lbLifePointsPlayer2;
 	@FXML Label lbLifePointsPlayer3;
@@ -361,4 +362,15 @@ public class GameController implements Initializable {
 		gameModel.startLoser(new Stage());
 	}
 	
+	public void disableGameBtns(){
+		btnCardDeck.setDisable(true);
+		btnEndMove.setDisable(true);
+		btnRollDice.setDisable(true);
+	}
+	
+	public void enableGameBtns(){
+		btnCardDeck.setDisable(false);
+		btnEndMove.setDisable(false);
+		btnRollDice.setDisable(false);
+	}
 }

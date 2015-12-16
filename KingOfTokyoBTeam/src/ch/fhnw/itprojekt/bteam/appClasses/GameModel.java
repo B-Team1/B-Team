@@ -606,4 +606,31 @@ public class GameModel extends Application {
 		this.myPosition = myPosition;
 	}
 	
+	public void setGameMove(int moveId){
+		if(moveId == myPosition){
+			GameController.getInstance().enableGameBtns();
+		}else{
+			GameController.getInstance().disableGameBtns();
+		}
+		
+	}
+
+	public int getHonorPointsWin() {
+		return honorPointsWin;
+	}
+
+	public void setHonorPointsWin(int honorPointsWin) {
+		this.honorPointsWin = honorPointsWin;
+	}
+
+	public boolean getFamePointsWin() {
+		return famePointsWin;
+	}
+
+	public void setFamePointsWin(boolean famePointsWin) {
+		this.famePointsWin = famePointsWin;
+	}
+	
+	
+	
 }

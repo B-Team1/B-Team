@@ -70,11 +70,7 @@ public class CreateGameController implements Initializable {
 	 */
 	public void handleToGame(ActionEvent event) {
 		//laden der Mitspieler oder Bots
-		
 		gameModel.startGame();
-		Node node= (Node)event.getSource();
-		Stage stage = (Stage) node.getScene().getWindow();
-		stage.close();
 	}
 	
 	/**
@@ -83,7 +79,7 @@ public class CreateGameController implements Initializable {
 	 */
 	public void handleAbortGame(ActionEvent event) {
 		gameModel.deleteGame();
-		menuModel.start(new Stage());
+		menuModel.start(GameOverviewController.stage);
 		Node node= (Node)event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		stage.close();

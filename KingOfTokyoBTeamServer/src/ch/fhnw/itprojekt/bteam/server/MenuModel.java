@@ -88,12 +88,13 @@ public class MenuModel {
 		return s;
 	}
 	
-	public void addPlayerToGame(int gameId, String nickName, Socket socket){
+	public boolean addPlayerToGame(int gameId, String nickName, Socket socket){
 		for(int i = 0; i < openGameList.size() ; i++){
 			if(openGameList.get(i).getGameId() == gameId){
-				openGameList.get(i).addPlayer(new User(nickName, socket));
+				return openGameList.get(i).addPlayer(new User(nickName, socket));
 			}
 		}
+		return false;
 	}
 	
 	public void sendNewPlayer(int gameId, String nickName, Socket socket){
@@ -111,11 +112,7 @@ public class MenuModel {
 	}
 	
 	public void sendGameStats(Message msg, int gameId){
-		for(int i = 0; i < openGameList.size() ; i++){
-			if(openGameList.get(i).getGameId() == gameId){
-				openGameList.get(i).sendGameStats(msg);
-			}
-		}
+			searchStartedGame(gameId).sendGameStats(msg);
 	}
 	
 	public void startGame(int gameId){
@@ -129,7 +126,7 @@ public class MenuModel {
 		searchStartedGame(gameId).changeGameMove();
 	}
 	
-	private GameModel searchOpenGame(int gameId){
+	public GameModel searchOpenGame(int gameId){
 		for(int i = 0; i < openGameList.size() ; i++){
 			if(openGameList.get(i).getGameId() == gameId){
 				return openGameList.get(i);
@@ -138,7 +135,7 @@ public class MenuModel {
 		return null;
 	}
 	
-	private GameModel searchStartedGame(int gameId){
+	public GameModel searchStartedGame(int gameId){
 		for(int i = 0; i < startedGameList.size() ; i++){
 			if(startedGameList.get(i).getGameId() == gameId){
 				return startedGameList.get(i);
