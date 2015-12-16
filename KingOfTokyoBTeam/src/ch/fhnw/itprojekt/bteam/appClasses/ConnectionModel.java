@@ -272,10 +272,10 @@ public class ConnectionModel {
 		}
 	}
 
-	public void sendTokyoChange(boolean[] tokyo) {
+	public void sendTokyoChange(boolean[] tokyo, int gameId) {
 		Message msgOut = new Message(Message.MessageType.ChangeTokyo);
 		msgOut.setTokyo(tokyo);
-
+		msgOut.setGameId(gameId);
 		try {
 			msgOut.send(socket);
 		} catch (Exception e) {

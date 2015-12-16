@@ -198,7 +198,7 @@ public class GameController implements Initializable {
 		lbLifePointsChanges.get(i).setText("" + gameModel.players.get(i).getFutureLifePoints());
 	}
 	}else{
-		JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("dice.threetimes")));
+		JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("dice.one")));
 	}
 
 	}
@@ -208,9 +208,13 @@ public class GameController implements Initializable {
 	 */
 	@FXML
 	public void handleEndMove(ActionEvent event) {
+		if (gameModel.count > 0) {
 		resetButton();
 		gameModel.endMove();
 		gameModel.sendGameStats();
+		} else {
+			JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("dice.threetimes")));
+		}
 	}
 	
 	private void resetButton() {

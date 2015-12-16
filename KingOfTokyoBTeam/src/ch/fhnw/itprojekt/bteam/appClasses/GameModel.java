@@ -35,7 +35,7 @@ public class GameModel extends Application {
 	public ArrayList<String> playerList = new ArrayList<String>();
 	private ArrayList<Dice> diceResult= new ArrayList<Dice>();
 	boolean famePointsWin;
-	public int count, myPosition = 0;
+	public int count, myPosition = 0, moveId;
 	
 	Player playerMe = new Player(nickname, lifePoints = 10, energyPoints = 0, honorPoints = 0, inTokyo);
 	Player playerTwo = new Player(nickname, lifePoints = 10, energyPoints = 0, honorPoints = 0, inTokyo);
@@ -248,11 +248,8 @@ public class GameModel extends Application {
 		 */
 		players.get(myPosition).setActualDiceEnergyPoints(0);
 		players.get(myPosition).setActualDiceHonorPoints(0);
-		players.get(myPosition).setActualDiceLifePoints(0);
-		for (int i = 0; i > players.size(); i++) {
-			if (i != myPosition) {
+		for (int i = 0; i < players.size(); i++) {
 				players.get(i).setActualDiceLifePoints(0);
-			}
 		}
 		
 		/**
@@ -596,12 +593,12 @@ public class GameModel extends Application {
 	
 	public void sendTokyoChange() {
 		players.get(myPosition).setInTokyo(false);
-		players.get(1).setInTokyo(true);
+		players.get(getMoveId()).setInTokyo(true);
 		boolean[] tokyo = new boolean[players.size()];
 		for (int i = 0; i < players.size(); i++) {
 			tokyo[i] = players.get(i).inTokyo;
 		}
- 		connectionModel.sendTokyoChange(tokyo);
+ 		connectionModel.sendTokyoChange(tokyo, this.gameId);
 	}
 	
 	public void setGoToTokyo(boolean goToTokyo) {
@@ -648,5 +645,14 @@ public class GameModel extends Application {
 	public void setFamePointsWin(boolean famePointsWin) {
 		this.famePointsWin = famePointsWin;
 	}
+	
+	public int getMoveId() {
+		return moveId;
+	}
+
+	public void setMoveId(int moveId) {
+		this.moveId = moveId;
+	}
+
 	
 }
