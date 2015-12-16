@@ -152,6 +152,7 @@ public class ServerInputHandler {
 				}
 				break;
 			case Chat:
+				msgIn.getChat();
 				Platform.runLater(new Runnable() {
 	                @Override
 	                public void run() {
