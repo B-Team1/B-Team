@@ -136,6 +136,8 @@ public class ServerInputHandler {
 		                public void run() {
 		                	gameModel.startCreateGame(new Stage());
 		                	CreateGameController.getInstance().addPlayers(msgIn.getNickname());
+		                	NewGameController controller = new NewGameController();
+		                	controller.closeStage();
 		                }
 		            });
 				}else{					

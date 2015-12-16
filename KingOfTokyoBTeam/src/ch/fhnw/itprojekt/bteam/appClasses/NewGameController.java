@@ -29,7 +29,7 @@ public class NewGameController implements Initializable {
 	@FXML
 	CheckBox chbWinFamePoints;
 	
-	public Stage newGameStage;
+	public static Stage newGameStage = new Stage();
 	
 	
 
@@ -55,20 +55,11 @@ public class NewGameController implements Initializable {
 	 * @author Marco
 	 */
 	public void handleCreateGame(ActionEvent createevent) {
-		// Einstellungen übernehmen!
-		//Node node = (Node)createevent.getSource();
-		//Stage stage = ((Stage) node.getScene().getWindow());
-		
 		String numPlayers = (String) cbNumPlayers.getSelectionModel().getSelectedItem().toString(); 
 		String winFamePoins = (String) cbWinFamePoints.getSelectionModel().getSelectedItem().toString(); 
 		boolean famePointsWin = chbWinFamePoints.isSelected();
 		
 		model.openNewGame(numPlayers, famePointsWin, winFamePoins);
-		
-	}
-	
-	public static void closeNewGame(ActionEvent event) {
-		//
 	}
 	
 	/**
@@ -94,11 +85,8 @@ public class NewGameController implements Initializable {
 		stage.close();
 	}
 	
-	public Stage getNewGameStage() {
-		return newGameStage;
+	public void closeStage() {
+		newGameStage.close();
 	}
-
-	public void setNewGameStage(Stage newGameStage) {
-		this.newGameStage = newGameStage;
-	}
+	
 }
