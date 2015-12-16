@@ -80,6 +80,7 @@ public class GameController implements Initializable {
 	ArrayList<Label> lbLifePointsChanges = new ArrayList<Label>();
 	ArrayList<Label> lbEnergyPointsChanges = new ArrayList<Label>();
 	ArrayList<Label> lbHonorPointsChanges = new ArrayList<Label>();
+	ArrayList<Label> lbNickname = new ArrayList<Label>();
 	ArrayList<ImageView> monsters = new ArrayList<ImageView>();
 	GameModel gameModel;
 	ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
@@ -125,6 +126,10 @@ public class GameController implements Initializable {
 		lbHonorPointsChanges.add(lbFamePointsChangePlayer2);
 		lbHonorPointsChanges.add(lbFamePointsChangePlayer3);
 		lbHonorPointsChanges.add(lbFamePointsChangePlayer4);
+		lbNickname.add(lbNicknamePlayer1);
+		lbNickname.add(lbNicknamePlayer2);
+		lbNickname.add(lbNicknamePlayer3);
+		lbNickname.add(lbNicknamePlayer4);
 		monsters.add(ivMonster1);
 		monsters.add(ivMonster2);
 		monsters.add(ivMonster3);
@@ -142,6 +147,9 @@ public class GameController implements Initializable {
 				lbEnergyPoints.get(j).setText("" + gameModel.players.get(i).getEnergyPoints());
 				lbHonorPoints.get(j).setText("" + gameModel.players.get(i).getHonorPoints());
 			}
+		}
+		for (int i = 0; i < gameModel.players.size(); i++) {
+			lbNickname.get(i).setText("" + gameModel.players.get(i).getNickName());
 		}
 	}
 
@@ -200,29 +208,46 @@ public class GameController implements Initializable {
 	 */
 	@FXML
 	public void handleEndMove(ActionEvent event) {
+		resetButton();
 		gameModel.endMove();
 		gameModel.sendGameStats();
-//		lbLifePointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getLifePoints());
-//		lbLifePointsChangePlayer1.setText("");
-//		lbFamePointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getHonorPoints());
-//		lbFamePointsChangePlayer1.setText("");
-//		lbEnergyPointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getEnergyPoints());
-//		lbEnergyPointsChangePlayer1.setText("");
-//		lbLifePointsPlayer2.setText("" + gameModel.players.get(1).getLifePoints());
-//		lbLifePointsChangePlayer2.setText("");
-//		if (gameModel.players.size() > 2) {
-//		lbLifePointsPlayer3.setText("" + gameModel.players.get(2).getLifePoints());
-//		lbLifePointsChangePlayer3.setText("");
-//		}
-//		if (gameModel.players.size() > 3) {
-//		lbLifePointsPlayer4.setText("" + gameModel.players.get(3).getLifePoints());
-//		lbLifePointsChangePlayer4.setText("");
-//		}
-//		if (gameModel.isGoToTokyo()) {
-//			ivMonsterInTokyoPlayerMe.setVisible(true);
-//		}
 	}
 	
+	private void resetButton() {
+		ArrayList<Dice> diceResult = gameModel.getDiceResult();
+		for(int i = 0; i <= 5; i++){
+			if (diceResult != null){
+				Dice dice = diceResult.get(i);
+				switch (i) {
+						case 0:
+								btnDice1.setGraphic(new ImageView());
+								btnDice1.setSelected(false);
+							break;
+						case 1:
+								btnDice2.setGraphic(new ImageView());
+								btnDice2.setSelected(false);
+							break;
+						case 2:
+								btnDice3.setGraphic(new ImageView());
+								btnDice3.setSelected(false);
+							break;
+						case 3:
+								btnDice4.setGraphic(new ImageView());
+								btnDice4.setSelected(false);
+							break;
+						case 4:
+								btnDice5.setGraphic(new ImageView());
+								btnDice5.setSelected(false);
+							break;
+						case 5:
+								btnDice6.setGraphic(new ImageView());
+								btnDice6.setSelected(false);
+							break;
+					} 
+			}
+		}
+	}
+
 	/**
 	 * Methode sendet den eingegebenen Text an alle Mitspieler
 	 * @author Luzian

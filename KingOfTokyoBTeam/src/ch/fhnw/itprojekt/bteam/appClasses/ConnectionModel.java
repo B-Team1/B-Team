@@ -261,9 +261,21 @@ public class ConnectionModel {
 		}
 	}
 	
+
 	public void startGame(int gameId){
 		Message msgOut = new Message(Message.MessageType.StartGame);
 		msgOut.setGameId(gameId);
+		try {
+			msgOut.send(socket);
+		} catch (Exception e) {
+			serviceLocator.getLogger().warning(e.toString());
+		}
+	}
+
+	public void sendTokyoChange(boolean[] tokyo) {
+		Message msgOut = new Message(Message.MessageType.ChangeTokyo);
+		msgOut.setTokyo(tokyo);
+
 		try {
 			msgOut.send(socket);
 		} catch (Exception e) {
