@@ -226,14 +226,20 @@ public class ServerInputHandler {
 				int[] lifepoints = msgIn.getLifepoints();
 				boolean[] tokyo = msgIn.getTokyo();
 				String gamerName = msgIn.getGamerName();
-				gameModel = GameModel.getInstance();
-				gameModel.setLifepoints(lifepoints);
-				gameModel.setPlayerpoints(gamerName, playerpoints);
-				gameModel.setActualTokyo(tokyo);
-				gameModel.stayInTokyo(lifepoints);
-				GameController.getInstance().updateLabels();
-				gameModel.checkLoser();
-				gameModel.checkWinner();
+				Platform.runLater(new Runnable(){
+					@Override
+					public void run(){
+						GameModel gameModel = GameModel.getInstance();
+						gameModel.setLifepoints(lifepoints);
+						gameModel.setPlayerpoints(gamerName, playerpoints);
+						//gameModel.setActualTokyo(tokyo);
+						gameModel.stayInTokyo(lifepoints);
+						GameController.getInstance().updateLabels();
+						gameModel.checkLoser();
+						gameModel.checkWinner();
+					}
+				});
+				
 				break;
 		default:
 		}

@@ -195,7 +195,7 @@ public class GameController implements Initializable {
 	@FXML
 	public void handleEndMove(ActionEvent event) {
 		gameModel.endMove();
-		//gameModel.sendGameStats();
+		gameModel.sendGameStats();
 //		lbLifePointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getLifePoints());
 //		lbLifePointsChangePlayer1.setText("");
 //		lbFamePointsPlayer1.setText("" + gameModel.players.get(gameModel.myPosition).getHonorPoints());

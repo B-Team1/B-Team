@@ -94,10 +94,13 @@ public class Message {
 	private String [] players;
 	
 	@Element(required = false)
+	private String gamerName;
+	
+	@Element(required = false)
 	private int[] myPoints;
 
 	@Element(required = false)
-	private int[] otherPoints;
+	private int[] lifepoints;
 	
 	@Element(required = false)
 	private boolean[] tokyo;
@@ -332,6 +335,14 @@ public class Message {
 		this.userList = userList;
 	}
 	
+	public String getGamerName() {
+		return gamerName;
+	}
+	
+	public void setGamerName(String gamerName) {
+		this.gamerName = gamerName;
+	}
+	
 	public int[] getMyPoints() {
 		return myPoints;
 	}
@@ -340,12 +351,12 @@ public class Message {
 		this.myPoints = myPoints;
 	}
 	
-	public int[] getOtherPoints() {
-		return otherPoints;
+	public int[] getLifepoints() {
+		return lifepoints;
 	}
 	
-	public void setOtherPoints(int[] otherPoints) {
-		this.otherPoints = otherPoints;
+	public void setLifepoints(int[] lifepoints) {
+		this.lifepoints = lifepoints;
 	}
 	
 	public boolean[] getTokyo() {
