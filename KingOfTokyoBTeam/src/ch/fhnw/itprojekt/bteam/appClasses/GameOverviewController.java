@@ -109,7 +109,7 @@ public class GameOverviewController implements Initializable {
 	 */
 	@FXML
 	public void handleNewGame(ActionEvent event) {
-		model.startNewGame(new Stage());
+		model.startNewGame(NewGameController.newGameStage);
 		Node node = (Node)event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		stage.close();

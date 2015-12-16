@@ -284,11 +284,26 @@
                                     </ImageView>
                                     <AnchorPane>
                                        <children>
-                                          <HBox fx:id="hbTokyoMe" layoutX="50.0" layoutY="90.0">
-                                             <children>
-                                                <ImageView fx:id="ivMonsterInTokyo" fitHeight="150.0" fitWidth="176.0" layoutX="14.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="90.0" />
-                                             </children>
-                                          </HBox>
+                                          <ImageView fx:id="ivMonster1" fitHeight="150.0" fitWidth="176.0" layoutX="37.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="95.0">
+                                             <image>
+                                                <Image url="@../images/Monster1.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fx:id="ivMonster2" fitHeight="150.0" fitWidth="176.0" layoutX="26.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="85.0">
+                                             <image>
+                                                <Image url="@../images/Monster3.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fx:id="ivMonster4" fitHeight="150.0" fitWidth="176.0" layoutX="26.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="85.0">
+                                             <image>
+                                                <Image url="@../images/Monster4.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fx:id="ivMonster3" fitHeight="150.0" fitWidth="176.0" layoutX="20.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="85.0">
+                                             <image>
+                                                <Image url="@../images/Monster2.png" />
+                                             </image>
+                                          </ImageView>
                                        </children>
                                     </AnchorPane>
                                  </children>

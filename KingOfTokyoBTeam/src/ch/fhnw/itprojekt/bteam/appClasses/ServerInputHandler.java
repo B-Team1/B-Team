@@ -139,6 +139,8 @@ public class ServerInputHandler {
 		                public void run() {
 		                	gameModel.startCreateGame(CreateGameController.stage);
 		                	CreateGameController.getInstance().addPlayers(msgIn.getNickname());
+		                	NewGameController controller = new NewGameController();
+		                	controller.closeStage();
 		                }
 		            });
 				}else{					
@@ -235,7 +237,7 @@ public class ServerInputHandler {
 						GameModel gameModel = GameModel.getInstance();
 						gameModel.setLifepoints(lifepoints);
 						gameModel.setPlayerpoints(gamerName, playerpoints);
-						//gameModel.setActualTokyo(tokyo);
+						gameModel.setActualTokyo(tokyo);
 						gameModel.stayInTokyo(lifepoints);
 						GameController.getInstance().updateLabels();
 						gameModel.checkLoser();
