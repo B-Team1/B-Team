@@ -40,7 +40,7 @@ public class ServerThreadForClient extends Thread {
 						&& msgIn.getType() != Message.MessageType.ChangeGameMove){
 					msgOut.send(clientSocket);
 				}
-				if(msgIn.getType() == Message.MessageType.AddPlayerToGame){
+				if(msgIn.getType() == Message.MessageType.AddPlayerToGame && msgOut.getWriteCheck()){
 					menuModel.sendNewPlayer(msgIn.getGameId(), msgIn.getNickname(), clientSocket);
 				}
             }
@@ -135,9 +135,9 @@ public class ServerThreadForClient extends Thread {
 			case AddPlayerToGame:
 				msgOut = new Message(Message.MessageType.AddPlayerToGame);
 				msgOut.setPlayers(menuModel.getPlayerFromOpenGame(msgIn.getGameId()));
-				msgOut.setFamePointsWin(menuModel.searchOpenGame(msgIn.getGameId()).isFamePointsWin());
-				msgOut.setWinFamePoins(menuModel.searchOpenGame(msgIn.getGameId()).getWinFamePoints());
 				msgOut.setWriteCheck(menuModel.addPlayerToGame(msgIn.getGameId(), msgIn.getNickname(), clientSocket));
+					msgOut.setFamePointsWin(menuModel.searchOpenGame(msgIn.getGameId()).isFamePointsWin());
+					msgOut.setWinFamePoins(menuModel.searchOpenGame(msgIn.getGameId()).getWinFamePoints());
 				break;
 			case GameStats:
 				msgOut = msgIn;

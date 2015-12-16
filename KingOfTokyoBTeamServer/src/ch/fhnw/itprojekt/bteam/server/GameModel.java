@@ -42,7 +42,7 @@ public class GameModel {
 	}
 
 	public boolean addPlayer(User player){
-		if (players.size() <= numPlayer) {
+		if (players.size() < numPlayer) {
 			players.add(player);
 			return true;
 		}else{

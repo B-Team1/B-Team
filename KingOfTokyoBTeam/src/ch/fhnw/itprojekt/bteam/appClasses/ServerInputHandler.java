@@ -93,6 +93,8 @@ public class ServerInputHandler {
 						}
 					}
 				});
+			}else{
+				JOptionPane.showMessageDialog(null,FXCollections.observableArrayList(bundle.getString("overview.error.start")), "Login", JOptionPane.WARNING_MESSAGE);
 			}
 			break;
 			case OpenGameRequest:
