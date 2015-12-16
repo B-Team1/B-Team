@@ -232,17 +232,22 @@ public class ServerInputHandler {
 				Platform.runLater(new Runnable(){
 					@Override
 					public void run(){
+						boolean change = false;
 						GameModel gameModel = GameModel.getInstance();
 						gameModel.setLifepoints(lifepoints);
 						gameModel.setPlayerpoints(gamerName, playerpoints);
 						gameModel.setActualTokyo(tokyo);
-						gameModel.stayInTokyo(lifepoints);
+						if (gameModel.underAttack(lifepoints)) {
+							change = true;
+						}
 						GameController.getInstance().updateLabels();
 						gameModel.checkLoser();
 						gameModel.checkWinner();
+						if (change) {
+							gameModel.sendTokyoChange();
+						}
 					}
 				});
-				
 				break;
 		default:
 		}
