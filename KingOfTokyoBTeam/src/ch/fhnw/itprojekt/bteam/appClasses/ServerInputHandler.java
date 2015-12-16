@@ -246,24 +246,26 @@ public class ServerInputHandler {
 				GameModel model = GameModel.getInstance();
 				model.setLifepoints(lifepoints);
 				model.setPlayerpoints(gamerName, playerpoints);
-				model.setActualTokyo(tokyo);
-				boolean change = false;
-				if (model.underAttack(lifepoints)) {
-					change = true;
-				}
-				if (change) {
-					model.setMoveId(msgIn.getGameMove());
-					model.startChangeTokyo(new Stage());
-//					model.sendTokyoChange();
-				}
+				
 				Platform.runLater(new Runnable(){
 					@Override
 					public void run(){
+						model.setActualTokyo(tokyo);
+						boolean change = false;
+						if (model.underAttack(lifepoints)) {
+							change = true;
+						}
+						if (change) {
+							model.setMoveId(msgIn.getGameMove());
+							model.startChangeTokyo(new Stage());
+							model.sendTokyoChange();
+						}
 						GameController.getInstance().updateLabels();
 						model.checkLoser();
 						model.checkWinner();
 					}
 				});
+				
 				break;
 			case StartGame:
 				Platform.runLater(new Runnable(){

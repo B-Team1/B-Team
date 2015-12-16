@@ -151,13 +151,11 @@ public class ServerThreadForClient extends Thread {
 			case ChangeGameMove:
 				msgOut= msgIn;
 				menuModel.changeGameMove(msgIn.getGameId());
-
+				break;
 			case ChangeTokyo:
 				msgOut = msgIn;
 				menuModel.sendGameStats(msgOut, msgIn.getGameId());
-
 				break;
-				
 		default:
 			msgOut = new Message(Message.MessageType.Error);
 		}

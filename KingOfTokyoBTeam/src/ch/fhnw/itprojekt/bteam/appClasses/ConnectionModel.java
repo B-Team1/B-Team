@@ -283,6 +283,16 @@ public class ConnectionModel {
 		}
 	}
 	
+	public void sendGameMove(int gameId){
+		Message msgOut = new Message(Message.MessageType.ChangeGameMove);
+		msgOut.setGameId(gameId);
+		try {
+			msgOut.send(socket);
+		} catch (Exception e) {
+			serviceLocator.getLogger().warning(e.toString());
+		}
+	}
+	
 }
 
 
