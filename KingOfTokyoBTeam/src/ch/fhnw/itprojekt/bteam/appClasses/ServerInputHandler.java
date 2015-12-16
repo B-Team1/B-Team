@@ -91,6 +91,7 @@ public class ServerInputHandler {
 						for (String s : msgIn.getPlayers()) {
 							CreateGameController.getInstance().addPlayers(s);
 						}
+						GameModel.getInstance().disableNgcBtns();
 					}
 				});
 			}else{

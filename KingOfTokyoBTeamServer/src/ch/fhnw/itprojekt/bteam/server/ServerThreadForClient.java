@@ -136,17 +136,20 @@ public class ServerThreadForClient extends Thread {
 				msgOut = new Message(Message.MessageType.AddPlayerToGame);
 				msgOut.setPlayers(menuModel.getPlayerFromOpenGame(msgIn.getGameId()));
 				msgOut.setWriteCheck(menuModel.addPlayerToGame(msgIn.getGameId(), msgIn.getNickname(), clientSocket));
-					msgOut.setFamePointsWin(menuModel.searchOpenGame(msgIn.getGameId()).isFamePointsWin());
-					msgOut.setWinFamePoins(menuModel.searchOpenGame(msgIn.getGameId()).getWinFamePoints());
+				msgOut.setFamePointsWin(menuModel.searchOpenGame(msgIn.getGameId()).isFamePointsWin());
+				msgOut.setWinFamePoins(menuModel.searchOpenGame(msgIn.getGameId()).getWinFamePoints());
 				break;
 			case GameStats:
 				msgOut = msgIn;
 				menuModel.sendGameStats(msgOut, msgIn.getGameId());
-				menuModel.changeGameMove(msgIn.getGameId());
 				break;
 			case StartGame:
 				msgOut = new Message(Message.MessageType.StartGame);
 				menuModel.startGame(msgIn.getGameId());
+				break;
+			case ChangeGameMove:
+				msgOut= msgIn;
+				menuModel.changeGameMove(msgIn.getGameId());
 				break;
 				
 		default:

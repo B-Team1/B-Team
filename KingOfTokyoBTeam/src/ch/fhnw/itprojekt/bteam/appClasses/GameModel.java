@@ -631,6 +631,10 @@ public class GameModel extends Application {
 		this.famePointsWin = famePointsWin;
 	}
 	
-	
+	public void disableNgcBtns(){
+		if(this.myPosition != 0){
+			CreateGameController.getInstance().disableBtns();
+		}
+	}
 	
 }
