@@ -24,6 +24,8 @@ public class CreateGameController implements Initializable {
 	private ArrayList<Label> labelList = new ArrayList<Label>();
 	private static CreateGameController singleton;
 	
+	public static Stage stage = new Stage();
+	
 	/**
 	 * Methode initialisiert die Komponenten
 	 * @author Marco
@@ -69,7 +71,7 @@ public class CreateGameController implements Initializable {
 	public void handleToGame(ActionEvent event) {
 		//laden der Mitspieler oder Bots
 		
-		gameModel.start(new Stage());
+		gameModel.startGame();
 		Node node= (Node)event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		stage.close();

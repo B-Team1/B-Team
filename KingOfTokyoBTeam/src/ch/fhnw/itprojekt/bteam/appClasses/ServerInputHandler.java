@@ -6,9 +6,11 @@ import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.scene.Node;
 import javafx.stage.Stage;
 
 import javax.swing.JOptionPane;
+
 
 
 
@@ -135,7 +137,7 @@ public class ServerInputHandler {
 					Platform.runLater(new Runnable() {
 		                @Override
 		                public void run() {
-		                	gameModel.startCreateGame(new Stage());
+		                	gameModel.startCreateGame(CreateGameController.stage);
 		                	CreateGameController.getInstance().addPlayers(msgIn.getNickname());
 		                }
 		            });
@@ -240,7 +242,16 @@ public class ServerInputHandler {
 						gameModel.checkWinner();
 					}
 				});
-				
+				break;
+			case StartGame:
+				Platform.runLater(new Runnable(){
+					@Override
+					public void run(){
+						GameModel gameModel = GameModel.getInstance();
+						gameModel.start(new Stage());
+						CreateGameController.stage.close();
+					}
+				});
 				break;
 		default:
 		}

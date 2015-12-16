@@ -106,4 +106,29 @@ public class ConnectionModel {
 		}
     }
     
+    public void startGame(ArrayList<User> players){
+    	for (User player: players) {
+    		Message msgOut = new Message(Message.MessageType.StartGame);
+    		try {
+    			msgOut.send(player.getSocket());    			
+    		} catch (Exception e) {
+    			System.err.println(e);
+    			
+    		}
+		}
+    }
+    
+    public void changeGameMove(ArrayList<User> players, int gameMove){
+    	for (User player: players) {
+    		Message msgOut = new Message(Message.MessageType.ChangeGameMove);
+    		msgOut.setGameMove(gameMove);
+    		try {
+    			msgOut.send(player.getSocket());    			
+    		} catch (Exception e) {
+    			System.err.println(e);
+    			
+    		}
+		}
+    }
+    
 }

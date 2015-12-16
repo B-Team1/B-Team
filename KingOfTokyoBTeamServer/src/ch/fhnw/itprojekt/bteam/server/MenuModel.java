@@ -4,11 +4,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
-
-
 public class MenuModel {
 	private ArrayList<GameModel> openGameList= new ArrayList<GameModel>();
+	private ArrayList<GameModel> startedGameList= new ArrayList<GameModel>();
 	private static MenuModel singleton;
 	
 	public static MenuModel getInstance() {
@@ -61,29 +59,33 @@ public class MenuModel {
 		int[] idList = this.getGameIdList();
 		ArrayList<String> gameList = new ArrayList<String>();
 		for(int i = 0; i < idList.length; i ++){
-			String[] playerList = this.getGame(idList[i]);
+			String[] playerList = this.getPlayerFromOpenGame(idList[i]);
 			gameList.add(idList[i]+ "");
 			for(int c = 0; c < playerList.length; c ++){
 				gameList.add(playerList[c]);
 			}
 			gameList.add("<EndArray>");
 		}
-		
 		return gameList.toArray(new String[gameList.size()]);		
 	}
 	
 
-	public String[] getGame(int gameId){
-		for(int i = 0; i < openGameList.size() ; i++){
-			if(openGameList.get(i).getGameId() == gameId){
-				String[] s = new String[openGameList.get(i).getPlayers().size()];
-				for(int c = 0; c < openGameList.get(i).getPlayers().size() ; c++){
-					s[c] = openGameList.get(i).getNickName();
-				}
-				return s;
-			}
+	public String[] getPlayerFromOpenGame(int gameId){
+		GameModel game = searchOpenGame(gameId);
+		String[] s = new String[game.getPlayers().size()];
+		for(int c = 0; c < game.getPlayers().size() ; c++){
+			s[c] = game.getPlayers().get(c).getNickname();
 		}
-		return null;
+		return s;
+	}
+	
+	public String[] getPlayerFromStartedGame(int gameId){
+		GameModel game = searchStartedGame(gameId);
+		String[] s = new String[game.getPlayers().size()];
+		for(int c = 0; c < game.getPlayers().size() ; c++){
+			s[c] = game.getPlayers().get(c).getNickname();
+		}
+		return s;
 	}
 	
 	public void addPlayerToGame(int gameId, String nickName, Socket socket){
@@ -104,11 +106,8 @@ public class MenuModel {
 	
 	
 	public void getSpiel(String chat, int gameId){
-		for(int i = 0; i < openGameList.size() ; i++){
-			if(openGameList.get(i).getGameId() == gameId){
-				openGameList.get(i).sendChat(chat, openGameList.get(i).getPlayers());
-			}
-		}
+		GameModel game = searchStartedGame(gameId);
+		game.sendChat(chat, game.getPlayers());
 	}
 	
 	public void sendGameStats(Message msg, int gameId){
@@ -117,6 +116,35 @@ public class MenuModel {
 				openGameList.get(i).sendGameStats(msg);
 			}
 		}
+	}
+	
+	public void startGame(int gameId){
+		GameModel game = searchOpenGame(gameId);
+		startedGameList.add(game);
+		openGameList.remove(game);
+		game.startGame();
+	}
+	
+	public void changeGameMove(int gameId){
+		searchStartedGame(gameId).changeGameMove();
+	}
+	
+	private GameModel searchOpenGame(int gameId){
+		for(int i = 0; i < openGameList.size() ; i++){
+			if(openGameList.get(i).getGameId() == gameId){
+				return openGameList.get(i);
+			}
+		}
+		return null;
+	}
+	
+	private GameModel searchStartedGame(int gameId){
+		for(int i = 0; i < startedGameList.size() ; i++){
+			if(startedGameList.get(i).getGameId() == gameId){
+				return startedGameList.get(i);
+			}
+		}
+		return null;
 	}
 
 }

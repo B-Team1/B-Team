@@ -87,6 +87,7 @@ public class GameModel extends Application {
             gameStage.setTitle("King of Tokyo");
             gameStage.setResizable(false);
             gameStage.show();
+           
             
     	} catch(Exception e) {
     		e.printStackTrace();
@@ -571,6 +572,10 @@ public class GameModel extends Application {
 		}
 	}
 	
+	public void startGame(){
+		connectionModel.startGame(this.gameId);
+	}
+	
 	public void setGoToTokyo(boolean goToTokyo) {
 		this.goToTokyo = goToTokyo;
 	}
@@ -590,7 +595,5 @@ public class GameModel extends Application {
 	public void setMyPosition(int myPosition) {
 		this.myPosition = myPosition;
 	}
-	
-	
 	
 }

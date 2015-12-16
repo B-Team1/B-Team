@@ -33,7 +33,10 @@ public class ServerThreadForClient extends Thread {
 				// Read a message from the client
 				Message msgIn = Message.receive(clientSocket);							
 				Message msgOut = processMessage(msgIn);
-				if(msgIn.getType() != Message.MessageType.Chat && msgIn.getType() != Message.MessageType.GameStats){
+				if(msgIn.getType() != Message.MessageType.Chat 
+						&& msgIn.getType() != Message.MessageType.GameStats
+						&& msgIn.getType() != Message.MessageType.StartGame
+						&& msgIn.getType() != Message.MessageType.ChangeGameMove){
 					msgOut.send(clientSocket);
 				}
 				if(msgIn.getType() == Message.MessageType.AddPlayerToGame){
@@ -122,22 +125,27 @@ public class ServerThreadForClient extends Thread {
 				msgOut = new Message(Message.MessageType.Chat);
 				String text = msgIn.getNickname()+" : "+msgIn.getChat();
 				menuModel.getSpiel(text, msgIn.getGameId());
-				//connectionModel.sendChat(msgIn.getNickname()+" : "+msgIn.getChat(), menuModel. );
 				break;
 			case Players:
 				//Luzian
 				msgOut = new Message(Message.MessageType.Players);
-				msgOut.setPlayers(menuModel.getGame(msgIn.getGameId()));				
+				msgOut.setPlayers(menuModel.getPlayerFromStartedGame(msgIn.getGameId()));				
 				break;
 			case AddPlayerToGame:
 				msgOut = new Message(Message.MessageType.AddPlayerToGame);
-				msgOut.setPlayers(menuModel.getGame(msgIn.getGameId()));
+				msgOut.setPlayers(menuModel.getPlayerFromOpenGame(msgIn.getGameId()));
 				menuModel.addPlayerToGame(msgIn.getGameId(), msgIn.getNickname(), clientSocket);
 				break;
 			case GameStats:
 				msgOut = msgIn;
 				menuModel.sendGameStats(msgOut, msgIn.getGameId());
+				menuModel.changeGameMove(msgIn.getGameId());
 				break;
+			case StartGame:
+				msgOut = new Message(Message.MessageType.StartGame);
+				menuModel.startGame(msgIn.getGameId());
+				break;
+				
 		default:
 			msgOut = new Message(Message.MessageType.Error);
 		}

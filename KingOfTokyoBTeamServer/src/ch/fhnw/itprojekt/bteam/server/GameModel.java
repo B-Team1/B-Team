@@ -11,6 +11,7 @@ public class GameModel {
 	private static int gameIdCounter = 1;
 	private ArrayList<User> players = new ArrayList<User>();
 	private ConnectionModel connectionModel;
+	private int gameMove = 0;
 
 	public GameModel(int numPlayer, int winFamePoints, boolean famePointsWin, User user) {
 		this.numPlayer = numPlayer;
@@ -21,6 +22,19 @@ public class GameModel {
 		gameId = GameModel.gameIdCounter;
 		GameModel.gameIdCounter++;
 		players.add(user);
+	}
+	
+	public void changeGameMove(){
+		gameMove++;
+		if(gameMove >= players.size()){
+			gameMove = 0;
+		}
+		connectionModel.changeGameMove(players, gameMove);
+	}
+	
+	public void startGame(){
+		connectionModel.startGame(players);
+		connectionModel.changeGameMove(players, gameMove);
 	}
 	
 	public void sendNewPlayer(User player){
