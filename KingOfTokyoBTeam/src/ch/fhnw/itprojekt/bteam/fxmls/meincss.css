@@ -3,9 +3,6 @@
 
 }
 
-.testbutton {
-	-fx-background-color: black;
-}
 
 .button {
     -fx-background-color: 
@@ -61,9 +58,6 @@
 
 }
 
-.cb1 {
-	-fx-background-color: red;
-}
 
 .menu-bar {
     -fx-background-color: derive(#1d1d1d,20%);
@@ -94,7 +88,6 @@
     -fx-background-color: black;
 }
 
-
 .choicebox-base {
 
 	-fx-background-color: white, white, white, white;
@@ -104,21 +97,6 @@
 	-fx-background-insets: 0 0 -1 0, 0, 1, 2;
 
 }
-
-
-
-.check-box>.box>.mark {
-  -fx-background-image: url("ch\fhnw\itprojekt\bteam\images\dice3.png");
-  -fx-background-position: center;
-  -fx-background-repeat: stretch;
-  -fx-shape: none;
-}
-
-.check-box:selected>.box>.mark{
-  -fx-background-color: transparent;
-  -fx-background-image: url("marked.png");
-}
-
 
 .table-view {
     -fx-base: #1d1d1d;

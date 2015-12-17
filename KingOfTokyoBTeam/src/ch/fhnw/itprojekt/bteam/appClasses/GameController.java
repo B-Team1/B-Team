@@ -298,7 +298,7 @@ public class GameController implements Initializable {
 					JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("card.lessEnergy")));
 				}
 			} else {
-				if (gameModel.players.get(gameModel.myPosition).getEnergyPoints() >= GameModel.cardCost) {
+				if (gameModel.players.get(gameModel.myPosition).getEnergyPoints() >= (GameModel.cardCost * 2)) {
 				newCard = newCard.pullCard();
 				ivCard2.setImage(newCard.getCardImage());
 				cardAction(newCard);

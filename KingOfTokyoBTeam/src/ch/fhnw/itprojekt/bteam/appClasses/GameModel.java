@@ -394,6 +394,9 @@ public class GameModel extends Application {
 	  */
 	public void checkLoser() {
 		if (players.get(myPosition).getLifePoints() <= 0) {
+			if (players.get(myPosition).isInTokyo()) {
+				sendTokyoChange(true);
+			}
 			startLoser(new Stage());
 		}
 		for (int i = 0; i < players.size(); i++) {
