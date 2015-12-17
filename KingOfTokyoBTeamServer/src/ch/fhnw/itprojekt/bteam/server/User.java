@@ -17,7 +17,7 @@ public class User {
 	private String securityAnswer;
 	private String securityQuestion;
 	private Socket socket;
-	private boolean isDead;
+	private boolean isDead = false;
 	
 
 	public User(String nickname, String vName, String nName, String password, String securityAnswer,

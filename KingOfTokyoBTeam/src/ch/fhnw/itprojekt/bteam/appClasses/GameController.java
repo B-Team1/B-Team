@@ -406,13 +406,10 @@ public class GameController implements Initializable {
 		btnNext.setDisable(false);
 	}
 	
-	@FXML 
-	public void handleTest(ActionEvent event) {
-		gameModel.sendGameMove();
-	}
+	
 	@FXML 
 	public void handleNext(ActionEvent event) {
-
+		gameModel.sendGameMove();
 	}
 	
 }
