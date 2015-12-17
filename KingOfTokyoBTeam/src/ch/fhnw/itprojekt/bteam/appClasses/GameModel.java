@@ -291,7 +291,9 @@ public class GameModel extends Application {
 		 * @author Marco
 		 */
 		if (heart >= 1 && !players.get(myPosition).inTokyo) {
-			players.get(myPosition).setActualDiceLifePoints(players.get(myPosition).getActualDiceLifePoints() + heart);
+			if (players.get(myPosition).getLifePoints() != 10) {
+				players.get(myPosition).setActualDiceLifePoints(players.get(myPosition).getActualDiceLifePoints() + heart);
+			}
 		}
 		/**
 		 * Berechnet die Auswirkungen bei einem Angriffs-Würfel
@@ -373,6 +375,9 @@ public class GameModel extends Application {
 		players.get(myPosition).setHonorPoints(players.get(myPosition).getHonorPoints() + players.get(myPosition).getFutureHonorPoints());
 		for (int i = 0; i < players.size(); i++) {
 			players.get(i).setLifePoints(players.get(i).getLifePoints() + players.get(i).getFutureLifePoints());
+			if (players.get(i).getLifePoints() >= 10) {
+				players.get(i).setLifePoints(10);
+			}
 		}
 		if (isGoToTokyo()) {
 			players.get(myPosition).setInTokyo(true);
@@ -531,9 +536,6 @@ public class GameModel extends Application {
 	 */
 	public void setLifepoints(int[] lifePoints) {
 		for (int i = 0; i < lifePoints.length; i++) {
-			if (lifePoints[i] >= 10) {
-				players.get(i).setLifePoints(10);
-			}
 			players.get(i).setLifePoints(lifePoints[i]);
 		}
 	}

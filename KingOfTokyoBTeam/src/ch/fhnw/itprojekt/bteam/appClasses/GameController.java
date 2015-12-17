@@ -203,7 +203,7 @@ public class GameController implements Initializable {
 		lbLifePointsChanges.get(i).setText("" + gameModel.players.get(i).getFutureLifePoints());
 	}
 	}else{
-		JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("dice.one")));
+		JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("dice.threetimes")));
 	}
 
 	}
@@ -222,7 +222,7 @@ public class GameController implements Initializable {
 			gameModel.endMove();
 			gameModel.sendGameStats();
 		} else {
-			JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("dice.threetimes")));
+			JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("dice.one")));
 		}
 	}
 	
@@ -289,24 +289,23 @@ public class GameController implements Initializable {
 	public void handleCardDeck(ActionEvent event) {
 		try {
 			Card newCard = new Card();
-			gameModel.players.get(gameModel.myPosition).setEnergyPoints(10);
-		if (GameModel.cardList.size() == 0) {
-			if (gameModel.players.get(gameModel.myPosition).getEnergyPoints() >= newCard.cost) {
+			if (GameModel.cardList.size() == 0) {
+				if (gameModel.players.get(gameModel.myPosition).getEnergyPoints() >= GameModel.cardCost) {
+					newCard = newCard.pullCard();
+					ivCard1.setImage(newCard.getCardImage());
+					cardAction(newCard);
+				} else {
+					JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("card.lessEnergy")));
+				}
+			} else {
+				if (gameModel.players.get(gameModel.myPosition).getEnergyPoints() >= GameModel.cardCost) {
 				newCard = newCard.pullCard();
-				ivCard1.setImage(newCard.getCardImage());
+				ivCard2.setImage(newCard.getCardImage());
 				cardAction(newCard);
-			} else {
-				JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("card.lessEnergy")));
+				} else {
+					JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("card.lessEnergy")));
+				}
 			}
-		} else {
-			if (gameModel.players.get(gameModel.myPosition).getEnergyPoints() >= newCard.cost) {
-			newCard = newCard.pullCard();
-			ivCard2.setImage(newCard.getCardImage());
-			cardAction(newCard);
-			} else {
-				JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("card.lessEnergy")));
-			}
-		}
 		} catch (NullPointerException exception){
 		}
 	}
