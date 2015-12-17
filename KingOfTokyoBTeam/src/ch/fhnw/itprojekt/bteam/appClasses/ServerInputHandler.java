@@ -1,5 +1,6 @@
 package ch.fhnw.itprojekt.bteam.appClasses;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -17,6 +18,8 @@ import javax.swing.JOptionPane;
 
 
 
+
+
 import ch.fhnw.itprojekt.bteam.template.Properties;
 
 /**
@@ -24,14 +27,29 @@ import ch.fhnw.itprojekt.bteam.template.Properties;
  * @author Tobias
  *
  */
-public class ServerInputHandler {
+public class ServerInputHandler extends Thread {
+	Message msgIn;
+	
+	public ServerInputHandler(Message msgIn){
+		this.msgIn = msgIn;
+	}
+	
+	
+	public void run(){
+		try {			
+			manageInput(this.msgIn);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * In dieser Methode wird der Input vom Server verarbeitet
 	 * Im Switch case wird dann je nach Messagetyp eine Aktion ausgeführt.
 	 * @author Tobias	
 	 * @param msgIn vom Server
 	 */
-	public void manageInput(Message msgIn){
+	private void manageInput(Message msgIn){
 		ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
 		switch (msgIn.getType()) {
 			case Login:

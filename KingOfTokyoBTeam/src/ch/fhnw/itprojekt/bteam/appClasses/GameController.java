@@ -156,6 +156,8 @@ public class GameController implements Initializable {
 		for (int i = 0; i < gameModel.players.size(); i++) {
 			lbNickname.get(i).setText("" + gameModel.players.get(i).getNickName());
 		}
+		
+		disableGameBtns();
 	}
 
 	/**Bei Klick auf Würfeln wird gameModel aufgerufen, welche das Würfelresultat zurückgibt. Zudem wird hier das Wüfelbild geladen.

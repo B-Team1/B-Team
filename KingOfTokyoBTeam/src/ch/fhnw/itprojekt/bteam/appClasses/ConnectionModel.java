@@ -45,7 +45,6 @@ public class ConnectionModel {
 		try {
 			socket = new Socket(ipAddress, port);
 			success = true;	
-			 //new Thread(serverTask).start();
 			new ThreadHandler(socket).start();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
