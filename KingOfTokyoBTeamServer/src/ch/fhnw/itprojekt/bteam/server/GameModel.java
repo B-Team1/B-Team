@@ -127,7 +127,20 @@ public class GameModel {
 	
 	public void setDeadPlayer(String nickname){
 		int playerId = getPlayerPosition(nickname);
+		int moveId = gameMove;
+		moveId++;
+		if(moveId >= players.size()){
+			moveId = 0;
+		}
+		while (players.get(moveId).isDead()) {
+			moveId++;
+			if(moveId >= players.size()){
+				moveId = 0;
+			}
+		}
 		players.get(playerId).setDead(true);
-//		if(player)
+		if(playerId == moveId){
+			changeGameMove();
+		}
 	}
 }
