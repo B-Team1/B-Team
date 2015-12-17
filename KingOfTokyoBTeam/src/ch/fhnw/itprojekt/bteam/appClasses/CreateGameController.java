@@ -46,6 +46,7 @@ public class CreateGameController implements Initializable {
 		for (Label label : labelList) {
 			label.setText(null);			
 		}
+		btnToGame.setDisable(true);
 	}
 	
 	public static CreateGameController getInstance() {
@@ -92,5 +93,9 @@ public class CreateGameController implements Initializable {
 	public void disableBtns(){
 		btnAbortGame.setDisable(true);
 		btnToGame.setDisable(true);
+	}
+	
+	public void enableBtns(){
+		btnToGame.setDisable(false);
 	}
 }

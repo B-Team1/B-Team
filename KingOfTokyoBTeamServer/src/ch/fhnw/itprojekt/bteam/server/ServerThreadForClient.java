@@ -142,6 +142,7 @@ public class ServerThreadForClient extends Thread {
 				break;
 			case GameStats:
 				msgOut = msgIn;
+				msgOut.setGameMove(menuModel.getMoveId(msgIn.getGameId()));
 				menuModel.sendGameStats(msgOut, msgIn.getGameId());
 				break;
 			case StartGame:

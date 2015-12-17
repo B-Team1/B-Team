@@ -406,7 +406,7 @@ public class GameController implements Initializable {
 	
 	@FXML 
 	public void handleTest(ActionEvent event) {
-		
+		gameModel.sendGameMove();
 	}
 	
 }

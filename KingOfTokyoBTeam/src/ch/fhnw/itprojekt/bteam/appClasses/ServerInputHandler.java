@@ -64,10 +64,12 @@ public class ServerInputHandler {
 			case AddNewPlayerToGame:
 				//Tobias
 				GameModel.getInstance().addPlayerToModel(msgIn.getNickname());
+				
 				Platform.runLater(new Runnable() {
 	                @Override
 	                public void run() {
 	                	CreateGameController.getInstance().addPlayers(msgIn.getNickname());
+	                	GameModel.getInstance().enableNgcBtn();
 	                }
 	            });
 				break;
@@ -246,7 +248,7 @@ public class ServerInputHandler {
 				GameModel model = GameModel.getInstance();
 				model.setLifepoints(lifepoints);
 				model.setPlayerpoints(gamerName, playerpoints);
-				
+				model.setMoveId(msgIn.getGameMove());
 				Platform.runLater(new Runnable(){
 					@Override
 					public void run(){
@@ -256,9 +258,7 @@ public class ServerInputHandler {
 							change = true;
 						}
 						if (change) {
-							model.setMoveId(msgIn.getGameMove());
 							model.startChangeTokyo(new Stage());
-							model.sendTokyoChange();
 						}
 						GameController.getInstance().updateLabels();
 						model.checkLoser();

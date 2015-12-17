@@ -24,7 +24,7 @@ public class GameModel extends Application {
 	static int cardCost = 3;
 	private boolean inTokyo = false;
 	static public ArrayList<Card> cardList = new ArrayList<Card>();
-	public boolean goToTokyo, win = false;
+	public boolean goToTokyo = false, win = false;
 
 	private static GameModel singleton;
 	private int gameId;
@@ -315,6 +315,8 @@ public class GameModel extends Application {
 					}
 				}
 			}
+		}else{
+			setGoToTokyo(false);
 		}
 		
 		/**
@@ -548,7 +550,7 @@ public class GameModel extends Application {
 	public void setActualTokyo(boolean[] tokyo) {
 		for (int i = 0; i < tokyo.length; i++) {
 			players.get(i).setInTokyo(tokyo[i]);
-			if (players.get(i).inTokyo) {
+			if (players.get(i).isInTokyo()) {
 				switch (i) {
 				case 0:
 					GameController.getInstance().monsters.get(i).setVisible(true);
@@ -599,7 +601,7 @@ public class GameModel extends Application {
 		players.get(getMoveId()).setInTokyo(true);
 		boolean[] tokyo = new boolean[players.size()];
 		for (int i = 0; i < players.size(); i++) {
-			tokyo[i] = players.get(i).inTokyo;
+			tokyo[i] = players.get(i).isInTokyo();
 		}
  		connectionModel.sendTokyoChange(tokyo, this.gameId);
 	}
@@ -655,6 +657,12 @@ public class GameModel extends Application {
 			CreateGameController.getInstance().disableBtns();
 		}
 	}
+	
+	public void enableNgcBtn(){
+		if(this.myPosition == 0){
+			CreateGameController.getInstance().enableBtns();
+		}
+	}
 
 	public int getMoveId() {
 		return moveId;
@@ -664,6 +672,8 @@ public class GameModel extends Application {
 		this.moveId = moveId;
 	}
 
-
+	public void sendGameMove(){
+		connectionModel.sendGameMove(this.gameId);
+	}
 	
 }

@@ -32,6 +32,14 @@ public class GameModel {
 		connectionModel.changeGameMove(players, gameMove);
 	}
 	
+	public int getGameMove(){
+		int moveId = this.gameMove;
+		if(moveId >= players.size()){
+			moveId = 0;
+		}
+		return moveId;
+	}
+	
 	public void startGame(){
 		connectionModel.startGame(players);
 		connectionModel.changeGameMove(players, gameMove);
