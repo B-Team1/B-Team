@@ -31,6 +31,10 @@ public class LeaveTokyoController implements Initializable{
 		clickBtn(false, event);
 	}
 	
+	/**
+	 * Sendet die gewählte Option an alle Spieler
+	 * @author Marco
+	 */
 	private void clickBtn(boolean answer, ActionEvent event){
 		GameModel.getInstance().sendTokyoChange(answer);
 		Node node= (Node)event.getSource();
