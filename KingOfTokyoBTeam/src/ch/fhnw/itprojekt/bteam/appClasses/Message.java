@@ -19,7 +19,7 @@ public class Message {
 	public enum MessageType {
 		Error, Login, SecurityQuestion, Registration, OpenGameRequest, SecurityAnswer, Password, Test, Broadcast,
 		getStat, openNewGame, deleteGame, Chat, Players, AddPlayerToGame, AddNewPlayerToGame, GameStats, StartGame,
-		ChangeGameMove
+		ChangeGameMove, setStat
 	};
 
 	// Data included in a message
@@ -109,6 +109,9 @@ public class Message {
 	
 	@Element(required = false)
 	private boolean[] tokyo;
+	
+	@Element(required = false)
+	private String WonOrLose;
 
 	public Message(@Element(name = "type") MessageType type) {
 		this.type = type;
@@ -382,6 +385,18 @@ public class Message {
 
 	public void setGameMove(int gameMove) {
 		this.gameMove = gameMove;
+	}
+
+
+
+	public String getWonOrLose() {
+		return WonOrLose;
+	}
+
+
+
+	public void setWonOrLose(String wonOrLose) {
+		WonOrLose = wonOrLose;
 	}
 
 	

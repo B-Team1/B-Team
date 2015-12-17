@@ -37,7 +37,8 @@ public class ServerThreadForClient extends Thread {
 				if(msgIn.getType() != Message.MessageType.Chat 
 						&& msgIn.getType() != Message.MessageType.GameStats
 						&& msgIn.getType() != Message.MessageType.StartGame
-						&& msgIn.getType() != Message.MessageType.ChangeGameMove){
+						&& msgIn.getType() != Message.MessageType.ChangeGameMove
+						&& msgIn.getType() != Message.MessageType.setStat ){
 					msgOut.send(clientSocket);
 				}
 				if(msgIn.getType() == Message.MessageType.AddPlayerToGame){
@@ -148,7 +149,17 @@ public class ServerThreadForClient extends Thread {
 				msgOut = new Message(Message.MessageType.StartGame);
 				menuModel.startGame(msgIn.getGameId());
 				break;
-				
+			case setStat:
+				// Luzian
+				Stats userstats = new Stats(msgIn.getNickname(), 0,0,0);
+				dbconnect.getStats(userstats);
+				if(msgIn.getWonOrLose().equals("lose")){
+					userstats.setLosedGames(userstats.getLosedGames() + 1);
+				}else{
+					userstats.setWonGames(userstats.getWonGames() + 1);
+				}
+				userstats.setSumGames(userstats.getSumGames() + 1);	
+				dbconnect.setStats(userstats);
 		default:
 			msgOut = new Message(Message.MessageType.Error);
 		}

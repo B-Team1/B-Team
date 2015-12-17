@@ -1,5 +1,8 @@
 package ch.fhnw.itprojekt.bteam.appClasses;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Locale;
@@ -110,7 +113,40 @@ public class LoginModel extends Application {
      * @author Tobias
      */
     public void connectToServer(){
-    	connectionModel.connect("127.0.0.1", 8080);    	
+    	try {
+			connectionModel.connect(getIPConfig(), getPortConfig());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}    	
+    }
+    
+    /** 
+     * liest die angegebene IP aus der Textdatei aus
+     * @author Luzian
+     */
+    public String getIPConfig() throws IOException{
+    	FileReader fr = new FileReader("IPConfig.txt");
+    	BufferedReader br = new BufferedReader(fr);
+    	String ip = br.readLine();
+    	String[] splitIP = ip.split("=",2);
+    	br.close();
+    	return splitIP[1];
+    }
+    
+    /**
+     * liest den angegebenen Port aus der Textdatei aus
+     * @author Luzian
+     */
+    public int getPortConfig() throws IOException{
+    	FileReader fr = new FileReader("IPConfig.txt");
+    	BufferedReader br = new BufferedReader(fr);
+    	String ip = br.readLine();
+    	String port = br.readLine();
+    	String[] splitPort = port.split("=",2);
+    	br.close();
+    	int portwert = Integer.parseInt(splitPort[1]);
+    	return portwert;
     }
     
     /**
