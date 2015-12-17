@@ -29,9 +29,6 @@ public class ForgetPasswordController implements Initializable {
 	private static ForgetPasswordController singleton;
 	LoginModel loginModel;
 	
-	//public ForgetPasswordController(LoginModel loginModel){
-	//	this.loginModel = loginModel;
-	//}
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
