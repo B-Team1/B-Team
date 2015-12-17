@@ -19,7 +19,8 @@ public class Message {
 	public enum MessageType {
 		Error, Login, SecurityQuestion, Registration, OpenGameRequest, SecurityAnswer, Password, Test, Broadcast,
 		getStat, openNewGame, deleteGame, Chat, Players, AddPlayerToGame, AddNewPlayerToGame, GameStats, StartGame,
-		ChangeGameMove, setStat
+		ChangeGameMove, setStat, ChangeTokyo
+
 	};
 
 	// Data included in a message

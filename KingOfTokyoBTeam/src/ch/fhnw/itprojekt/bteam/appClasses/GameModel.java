@@ -24,7 +24,7 @@ public class GameModel extends Application {
 	static int cardCost = 3;
 	private boolean inTokyo = false;
 	static public ArrayList<Card> cardList = new ArrayList<Card>();
-	public boolean goToTokyo, win = false;
+	public boolean goToTokyo = false, win = false;
 
 	private static GameModel singleton;
 	private int gameId;
@@ -35,7 +35,7 @@ public class GameModel extends Application {
 	public ArrayList<String> playerList = new ArrayList<String>();
 	private ArrayList<Dice> diceResult= new ArrayList<Dice>();
 	boolean famePointsWin;
-	public int count, myPosition = 0;
+	public int count, myPosition = 0, moveId;
 	
 	Player playerMe = new Player(nickname, lifePoints = 10, energyPoints = 0, honorPoints = 0, inTokyo);
 	Player playerTwo = new Player(nickname, lifePoints = 10, energyPoints = 0, honorPoints = 0, inTokyo);
@@ -250,9 +250,8 @@ public class GameModel extends Application {
 		 */
 		players.get(myPosition).setActualDiceEnergyPoints(0);
 		players.get(myPosition).setActualDiceHonorPoints(0);
-		players.get(myPosition).setActualDiceLifePoints(0);
-		for (int i = 0; i > players.size(); i++) {
-			players.get(i).setActualDiceLifePoints(0);
+		for (int i = 0; i < players.size(); i++) {
+				players.get(i).setActualDiceLifePoints(0);
 		}
 		
 		/**
@@ -312,12 +311,15 @@ public class GameModel extends Application {
 						if (players.get(i).inTokyo) {
 							players.get(i).setActualDiceLifePoints(players.get(i).getActualDiceLifePoints() - attack);
 							setGoToTokyo(false);
+							break;
 						} else {
 							setGoToTokyo(true);
 						}
 					}
 				}
 			}
+		} else {
+			setGoToTokyo(false);
 		}
 		
 		/**
@@ -375,39 +377,31 @@ public class GameModel extends Application {
 		if (isGoToTokyo()) {
 			players.get(myPosition).setInTokyo(true);
 		}
-		/**
-		 * Überprüft ob es Verlierer oder Gewinner gibt
-		 */
+		diceResult.removeAll(diceResult);
 		setChangesZero();
 	}
 	
 	 /**
-	  * Überprüft ob ein Mitspieler keine Lebenspunkte mehr hat
+	  * Überprüft ob der Spieler verloren hat
 	  * @author Marco
 	  */
 	public void checkLoser() {
 		if (players.get(myPosition).getLifePoints() <= 0) {
-			GameController.getInstance().loser();
+			startLoser(new Stage());
+		}
+		for (int i = 0; i < players.size(); i++) {
+			if ((i != myPosition) && famePointsWin && players.get(i).getHonorPoints() >= honorPointsWin) {
+				startLoser(new Stage());
+			}
 		}
 	}
 	
 	/**
-	 * Überprüft ob PlayerMe dank den Ruhmespunkten gewonnen hat
+	 * Überprüft ob der Spieler gewonnen hat
 	 * @author Marco
 	 */
 	public void checkWinner() {
-		if (famePointsWin = true) {
-			for (int i = 0; i < players.size(); i++) {
-				if (players.get(i).getHonorPoints() >= honorPointsWin) {
-					if (players.get(i).equals(players.get(myPosition))) {
-						GameController.getInstance().winner();
-					} else {
-						GameController.getInstance().loser();
-					} 
-				}
-			}
-		}else {
-			boolean win = true;
+		boolean win = true;
 			for (int i = 0; (i < players.size()) && win; i++) {
 				if (i != myPosition) {
 					if (players.get(i).getLifePoints() <= 0) {
@@ -417,8 +411,19 @@ public class GameModel extends Application {
 					}
 				}
 			}
-			if (win) {
-				GameController.getInstance().winner();
+		if (famePointsWin = true) {
+			for (int i = 0; i < players.size(); i++) {
+				if (players.get(myPosition).getHonorPoints() >= honorPointsWin) {
+						win = true;
+				}
+			}
+		}	
+		if (win) {
+			startWinner(new Stage());
+		}
+		for (int i = 0; i < players.size(); i++) {
+			if (players.get(i).getLifePoints() <= 0) {
+				GameController.getInstance().vbPlayers.get(i).setVisible(false);
 			}
 		}
 	}
@@ -433,6 +438,9 @@ public class GameModel extends Application {
 			players.get(i).setFutureEnergyPoints(0);
 			players.get(i).setFutureHonorPoints(0);
 			players.get(i).setFutureLifePoints(0);
+			players.get(i).setActualDiceEnergyPoints(0);
+			players.get(i).setActualDiceLifePoints(0);
+			players.get(i).setActualDiceHonorPoints(0);
 			players.get(i).setActualCardEnergyPoints(0);
 			players.get(i).setActualCardLifePoints(0);
 			players.get(i).setActualCardHonorPoints(0);
@@ -523,6 +531,9 @@ public class GameModel extends Application {
 	 */
 	public void setLifepoints(int[] lifePoints) {
 		for (int i = 0; i < lifePoints.length; i++) {
+			if (lifePoints[i] >= 10) {
+				players.get(i).setLifePoints(10);
+			}
 			players.get(i).setLifePoints(lifePoints[i]);
 		}
 	}
@@ -547,7 +558,7 @@ public class GameModel extends Application {
 	public void setActualTokyo(boolean[] tokyo) {
 		for (int i = 0; i < tokyo.length; i++) {
 			players.get(i).setInTokyo(tokyo[i]);
-			if (players.get(i).inTokyo) {
+			if (players.get(i).isInTokyo()) {
 				switch (i) {
 				case 0:
 					GameController.getInstance().monsters.get(i).setVisible(true);
@@ -576,16 +587,31 @@ public class GameModel extends Application {
 		}
 	}
 	
-	public void stayInTokyo(int[] lifepoints) {
-		if (players.get(myPosition).inTokyo) {
-			if (lifepoints[0] < players.get(myPosition).lifePoints) {
-				startChangeTokyo(new Stage());
-			}
+	public boolean underAttack(int[] lifepoints) {
+		if (players.get(myPosition).inTokyo && (lifepoints[myPosition] < Integer.parseInt(GameController.getInstance().
+				lbLifePoints.get(myPosition).getText()))) {
+				return true;
+			} else {
+				return false;
 		}
 	}
 	
 	public void startGame(){
 		connectionModel.startGame(this.gameId);
+	}
+	
+	public void tokyoChange() {
+		startChangeTokyo(new Stage());
+	}
+	
+	public void sendTokyoChange() {
+		players.get(myPosition).setInTokyo(false);
+		players.get(getMoveId()).setInTokyo(true);
+		boolean[] tokyo = new boolean[players.size()];
+		for (int i = 0; i < players.size(); i++) {
+			tokyo[i] = players.get(i).isInTokyo();
+		}
+ 		connectionModel.sendTokyoChange(tokyo, this.gameId);
 	}
 	
 	public void setGoToTokyo(boolean goToTokyo) {
@@ -633,6 +659,29 @@ public class GameModel extends Application {
 		this.famePointsWin = famePointsWin;
 	}
 	
+
+	public void disableNgcBtns(){
+		if(this.myPosition != 0){
+			CreateGameController.getInstance().disableBtns();
+		}
+	}
 	
+	public void enableNgcBtn(){
+		if(this.myPosition == 0){
+			CreateGameController.getInstance().enableBtns();
+		}
+	}
+
+	public int getMoveId() {
+		return moveId;
+	}
+
+	public void setMoveId(int moveId) {
+		this.moveId = moveId;
+	}
+
+	public void sendGameMove(){
+		connectionModel.sendGameMove(this.gameId);
+	}
 	
 }

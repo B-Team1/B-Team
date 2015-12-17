@@ -29,7 +29,21 @@ public class GameModel {
 		if(gameMove >= players.size()){
 			gameMove = 0;
 		}
+//		for (players.get(gameMove).isDead) {
+//			gameMove++;
+//			if(gameMove >= players.size()){
+//				gameMove = 0;
+//			}
+//		}
 		connectionModel.changeGameMove(players, gameMove);
+	}
+	
+	public int getGameMove(){
+		int moveId = this.gameMove;
+		if(moveId >= players.size()){
+			moveId = 0;
+		}
+		return moveId;
 	}
 	
 	public void startGame(){
@@ -42,7 +56,7 @@ public class GameModel {
 	}
 
 	public boolean addPlayer(User player){
-		if (players.size() <= numPlayer) {
+		if (players.size() < numPlayer) {
 			players.add(player);
 			return true;
 		}else{

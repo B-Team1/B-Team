@@ -64,10 +64,12 @@ public class ServerInputHandler {
 			case AddNewPlayerToGame:
 				//Tobias
 				GameModel.getInstance().addPlayerToModel(msgIn.getNickname());
+				
 				Platform.runLater(new Runnable() {
 	                @Override
 	                public void run() {
 	                	CreateGameController.getInstance().addPlayers(msgIn.getNickname());
+	                	GameModel.getInstance().enableNgcBtn();
 	                }
 	            });
 				break;
@@ -91,8 +93,11 @@ public class ServerInputHandler {
 						for (String s : msgIn.getPlayers()) {
 							CreateGameController.getInstance().addPlayers(s);
 						}
+						GameModel.getInstance().disableNgcBtns();
 					}
 				});
+			}else{
+				JOptionPane.showMessageDialog(null,FXCollections.observableArrayList(bundle.getString("overview.error.start")), "Login", JOptionPane.WARNING_MESSAGE);
 			}
 			break;
 			case OpenGameRequest:
@@ -239,26 +244,35 @@ public class ServerInputHandler {
 				int[] lifepoints = msgIn.getLifepoints();
 				boolean[] tokyo = msgIn.getTokyo();
 				String gamerName = msgIn.getGamerName();
+				GameModel model = GameModel.getInstance();			
+				model.setLifepoints(lifepoints);
+				model.setPlayerpoints(gamerName, playerpoints);
+				model.setMoveId(msgIn.getGameMove());
+
 				Platform.runLater(new Runnable(){
 					@Override
 					public void run(){
-						GameModel gameModel = GameModel.getInstance();
-						gameModel.setLifepoints(lifepoints);
-						gameModel.setPlayerpoints(gamerName, playerpoints);
-						gameModel.setActualTokyo(tokyo);
-						gameModel.stayInTokyo(lifepoints);
+						model.setActualTokyo(tokyo);
+						boolean change = false;
+						if (model.underAttack(lifepoints)) {
+							change = true;
+						}
+						if (change) {
+							model.startChangeTokyo(new Stage());
+						}
 						GameController.getInstance().updateLabels();
-						gameModel.checkLoser();
-						gameModel.checkWinner();
+						model.checkLoser();
+						model.checkWinner();
 					}
 				});
+				
 				break;
 			case StartGame:
 				Platform.runLater(new Runnable(){
 					@Override
 					public void run(){
 						GameModel gameModel = GameModel.getInstance();
-						gameModel.start(new Stage());
+						gameModel.start(GameController.gameStage);
 						CreateGameController.stage.close();
 					}
 				});
@@ -269,6 +283,15 @@ public class ServerInputHandler {
 					public void run(){
 						GameModel gameModel = GameModel.getInstance();
 						gameModel.setGameMove(msgIn.getGameMove());
+					}
+				});
+				break;
+			case ChangeTokyo:
+				boolean[] changetokyo = msgIn.getTokyo();
+				Platform.runLater(new Runnable(){
+					@Override
+					public void run(){
+						GameModel.getInstance().setActualTokyo(changetokyo);
 					}
 				});
 				break;

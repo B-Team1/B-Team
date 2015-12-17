@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -20,6 +21,9 @@ public class CreateGameController implements Initializable {
 	@FXML Label lbPlayer2;
 	@FXML Label lbPlayer3;
 	@FXML Label lbPlayer4;
+	@FXML Button btnToGame;
+	@FXML Button btnAbortGame;
+	
 	
 	private ArrayList<Label> labelList = new ArrayList<Label>();
 	private static CreateGameController singleton;
@@ -42,6 +46,7 @@ public class CreateGameController implements Initializable {
 		for (Label label : labelList) {
 			label.setText(null);			
 		}
+		btnToGame.setDisable(true);
 	}
 	
 	public static CreateGameController getInstance() {
@@ -83,5 +88,14 @@ public class CreateGameController implements Initializable {
 		Node node= (Node)event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		stage.close();
+	}
+	
+	public void disableBtns(){
+		btnAbortGame.setDisable(true);
+		btnToGame.setDisable(true);
+	}
+	
+	public void enableBtns(){
+		btnToGame.setDisable(false);
 	}
 }

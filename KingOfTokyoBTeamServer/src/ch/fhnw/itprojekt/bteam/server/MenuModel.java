@@ -143,5 +143,9 @@ public class MenuModel {
 		}
 		return null;
 	}
+	
+	public int getMoveId(int gameId){
+		return searchStartedGame(gameId).getGameMove();
+	}
 
 }
