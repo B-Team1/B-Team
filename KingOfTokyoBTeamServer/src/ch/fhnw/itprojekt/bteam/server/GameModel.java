@@ -29,20 +29,17 @@ public class GameModel {
 		if(gameMove >= players.size()){
 			gameMove = 0;
 		}
-//		for (players.get(gameMove).isDead) {
-//			gameMove++;
-//			if(gameMove >= players.size()){
-//				gameMove = 0;
-//			}
-//		}
+		while (players.get(gameMove).isDead()) {
+			gameMove++;
+			if(gameMove >= players.size()){
+				gameMove = 0;
+			}
+		}
 		connectionModel.changeGameMove(players, gameMove);
 	}
 	
 	public int getGameMove(){
 		int moveId = this.gameMove;
-		if(moveId >= players.size()){
-			moveId = 0;
-		}
 		return moveId;
 	}
 	
@@ -117,5 +114,20 @@ public class GameModel {
 	
 	public void sendGameStats(Message msg){
 		connectionModel.sendGameStats(msg, players);
+	}
+	
+	public int getPlayerPosition(String nickname){
+		for (int i = 0; i < players.size(); i++) {
+			if(players.get(i).getNickname().equals(nickname)){
+				return i;
+			}
+		}
+		return 0;
+	}
+	
+	public void setDeadPlayer(String nickname){
+		int playerId = getPlayerPosition(nickname);
+		players.get(playerId).setDead(true);
+//		if(player)
 	}
 }

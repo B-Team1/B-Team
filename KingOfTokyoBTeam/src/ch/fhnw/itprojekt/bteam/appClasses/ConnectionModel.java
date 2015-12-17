@@ -167,10 +167,11 @@ public class ConnectionModel {
 	 * Übergibt der Datenbank die neuen WonLose Stats --> Stats Win + 1
 	 * @author Luzian
 	 */
-	public void setStat(String nickname, String WonOrLose){
+	public void setStat(String nickname, String WonOrLose, int gameId){
 		Message msgOut = new Message(Message.MessageType.setStat);
 		msgOut.setNickname(nickname);
 		msgOut.setWonOrLose(WonOrLose);
+		msgOut.setGameId(gameId);
 		try {
 			msgOut.send(socket);
 			} catch (Exception e) {

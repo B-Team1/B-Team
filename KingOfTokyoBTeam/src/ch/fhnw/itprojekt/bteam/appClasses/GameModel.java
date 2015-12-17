@@ -118,7 +118,7 @@ public class GameModel extends Application {
 	 * @author Marco
 	 */
 	public void startWinner(Stage winnerStage) {
-		connectionModel.setStat(players.get(myPosition).getNickName(), "won");
+		connectionModel.setStat(players.get(myPosition).getNickName(), "won", this.gameId);
 		try {
     		Properties.getProperties().setLocale(new Locale(ServiceLocator.getServiceLocator().getLanguage()));
             BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/winner.fxml"),
@@ -139,7 +139,7 @@ public class GameModel extends Application {
 	 * @author Marco
 	 */
 	public void startLoser(Stage loserStage) {
-		connectionModel.setStat(players.get(myPosition).getNickName(), "lose");
+		connectionModel.setStat(players.get(myPosition).getNickName(), "lose", this.gameId);
 		try {
     		Properties.getProperties().setLocale(new Locale(ServiceLocator.getServiceLocator().getLanguage()));
             BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/loser.fxml"),
@@ -313,6 +313,7 @@ public class GameModel extends Application {
 						if (players.get(i).inTokyo) {
 							players.get(i).setActualDiceLifePoints(players.get(i).getActualDiceLifePoints() - attack);
 							setGoToTokyo(false);
+							GameController.getInstance().disableNextBtn();
 							break;
 						} else {
 							setGoToTokyo(true);
@@ -322,6 +323,7 @@ public class GameModel extends Application {
 			}
 		} else {
 			setGoToTokyo(false);
+			GameController.getInstance().enableNextBtn();
 		}
 		
 		/**
@@ -416,7 +418,7 @@ public class GameModel extends Application {
 					}
 				}
 			}
-		if (famePointsWin = true) {
+		if (famePointsWin) {
 			for (int i = 0; i < players.size(); i++) {
 				if (players.get(myPosition).getHonorPoints() >= honorPointsWin) {
 						win = true;
@@ -606,9 +608,11 @@ public class GameModel extends Application {
 		startChangeTokyo(new Stage());
 	}
 	
-	public void sendTokyoChange() {
-		players.get(myPosition).setInTokyo(false);
-		players.get(getMoveId()).setInTokyo(true);
+	public void sendTokyoChange(boolean answer) {
+		if(answer){
+			players.get(myPosition).setInTokyo(false);
+			players.get(getMoveId()).setInTokyo(true);
+		}
 		boolean[] tokyo = new boolean[players.size()];
 		for (int i = 0; i < players.size(); i++) {
 			tokyo[i] = players.get(i).isInTokyo();
@@ -684,6 +688,12 @@ public class GameModel extends Application {
 
 	public void sendGameMove(){
 		connectionModel.sendGameMove(this.gameId);
+	}
+	
+	public void enableNextBtn(){
+		if(this.myPosition == this.moveId){
+			GameController.getInstance().enableNextBtn();
+		}
 	}
 	
 }

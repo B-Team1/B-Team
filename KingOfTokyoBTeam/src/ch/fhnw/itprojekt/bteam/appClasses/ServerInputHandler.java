@@ -291,7 +291,9 @@ public class ServerInputHandler {
 				Platform.runLater(new Runnable(){
 					@Override
 					public void run(){
-						GameModel.getInstance().setActualTokyo(changetokyo);
+						GameModel gameModel = GameModel.getInstance();
+						gameModel.setActualTokyo(changetokyo);
+						gameModel.enableNextBtn();
 					}
 				});
 				break;
