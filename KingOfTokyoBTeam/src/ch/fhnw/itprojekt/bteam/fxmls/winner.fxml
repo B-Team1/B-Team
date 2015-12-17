@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
  * @author Marco
 -->
+
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
@@ -25,7 +27,7 @@
                         <Image url="@../images/winner.gif" />
                      </image>
                   </ImageView>
-                  <Button fx:id="btnQuitGame" layoutX="193.0" layoutY="321.0" mnemonicParsing="false" onAction="#handleQuestion" prefHeight="35.0" prefWidth="100.0" stylesheets="@meincss.css" text="%winner.btn.close" />
+                  <Button fx:id="btnQuitGame" layoutX="193.0" layoutY="321.0" mnemonicParsing="false" onAction="#handleQuitGame" prefHeight="35.0" prefWidth="100.0" stylesheets="@meincss.css" text="%winner.btn.close" />
                </children>
             </VBox>
          </children>
