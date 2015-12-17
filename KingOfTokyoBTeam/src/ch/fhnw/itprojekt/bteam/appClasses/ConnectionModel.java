@@ -164,6 +164,21 @@ public class ConnectionModel {
 	}
 	
 	/**
+	 * Übergibt der Datenbank die neuen WonLose Stats --> Stats Win + 1
+	 * @author Luzian
+	 */
+	public void setStat(String nickname, String WonOrLose){
+		Message msgOut = new Message(Message.MessageType.setStat);
+		msgOut.setNickname(nickname);
+		msgOut.setWonOrLose(WonOrLose);
+		try {
+			msgOut.send(socket);
+			} catch (Exception e) {
+				serviceLocator.getLogger().warning(e.toString());
+		}
+	}
+	
+	/**
 	 * Sendet die Informationen für ein neues Spiel dem Server
 	 * @author Tobias
 	 * @param numPlayer

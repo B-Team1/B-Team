@@ -118,6 +118,7 @@ public class GameModel extends Application {
 	 * @author Marco
 	 */
 	public void startWinner(Stage winnerStage) {
+		connectionModel.setStat(players.get(myPosition).getNickName(), "won");
 		try {
     		Properties.getProperties().setLocale(new Locale(ServiceLocator.getServiceLocator().getLanguage()));
             BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/winner.fxml"),
@@ -138,6 +139,7 @@ public class GameModel extends Application {
 	 * @author Marco
 	 */
 	public void startLoser(Stage loserStage) {
+		connectionModel.setStat(players.get(myPosition).getNickName(), "lose");
 		try {
     		Properties.getProperties().setLocale(new Locale(ServiceLocator.getServiceLocator().getLanguage()));
             BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/loser.fxml"),

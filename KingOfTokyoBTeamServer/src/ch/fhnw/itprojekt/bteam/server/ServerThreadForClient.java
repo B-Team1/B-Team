@@ -38,7 +38,9 @@ public class ServerThreadForClient extends Thread {
 						&& msgIn.getType() != Message.MessageType.GameStats
 						&& msgIn.getType() != Message.MessageType.StartGame
 						&& msgIn.getType() != Message.MessageType.ChangeGameMove
+						&& msgIn.getType() != Message.MessageType.setStat 
 						&& msgIn.getType() != Message.MessageType.ChangeTokyo){
+
 					msgOut.send(clientSocket);
 				}
 				if(msgIn.getType() == Message.MessageType.AddPlayerToGame && msgOut.getWriteCheck()){
@@ -148,6 +150,18 @@ public class ServerThreadForClient extends Thread {
 			case StartGame:
 				msgOut = new Message(Message.MessageType.StartGame);
 				menuModel.startGame(msgIn.getGameId());
+				break;
+			case setStat:
+				// Luzian
+				Stats userstats = new Stats(msgIn.getNickname(), 0,0,0);
+				dbconnect.getStats(userstats);
+				if(msgIn.getWonOrLose().equals("lose")){
+					userstats.setLosedGames(userstats.getLosedGames() + 1);
+				}else{
+					userstats.setWonGames(userstats.getWonGames() + 1);
+				}
+				userstats.setSumGames(userstats.getSumGames() + 1);	
+				dbconnect.setStats(userstats);
 				break;
 			case ChangeGameMove:
 				msgOut= msgIn;
