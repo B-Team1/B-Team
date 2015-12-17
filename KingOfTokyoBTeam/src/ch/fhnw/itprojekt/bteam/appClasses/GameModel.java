@@ -428,11 +428,16 @@ public class GameModel extends Application {
 		if (win) {
 			startWinner(new Stage());
 		}
-		for (int i = 0; i < players.size(); i++) {
+		try{
+			for (int i = 0; i < players.size(); i++) {
 			if (players.get(i).getLifePoints() <= 0) {
 				GameController.getInstance().vbPlayers.get(i).setVisible(false);
 			}
 		}
+		} catch (Exception IndexOutOfBoundsException) {
+			
+		}
+		
 	}
 	
 	/**
