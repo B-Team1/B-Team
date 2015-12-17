@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class GameModel extends Application {
-	private int lifePoints, energyPoints, honorPoints, honorPointsWin = 25;
+	private int lifePoints, energyPoints, honorPoints, honorPointsWin;
 	static int cardCost = 3;
 	private boolean inTokyo = false;
 	static public ArrayList<Card> cardList = new ArrayList<Card>();
@@ -418,12 +418,8 @@ public class GameModel extends Application {
 					}
 				}
 			}
-		if (famePointsWin) {
-			for (int i = 0; i < players.size(); i++) {
-				if (players.get(myPosition).getHonorPoints() >= honorPointsWin) {
-						win = true;
-				}
-			}
+		if (famePointsWin && players.get(myPosition).getHonorPoints() >= honorPointsWin) {
+				win = true;	
 		}	
 		if (win) {
 			startWinner(new Stage());
