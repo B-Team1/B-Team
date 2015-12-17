@@ -147,5 +147,9 @@ public class MenuModel {
 	public int getMoveId(int gameId){
 		return searchStartedGame(gameId).getGameMove();
 	}
+	
+	public void setDead(int gameId, String nickname){
+		searchStartedGame(gameId).setDeadPlayer(nickname);
+	}
 
 }

@@ -398,10 +398,19 @@ public class GameController implements Initializable {
 		btnNext.setDisable(true);
 	}
 	
+	
 	public void enableGameBtns(){
 		btnCardDeck.setDisable(false);
 		btnEndMove.setDisable(false);
 		btnRollDice.setDisable(false);
+		btnNext.setDisable(false);
+	}
+	
+	public void disableNextBtn(){
+		btnNext.setDisable(true);
+	}
+	
+	public void enableNextBtn(){
 		btnNext.setDisable(false);
 	}
 	

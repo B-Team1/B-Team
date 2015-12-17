@@ -20,10 +20,7 @@ public class LeaveTokyoController implements Initializable{
 	 * @author Marco
 	 */
 	public void handleYes(ActionEvent event) {
-		GameModel.getInstance().sendTokyoChange();
-		Node node= (Node)event.getSource();
-		Stage stage = (Stage) node.getScene().getWindow();
-		stage.close();
+		clickBtn(true, event);
 	}
 	
 	/**
@@ -31,6 +28,11 @@ public class LeaveTokyoController implements Initializable{
 	 * @author Marco
 	 */
 	public void handleNo(ActionEvent event) {
+		clickBtn(false, event);
+	}
+	
+	private void clickBtn(boolean answer, ActionEvent event){
+		GameModel.getInstance().sendTokyoChange(answer);
 		Node node= (Node)event.getSource();
 		Stage stage = (Stage) node.getScene().getWindow();
 		stage.close();

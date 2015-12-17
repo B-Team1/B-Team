@@ -5,10 +5,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-
-
-
-
 public class ServerThreadForClient extends Thread {
     private final Logger logger = Logger.getLogger("");
     private Socket clientSocket;
@@ -156,6 +152,7 @@ public class ServerThreadForClient extends Thread {
 				Stats userstats = new Stats(msgIn.getNickname(), 0,0,0);
 				dbconnect.getStats(userstats);
 				if(msgIn.getWonOrLose().equals("lose")){
+					menuModel.setDead(msgIn.getGameId(), msgIn.getNickname());
 					userstats.setLosedGames(userstats.getLosedGames() + 1);
 				}else{
 					userstats.setWonGames(userstats.getWonGames() + 1);
