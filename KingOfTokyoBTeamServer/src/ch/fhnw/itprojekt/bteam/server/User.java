@@ -35,6 +35,10 @@ public class User {
 		this.password = password;
 	}
 	
+	public void deleteSocket(){
+		this.socket = new Socket();
+	}
+	
 	
 	
 	public User(String nickname, Socket socket) {

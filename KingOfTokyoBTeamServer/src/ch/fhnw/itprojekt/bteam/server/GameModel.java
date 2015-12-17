@@ -122,7 +122,7 @@ public class GameModel {
 				return i;
 			}
 		}
-		return 0;
+		return 100;
 	}
 	
 	public void setDeadPlayer(String nickname){
@@ -138,9 +138,14 @@ public class GameModel {
 				moveId = 0;
 			}
 		}
-		players.get(playerId).setDead(true);
-		if(playerId == moveId){
-			changeGameMove();
+		try {
+			players.get(playerId).setDead(true);
+			players.get(playerId).deleteSocket();
+			if(playerId == moveId){
+				changeGameMove();
+			}
+		} catch (Exception e) {
+			
 		}
 	}
 }
