@@ -17,7 +17,9 @@ public class User {
 	private String securityAnswer;
 	private String securityQuestion;
 	private Socket socket;
+	private boolean isDead;
 	
+
 	public User(String nickname, String vName, String nName, String password, String securityAnswer,
 			String securityQuestion) {
 		this.nickname = nickname;
@@ -103,5 +105,12 @@ public class User {
 		this.socket = socket;
 	}
 	
+	public boolean isDead() {
+		return isDead;
+	}
+
+	public void setDead(boolean isDead) {
+		this.isDead = isDead;
+	}
 	
 }

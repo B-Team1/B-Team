@@ -243,12 +243,12 @@ public class ServerInputHandler {
 				int[] playerpoints = msgIn.getMyPoints();
 				int[] lifepoints = msgIn.getLifepoints();
 				boolean[] tokyo = msgIn.getTokyo();
-				
 				String gamerName = msgIn.getGamerName();
-				GameModel model = GameModel.getInstance();
+				GameModel model = GameModel.getInstance();			
 				model.setLifepoints(lifepoints);
 				model.setPlayerpoints(gamerName, playerpoints);
 				model.setMoveId(msgIn.getGameMove());
+
 				Platform.runLater(new Runnable(){
 					@Override
 					public void run(){
@@ -272,7 +272,7 @@ public class ServerInputHandler {
 					@Override
 					public void run(){
 						GameModel gameModel = GameModel.getInstance();
-						gameModel.start(new Stage());
+						gameModel.start(GameController.gameStage);
 						CreateGameController.stage.close();
 					}
 				});

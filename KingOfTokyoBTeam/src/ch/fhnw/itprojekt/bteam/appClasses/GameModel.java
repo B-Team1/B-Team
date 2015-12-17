@@ -309,13 +309,14 @@ public class GameModel extends Application {
 						if (players.get(i).inTokyo) {
 							players.get(i).setActualDiceLifePoints(players.get(i).getActualDiceLifePoints() - attack);
 							setGoToTokyo(false);
+							break;
 						} else {
 							setGoToTokyo(true);
 						}
 					}
 				}
 			}
-		}else{
+		} else {
 			setGoToTokyo(false);
 		}
 		
@@ -384,11 +385,11 @@ public class GameModel extends Application {
 	  */
 	public void checkLoser() {
 		if (players.get(myPosition).getLifePoints() <= 0) {
-			GameController.getInstance().loser();
+			startLoser(new Stage());
 		}
 		for (int i = 0; i < players.size(); i++) {
 			if ((i != myPosition) && famePointsWin && players.get(i).getHonorPoints() >= honorPointsWin) {
-				GameController.getInstance().loser();
+				startLoser(new Stage());
 			}
 		}
 	}
@@ -416,7 +417,12 @@ public class GameModel extends Application {
 			}
 		}	
 		if (win) {
-			GameController.getInstance().winner();
+			startWinner(new Stage());
+		}
+		for (int i = 0; i < players.size(); i++) {
+			if (players.get(i).getLifePoints() <= 0) {
+				GameController.getInstance().vbPlayers.get(i).setVisible(false);
+			}
 		}
 	}
 	

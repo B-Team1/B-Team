@@ -32,7 +32,7 @@ public class GameController implements Initializable {
 	@FXML ToggleButton btnDice8;
 	@FXML Button btnCardDeck;
 	@FXML Button btnEndMove;
-	@FXML Button btnTest;
+	@FXML Button btnNext;
 	@FXML Label lbLifePointsPlayer1;
 	@FXML Label lbLifePointsPlayer2;
 	@FXML Label lbLifePointsPlayer3;
@@ -71,6 +71,8 @@ public class GameController implements Initializable {
 	@FXML ImageView ivMonster3;
 	@FXML ImageView ivMonster4;
 	@FXML HBox hbTokyoMe;
+	@FXML VBox vbPlayer1;
+	@FXML VBox vbPlayer2;
 	@FXML VBox vbPlayer3;
 	@FXML VBox vbPlayer4;
 	
@@ -82,10 +84,12 @@ public class GameController implements Initializable {
 	ArrayList<Label> lbEnergyPointsChanges = new ArrayList<Label>();
 	ArrayList<Label> lbHonorPointsChanges = new ArrayList<Label>();
 	ArrayList<Label> lbNickname = new ArrayList<Label>();
+	ArrayList<VBox> vbPlayers = new ArrayList<VBox>();
 	ArrayList<ImageView> monsters = new ArrayList<ImageView>();
 	GameModel gameModel;
 	ResourceBundle bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
 
+	public static Stage gameStage = new Stage();
 	private static GameController singleton;
 
 	/**
@@ -210,9 +214,13 @@ public class GameController implements Initializable {
 	@FXML
 	public void handleEndMove(ActionEvent event) {
 		if (gameModel.count > 0) {
-		resetButton();
-		gameModel.endMove();
-		gameModel.sendGameStats();
+			btnCardDeck.setDisable(true);
+			btnEndMove.setDisable(true);
+			btnRollDice.setDisable(true);
+			resetButton();
+			resetCards();
+			gameModel.endMove();
+			gameModel.sendGameStats();
 		} else {
 			JOptionPane.showMessageDialog(null, FXCollections.observableArrayList(bundle.getString("dice.threetimes")));
 		}
@@ -251,6 +259,12 @@ public class GameController implements Initializable {
 					} 
 			}
 		}
+	}
+	
+	private void resetCards() {
+		GameModel.cardList.clear();
+		ivCard1.setImage(null);
+		ivCard2.setImage(null);
 	}
 
 	/**
@@ -378,35 +392,27 @@ public class GameController implements Initializable {
 		}
 	}
 	
-	public void winner() {
-//		Node node= (Node)event.getSource();
-//		Stage stage = (Stage) node.getScene().getWindow();
-//		stage.close();
-		gameModel.startWinner(new Stage());
-	}
-	
-	public void loser() {
-//		Node node= (Node)event.getSource();
-//		Stage stage = (Stage) node.getScene().getWindow();
-//		stage.close();
-		gameModel.startLoser(new Stage());
-	}
-	
 	public void disableGameBtns(){
 		btnCardDeck.setDisable(true);
 		btnEndMove.setDisable(true);
 		btnRollDice.setDisable(true);
+		btnNext.setDisable(true);
 	}
 	
 	public void enableGameBtns(){
 		btnCardDeck.setDisable(false);
 		btnEndMove.setDisable(false);
 		btnRollDice.setDisable(false);
+		btnNext.setDisable(false);
 	}
 	
 	@FXML 
 	public void handleTest(ActionEvent event) {
 		gameModel.sendGameMove();
+	}
+	@FXML 
+	public void handleNext(ActionEvent event) {
+
 	}
 	
 }

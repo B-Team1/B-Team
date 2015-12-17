@@ -36,7 +36,7 @@
                            <children>
                               <Button fx:id="btnRollDice" layoutX="229.0" layoutY="110.0" mnemonicParsing="false" onAction="#handleRollDice" prefHeight="35.0" prefWidth="150.0" styleClass="test" stylesheets="@meincss.css" text="%board.btn.roll" />
                               <Button fx:id="btnEndMove" layoutX="229.0" layoutY="171.0" mnemonicParsing="false" onAction="#handleEndMove" prefHeight="35.0" prefWidth="150.0" styleClass="test" stylesheets="@meincss.css" text="%board.btn.endMove" />
-                              <Button fx:id="btnTest" mnemonicParsing="false" onAction="#handleTest" prefHeight="35.0" prefWidth="147.0" text="Button" />
+                              <Button fx:id="btnNext" mnemonicParsing="false" onAction="#handleNext" prefHeight="35.0" prefWidth="150.0" text="%board.btn.next" />
                            </children>
                         </VBox>
                         <VBox layoutX="253.0" layoutY="35.0" spacing="60.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="50.0">
