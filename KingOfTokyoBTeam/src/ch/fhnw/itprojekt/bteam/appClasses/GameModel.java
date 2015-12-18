@@ -82,8 +82,9 @@ public class GameModel extends Application {
             gameStage.setTitle("King of Tokyo");
             gameStage.setResizable(false);
             gameStage.show();
-           
-            
+            if(myPosition == 0){
+            	GameController.getInstance().enableGameBtns();          
+            }
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
@@ -413,8 +414,10 @@ public class GameModel extends Application {
 					}
 				}
 			}
-		if (famePointsWin && players.get(myPosition).getHonorPoints() >= honorPointsWin) {
-				win = true;	
+		if (famePointsWin) {
+			if (players.get(myPosition).getHonorPoints() >= honorPointsWin) {
+				startWinner(new Stage());
+				}
 		}	
 		if (win) {
 			startWinner(new Stage());
@@ -666,7 +669,20 @@ public class GameModel extends Application {
 		}else{
 			GameController.getInstance().disableGameBtns();
 		}
-		
+	}
+	
+	/**
+	 * Setzt die Sichtbarkeit der Spieler welche nicht am Zug sind herunter
+	 * @author Marco
+	 */
+	public void setPlayerVisual(int moveId) {
+		for (int i = 0; i < players.size(); i++) {
+			if (i == moveId) {
+				GameController.getInstance().vbPlayers.get(i).setOpacity(100);
+			} else {
+				GameController.getInstance().vbPlayers.get(i).setOpacity(75);
+			}
+		}
 	}
 
 	public int getHonorPointsWin() {

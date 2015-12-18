@@ -42,7 +42,6 @@ public class GameOverviewController implements Initializable {
 	@FXML Label lbOpenGames;
 	@FXML Label lbStats;
 	@FXML TableColumn tcOpenGames;
-	@FXML TableColumn tcOpenPlaces;
 	@FXML TableView<GameModel> tvOpenGames;
 	@FXML Menu menuLanguage;
 	@FXML Menu menuHelp;
@@ -92,7 +91,6 @@ public class GameOverviewController implements Initializable {
 		
 		tvOpenGames.setEditable(true); 
 		tcOpenGames.setCellValueFactory(new PropertyValueFactory<GameModel, String>("nickname"));
-		tcOpenPlaces.setCellValueFactory(new PropertyValueFactory<GameModel, Integer>("freePlayers"));
 		tvOpenGames.setItems(data);
 	            
     	if(openGameList.size() == 0){
@@ -179,7 +177,6 @@ public class GameOverviewController implements Initializable {
 		lbHello.setText(bundle.getString("overview.lb.hello"));
 		lbOpenGames.setText(bundle.getString("overview.lb.opengames"));
 		lbStats.setText(bundle.getString("overview.lb.stats"));
-		tcOpenPlaces.setText(bundle.getString("overview.tc.openplaces"));
 		tcOpenGames.setText(bundle.getString("overview.tc.opengames"));
 	}
 }

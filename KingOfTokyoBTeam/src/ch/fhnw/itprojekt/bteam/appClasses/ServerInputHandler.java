@@ -310,6 +310,7 @@ public class ServerInputHandler extends Thread {
 					public void run(){
 						GameModel gameModel = GameModel.getInstance();
 						gameModel.setGameMove(msgIn.getGameMove());
+						gameModel.setPlayerVisual(msgIn.getGameMove());
 					}
 				});
 				break;
