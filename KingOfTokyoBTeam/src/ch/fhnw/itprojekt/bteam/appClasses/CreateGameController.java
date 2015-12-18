@@ -90,7 +90,6 @@ public class CreateGameController implements Initializable {
 //	}
 	
 	public void disableBtns(){
-		btnAbortGame.setDisable(true);
 		btnToGame.setDisable(true);
 	}
 	

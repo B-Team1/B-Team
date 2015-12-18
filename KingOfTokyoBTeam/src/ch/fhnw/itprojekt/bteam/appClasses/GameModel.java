@@ -658,6 +658,10 @@ public class GameModel extends Application {
 	
 	public void setGameMove(int moveId){
 		if(moveId == myPosition){
+			Player me = players.get(myPosition);
+			if(me.isInTokyo()){
+				me.setHonorPoints(me.getHonorPoints() + 2);
+			}
 			GameController.getInstance().enableGameBtns();
 		}else{
 			GameController.getInstance().disableGameBtns();
@@ -708,10 +712,6 @@ public class GameModel extends Application {
 	
 	public void enableNextBtn(){
 		if(this.myPosition == this.moveId){
-			Player me = players.get(myPosition);
-			if(me.inTokyo){
-				me.setHonorPoints(me.getHonorPoints() + 2);
-			}
 			GameController.getInstance().enableNextBtn();
 		}
 	}

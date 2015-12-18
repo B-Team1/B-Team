@@ -261,6 +261,17 @@ public class ConnectionModel {
 			serviceLocator.getLogger().warning(e.toString());
 		}
 	}
+	
+	public void sendNewPlayerToGame(int gameId, String nickname){
+		Message msgOut = new Message(Message.MessageType.AddNewPlayerToGame);
+		msgOut.setGameId(gameId);
+		msgOut.setNickname(nickname);
+		try {
+			msgOut.send(socket);
+		} catch (Exception e) {
+			serviceLocator.getLogger().warning(e.toString());
+		}
+	}
 
 	public void sendGameStats(String gamerName, int[] pointsMe, int[] lifepoints, boolean[] tokyo, int gameId) {
 		Message msgOut = new Message(Message.MessageType.GameStats);

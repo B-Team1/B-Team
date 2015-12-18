@@ -93,7 +93,6 @@ public class ServerInputHandler extends Thread {
 				break;
 			case AddPlayerToGame:
 				//Tobias
-				
 			if (msgIn.getWriteCheck()) {
 				int postion = 0;
 				for (String s : msgIn.getPlayers()) {
@@ -103,6 +102,7 @@ public class ServerInputHandler extends Thread {
 				GameModel.getInstance().setMyPosition(postion);
 				GameModel.getInstance().setFamePointsWin(msgIn.getFamePointsWin());
 				GameModel.getInstance().setHonorPointsWin(msgIn.getWinFamePoints());
+				ConnectionModel.getInstance().sendNewPlayerToGame(msgIn.getGameId(), msgIn.getNickname());
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {	
