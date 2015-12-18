@@ -69,8 +69,7 @@
                                  <children>
                                     <TableView fx:id="tvOpenGames" prefWidth="205.0">
                                       <columns>
-                                        <TableColumn fx:id="tcOpenGames" prefWidth="105.0" text="%overview.tc.opengames" />
-                                        <TableColumn fx:id="tcOpenPlaces" prefWidth="100.0" text="%overview.tc.openplaces" />
+                                        <TableColumn fx:id="tcOpenGames" prefWidth="200.0" text="%overview.tc.opengames" />
                                       </columns>
                                     </TableView>
                                  </children>
