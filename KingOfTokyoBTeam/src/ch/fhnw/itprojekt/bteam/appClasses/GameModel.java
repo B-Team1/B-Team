@@ -393,7 +393,7 @@ public class GameModel extends Application {
 			startLoser(new Stage());
 		}
 		for (int i = 0; i < players.size(); i++) {
-			if ((i != myPosition) && famePointsWin && players.get(i).getHonorPoints() >= honorPointsWin) {
+			if ((i != myPosition) && famePointsWin && (players.get(i).getHonorPoints() >= honorPointsWin)) {
 				startLoser(new Stage());
 			}
 		}
@@ -595,6 +595,14 @@ public class GameModel extends Application {
 		}
 	}
 	
+	public boolean checkAlive() {
+		if (players.get(myPosition).getLifePoints() <= 0) {
+			return false;
+		} else {
+			return false;
+		}
+	}
+	
 	/**
 	 * Prüft ob ein Spieler in Tokyo angegriffen wurde, damit der Next Button deaktiviert wird
 	 * bis dieser Spieler weis, ob er Tokyo verlassen möchte
@@ -680,7 +688,7 @@ public class GameModel extends Application {
 			if (i == moveId) {
 				GameController.getInstance().vbPlayers.get(i).setOpacity(100);
 			} else {
-				GameController.getInstance().vbPlayers.get(i).setOpacity(75);
+				GameController.getInstance().vbPlayers.get(i).setOpacity(50);
 			}
 		}
 	}
