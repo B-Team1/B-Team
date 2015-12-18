@@ -280,9 +280,7 @@ public class ServerInputHandler extends Thread {
 						model.setActualTokyo(tokyo);
 						boolean change = false;
 						if (model.underAttack(lifepoints)) {
-							if (model.checkAlive()){
 							change = true;
-							}
 						}
 						if (change) {
 							model.startChangeTokyo(new Stage());
