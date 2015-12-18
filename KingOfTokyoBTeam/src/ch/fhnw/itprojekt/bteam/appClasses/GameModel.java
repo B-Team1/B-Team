@@ -593,14 +593,6 @@ public class GameModel extends Application {
 		}
 	}
 	
-	public boolean checkAlive() {
-		if (players.get(myPosition).getLifePoints() <= 0) {
-			return false;
-		} else {
-			return false;
-		}
-	}
-	
 	/**
 	 * Prüft ob ein Spieler in Tokyo angegriffen wurde, damit der Next Button deaktiviert wird
 	 * bis dieser Spieler weis, ob er Tokyo verlassen möchte
