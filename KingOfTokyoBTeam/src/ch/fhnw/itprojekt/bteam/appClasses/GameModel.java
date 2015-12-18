@@ -696,6 +696,10 @@ public class GameModel extends Application {
 	
 	public void enableNextBtn(){
 		if(this.myPosition == this.moveId){
+			Player me = players.get(myPosition);
+			if(me.inTokyo){
+				me.setHonorPoints(me.getHonorPoints() + 2);
+			}
 			GameController.getInstance().enableNextBtn();
 		}
 	}
