@@ -355,9 +355,9 @@ public class GameController implements Initializable {
 	}
 
 	public static GameController getInstance() {
-	     if(singleton == null) {	        
-	         singleton = new GameController();
-	      }	     
+//	     if(singleton == null) {	        
+//	         singleton = new GameController();
+//	      }	     
 	      return singleton;
 	}
 	

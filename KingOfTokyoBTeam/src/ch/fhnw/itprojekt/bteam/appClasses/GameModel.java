@@ -82,8 +82,9 @@ public class GameModel extends Application {
             gameStage.setTitle("King of Tokyo");
             gameStage.setResizable(false);
             gameStage.show();
-           
-            
+            if(myPosition == 0){
+            	GameController.getInstance().enableGameBtns();          
+            }
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
