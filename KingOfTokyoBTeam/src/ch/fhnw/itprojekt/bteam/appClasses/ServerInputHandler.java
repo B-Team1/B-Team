@@ -147,6 +147,7 @@ public class ServerInputHandler {
 					GameModel gameModel = GameModel.getInstance();
 					gameModel.setMyPosition(0);
 					gameModel.addPlayerToModel(msgIn.getNickname());
+					gameModel.setHonorPointsWin(msgIn.getWinFamePoints());
 					Platform.runLater(new Runnable() {
 		                @Override
 		                public void run() {
