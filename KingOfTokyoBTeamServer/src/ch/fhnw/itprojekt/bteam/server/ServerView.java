@@ -20,7 +20,6 @@ public class ServerView {
     protected Label lblPort = new Label("Port");
     protected TextField txtPort = new TextField("8080");
     protected Button btnGo = new Button("Go");
-    protected Button btna = new Button("test");
     protected TextArea txtLog = new TextArea();
     
     protected ServerView(Stage stage, ConnectionModel model, TextArea txtLog) {
@@ -38,7 +37,7 @@ public class ServerView {
         HBox.setHgrow(spacer, Priority.ALWAYS);
         root.setTop(topBox);
         
-        topBox.getChildren().addAll(lblPort, txtPort, spacer, btnGo, btna);
+        topBox.getChildren().addAll(lblPort, txtPort, spacer, btnGo);
         txtPort.setId("Port");
         
         ScrollPane scrollPane = new ScrollPane();

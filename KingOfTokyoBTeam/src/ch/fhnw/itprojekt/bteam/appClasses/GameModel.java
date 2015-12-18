@@ -120,7 +120,6 @@ public class GameModel extends Application {
 	 * @author Marco
 	 */
 	public void startWinner(Stage winnerStage) {
-		connectionModel.setStat(players.get(myPosition).getNickName(), "won", this.gameId);
 		try {
     		Properties.getProperties().setLocale(new Locale(ServiceLocator.getServiceLocator().getLanguage()));
             BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/winner.fxml"),
@@ -141,7 +140,6 @@ public class GameModel extends Application {
 	 * @author Marco
 	 */
 	public void startLoser(Stage loserStage) {
-		connectionModel.setStat(players.get(myPosition).getNickName(), "lose", this.gameId);
 		try {
     		Properties.getProperties().setLocale(new Locale(ServiceLocator.getServiceLocator().getLanguage()));
             BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("../fxmls/loser.fxml"),
@@ -395,10 +393,12 @@ public class GameModel extends Application {
 			if (players.get(myPosition).isInTokyo()) {
 				sendTokyoChange(true);
 			}
+			connectionModel.setStat(players.get(myPosition).getNickName(), "lose", this.gameId);
 			startLoser(new Stage());
 		}
 		for (int i = 0; i < players.size(); i++) {
 			if ((i != myPosition) && famePointsWin && (players.get(i).getHonorPoints() >= honorPointsWin)) {
+				connectionModel.setStat(players.get(myPosition).getNickName(), "lose", this.gameId);
 				startLoser(new Stage());
 			}
 		}
@@ -421,10 +421,12 @@ public class GameModel extends Application {
 			}
 		if (famePointsWin) {
 			if (players.get(myPosition).getHonorPoints() >= honorPointsWin) {
+				connectionModel.setStat(players.get(myPosition).getNickName(), "won", this.gameId);
 				startWinner(new Stage());
 				}
 		}	
 		if (win) {
+			connectionModel.setStat(players.get(myPosition).getNickName(), "won", this.gameId);
 			startWinner(new Stage());
 		}
 		

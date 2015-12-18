@@ -173,6 +173,7 @@ public class ConnectionModel {
 		msgOut.setWonOrLose(WonOrLose);
 		msgOut.setGameId(gameId);
 		try {
+			Thread.sleep(1000);
 			msgOut.send(socket);
 			} catch (Exception e) {
 				serviceLocator.getLogger().warning(e.toString());

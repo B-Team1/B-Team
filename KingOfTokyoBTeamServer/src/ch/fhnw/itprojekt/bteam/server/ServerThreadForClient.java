@@ -160,8 +160,9 @@ public class ServerThreadForClient extends Thread {
 				break;
 			case setStat:
 				// Luzian
+				System.out.println("PENIS!");
 				Stats userstats = new Stats(msgIn.getNickname(), 0,0,0);
-				dbconnect.getStats(userstats);
+				userstats = dbconnect.getStats(userstats);
 				if(msgIn.getWonOrLose().equals("lose")){
 					menuModel.setDead(msgIn.getGameId(), msgIn.getNickname());
 					userstats.setLosedGames(userstats.getLosedGames() + 1);
