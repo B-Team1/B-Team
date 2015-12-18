@@ -413,8 +413,10 @@ public class GameModel extends Application {
 					}
 				}
 			}
-		if (famePointsWin && players.get(myPosition).getHonorPoints() >= honorPointsWin) {
-				win = true;	
+		if (famePointsWin) {
+			if (players.get(myPosition).getHonorPoints() >= honorPointsWin) {
+				startWinner(new Stage());
+				}
 		}	
 		if (win) {
 			startWinner(new Stage());
