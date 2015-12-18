@@ -278,6 +278,9 @@ public class ServerInputHandler extends Thread {
 						if (change) {
 							model.startChangeTokyo(new Stage());
 						}
+						if (model.changeNextButton(lifepoints)) {
+							GameController.getInstance().btnNext.setDisable(true);
+						}
 						GameController.getInstance().updateLabels();
 						model.checkLoser();
 						model.checkWinner();
