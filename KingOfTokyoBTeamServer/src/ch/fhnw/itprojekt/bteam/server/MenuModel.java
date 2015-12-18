@@ -106,7 +106,7 @@ public class MenuModel {
 	}
 	
 	/**
-	 * holt Spiel
+	 * holt Spiel und ruft die sendChat Methode aus dem GameModel auf
 	 * @author Luzian
 	 * @param chat
 	 * @param gameId
