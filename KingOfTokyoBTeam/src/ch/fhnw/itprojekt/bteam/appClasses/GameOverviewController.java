@@ -72,6 +72,11 @@ public class GameOverviewController implements Initializable {
 	      return singleton;
 	}
 	
+	/**
+	 * setzt die Labels mit den erhaltenen Werten
+	 * @author Luzian
+	 * @param stats
+	 */
 	public void setStats(Stats stats){
 		lbPlayGames.setText(stats.getSumGames() + "");
 		lbWonGames.setText(stats.getWonGames() + "");

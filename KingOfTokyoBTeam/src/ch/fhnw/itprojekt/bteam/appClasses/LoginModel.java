@@ -88,7 +88,7 @@ public class LoginModel extends Application {
     }
     
     /**
-     * holt die Sicherheitsantwort von der DB
+     * sendet den User ans ConnectionModel
      * @author Luzian
      * @param user
      * @return
@@ -98,7 +98,7 @@ public class LoginModel extends Application {
     }
     
     /**
-     * holt das Passwort von der DB
+     * sendet den User ans ConnectionModel
      * @author Luzian
      * @param user
      * @return

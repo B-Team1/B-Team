@@ -165,6 +165,7 @@ public class ServerInputHandler extends Thread {
 					GameModel gameModel = GameModel.getInstance();
 					gameModel.setMyPosition(0);
 					gameModel.addPlayerToModel(msgIn.getNickname());
+					gameModel.setHonorPointsWin(msgIn.getWinFamePoints());
 					Platform.runLater(new Runnable() {
 		                @Override
 		                public void run() {
@@ -187,6 +188,7 @@ public class ServerInputHandler extends Thread {
 				}
 				break;
 			case Chat:
+				//Luzian
 				msgIn.getChat();
 				Platform.runLater(new Runnable() {
 	                @Override
@@ -200,6 +202,7 @@ public class ServerInputHandler extends Thread {
 				});             	
 				break;
 			case SecurityQuestion:
+				//Luzian
 				String returnvalue = msgIn.getSecurityQuestion();
 				bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
 				ForgetPasswordController forgetpasswordcontroller = ForgetPasswordController.getInstance();
@@ -219,7 +222,8 @@ public class ServerInputHandler extends Thread {
 				}
 				
 				break;
-			case SecurityAnswer:	
+			case SecurityAnswer:
+				//Luzian
 				String returnvalueAnswer = msgIn.getSecurityAnswer();
 				ForgetPasswordController forgetpasswordcontrollerAnswer = ForgetPasswordController.getInstance();
 				LoginModel loginmodel = LoginModel.getInstance();
@@ -238,6 +242,7 @@ public class ServerInputHandler extends Thread {
 				}
 				break;
 			case Password:
+				//Luzian
 				String returnpassword = msgIn.getPassword();
 				bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
 				ForgetPasswordController forgetpasswordcontrollerpassword = ForgetPasswordController.getInstance();
@@ -253,6 +258,7 @@ public class ServerInputHandler extends Thread {
 				}	
 				break;
 			case Players:
+				//Luzian
 				GameModel gameModel = GameModel.getInstance();
 				ArrayList<String> playerList = new ArrayList<String>(Arrays.asList(msgIn.getPlayers()));
 				gameModel.setPlayers(playerList);
@@ -304,6 +310,7 @@ public class ServerInputHandler extends Thread {
 					public void run(){
 						GameModel gameModel = GameModel.getInstance();
 						gameModel.setGameMove(msgIn.getGameMove());
+						gameModel.setPlayerVisual(msgIn.getGameMove());
 					}
 				});
 				break;

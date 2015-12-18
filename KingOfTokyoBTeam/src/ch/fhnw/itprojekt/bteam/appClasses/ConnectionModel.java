@@ -69,7 +69,7 @@ public class ConnectionModel {
 	}
 
 	/**
-	 * holt die Sicherheitsfrage über den Server auf der Datebank wieder zurück an den Client
+	 * schickt SecurityQuestion Message an Server
 	 * @author Luzian
 	 * @param user
 	 * @return
@@ -111,7 +111,7 @@ public class ConnectionModel {
 
 	
 	/**
-	 * holt die Sicherheitsanwort über den Server auf der Datebank wieder zurück an den Client
+	 * schickt SecurityAnswer Message an Server
 	 * @author Luzian
 	 * @param user
 	 * @return
@@ -130,6 +130,7 @@ public class ConnectionModel {
 	}
 
 	/**
+	 * schickt Passwort Message an Server
 	 * @author Luzian
 	 * @param user
 	 */
@@ -163,7 +164,7 @@ public class ConnectionModel {
 	}
 	
 	/**
-	 * Übergibt der Datenbank die neuen WonLose Stats --> Stats Win + 1
+	 * schickt dem Server die beendete Spielstatistik des Spielers
 	 * @author Luzian
 	 */
 	public void setStat(String nickname, String WonOrLose, int gameId){
@@ -225,7 +226,8 @@ public class ConnectionModel {
 			}
 	}
 	
-	/**			
+	/**		
+	 * schickt Chat Message an Server	
 	 * @author Luzian
 	 */
 	public void sendChat(String chat, String nickName, int gameId){
@@ -240,6 +242,11 @@ public class ConnectionModel {
 		}
 	}
 
+	/**
+	 * schickt Players Message an Server um Spielerliste zu erhalten
+	 * @author Luzian
+	 * @param gameId
+	 */
 	public void getPlayers(int gameId){
 		Message msgOut = new Message(Message.MessageType.Players);
 		msgOut.setGameId(gameId);

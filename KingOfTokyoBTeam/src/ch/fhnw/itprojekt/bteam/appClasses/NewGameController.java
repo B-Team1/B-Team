@@ -64,6 +64,7 @@ public class NewGameController implements Initializable {
 	
 	/**
 	 * Methode für das ändern der Spielregeln; dass auch durch Ruhmpunkte ein Sieg möglich ist
+	 * @author Marco
 	 * @param event
 	 */
 	public void handleWinFamePoints(ActionEvent event) {

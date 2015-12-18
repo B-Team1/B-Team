@@ -31,7 +31,7 @@ public String getSeverConfigUser() throws IOException{
 }
 
 /**
- * liest aus der SErverConfig.txt das angegebene Passwort aus
+ * liest aus der ServerConfig.txt das angegebene Passwort aus
  * @author Luzian
  * @return
  * @throws IOException
