@@ -37,10 +37,6 @@ public class GameModel extends Application {
 	boolean famePointsWin;
 	public int count, myPosition = 0, moveId;
 	
-	Player playerMe = new Player(nickname, lifePoints = 10, energyPoints = 0, honorPoints = 0, inTokyo);
-	Player playerTwo = new Player(nickname, lifePoints = 10, energyPoints = 0, honorPoints = 0, inTokyo);
-	Player playerThree = new Player(nickname, lifePoints = 10, energyPoints = 0, honorPoints = 0, inTokyo);
-	Player playerFour = new Player(nickname, lifePoints = 10, energyPoints = 0, honorPoints = 0, inTokyo);
 		
 	/**
 	 * Darf nur zum Erstellen eines neuen Spiels verwendet werden!!!
@@ -174,7 +170,7 @@ public class GameModel extends Application {
 	}
 	
 	/**
-	 * Methode berechnet die Auswirkungen bei einem Angriff mit einer Karte von Tokyo
+	 * Methode berechnet die Auswirkungen bei einem Angriff mit einer Karte
 	 * @author Marco
 	 */
 	public void cardAttack(int effect) {
@@ -188,19 +184,9 @@ public class GameModel extends Application {
 	}
 	
 	/**
-	 * Methode berechnet die Auswirkungen bei einem Angriff mit einer Karte auf Tokyo
+	 * Speichert die Änderungen bei einer Heilen-Karte
 	 * @author Marco
 	 */
-	public void attackTokyo(int effect) {
-		for (int i = 1; i < players.size(); i++) {
-			if (players.get(i).inTokyo) {
-				players.get(i).setActualCardLifePoints(players.get(i).getActualCardLifePoints() - effect);
-			}
-		}
-		payCard();
-		setPreview();
-	}
-	
 	public void cardHeal(int effect) {
 		players.get(myPosition).setActualCardLifePoints(players.get(myPosition).getActualCardLifePoints() + effect);
 		players.get(myPosition).setFutureLifePoints(players.get(myPosition).getActualCardLifePoints() + players.get(myPosition).getActualDiceLifePoints());
@@ -208,6 +194,10 @@ public class GameModel extends Application {
 		payCard();
 	}
 	
+	/**
+	 * Speichert die Änderungen bei einer Ruhmeskarte
+	 * @author Marco
+	 */
 	public void cardHonor(int effect) {
 		players.get(myPosition).setActualCardHonorPoints(players.get(myPosition).getActualCardHonorPoints() + effect);
 		players.get(myPosition).setFutureHonorPoints(players.get(myPosition).getActualCardHonorPoints() + players.get(myPosition).getActualDiceHonorPoints());
@@ -215,6 +205,10 @@ public class GameModel extends Application {
 		payCard();
 	}
 	
+	/**
+	 * Die Kosten der gekauften Karte wird abgezogen
+	 * @author Marco
+	 */
 	public void payCard() {
 		players.get(myPosition).setActualCardEnergyPoints(players.get(myPosition).getActualCardEnergyPoints() - cardCost);
 	}
@@ -313,7 +307,6 @@ public class GameModel extends Application {
 						if (players.get(i).inTokyo) {
 							players.get(i).setActualDiceLifePoints(players.get(i).getActualDiceLifePoints() - attack);
 							setGoToTokyo(false);
-							GameController.getInstance().disableNextBtn();
 							break;
 						} else {
 							setGoToTokyo(true);
@@ -323,7 +316,6 @@ public class GameModel extends Application {
 			}
 		} else {
 			setGoToTokyo(false);
-			GameController.getInstance().enableNextBtn();
 		}
 		
 		/**
@@ -389,7 +381,7 @@ public class GameModel extends Application {
 	}
 	
 	 /**
-	  * Überprüft ob der Spieler verloren hat
+	  * Überprüft ob der Spieler verloren hat, falls ja wird das Verlierer Fenster geöffnet
 	  * @author Marco
 	  */
 	public void checkLoser() {
@@ -407,7 +399,7 @@ public class GameModel extends Application {
 	}
 	
 	/**
-	 * Überprüft ob der Spieler gewonnen hat
+	 * Überprüft ob der Spieler gewonnen hat, falls ja wird das Gewinner Fenster geöffnet
 	 * @author Marco
 	 */
 	public void checkWinner() {
@@ -426,15 +418,6 @@ public class GameModel extends Application {
 		}	
 		if (win) {
 			startWinner(new Stage());
-		}
-		try{
-			for (int i = 0; i < players.size(); i++) {
-			if (players.get(i).getLifePoints() <= 0) {
-				GameController.getInstance().vbPlayers.get(i).setVisible(false);
-			}
-		}
-		} catch (Exception IndexOutOfBoundsException) {
-			
 		}
 		
 	}
@@ -560,7 +543,7 @@ public class GameModel extends Application {
 	}
 	
 	/**
-	 * Speichert die Änderung wer in Tokyo ist aus dem InputHandler
+	 * Speichert die Änderung wer in Tokyo ist aus dem InputHandler und zeigt das Bild an
 	 * @author Marco
 	 */
 	public void setActualTokyo(boolean[] tokyo) {
@@ -595,12 +578,37 @@ public class GameModel extends Application {
 		}
 	}
 	
+	/**
+	 * Prüft ob ich in Tokyo bin und attackiert wurde, damit ich gefragt werden kann ob ich
+	 * Tokyo verlassen möchte
+	 * @author Marco
+	 */
 	public boolean underAttack(int[] lifepoints) {
 		if (players.get(myPosition).inTokyo && (lifepoints[myPosition] < Integer.parseInt(GameController.getInstance().
-				lbLifePoints.get(myPosition).getText()))) {
+				lbLifePoints.get(myPosition).getText())) && (lifepoints[myPosition] > 0)) {
 				return true;
 			} else {
 				return false;
+		}
+	}
+	
+	/**
+	 * Prüft ob ein Spieler in Tokyo angegriffen wurde, damit der Next Button deaktiviert wird
+	 * bis dieser Spieler weis, ob er Tokyo verlassen möchte
+	 * @author Marco
+	 */
+	public boolean changeNextButton(int[] lifepoints) {
+		boolean change = false;
+		for (int i = 0; (i < players.size()) && !change; i++) {
+			if (players.get(i).inTokyo && (lifepoints[i] < Integer.parseInt(GameController.getInstance().
+					lbLifePoints.get(i).getText())) && (lifepoints[i] > 0)) {
+				change = true;
+			}
+		}
+		if (change) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 	
@@ -612,6 +620,10 @@ public class GameModel extends Application {
 		startChangeTokyo(new Stage());
 	}
 	
+	/**
+	 * Wechselt den Spieler welcher in Tokyo ist und versendet die neue Liste
+	 * @author Marco
+	 */
 	public void sendTokyoChange(boolean answer) {
 		if(answer){
 			players.get(myPosition).setInTokyo(false);
@@ -696,6 +708,10 @@ public class GameModel extends Application {
 	
 	public void enableNextBtn(){
 		if(this.myPosition == this.moveId){
+			Player me = players.get(myPosition);
+			if(me.inTokyo){
+				me.setHonorPoints(me.getHonorPoints() + 2);
+			}
 			GameController.getInstance().enableNextBtn();
 		}
 	}

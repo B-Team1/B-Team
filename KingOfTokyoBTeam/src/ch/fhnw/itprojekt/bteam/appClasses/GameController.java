@@ -93,7 +93,8 @@ public class GameController implements Initializable {
 	private static GameController singleton;
 
 	/**
-	 * Initialisiert die Komponenten und füllt die Labels
+	 * Initialisiert die Komponenten und füllt die Labels und ArrayLists und zeigt die Anzahl
+	 * Mitspier an
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -139,6 +140,10 @@ public class GameController implements Initializable {
 		monsters.add(ivMonster2);
 		monsters.add(ivMonster3);
 		monsters.add(ivMonster4);
+		vbPlayers.add(vbPlayer1);
+		vbPlayers.add(vbPlayer2);
+		vbPlayers.add(vbPlayer3);
+		vbPlayers.add(vbPlayer4);
 
 		if (gameModel.players.size() < 3) {
 			vbPlayer3.setVisible(false);
@@ -156,6 +161,8 @@ public class GameController implements Initializable {
 		for (int i = 0; i < gameModel.players.size(); i++) {
 			lbNickname.get(i).setText("" + gameModel.players.get(i).getNickName());
 		}
+		
+		disableGameBtns();
 	}
 
 	/**Bei Klick auf Würfeln wird gameModel aufgerufen, welche das Würfelresultat zurückgibt. Zudem wird hier das Wüfelbild geladen.
@@ -163,7 +170,6 @@ public class GameController implements Initializable {
 	 * @author Marco / Luzian
 	 */
 	@FXML
-
 	public void handleRollDice(ActionEvent event) {
 	if (gameModel.count <= 2){
 	checkSelectedButton();	
@@ -217,6 +223,7 @@ public class GameController implements Initializable {
 			btnCardDeck.setDisable(true);
 			btnEndMove.setDisable(true);
 			btnRollDice.setDisable(true);
+			btnNext.setDisable(false);
 			resetButton();
 			resetCards();
 			gameModel.endMove();
@@ -226,6 +233,10 @@ public class GameController implements Initializable {
 		}
 	}
 	
+	/**
+	 * Setzt alle Button Werte zurück und zeigt kein Bild mehr an
+	 * @author Marco
+	 */
 	private void resetButton() {
 		ArrayList<Dice> diceResult = gameModel.getDiceResult();
 		for(int i = 0; i <= 5; i++){
@@ -261,6 +272,10 @@ public class GameController implements Initializable {
 		}
 	}
 	
+	/**
+	 * Setzt die Karten zurück, und zeigt kein Bild mehr an
+	 * @author Marco
+	 */
 	private void resetCards() {
 		GameModel.cardList.clear();
 		ivCard1.setImage(null);
@@ -276,9 +291,6 @@ public class GameController implements Initializable {
 
 		gameModel.sendChat(tfChat.getText());
 		tfChat.setText("");
-		
-
-
 	}
 	
 	/**
@@ -310,10 +322,10 @@ public class GameController implements Initializable {
 		}
 	}
 			
-			/**
-			 * Die einzelnen Aktionen je nach Aktions-Typ der Karte
-			 * @author Marco
-			 */
+	/**
+	 * Die einzelnen Aktionen je nach Aktions-Typ der Karte
+	 * @author Marco
+	 */
 	private void cardAction(Card newCard) {
 		switch (newCard.getAction()){
 			case attack:
@@ -382,6 +394,9 @@ public class GameController implements Initializable {
 			lbEnergyPointsChanges.get(i).setText("");
 			lbHonorPoints.get(i).setText("" + gameModel.players.get(i).getHonorPoints());
 			lbHonorPointsChanges.get(i).setText("");
+			if (gameModel.players.get(i).getLifePoints() <= 0) {
+				vbPlayers.get(i).setVisible(false);
+			}
 		}
 	}
 	
@@ -403,7 +418,7 @@ public class GameController implements Initializable {
 		btnCardDeck.setDisable(false);
 		btnEndMove.setDisable(false);
 		btnRollDice.setDisable(false);
-		btnNext.setDisable(false);
+		btnNext.setDisable(true);
 	}
 	
 	public void disableNextBtn(){

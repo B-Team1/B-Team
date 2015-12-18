@@ -90,7 +90,6 @@ public class ConnectionModel {
     			msgOut.send(player.getSocket());    			
     		} catch (Exception e) {
     			System.err.println(e);
-    			
     		}
 		}
     }
