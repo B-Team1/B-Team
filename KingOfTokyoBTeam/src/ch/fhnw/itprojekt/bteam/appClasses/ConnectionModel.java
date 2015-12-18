@@ -250,7 +250,7 @@ public class ConnectionModel {
 		}
 	}
 	
-
+	
 	public void sendAccession(int gameId, String nickname){
 		Message msgOut = new Message(Message.MessageType.AddPlayerToGame);
 		msgOut.setGameId(gameId);
