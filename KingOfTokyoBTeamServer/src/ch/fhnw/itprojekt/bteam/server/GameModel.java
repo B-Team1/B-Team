@@ -108,6 +108,12 @@ public class GameModel {
 		this.players = players;
 	}
 	
+	/**
+	 * leitet Chattext und Playerliste ans ConnectionModel weiter
+	 * @author Luzian
+	 * @param text
+	 * @param player
+	 */
 	public void sendChat(String text, ArrayList<User> player){
 		connectionModel.sendChat(text, player);
 	}

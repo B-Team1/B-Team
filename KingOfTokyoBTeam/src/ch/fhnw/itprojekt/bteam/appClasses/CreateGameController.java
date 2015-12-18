@@ -77,20 +77,8 @@ public class CreateGameController implements Initializable {
 		gameModel.startGame();
 	}
 	
-	/**
-	 * Methode leitet alle beigetretenen Spieler zurück zum Fenster GameOverview
-	 * @author Marco
-	 */
-//	public void handleAbortGame(ActionEvent event) {
-//		gameModel.deleteGame();
-//		menuModel.start(GameOverviewController.stage);
-//		Node node= (Node)event.getSource();
-//		Stage stage = (Stage) node.getScene().getWindow();
-//		stage.close();
-//	}
-	
+		
 	public void disableBtns(){
-		btnAbortGame.setDisable(true);
 		btnToGame.setDisable(true);
 	}
 	

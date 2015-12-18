@@ -34,13 +34,10 @@ public class ServerThreadForClient extends Thread {
 						&& msgIn.getType() != Message.MessageType.GameStats
 						&& msgIn.getType() != Message.MessageType.StartGame
 						&& msgIn.getType() != Message.MessageType.ChangeGameMove
-						&& msgIn.getType() != Message.MessageType.setStat 
+						&& msgIn.getType() != Message.MessageType.setStat
+						&& msgIn.getType() != Message.MessageType.AddNewPlayerToGame 
 						&& msgIn.getType() != Message.MessageType.ChangeTokyo){
-
 					msgOut.send(clientSocket);
-				}
-				if(msgIn.getType() == Message.MessageType.AddPlayerToGame && msgOut.getWriteCheck()){
-					menuModel.sendNewPlayer(msgIn.getGameId(), msgIn.getNickname(), clientSocket);
 				}
             }
         } catch (Exception e) {
@@ -133,11 +130,15 @@ public class ServerThreadForClient extends Thread {
 				msgOut.setPlayers(menuModel.getPlayerFromStartedGame(msgIn.getGameId()));				
 				break;
 			case AddPlayerToGame:
-				msgOut = new Message(Message.MessageType.AddPlayerToGame);
+				msgOut = msgIn;
 				msgOut.setPlayers(menuModel.getPlayerFromOpenGame(msgIn.getGameId()));
 				msgOut.setWriteCheck(menuModel.addPlayerToGame(msgIn.getGameId(), msgIn.getNickname(), clientSocket));
 				msgOut.setFamePointsWin(menuModel.searchOpenGame(msgIn.getGameId()).isFamePointsWin());
 				msgOut.setWinFamePoins(menuModel.searchOpenGame(msgIn.getGameId()).getWinFamePoints());
+				break;
+			case AddNewPlayerToGame:
+				msgOut=msgIn;
+				menuModel.sendNewPlayer(msgIn.getGameId(), msgIn.getNickname(), clientSocket);
 				break;
 			case GameStats:
 				msgOut = msgIn;

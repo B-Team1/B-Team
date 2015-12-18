@@ -105,7 +105,12 @@ public class MenuModel {
 		}
 	}
 	
-	
+	/**
+	 * holt Spiel
+	 * @author Luzian
+	 * @param chat
+	 * @param gameId
+	 */
 	public void getSpiel(String chat, int gameId){
 		GameModel game = searchStartedGame(gameId);
 		game.sendChat(chat, game.getPlayers());

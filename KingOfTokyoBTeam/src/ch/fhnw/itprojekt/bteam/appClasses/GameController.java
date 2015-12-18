@@ -362,6 +362,7 @@ public class GameController implements Initializable {
 	}
 	
 	/**
+	 * gibt den Text der Textarea zurück
 	 * @author Luzian
 	 * @return
 	 */
@@ -371,6 +372,7 @@ public class GameController implements Initializable {
 	}
 	
 /**
+ * setzt den Texts der Textarea
  * @author Luzian
  * @param text
  */

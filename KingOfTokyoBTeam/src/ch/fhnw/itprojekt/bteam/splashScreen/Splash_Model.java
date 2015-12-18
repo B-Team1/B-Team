@@ -41,11 +41,9 @@ public class Splash_Model extends Model {
             serviceLocator.setLogger(configureLogging());
             this.updateProgress(3,  6);
 
-//            serviceLocator.setConfiguration(new Configuration());
+            Thread.sleep(1000);
             this.updateProgress(4,  6);
 
-//            String language = serviceLocator.getConfiguration().getOption("Language");
-//            serviceLocator.setProperties(new Properties(language));
             this.updateProgress(5,  6);
             
             // ... more resources would go here...
@@ -84,7 +82,7 @@ public class Splash_Model extends Model {
         // Add a file handler, putting the rotating files in the tmp directory
         try {
             Handler logHandler = new FileHandler("%t/"
-                    + serviceLocator.getAPP_NAME() + "_%u" + "_%g" + "1.log",
+                    + serviceLocator.getAPP_NAME() + "_%u" + "_%g" + "2.log",
                     1000000, 9);
             logHandler.setLevel(Level.FINEST);
             ourLogger.addHandler(logHandler);

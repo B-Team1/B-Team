@@ -93,7 +93,6 @@ public class ServerInputHandler extends Thread {
 				break;
 			case AddPlayerToGame:
 				//Tobias
-				
 			if (msgIn.getWriteCheck()) {
 				int postion = 0;
 				for (String s : msgIn.getPlayers()) {
@@ -103,6 +102,7 @@ public class ServerInputHandler extends Thread {
 				GameModel.getInstance().setMyPosition(postion);
 				GameModel.getInstance().setFamePointsWin(msgIn.getFamePointsWin());
 				GameModel.getInstance().setHonorPointsWin(msgIn.getWinFamePoints());
+				ConnectionModel.getInstance().sendNewPlayerToGame(msgIn.getGameId(), msgIn.getNickname());
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {	
@@ -188,6 +188,7 @@ public class ServerInputHandler extends Thread {
 				}
 				break;
 			case Chat:
+				//Luzian
 				msgIn.getChat();
 				Platform.runLater(new Runnable() {
 	                @Override
@@ -201,6 +202,7 @@ public class ServerInputHandler extends Thread {
 				});             	
 				break;
 			case SecurityQuestion:
+				//Luzian
 				String returnvalue = msgIn.getSecurityQuestion();
 				bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
 				ForgetPasswordController forgetpasswordcontroller = ForgetPasswordController.getInstance();
@@ -220,7 +222,8 @@ public class ServerInputHandler extends Thread {
 				}
 				
 				break;
-			case SecurityAnswer:	
+			case SecurityAnswer:
+				//Luzian
 				String returnvalueAnswer = msgIn.getSecurityAnswer();
 				ForgetPasswordController forgetpasswordcontrollerAnswer = ForgetPasswordController.getInstance();
 				LoginModel loginmodel = LoginModel.getInstance();
@@ -239,6 +242,7 @@ public class ServerInputHandler extends Thread {
 				}
 				break;
 			case Password:
+				//Luzian
 				String returnpassword = msgIn.getPassword();
 				bundle = ResourceBundle.getBundle("ch.fhnw.itprojekt.bteam.bundles.JavaFXAppTemplate", Properties.getProperties().getLocale());
 				ForgetPasswordController forgetpasswordcontrollerpassword = ForgetPasswordController.getInstance();
@@ -254,6 +258,7 @@ public class ServerInputHandler extends Thread {
 				}	
 				break;
 			case Players:
+				//Luzian
 				GameModel gameModel = GameModel.getInstance();
 				ArrayList<String> playerList = new ArrayList<String>(Arrays.asList(msgIn.getPlayers()));
 				gameModel.setPlayers(playerList);
