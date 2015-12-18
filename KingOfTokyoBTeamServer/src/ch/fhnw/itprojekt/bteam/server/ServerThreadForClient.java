@@ -109,6 +109,7 @@ public class ServerThreadForClient extends Thread {
 				msgOut = new Message(Message.MessageType.openNewGame);				
 				msgOut.setGameId(menuModel.newGame(msgIn.getNumPlayer(), msgIn.getFamePointsWin(), msgIn.getWinFamePoints(), msgIn.getNickname(), clientSocket));
 				msgOut.setNickname(msgIn.getNickname());
+				msgOut.setFamePointsWin(msgIn.getFamePointsWin());
 				msgOut.setWinFamePoins(msgIn.getWinFamePoints());
 				break;
 			case deleteGame:

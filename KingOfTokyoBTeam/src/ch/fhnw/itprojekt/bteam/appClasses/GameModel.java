@@ -393,7 +393,7 @@ public class GameModel extends Application {
 			startLoser(new Stage());
 		}
 		for (int i = 0; i < players.size(); i++) {
-			if ((i != myPosition) && famePointsWin && players.get(i).getHonorPoints() >= honorPointsWin) {
+			if ((i != myPosition) && famePointsWin && (players.get(i).getHonorPoints() >= honorPointsWin)) {
 				startLoser(new Stage());
 			}
 		}

@@ -165,6 +165,7 @@ public class ServerInputHandler extends Thread {
 					GameModel gameModel = GameModel.getInstance();
 					gameModel.setMyPosition(0);
 					gameModel.addPlayerToModel(msgIn.getNickname());
+					gameModel.setFamePointsWin(msgIn.getFamePointsWin());
 					gameModel.setHonorPointsWin(msgIn.getWinFamePoints());
 					Platform.runLater(new Runnable() {
 		                @Override
