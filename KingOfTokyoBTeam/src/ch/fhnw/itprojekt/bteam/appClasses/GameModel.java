@@ -49,6 +49,11 @@ public class GameModel extends Application {
 		connectionModel = ConnectionModel.getInstance();
 	}
 
+	/**
+	 * Wird beim Laden aller Games benötigt
+	 * @param gameId
+	 * @param playerList
+	 */
 	public GameModel(int gameId, ArrayList<String> playerList) {
 		this.playerList = playerList;
 		this.singleton = this;
@@ -573,13 +578,6 @@ public class GameModel extends Application {
 		}
 	}
 	
-	private void otherMonsters(int i) {
-		for (int j = 0; j < players.size(); j++) {
-			if (i != j) {
-				GameController.getInstance().monsters.get(i).setVisible(false);
-			}
-		}
-	}
 	
 	/**
 	 * Prüft ob ich in Tokyo bin und attackiert wurde, damit ich gefragt werden kann ob ich
@@ -615,9 +613,14 @@ public class GameModel extends Application {
 		}
 	}
 	
+	/**
+	 * Leited den Btn Befehl zum Starten des Spiels weiter
+	 * @author Tobias
+	 */
 	public void startGame(){
 		connectionModel.startGame(this.gameId);
 	}
+	
 	
 	public void tokyoChange() {
 		startChangeTokyo(new Stage());
@@ -659,6 +662,11 @@ public class GameModel extends Application {
 		this.myPosition = myPosition;
 	}
 	
+	/**
+	 * Schaltet die Buttons frei wenn man am Zug ist. Ist man in Tokio gibts noch Ruhmpunkte
+	 * @author Tobias
+	 * @param moveId
+	 */
 	public void setGameMove(int moveId){
 		if(moveId == myPosition){
 			Player me = players.get(myPosition);
@@ -701,13 +709,19 @@ public class GameModel extends Application {
 		this.famePointsWin = famePointsWin;
 	}
 	
-
+	/**
+	 * disabled den Btn wenn man nicht das Spiel erstellt hat
+	 * @author Tobias
+	 */
 	public void disableNgcBtns(){
 		if(this.myPosition != 0){
 			CreateGameController.getInstance().disableBtns();
 		}
 	}
 	
+	/**
+	 * enabled den Btn wenn man das Spiel erstellt hat
+	 */
 	public void enableNgcBtn(){
 		if(this.myPosition == 0){
 			CreateGameController.getInstance().enableBtns();

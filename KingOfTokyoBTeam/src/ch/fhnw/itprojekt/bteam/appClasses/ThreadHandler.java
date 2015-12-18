@@ -15,6 +15,10 @@ public class ThreadHandler extends Thread{
 		this.socket = socket;
 	}
 	
+	/**
+	 * Dieser Thread horcht, ob der Server etwas sendet. Wenn er etwas erhält, öffnet er einen neuen Thread welcher den Input abhandelt.
+	 * @author Tobias
+	 */
 	public void run(){
 		try {			
 			while(true){

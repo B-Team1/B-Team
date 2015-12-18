@@ -257,7 +257,12 @@ public class ConnectionModel {
 		}
 	}
 	
-	
+	/**
+	 * Sendet dem Server einen neuen Spieler um eine Liste der bestehenden Spieler zu erhalten
+	 * @author Tobias
+	 * @param gameId
+	 * @param nickname
+	 */
 	public void sendAccession(int gameId, String nickname){
 		Message msgOut = new Message(Message.MessageType.AddPlayerToGame);
 		msgOut.setGameId(gameId);
@@ -269,6 +274,12 @@ public class ConnectionModel {
 		}
 	}
 	
+	/**
+	 * Sendet dem Server den neuen Spieler um es den anderen Spieler mitzuteilen
+	 * @author Tobias
+	 * @param gameId
+	 * @param nickname
+	 */
 	public void sendNewPlayerToGame(int gameId, String nickname){
 		Message msgOut = new Message(Message.MessageType.AddNewPlayerToGame);
 		msgOut.setGameId(gameId);
@@ -280,6 +291,14 @@ public class ConnectionModel {
 		}
 	}
 
+	/**
+	 *
+	 * @param gamerName
+	 * @param pointsMe
+	 * @param lifepoints
+	 * @param tokyo
+	 * @param gameId
+	 */
 	public void sendGameStats(String gamerName, int[] pointsMe, int[] lifepoints, boolean[] tokyo, int gameId) {
 		Message msgOut = new Message(Message.MessageType.GameStats);
 		msgOut.setGamerName(gamerName);
@@ -294,7 +313,11 @@ public class ConnectionModel {
 		}
 	}
 	
-
+	/**
+	 * Started das Spiel für alle Spieler
+	 * @author Tobias
+	 * @param gameId
+	 */
 	public void startGame(int gameId){
 		Message msgOut = new Message(Message.MessageType.StartGame);
 		msgOut.setGameId(gameId);
@@ -305,6 +328,11 @@ public class ConnectionModel {
 		}
 	}
 
+	/**
+	 * 
+	 * @param tokyo
+	 * @param gameId
+	 */
 	public void sendTokyoChange(boolean[] tokyo, int gameId) {
 		Message msgOut = new Message(Message.MessageType.ChangeTokyo);
 		msgOut.setTokyo(tokyo);
@@ -316,6 +344,11 @@ public class ConnectionModel {
 		}
 	}
 	
+	/**
+	 * Sendet, dass der Spieler fertig ist mit seinem Zug
+	 * @author Tobias
+	 * @param gameId
+	 */
 	public void sendGameMove(int gameId){
 		Message msgOut = new Message(Message.MessageType.ChangeGameMove);
 		msgOut.setGameId(gameId);

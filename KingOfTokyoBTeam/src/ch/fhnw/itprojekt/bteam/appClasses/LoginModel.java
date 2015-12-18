@@ -199,6 +199,13 @@ public class LoginModel extends Application {
     	connectionModel.sendRegistration(user);
     }
     
+    /**
+     * Prüft ob die Felder leer sind
+     * @author Tobias
+     * @param user
+     * @param passwordRepeat
+     * @return
+     */
     public boolean isEmptyRegistration(User user, String passwordRepeat){
     	if(user.getnName().equals("") |
     			user.getvName().equals("") |
@@ -212,6 +219,13 @@ public class LoginModel extends Application {
     	return false;
     }
     
+    /**
+     * Überprüft ob die Passwörter identisch sinds
+     * @author Tobias
+     * @param user
+     * @param passwordRepeat
+     * @return
+     */
     public boolean checkRegistrationPassword(User user, String passwordRepeat){
     	if(user.getPassword().equals(passwordRepeat)){
     		return true;

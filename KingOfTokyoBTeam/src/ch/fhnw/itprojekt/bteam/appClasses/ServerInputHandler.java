@@ -34,7 +34,10 @@ public class ServerInputHandler extends Thread {
 		this.msgIn = msgIn;
 	}
 	
-	
+	/**
+	 * Started den Thread, der den Input ausführen soll
+	 * @author Tobias
+	 */
 	public void run(){
 		try {			
 			manageInput(this.msgIn);
@@ -264,6 +267,7 @@ public class ServerInputHandler extends Thread {
 				gameModel.setPlayers(playerList);
 				break;
 			case GameStats:
+				//Marco
 				int[] playerpoints = msgIn.getMyPoints();
 				int[] lifepoints = msgIn.getLifepoints();
 				boolean[] tokyo = msgIn.getTokyo();
@@ -295,6 +299,7 @@ public class ServerInputHandler extends Thread {
 				
 				break;
 			case StartGame:
+				//Tobias
 				Platform.runLater(new Runnable(){
 					@Override
 					public void run(){
@@ -305,6 +310,7 @@ public class ServerInputHandler extends Thread {
 				});
 				break;
 			case ChangeGameMove:
+				//Tobias
 				Platform.runLater(new Runnable(){
 					@Override
 					public void run(){
@@ -315,6 +321,7 @@ public class ServerInputHandler extends Thread {
 				});
 				break;
 			case ChangeTokyo:
+				//Marco
 				boolean[] changetokyo = msgIn.getTokyo();
 				Platform.runLater(new Runnable(){
 					@Override
