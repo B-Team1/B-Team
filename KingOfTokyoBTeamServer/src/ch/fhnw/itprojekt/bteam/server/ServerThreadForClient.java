@@ -19,7 +19,7 @@ public class ServerThreadForClient extends Thread {
     }
 
     /**
-     * Process messages until the client says "Goodbye"
+     *Thread der horcht, was der Client sendet.
      */
     @Override
     public void run() {  
@@ -30,7 +30,7 @@ public class ServerThreadForClient extends Thread {
 				// Read a message from the client
 				Message msgIn = Message.receive(clientSocket);							
 				Message msgOut = processMessage(msgIn);
-				if(msgIn.getType() != Message.MessageType.Chat 
+				if(msgIn.getType() != Message.MessageType.Chat //Bei diesen Typen darf nichts zurück gesendet werden
 						&& msgIn.getType() != Message.MessageType.GameStats
 						&& msgIn.getType() != Message.MessageType.StartGame
 						&& msgIn.getType() != Message.MessageType.ChangeGameMove
@@ -47,6 +47,11 @@ public class ServerThreadForClient extends Thread {
         }
     }
     
+    /**
+     * Diese Methode erledigt die Aufgaben je nach Messagetype
+     * @param msgIn
+     * @return
+     */
     private Message processMessage(Message msgIn) {
 		logger.info("Message received from client: "+ msgIn.toString());						
 		Message msgOut = null;
@@ -59,7 +64,6 @@ public class ServerThreadForClient extends Thread {
 				break;
 			case OpenGameRequest:
 				//Tobias
-				menuModel.test(clientSocket);
 				msgOut = new Message(Message.MessageType.OpenGameRequest);
 				msgOut.setGameIdList(menuModel.getGameIdList());
 				msgOut.setUserList(menuModel.getGameList());
@@ -130,6 +134,7 @@ public class ServerThreadForClient extends Thread {
 				msgOut.setPlayers(menuModel.getPlayerFromStartedGame(msgIn.getGameId()));				
 				break;
 			case AddPlayerToGame:
+				//Tobias
 				msgOut = msgIn;
 				msgOut.setPlayers(menuModel.getPlayerFromOpenGame(msgIn.getGameId()));
 				msgOut.setWriteCheck(menuModel.addPlayerToGame(msgIn.getGameId(), msgIn.getNickname(), clientSocket));
@@ -137,15 +142,18 @@ public class ServerThreadForClient extends Thread {
 				msgOut.setWinFamePoins(menuModel.searchOpenGame(msgIn.getGameId()).getWinFamePoints());
 				break;
 			case AddNewPlayerToGame:
+				//Tobias
 				msgOut=msgIn;
 				menuModel.sendNewPlayer(msgIn.getGameId(), msgIn.getNickname(), clientSocket);
 				break;
 			case GameStats:
+				//Tobias
 				msgOut = msgIn;
 				msgOut.setGameMove(menuModel.getMoveId(msgIn.getGameId()));
 				menuModel.sendGameStats(msgOut, msgIn.getGameId());
 				break;
 			case StartGame:
+				//Tobias
 				msgOut = new Message(Message.MessageType.StartGame);
 				menuModel.startGame(msgIn.getGameId());
 				break;
@@ -163,10 +171,12 @@ public class ServerThreadForClient extends Thread {
 				dbconnect.setStats(userstats);
 				break;
 			case ChangeGameMove:
+				//Tobias
 				msgOut= msgIn;
 				menuModel.changeGameMove(msgIn.getGameId());
 				break;
 			case ChangeTokyo:
+				//Tobias
 				msgOut = msgIn;
 				menuModel.sendGameStats(msgOut, msgIn.getGameId());
 				break;

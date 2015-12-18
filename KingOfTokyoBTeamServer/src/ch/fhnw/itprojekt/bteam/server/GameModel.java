@@ -24,6 +24,10 @@ public class GameModel {
 		players.add(user);
 	}
 	
+	/**
+	 * Zählt den nächsten Spielzug hoch. Überspringt die toden Spieler
+	 * @author Tobias
+	 */
 	public void changeGameMove(){
 		gameMove++;
 		if(gameMove >= players.size()){
@@ -37,6 +41,7 @@ public class GameModel {
 		}
 		connectionModel.changeGameMove(players, gameMove);
 	}
+	
 	
 	public int getGameMove(){
 		int moveId = this.gameMove;
@@ -52,6 +57,12 @@ public class GameModel {
 		connectionModel.sendNewPlayerInGame(players, player);
 	}
 
+	/**
+	 * Fügt einen neuen Spieler dem Spiel hinzu.
+	 * Gibt false zurück wenn das Spiel voll ist
+	 * @param player
+	 * @return
+	 */
 	public boolean addPlayer(User player){
 		if (players.size() < numPlayer) {
 			players.add(player);
@@ -122,6 +133,13 @@ public class GameModel {
 		connectionModel.sendGameStats(msg, players);
 	}
 	
+	/**
+	 * Gibt die Position des Spielers anhand des Nicknames zurück. Sollte der Spieler nicht gefunden
+	 * werden, wird 100 zurück gegeben werden
+	 * @author Tobias
+	 * @param nickname
+	 * @return
+	 */
 	public int getPlayerPosition(String nickname){
 		for (int i = 0; i < players.size(); i++) {
 			if(players.get(i).getNickname().equals(nickname)){
@@ -131,6 +149,11 @@ public class GameModel {
 		return 100;
 	}
 	
+	/**
+	 * Setzt den Spieler auf Tod. Leitet den nächsten Zug ein wenn der Tode Spieler ist
+	 * @author Tobias
+	 * @param nickname
+	 */
 	public void setDeadPlayer(String nickname){
 		int playerId = getPlayerPosition(nickname);
 		int moveId = gameMove;

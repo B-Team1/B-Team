@@ -30,9 +30,6 @@ public class MenuModel {
 		return game.getGameId();
 	}
 	
-	public void test(Socket socket){
-		//newGame(2, true, 11, "Tobias", socket);
-	}
 	
 	/**
 	 * Entfernt ein Spiel wieder aus der openGameList
@@ -47,6 +44,11 @@ public class MenuModel {
 		}
 	}
 
+	/**
+	 * Gibt Liste mit Game Ids zurück
+	 * @author Tobias
+	 * @return
+	 */
 	public int[] getGameIdList(){
 		int[] l = new int[openGameList.size()];
 		for(int i = 0; i < openGameList.size(); i++){
@@ -55,6 +57,11 @@ public class MenuModel {
 		return l;
 	}
 	
+	/**
+	 * Gibt Liste mit Spielen zurück. Ein Spieler wird in der Liste mit <EndArray> zurück
+	 * @author Tobias
+	 * @return
+	 */
 	public String[] getGameList(){
 		int[] idList = this.getGameIdList();
 		ArrayList<String> gameList = new ArrayList<String>();
@@ -70,6 +77,12 @@ public class MenuModel {
 	}
 	
 
+	/**
+	 * Gibt alle Spieler von den offnigen Spielern
+	 * @author Tobias
+	 * @param gameId
+	 * @return
+	 */
 	public String[] getPlayerFromOpenGame(int gameId){
 		GameModel game = searchOpenGame(gameId);
 		String[] s = new String[game.getPlayers().size()];
@@ -79,6 +92,12 @@ public class MenuModel {
 		return s;
 	}
 	
+	/**
+	 * Gibt alle Spieler von den gestarteten Spielern
+	 * @author Tobias
+	 * @param gameId
+	 * @return
+	 */
 	public String[] getPlayerFromStartedGame(int gameId){
 		GameModel game = searchStartedGame(gameId);
 		String[] s = new String[game.getPlayers().size()];
@@ -88,6 +107,14 @@ public class MenuModel {
 		return s;
 	}
 	
+	/**
+	 * Fügt den Spieler dem Game hinzu
+	 * @author Tobias
+	 * @param gameId
+	 * @param nickName
+	 * @param socket
+	 * @return
+	 */
 	public boolean addPlayerToGame(int gameId, String nickName, Socket socket){
 		for(int i = 0; i < openGameList.size() ; i++){
 			if(openGameList.get(i).getGameId() == gameId){
@@ -97,6 +124,13 @@ public class MenuModel {
 		return false;
 	}
 	
+	/**
+	 * Sendet den neuen Spieler den anderen Spielern
+	 * @author Tobias
+	 * @param gameId
+	 * @param nickName
+	 * @param socket
+	 */
 	public void sendNewPlayer(int gameId, String nickName, Socket socket){
 		for(int i = 0; i < openGameList.size() ; i++){
 			if(openGameList.get(i).getGameId() == gameId){
@@ -120,6 +154,11 @@ public class MenuModel {
 			searchStartedGame(gameId).sendGameStats(msg);
 	}
 	
+	/**
+	 * Startet das Spiel bei allen Spielern
+	 * @author Tobias
+	 * @param gameId
+	 */
 	public void startGame(int gameId){
 		GameModel game = searchOpenGame(gameId);
 		startedGameList.add(game);
@@ -131,6 +170,12 @@ public class MenuModel {
 		searchStartedGame(gameId).changeGameMove();
 	}
 	
+	/**
+	 * Sucht die GameId in den offnigen Spielen
+	 * @author Tobias
+	 * @param gameId
+	 * @return
+	 */
 	public GameModel searchOpenGame(int gameId){
 		for(int i = 0; i < openGameList.size() ; i++){
 			if(openGameList.get(i).getGameId() == gameId){
@@ -140,6 +185,12 @@ public class MenuModel {
 		return null;
 	}
 	
+	/**
+	 * Sucht die GameId in den gestarteten Spielen
+	 * @author Tobias
+	 * @param gameId
+	 * @return
+	 */
 	public GameModel searchStartedGame(int gameId){
 		for(int i = 0; i < startedGameList.size() ; i++){
 			if(startedGameList.get(i).getGameId() == gameId){
@@ -149,10 +200,23 @@ public class MenuModel {
 		return null;
 	}
 	
+	/**
+	 * Gibt die aktuelle MoveId zurück
+	 * @author Tobias
+	 * @param gameId
+	 * @return
+	 */
 	public int getMoveId(int gameId){
 		return searchStartedGame(gameId).getGameMove();
 	}
 	
+	/**
+	 * Setzt den gewünschten Spieler auf Tod
+	 * @
+	 * 
+	 * @param gameId
+	 * @param nickname
+	 */
 	public void setDead(int gameId, String nickname){
 		searchStartedGame(gameId).setDeadPlayer(nickname);
 	}

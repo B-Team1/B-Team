@@ -28,6 +28,10 @@ public class ConnectionModel {
 	      return singleton;
 	}
     
+	/**
+	 * Thread für den Seversocket
+	 * @author Tobias
+	 */
     final Task<Void> serverTask = new Task<Void>() {
         @Override
         protected Void call() throws Exception {
@@ -82,6 +86,12 @@ public class ConnectionModel {
 		}
     }
     
+    /**
+     * Teilt allen Spielern den neuen Spieler mit
+     * @author Tobias
+     * @param players
+     * @param user
+     */
     public void sendNewPlayerInGame(ArrayList<User> players, User user){
     	for (User player : players) {
     		Message msgOut = new Message(Message.MessageType.AddNewPlayerToGame);
@@ -94,6 +104,12 @@ public class ConnectionModel {
 		}
     }
     
+    /**
+     *Sendet den Spieler die neuen Spieldaten
+     * @author Tobias
+     * @param msgOut
+     * @param players
+     */
     public void sendGameStats(Message msgOut, ArrayList<User> players){
     	for (User player: players) {
     		try {
@@ -105,6 +121,11 @@ public class ConnectionModel {
 		}
     }
     
+    /**
+     * Startet bei allen Spielern das Spiel
+     * @author Tobias
+     * @param players
+     */
     public void startGame(ArrayList<User> players){
     	for (User player: players) {
     		Message msgOut = new Message(Message.MessageType.StartGame);
@@ -117,6 +138,12 @@ public class ConnectionModel {
 		}
     }
     
+    /**
+     * Sendet den neuen Spielzug an die Spieler
+     * @author Tobias
+     * @param players
+     * @param gameMove
+     */
     public void changeGameMove(ArrayList<User> players, int gameMove){
     	for (User player: players) {
     		Message msgOut = new Message(Message.MessageType.ChangeGameMove);

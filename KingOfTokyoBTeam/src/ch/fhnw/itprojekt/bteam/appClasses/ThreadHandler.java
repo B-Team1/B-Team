@@ -24,12 +24,7 @@ public class ThreadHandler extends Thread{
 			while(true){
 				synchronized (socket) {
 					Message msgIn = Message.receive(socket);
-					Platform.runLater(new Runnable(){
-						@Override
-						public void run(){
-							new ServerInputHandler(msgIn).start();
-						}
-					});
+					new ServerInputHandler(msgIn).start();
 				}
 	    	}
 		} catch (Exception e) {
